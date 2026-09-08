@@ -26,6 +26,37 @@ document.addEventListener("DOMContentLoaded", function () {
     yearEl.textContent = new Date().getFullYear();
   }
 
+  // Sanftes Einblenden von Inhalten beim Scrollen (kein zusätzliches HTML nötig)
+  var revealSelector =
+    ".card, .section-head, .steps li, .cta-band, .contact-card, .page-header > .container > *, .two-col > *";
+  var revealTargets = document.querySelectorAll(revealSelector);
+  var prefersReducedMotion = window.matchMedia
+    ? window.matchMedia("(prefers-reduced-motion: reduce)").matches
+    : false;
+
+  if (revealTargets.length && "IntersectionObserver" in window && !prefersReducedMotion) {
+    revealTargets.forEach(function (el, i) {
+      el.classList.add("reveal");
+      el.style.transitionDelay = Math.min(i % 4, 3) * 70 + "ms";
+    });
+
+    var observer = new IntersectionObserver(
+      function (entries) {
+        entries.forEach(function (entry) {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("is-visible");
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.12, rootMargin: "0px 0px -40px 0px" }
+    );
+
+    revealTargets.forEach(function (el) {
+      observer.observe(el);
+    });
+  }
+
   // Kontaktformular: öffnet den Mail-Client mit vorausgefüllter Nachricht.
   // Es gibt bewusst kein Server-Backend – kann später z.B. über einen
   // Formular-Dienst (Formspree, Netlify Forms o.ä.) ersetzt werden.
