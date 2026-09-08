@@ -1,0 +1,144 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Kontakt – Werringloer Komponentenmanagement</title>
+  <meta name="description" content="Kontaktieren Sie Werringloer Komponentenmanagement für ein unverbindliches Erstgespräch zu Instandhaltung, Ersatzteilmanagement, Materialwirtschaft oder Digitalisierung." />
+  <link rel="icon" type="image/svg+xml" href="assets/favicon.svg" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <a class="skip-link" href="#main">Zum Inhalt springen</a>
+
+  <header class="site-header">
+    <div class="container nav">
+      <a class="brand" href="index.html">
+        <span class="brand-mark">WK</span>
+        Werringloer Komponentenmanagement
+      </a>
+      <nav aria-label="Hauptnavigation">
+        <ul class="nav-links">
+          <li><a href="index.html">Start</a></li>
+          <li><a href="leistungen.html">Leistungen</a></li>
+          <li><a href="ueber-mich.html">Über mich</a></li>
+          <li><a href="kontakt.html" aria-current="page">Kontakt</a></li>
+        </ul>
+      </nav>
+      <div class="nav-cta-wrap">
+        <a class="btn nav-cta" href="kontakt.html">Erstgespräch anfragen</a>
+      </div>
+      <button class="nav-toggle" aria-label="Menü öffnen" aria-expanded="false">
+        <span></span>
+      </button>
+    </div>
+  </header>
+
+  <main id="main">
+    <div class="page-header">
+      <div class="container">
+        <p class="breadcrumb"><a href="index.html">Start</a> / Kontakt</p>
+        <h1>Kontakt</h1>
+        <p>Schildern Sie kurz Ihre Ausgangslage – ich melde mich zeitnah für ein unverbindliches Erstgespräch.</p>
+      </div>
+    </div>
+
+    <section>
+      <div class="container two-col">
+        <div class="card">
+          <h3 style="margin-top:0;">Nachricht senden</h3>
+          <p class="form-note">
+            Das Formular öffnet Ihr E-Mail-Programm mit einer vorausgefüllten
+            Nachricht an service@werringloer.de – es werden keine Daten an einen
+            Server übertragen oder gespeichert.
+          </p>
+          <form id="contact-form" novalidate>
+            <div class="form-field">
+              <label for="name">Name *</label>
+              <input type="text" id="name" name="name" autocomplete="name" required />
+            </div>
+            <div class="form-field">
+              <label for="company">Unternehmen</label>
+              <input type="text" id="company" name="company" autocomplete="organization" />
+            </div>
+            <div class="form-field">
+              <label for="email">E-Mail *</label>
+              <input type="email" id="email" name="email" autocomplete="email" required />
+            </div>
+            <div class="form-field">
+              <label for="message">Nachricht *</label>
+              <textarea id="message" name="message" rows="6" required></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary">Nachricht senden</button>
+            <div id="form-status" class="form-status" role="status"></div>
+          </form>
+        </div>
+
+        <div class="contact-card">
+          <h3>Direkter Kontakt</h3>
+          <div class="contact-detail">
+            <div>
+              <strong>E-Mail</strong>
+              <a href="mailto:service@werringloer.de">service@werringloer.de</a>
+            </div>
+          </div>
+          <div class="contact-detail">
+            <div>
+              <strong>Anschrift</strong>
+              Werringloer Komponentenmanagement<br />
+              Peetzweg 46<br />
+              38228 Salzgitter
+            </div>
+          </div>
+          <div class="contact-detail">
+            <div>
+              <strong>Zielgruppe</strong>
+              Unternehmen &amp; öffentliche Auftraggeber (B2B) – keine Verbraucher
+            </div>
+          </div>
+          <p style="font-size: 0.9rem; color: var(--color-text-muted); margin-top: 20px;">
+            Weitere Angaben finden Sie im <a href="impressum.html">Impressum</a>.
+          </p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div>
+          <h4>Werringloer Komponentenmanagement</h4>
+          <p>B2B-Beratung und Umsetzung für Instandhaltung, Ersatzteilmanagement, Materialwirtschaft und Digitalisierung.</p>
+          <p>Peetzweg 46, 38228 Salzgitter</p>
+        </div>
+        <div>
+          <h4>Navigation</h4>
+          <ul>
+            <li><a href="leistungen.html">Leistungen</a></li>
+            <li><a href="ueber-mich.html">Über mich</a></li>
+            <li><a href="kontakt.html">Kontakt</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4>Rechtliches</h4>
+          <ul>
+            <li><a href="impressum.html">Impressum</a></li>
+            <li><a href="datenschutz.html">Datenschutz</a></li>
+            <li><a href="mailto:service@werringloer.de">service@werringloer.de</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span>© <span id="year">2026</span> Werringloer Komponentenmanagement, Inh. Tommy Werringloer</span>
+        <span>Salzgitter</span>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+</body>
+</html>
