@@ -3,4 +3,4 @@ Allow: /
 Disallow: /impressum.html
 Disallow: /datenschutz.html
 
-Sitemap: https://unknownde94.github.io/webseite/sitemap.xml
+Sitemap: https://werringloer.de/sitemap.xml
