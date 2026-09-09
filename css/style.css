@@ -128,11 +128,11 @@ a {
 }
 
 .nav-cta {
-  background: var(--color-primary) !important;
+  background: var(--color-accent) !important;
   color: #fff !important;
 }
 .nav-cta:hover {
-  background: var(--color-primary-dark) !important;
+  background: var(--color-accent-dark) !important;
 }
 
 .nav-collapse {
@@ -277,12 +277,12 @@ a {
 .btn:active { transform: translateY(0); }
 
 .btn-primary {
-  background: var(--color-primary);
+  background: var(--color-accent);
   color: #fff;
 }
 .btn-primary:hover {
-  background: var(--color-primary-dark);
-  box-shadow: 0 10px 24px rgba(11, 61, 92, 0.28);
+  background: var(--color-accent-dark);
+  box-shadow: 0 10px 24px rgba(41, 112, 65, 0.28);
 }
 
 .btn-secondary {
