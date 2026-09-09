@@ -11,8 +11,8 @@
   --color-border: #e2e6ea;
   --color-primary: #0b3d5c;
   --color-primary-dark: #072a40;
-  --color-accent: #1a8f8f;
-  --color-accent-dark: #146f6f;
+  --color-accent: #297041;
+  --color-accent-dark: #1a4228;
   --radius: 10px;
   --shadow: 0 4px 16px rgba(11, 61, 92, 0.08);
   --max-width: 1120px;
@@ -183,7 +183,7 @@ a {
   height: 480px;
   top: -220px;
   right: -160px;
-  background: radial-gradient(closest-side, rgba(26, 143, 143, 0.16), transparent);
+  background: radial-gradient(closest-side, rgba(41, 112, 65, 0.16), transparent);
 }
 .hero::after {
   width: 620px;
@@ -211,7 +211,7 @@ a {
   letter-spacing: 0.06em;
   text-transform: uppercase;
   color: var(--color-accent-dark);
-  background: rgba(26, 143, 143, 0.10);
+  background: rgba(41, 112, 65, 0.10);
   padding: 6px 12px;
   border-radius: 999px;
   margin-bottom: 18px;
@@ -598,7 +598,7 @@ section {
 }
 .form-status.is-visible { display: block; }
 .form-status.success {
-  background: rgba(26, 143, 143, 0.1);
+  background: rgba(41, 112, 65, 0.1);
   color: var(--color-accent-dark);
 }
 .form-status.error {
