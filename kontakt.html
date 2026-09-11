@@ -123,7 +123,7 @@
     <section>
       <div class="container two-col">
         <div class="card">
-          <h3 style="margin-top:0;">Nachricht senden</h3>
+          <h3 style="margin-top:0;">Teams-Termin anfragen</h3>
           <p class="form-note">
             Das Formular öffnet Ihr E-Mail-Programm mit einer vorausgefüllten
             Nachricht an service@werringloer.de – es werden keine Daten an einen
@@ -143,10 +143,40 @@
               <input type="email" id="email" name="email" autocomplete="email" required />
             </div>
             <div class="form-field">
-              <label for="message">Nachricht *</label>
-              <textarea id="message" name="message" rows="6" required></textarea>
+              <label for="date">Wunschtermin <span>(optional)</span></label>
+              <input type="date" id="date" name="date" />
             </div>
-            <button type="submit" class="btn btn-primary">Nachricht senden</button>
+            <div class="form-field">
+              <label for="time">Wunschzeit <span>(optional)</span></label>
+              <select id="time" name="time">
+                <option value="">Keine Präferenz</option>
+                <option value="08:00">08:00 Uhr</option>
+                <option value="08:30">08:30 Uhr</option>
+                <option value="09:00">09:00 Uhr</option>
+                <option value="09:30">09:30 Uhr</option>
+                <option value="10:00">10:00 Uhr</option>
+                <option value="10:30">10:30 Uhr</option>
+                <option value="11:00">11:00 Uhr</option>
+                <option value="11:30">11:30 Uhr</option>
+                <option value="12:00">12:00 Uhr</option>
+                <option value="12:30">12:30 Uhr</option>
+                <option value="13:00">13:00 Uhr</option>
+                <option value="13:30">13:30 Uhr</option>
+                <option value="14:00">14:00 Uhr</option>
+                <option value="14:30">14:30 Uhr</option>
+                <option value="15:00">15:00 Uhr</option>
+                <option value="15:30">15:30 Uhr</option>
+                <option value="16:00">16:00 Uhr</option>
+                <option value="16:30">16:30 Uhr</option>
+                <option value="17:00">17:00 Uhr</option>
+                <option value="17:30">17:30 Uhr</option>
+              </select>
+            </div>
+            <div class="form-field">
+              <label for="message">Hinweis zum Termin</label>
+              <textarea id="message" name="message" rows="4" placeholder="Zum Beispiel: Thema, Teilnehmer oder alternative Zeiten"></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary">Terminanfrage senden</button>
             <div id="form-status" class="form-status" role="status"></div>
           </form>
         </div>
@@ -157,6 +187,12 @@
             <div>
               <strong>E-Mail</strong>
               <a href="mailto:service@werringloer.de">service@werringloer.de</a>
+            </div>
+          </div>
+          <div class="contact-detail">
+            <div>
+              <strong>Telefon</strong>
+              <a href="tel:+491602776512">+49 160 277 65 12</a>
             </div>
           </div>
           <div class="contact-detail">
@@ -258,7 +294,6 @@
             <li><a href="leistungen.html">Leistungen</a></li>
             <li><a href="smartparts.html">SmartParts</a></li>
             <li><a href="ueber-mich.html">Über mich</a></li>
-            <li><a href="kontakt.html">Kontakt</a></li>
           </ul>
         </div>
         <div>
