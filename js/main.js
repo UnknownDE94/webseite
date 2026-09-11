@@ -65,32 +65,42 @@ document.addEventListener("DOMContentLoaded", function () {
     form.addEventListener("submit", function (event) {
       event.preventDefault();
 
-      var name = form.name.value.trim();
-      var email = form.email.value.trim();
-      var company = form.company.value.trim();
-      var message = form.message.value.trim();
+      var name = document.getElementById("name").value.trim();
+      var email = document.getElementById("email").value.trim();
+      var company = document.getElementById("company").value.trim();
+      var date = document.getElementById("date").value;
+      var time = document.getElementById("time").value;
+      var message = document.getElementById("message").value.trim();
       var status = document.getElementById("form-status");
 
-      if (!name || !email || !message) {
+      if (!name || !email) {
         if (status) {
-          status.textContent = "Bitte Name, E-Mail und Nachricht ausfüllen.";
+          status.textContent = "Bitte Name und E-Mail ausfüllen.";
           status.className = "form-status is-visible error";
         }
         return;
       }
 
-      var subject = encodeURIComponent("Anfrage über die Website – " + name);
+      var subject = encodeURIComponent("Terminanfrage für Teams – " + name);
       var bodyLines = [
         "Name: " + name,
         "Unternehmen: " + (company || "-"),
         "E-Mail: " + email,
+        "Wunschtermin: " + (date || "Keine Präferenz"),
+        "Wunschzeit: " + (time || "Keine Präferenz"),
         "",
-        message,
+        message || "Kein zusätzlicher Hinweis.",
       ];
       var body = encodeURIComponent(bodyLines.join("\n"));
       var mailto = "mailto:service@werringloer.de?subject=" + subject + "&body=" + body;
 
-      window.location.href = mailto;
+      var mailLink = document.createElement("a");
+      mailLink.href = mailto;
+      mailLink.target = "_self";
+      mailLink.rel = "noreferrer";
+      document.body.appendChild(mailLink);
+      mailLink.click();
+      mailLink.remove();
 
       if (status) {
         status.textContent = "Ihr E-Mail-Programm sollte sich jetzt mit einer vorausgefüllten Nachricht öffnen.";
