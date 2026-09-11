@@ -897,20 +897,48 @@ section {
   .nav-links {
     display: flex;
     flex-direction: column;
-    padding: 12px 24px 4px;
+    gap: 2px;
+    padding: 14px 20px 6px;
   }
-  .nav-cta-wrap { padding: 12px 24px 20px; }
+  .nav-links a {
+    width: 100%;
+    padding: 12px 14px;
+    border-radius: 12px;
+  }
+  .nav-links a:hover::after,
+  .nav-links a[aria-current="page"]::after {
+    left: 14px;
+    right: auto;
+    bottom: 5px;
+    width: 34px;
+  }
+  .nav-cta-wrap { padding: 12px 20px 20px; }
 
   .site-header.is-open .nav-collapse {
     opacity: 1;
     transform: translateY(0);
     pointer-events: auto;
   }
-  .grid, .grid.cols-2, .grid.cols-4 { grid-template-columns: 1fr; }
+  .grid, .grid.cols-2, .grid.cols-4 { grid-template-columns: 1fr; gap: 16px; }
   .steps { grid-template-columns: 1fr; }
-  .footer-grid { grid-template-columns: 1fr; }
-  .cta-band { flex-direction: column; text-align: left; padding: 32px; }
+  .footer-grid { grid-template-columns: 1fr; gap: 24px; }
+  .cta-band { flex-direction: column; text-align: left; padding: 28px 22px; gap: 22px; }
+  .cta-band .btn { width: 100%; justify-content: center; }
   .hero { padding: 56px 0 40px; }
+  section { padding: 48px 0; }
+  .container { padding: 0 18px; }
+  .hero h1 { font-size: clamp(1.85rem, 9vw, 2.45rem); }
+  .hero-lead { font-size: 1.05rem; }
+  .hero-actions { flex-direction: column; }
+  .hero-actions .btn { width: 100%; justify-content: center; }
+  .card,
+  .price-card,
+  .contact-card { padding: 22px 20px; }
+  .section-head { margin-bottom: 28px; }
+  .two-col { gap: 28px; }
+  .form-field input,
+  .form-field textarea,
+  .form-field select { min-height: 48px; }
 }
 
 /* --- Glassmorphism theme --- */
