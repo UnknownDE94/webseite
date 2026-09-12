@@ -1,6 +1,39 @@
 // Werringloer Komponentenmanagement – kleine UI-Helfer (kein Framework, kein Build-Schritt)
 
 document.addEventListener("DOMContentLoaded", function () {
+  // Theme preference is shared across all pages.
+  var themeToggle = document.querySelector(".theme-toggle");
+  var savedTheme = null;
+  try {
+    savedTheme = window.localStorage.getItem("theme");
+  } catch (error) {
+    savedTheme = null;
+  }
+  var prefersDark = window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches;
+  var isDark = savedTheme ? savedTheme === "dark" : prefersDark;
+
+  function applyTheme(dark) {
+    document.documentElement.setAttribute("data-theme", dark ? "dark" : "light");
+    if (themeToggle) {
+      themeToggle.setAttribute("aria-pressed", dark ? "true" : "false");
+      themeToggle.setAttribute("aria-label", dark ? "Hellen Modus aktivieren" : "Dunklen Modus aktivieren");
+      themeToggle.querySelector("span").textContent = dark ? "☀" : "☾";
+    }
+  }
+
+  applyTheme(isDark);
+  if (themeToggle) {
+    themeToggle.addEventListener("click", function () {
+      isDark = !isDark;
+      try {
+        window.localStorage.setItem("theme", isDark ? "dark" : "light");
+      } catch (error) {
+        // Theme still works for the current page when storage is unavailable.
+      }
+      applyTheme(isDark);
+    });
+  }
+
   // Mobiles Menü umschalten
   var header = document.querySelector(".site-header");
   var toggle = document.querySelector(".nav-toggle");
