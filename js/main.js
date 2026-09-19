@@ -141,4 +141,66 @@ document.addEventListener("DOMContentLoaded", function () {
       }
     });
   }
+
+  // Baustellen-Hinweis (Pop-up): weist Besucher darauf hin, dass die
+  // Website noch im Aufbau ist. Wird pro Browser-Sitzung nur einmal gezeigt.
+  (function () {
+    var storageKey = "wkm-baustellen-hinweis";
+    var alreadySeen = false;
+    try {
+      alreadySeen = window.sessionStorage.getItem(storageKey) === "1";
+    } catch (error) {
+      alreadySeen = false;
+    }
+
+    var overlay = document.createElement("div");
+    overlay.className = "site-notice-overlay";
+    overlay.setAttribute("role", "dialog");
+    overlay.setAttribute("aria-modal", "true");
+    overlay.setAttribute("aria-labelledby", "site-notice-title");
+    overlay.innerHTML =
+      '<div class="site-notice">' +
+      '<button type="button" class="site-notice-close" aria-label="Hinweis schließen">&times;</button>' +
+      '<div class="site-notice-icon" aria-hidden="true">🚧</div>' +
+      '<h2 id="site-notice-title">Diese Website befindet sich im Aufbau</h2>' +
+      "<p>Einzelne Inhalte, Texte und Funktionen werden aktuell noch ergänzt und können sich in nächster Zeit ändern. Vielen Dank für Ihr Verständnis.</p>" +
+      '<div class="site-notice-actions"><button type="button" class="btn btn-primary site-notice-ok">Verstanden</button></div>' +
+      "</div>";
+    document.body.appendChild(overlay);
+
+    function closeNotice() {
+      overlay.classList.remove("is-visible");
+      try {
+        window.sessionStorage.setItem(storageKey, "1");
+      } catch (error) {
+        // Hinweis wird ggf. beim nächsten Seitenaufruf erneut angezeigt.
+      }
+      window.setTimeout(function () {
+        if (overlay.parentNode) {
+          overlay.parentNode.removeChild(overlay);
+        }
+      }, 260);
+    }
+
+    overlay.querySelector(".site-notice-close").addEventListener("click", closeNotice);
+    overlay.querySelector(".site-notice-ok").addEventListener("click", closeNotice);
+    overlay.addEventListener("click", function (event) {
+      if (event.target === overlay) {
+        closeNotice();
+      }
+    });
+    document.addEventListener("keydown", function (event) {
+      if (event.key === "Escape" && overlay.classList.contains("is-visible")) {
+        closeNotice();
+      }
+    });
+
+    if (!alreadySeen) {
+      window.requestAnimationFrame(function () {
+        overlay.classList.add("is-visible");
+      });
+    } else if (overlay.parentNode) {
+      overlay.parentNode.removeChild(overlay);
+    }
+  })();
 });
