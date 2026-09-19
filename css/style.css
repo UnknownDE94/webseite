@@ -1388,7 +1388,10 @@ html[data-theme="dark"] .brand-mark {
   pointer-events: auto;
 }
 .site-notice {
-  background: var(--color-surface);
+  /* Bewusst eine feste, deckende Farbe statt var(--color-surface): diese Variable
+     ist im Glassmorphism-/Dark-Theme transparent, das Pop-up soll aber immer
+     vollständig deckend (kein Durchscheinen des Hintergrunds) sein. */
+  background: #ffffff;
   border: 1px solid var(--color-border);
   border-radius: var(--radius);
   box-shadow: var(--shadow);
@@ -1398,6 +1401,9 @@ html[data-theme="dark"] .brand-mark {
   position: relative;
   transform: translateY(12px);
   transition: transform 0.25s var(--ease);
+}
+html[data-theme="dark"] .site-notice {
+  background: #16261c;
 }
 .site-notice-overlay.is-visible .site-notice {
   transform: translateY(0);
