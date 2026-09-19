@@ -143,16 +143,9 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
   // Baustellen-Hinweis (Pop-up): weist Besucher darauf hin, dass die
-  // Website noch im Aufbau ist. Wird pro Browser-Sitzung nur einmal gezeigt.
+  // Website noch im Aufbau ist. Erscheint bei jedem Seitenaufruf erneut
+  // (kein Merken per sessionStorage mehr).
   (function () {
-    var storageKey = "wkm-baustellen-hinweis";
-    var alreadySeen = false;
-    try {
-      alreadySeen = window.sessionStorage.getItem(storageKey) === "1";
-    } catch (error) {
-      alreadySeen = false;
-    }
-
     var overlay = document.createElement("div");
     overlay.className = "site-notice-overlay";
     overlay.setAttribute("role", "dialog");
@@ -170,11 +163,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
     function closeNotice() {
       overlay.classList.remove("is-visible");
-      try {
-        window.sessionStorage.setItem(storageKey, "1");
-      } catch (error) {
-        // Hinweis wird ggf. beim nächsten Seitenaufruf erneut angezeigt.
-      }
       window.setTimeout(function () {
         if (overlay.parentNode) {
           overlay.parentNode.removeChild(overlay);
@@ -195,12 +183,8 @@ document.addEventListener("DOMContentLoaded", function () {
       }
     });
 
-    if (!alreadySeen) {
-      window.requestAnimationFrame(function () {
-        overlay.classList.add("is-visible");
-      });
-    } else if (overlay.parentNode) {
-      overlay.parentNode.removeChild(overlay);
-    }
+    window.requestAnimationFrame(function () {
+      overlay.classList.add("is-visible");
+    });
   })();
 });
