@@ -114,7 +114,7 @@ document.addEventListener("DOMContentLoaded", function () {
         return;
       }
 
-      var subject = encodeURIComponent("Terminanfrage für Teams – " + name);
+      var subject = encodeURIComponent("Terminanfrage – " + name);
       var bodyLines = [
         "Name: " + name,
         "Unternehmen: " + (company || "-"),
@@ -143,9 +143,20 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
   // Baustellen-Hinweis (Pop-up): weist Besucher darauf hin, dass die
-  // Website noch im Aufbau ist. Erscheint bei jedem Seitenaufruf erneut
-  // (kein Merken per sessionStorage mehr).
+  // Website noch im Aufbau ist. Erscheint einmal pro Sitzung (Merken per
+  // sessionStorage), nicht bei jedem Seitenaufruf erneut.
   (function () {
+    var storageKey = "site-notice-dismissed";
+    var alreadyShown = false;
+    try {
+      alreadyShown = window.sessionStorage.getItem(storageKey) === "1";
+    } catch (error) {
+      alreadyShown = false;
+    }
+    if (alreadyShown) {
+      return;
+    }
+
     var overlay = document.createElement("div");
     overlay.className = "site-notice-overlay";
     overlay.setAttribute("role", "dialog");
@@ -163,6 +174,11 @@ document.addEventListener("DOMContentLoaded", function () {
 
     function closeNotice() {
       overlay.classList.remove("is-visible");
+      try {
+        window.sessionStorage.setItem(storageKey, "1");
+      } catch (error) {
+        // Hinweis erscheint ggf. erneut, wenn sessionStorage nicht verfügbar ist.
+      }
       window.setTimeout(function () {
         if (overlay.parentNode) {
           overlay.parentNode.removeChild(overlay);
