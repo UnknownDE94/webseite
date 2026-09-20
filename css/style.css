@@ -91,22 +91,33 @@ a {
 
 .brand {
   display: flex;
+  flex-direction: column;
   align-items: center;
-  gap: 10px;
+  gap: 2px;
   font-weight: 700;
-  font-size: 1.05rem;
+  font-size: 0.7rem;
+  line-height: 1.15;
   color: var(--color-primary-dark);
   text-decoration: none;
-  letter-spacing: -0.01em;
+  letter-spacing: -0.005em;
+  text-align: center;
   min-width: 0;
 }
 
 .brand-label {
   min-width: 0;
+  max-width: 96px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.brand-label-suffix {
+  display: none;
 }
 
 .brand-mark {
-  height: 36px;
+  height: 34px;
   width: auto;
   display: block;
   flex: none;
@@ -972,15 +983,12 @@ section {
   }
   .brand {
     min-width: 0;
-    gap: 8px;
-    font-size: 0.92rem;
-    line-height: 1.2;
+    gap: 2px;
+    font-size: 0.66rem;
   }
   .brand-label {
     min-width: 0;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
+    max-width: 80px;
   }
   .brand-mark {
     height: 30px;
@@ -1038,12 +1046,6 @@ section {
   .footer-grid { grid-template-columns: 1fr 1fr; }
   .price-grid { grid-template-columns: 1fr; max-width: 480px; margin: 0 auto; }
   .price-card.featured { order: -1; }
-}
-
-@media (max-width: 560px) {
-  .brand-label-suffix {
-    display: none;
-  }
 }
 
 @media (max-width: 640px) {
