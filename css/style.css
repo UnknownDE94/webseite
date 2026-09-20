@@ -253,7 +253,6 @@ a {
 }
 
 .eyebrow {
-  display: inline-block;
   font-size: 0.8rem;
   font-weight: 700;
   letter-spacing: 0.06em;
@@ -709,6 +708,23 @@ section {
   align-items: start;
 }
 
+/* --- Illustrationen --- */
+.illustration-card {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  padding: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.illustration-card img {
+  width: 100%;
+  height: auto;
+  display: block;
+  border-radius: calc(var(--radius) - 4px);
+}
+
 .list-check {
   list-style: none;
   margin: 0;
@@ -1067,6 +1083,7 @@ html[data-theme="dark"] .page-header {
 html[data-theme="dark"] .card,
 html[data-theme="dark"] .price-card,
 html[data-theme="dark"] .contact-card,
+html[data-theme="dark"] .illustration-card,
 html[data-theme="dark"] .steps li,
 html[data-theme="dark"] .faq-item,
 html[data-theme="dark"] .form-field input,
@@ -1201,6 +1218,7 @@ body {
 .card,
 .price-card,
 .contact-card,
+.illustration-card,
 .steps li,
 .faq-item,
 .form-field input,
