@@ -360,12 +360,12 @@ a {
 
 /* --- Sections --- */
 section {
-  padding: 64px 0;
+  padding: 52px 0;
 }
 
 .section-head {
   max-width: 62ch;
-  margin: 0 0 40px;
+  margin: 0 0 28px;
 }
 
 .section-head h2 {
@@ -705,7 +705,7 @@ section {
 .two-col {
   display: grid;
   grid-template-columns: 1.1fr 0.9fr;
-  gap: 48px;
+  gap: 36px;
   align-items: start;
 }
 
