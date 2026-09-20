@@ -742,7 +742,6 @@ section {
     grid-template-columns: repeat(3, minmax(0, 1fr));
   }
 }
-
 /* --- Contact --- */
 .contact-card {
   background: var(--color-surface);
@@ -918,15 +917,6 @@ section {
 
 /* --- Responsive --- */
 @media (max-width: 880px) {
-  .grid { grid-template-columns: repeat(2, 1fr); }
-  .steps { grid-template-columns: repeat(2, 1fr); }
-  .two-col { grid-template-columns: 1fr; }
-  .footer-grid { grid-template-columns: 1fr 1fr; }
-  .price-grid { grid-template-columns: 1fr; max-width: 480px; margin: 0 auto; }
-  .price-card.featured { order: -1; }
-}
-
-@media (max-width: 640px) {
   .nav {
     gap: 8px;
   }
@@ -937,12 +927,10 @@ section {
     line-height: 1.2;
     white-space: nowrap;
     overflow: hidden;
+    text-overflow: ellipsis;
   }
   .brand-mark {
     height: 30px;
-  }
-  .brand {
-    text-overflow: ellipsis;
   }
   .theme-toggle {
     margin-left: auto;
@@ -990,6 +978,16 @@ section {
     transform: translateY(0);
     pointer-events: auto;
   }
+
+  .grid, .grid.cols-2, .grid.cols-4 { grid-template-columns: repeat(2, 1fr); }
+  .steps { grid-template-columns: repeat(2, 1fr); }
+  .two-col { grid-template-columns: 1fr; }
+  .footer-grid { grid-template-columns: 1fr 1fr; }
+  .price-grid { grid-template-columns: 1fr; max-width: 480px; margin: 0 auto; }
+  .price-card.featured { order: -1; }
+}
+
+@media (max-width: 640px) {
   .grid, .grid.cols-2, .grid.cols-4 { grid-template-columns: 1fr; gap: 16px; }
   .steps { grid-template-columns: 1fr; }
   .footer-grid { grid-template-columns: 1fr; gap: 24px; }
@@ -1011,7 +1009,6 @@ section {
   .form-field textarea,
   .form-field select { min-height: 48px; }
 }
-
 /* Dark mode overrides apply at every viewport size. */
 html[data-theme="dark"] {
   --color-bg: #101b16;
@@ -1077,6 +1074,16 @@ html[data-theme="dark"] .btn-secondary {
 
 html[data-theme="dark"] .site-footer {
   background: linear-gradient(135deg, rgba(10, 34, 20, 0.94), rgba(7, 24, 15, 0.97));
+}
+
+html[data-theme="dark"] .callout {
+  background: rgba(122, 92, 0, 0.18);
+  border-color: rgba(240, 217, 154, 0.4);
+  color: #f0d99a;
+}
+
+html[data-theme="dark"] .form-field input[type="date"] {
+  color-scheme: dark;
 }
 
 /* --- Glassmorphism theme --- */
