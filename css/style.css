@@ -9,12 +9,12 @@
   --color-text: #1b2430;
   --color-text-muted: #55606e;
   --color-border: #e2e6ea;
-  --color-primary: #0b3d5c;
-  --color-primary-dark: #072a40;
+  --color-primary: #2b2f33;
+  --color-primary-dark: #16181a;
   --color-accent: #297041;
   --color-accent-dark: #1a4228;
   --radius: 10px;
-  --shadow: 0 4px 16px rgba(11, 61, 92, 0.08);
+  --shadow: 0 4px 16px rgba(43, 47, 51, 0.08);
   --max-width: 1120px;
   --font-sans: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
   --ease: cubic-bezier(0.22, 0.61, 0.36, 1);
@@ -135,7 +135,7 @@ a {
 
 .nav-links a:hover,
 .nav-links a[aria-current="page"] {
-  background: rgba(11, 61, 92, 0.08);
+  background: rgba(43, 47, 51, 0.08);
   color: var(--color-primary-dark);
 }
 
@@ -238,7 +238,7 @@ a {
   height: 460px;
   top: -140px;
   left: -220px;
-  background: radial-gradient(closest-side, rgba(11, 61, 92, 0.14), transparent);
+  background: radial-gradient(closest-side, rgba(43, 47, 51, 0.14), transparent);
   animation-delay: -9s;
   animation-direction: reverse;
 }
@@ -339,8 +339,8 @@ a {
 }
 .btn-secondary:hover {
   border-color: var(--color-primary);
-  background: rgba(11, 61, 92, 0.04);
-  box-shadow: 0 8px 18px rgba(11, 61, 92, 0.1);
+  background: rgba(43, 47, 51, 0.04);
+  box-shadow: 0 8px 18px rgba(43, 47, 51, 0.1);
 }
 
 /* --- Scroll-Reveal --- */
@@ -405,14 +405,14 @@ section {
 .card:hover {
   transform: translateY(-4px);
   box-shadow: var(--shadow);
-  border-color: rgba(11, 61, 92, 0.18);
+  border-color: rgba(43, 47, 51, 0.18);
 }
 
 .card-icon {
   width: 44px;
   height: 44px;
   border-radius: 10px;
-  background: rgba(11, 61, 92, 0.08);
+  background: rgba(43, 47, 51, 0.08);
   color: var(--color-primary);
   display: flex;
   align-items: center;
@@ -955,7 +955,7 @@ section {
   font-size: 0.85rem;
   color: rgba(255, 255, 255, 0.55);
 }
-test/* --- Responsive --- */
+/* --- Responsive --- */
 @media (max-width: 880px) {
   .nav {
     gap: 8px;
@@ -1433,7 +1433,7 @@ html[data-theme="dark"] .brand-mark {
 }
 .site-notice-close:hover,
 .site-notice-close:focus-visible {
-  background: rgba(11, 61, 92, 0.08);
+  background: rgba(43, 47, 51, 0.08);
   color: var(--color-primary-dark);
   outline: none;
 }
