@@ -708,21 +708,32 @@ section {
   align-items: start;
 }
 
-/* --- Illustrationen --- */
-.illustration-card {
-  background: var(--color-surface);
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius);
-  padding: 16px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+/* --- Illustrationen (dezenter Hintergrund, kein eigenes Modul) --- */
+.section-illustration {
+  position: relative;
+  isolation: isolate;
 }
-.illustration-card img {
-  width: 100%;
-  height: auto;
-  display: block;
-  border-radius: calc(var(--radius) - 4px);
+.section-illustration::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: var(--ill-img);
+  background-repeat: no-repeat;
+  background-position: right -40px top -40px;
+  background-size: 520px auto;
+  opacity: 0.05;
+  filter: grayscale(100%);
+  z-index: 0;
+  pointer-events: none;
+}
+.section-illustration > .container {
+  position: relative;
+  z-index: 1;
+}
+@media (max-width: 640px) {
+  .section-illustration::before {
+    background-size: 320px auto;
+  }
 }
 
 .list-check {
@@ -944,8 +955,7 @@ section {
   font-size: 0.85rem;
   color: rgba(255, 255, 255, 0.55);
 }
-
-/* --- Responsive --- */
+test/* --- Responsive --- */
 @media (max-width: 880px) {
   .nav {
     gap: 8px;
@@ -1083,7 +1093,6 @@ html[data-theme="dark"] .page-header {
 html[data-theme="dark"] .card,
 html[data-theme="dark"] .price-card,
 html[data-theme="dark"] .contact-card,
-html[data-theme="dark"] .illustration-card,
 html[data-theme="dark"] .steps li,
 html[data-theme="dark"] .faq-item,
 html[data-theme="dark"] .form-field input,
@@ -1218,7 +1227,6 @@ body {
 .card,
 .price-card,
 .contact-card,
-.illustration-card,
 .steps li,
 .faq-item,
 .form-field input,
