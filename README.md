@@ -14,13 +14,13 @@ kontakt.html                        Kontaktformular (mailto) & Kontaktdaten
 materialstammdaten-checkliste.html  Praxis-Checkliste Materialstammdaten
 impressum.html                      Impressum (Entwurf – vor Veröffentlichung prüfen)
 datenschutz.html                    Datenschutzerklärung (Entwurf – vor Veröffentlichung prüfen)
-css/style.css                       Gemeinsames Stylesheet (Grün metallisch · Silber · Glasmorphism, Hell/Dunkel)
+css/style.css                       Gemeinsames Stylesheet (Verlauf Grün → Silber, Glasmorphism, Hell/Dunkel)
 js/main.js                          Theme, mobiles Menü, Scroll-Einblendungen, Reiter, Kontaktformular
 assets/logo.png                     Logo (freigestellt, transparent)
 assets/logo-mark.webp               Bildmarke für Header/Footer
 assets/favicon.png, favicon.ico     Favicons, apple-touch-icon.png für iOS
 assets/og-image.jpg                 Vorschaubild für Social Media (1200×630)
-assets/illustrations/               Illustrationen (transparent, im Dunkelmodus invertiert)
+assets/illustrations/               Illustrationen (halb transparent im Hintergrund, im Dunkelmodus invertiert)
 assets/screenshots/                 Screenshots aus WK SmartParts (Beispieldaten)
 ```
 
