@@ -6,15 +6,22 @@ Dienstleistungen und Eigenvermarktung von Werringloer Komponentenmanagement.
 ## Struktur
 
 ```
-index.html          Startseite
-leistungen.html      Leistungsübersicht
-ueber-mich.html      Über Tommy Werringloer
-kontakt.html         Kontaktformular (mailto) & Kontaktdaten
-impressum.html        Impressum (Entwurf – vor Veröffentlichung prüfen)
-datenschutz.html      Datenschutzerklärung (Entwurf – vor Veröffentlichung prüfen)
-css/style.css         Gemeinsames Stylesheet
-js/main.js            Mobiles Menü, Footer-Jahr, Kontaktformular
-assets/favicon.svg     Favicon/Logo-Platzhalter
+index.html                          Startseite
+leistungen.html                     Leistungsbereiche & Pakete
+smartparts.html                     WK SmartParts (Plattform-Einblick mit Screenshots)
+ueber-mich.html                     Über uns
+kontakt.html                        Kontaktformular (mailto) & Kontaktdaten
+materialstammdaten-checkliste.html  Praxis-Checkliste Materialstammdaten
+impressum.html                      Impressum (Entwurf – vor Veröffentlichung prüfen)
+datenschutz.html                    Datenschutzerklärung (Entwurf – vor Veröffentlichung prüfen)
+css/style.css                       Gemeinsames Stylesheet (Grün metallisch · Silber · Glasmorphism, Hell/Dunkel)
+js/main.js                          Theme, mobiles Menü, Scroll-Einblendungen, Reiter, Kontaktformular
+assets/logo.png                     Logo (freigestellt, transparent)
+assets/logo-mark.webp               Bildmarke für Header/Footer
+assets/favicon.png, favicon.ico     Favicons, apple-touch-icon.png für iOS
+assets/og-image.jpg                 Vorschaubild für Social Media (1200×630)
+assets/illustrations/               Illustrationen (transparent, im Dunkelmodus invertiert)
+assets/screenshots/                 Screenshots aus WK SmartParts (Beispieldaten)
 ```
 
 ## Lokal ansehen
@@ -32,7 +39,7 @@ python3 -m http.server 8000
 - [ ] Telefonnummer und USt-IdNr. im [Impressum](impressum.html) ergänzen
 - [ ] Impressum & Datenschutzerklärung juristisch prüfen lassen
 - [ ] Finalen Hosting-Anbieter festlegen und in der Datenschutzerklärung eintragen
-- [ ] Eigenes Logo statt Platzhalter „WK" ergänzen (`assets/favicon.svg`)
+- [x] Eigenes Logo eingebunden (`assets/logo.png`, `assets/logo-mark.webp`)
 - [ ] Ggf. eigene Domain einrichten
 
 ## Deployment
