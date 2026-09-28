@@ -8,11 +8,10 @@
   <meta name="robots" content="noindex" />
   <link rel="icon" type="image/png" href="assets/favicon.png" />
   <link rel="apple-touch-icon" href="assets/apple-touch-icon.png" />
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;family=Montserrat:wght@500;700&amp;display=swap" rel="stylesheet" />
+  <link rel="preload" href="assets/fonts/archivo-wdth.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="preload" href="assets/fonts/inter-wght.woff2" as="font" type="font/woff2" crossorigin />
   <script>(function(d){d.classList.add("js");try{var t=localStorage.getItem("theme");if(t==="dark"||(!t&&window.matchMedia&&matchMedia("(prefers-color-scheme: dark)").matches))d.setAttribute("data-theme","dark")}catch(e){}})(document.documentElement);</script>
-  <link rel="stylesheet" href="css/style.css?v=20260928-2" />
+  <link rel="stylesheet" href="css/style.css?v=2026-3" />
 </head>
 <body>
   <a class="skip-link" href="#main">Zum Inhalt springen</a>
@@ -36,20 +35,23 @@
           <a class="btn nav-cta" href="kontakt.html">Kontakt</a>
         </div>
       </div>
-      <button class="theme-toggle" type="button" aria-label="Dunklen Modus aktivieren" aria-pressed="false">
-        <span aria-hidden="true">☾</span>
-      </button>
-      <button class="nav-toggle" type="button" aria-label="Menü öffnen" aria-expanded="false" aria-controls="hauptmenue">
-        <span></span>
-      </button>
+      <div class="nav-actions">
+        <a class="btn nav-cta" href="kontakt.html">Kontakt</a>
+        <button class="theme-toggle" type="button" aria-label="Dunklen Modus aktivieren" aria-pressed="false">
+          <span aria-hidden="true">☾</span>
+        </button>
+        <button class="nav-toggle" type="button" aria-label="Menü öffnen" aria-expanded="false" aria-controls="hauptmenue">
+          <span></span>
+        </button>
+      </div>
     </div>
   </header>
 
   <main id="main">
     <div class="page-header">
-      <div class="container">
+      <div class="container" data-stagger="up">
         <p class="breadcrumb"><a href="index.html">Start</a> / Datenschutz</p>
-        <h1>Datenschutzerklärung</h1>
+        <h1>Datenschutz&shy;erklärung</h1>
         <p>Stand: September 2026</p>
       </div>
     </div>
@@ -128,13 +130,12 @@
           Marketingzwecken ein und verwendet keine weiteren Tracking-Werkzeuge.
         </p>
 
-        <h2>5. Externe Schriftarten</h2>
+        <h2>5. Schriftarten</h2>
         <p>
-          Diese Seite bindet die Schriftarten „Inter" und „Montserrat" über Google Fonts ein.
-          Dabei kann eine Verbindung zu Servern von Google (Google Ireland
-          Limited bzw. Google LLC) hergestellt und Ihre IP-Adresse übertragen
-          werden. Dies erfolgt auf Grundlage von Art. 6 Abs. 1 lit. f DSGVO
-          (einheitliche und ansprechende Darstellung der Website).
+          Die verwendeten Schriftarten („Archivo“, „Inter“, „JetBrains Mono“ und
+          „Montserrat“) sind lokal auf unserem Webspace gespeichert und werden
+          zusammen mit der Website ausgeliefert. Eine Verbindung zu Servern von
+          Google oder anderen Schriftanbietern wird dabei nicht hergestellt.
         </p>
 
         <h2>6. Ihre Rechte</h2>
@@ -194,7 +195,7 @@
     </div>
   </footer>
 
-  <script src="js/main.js?v=20260928-2"></script>
+  <script src="js/main.js?v=2026-3"></script>
   <script data-goatcounter="https://unknownde.goatcounter.com/count"
           async src="//gc.zgo.at/count.js"></script>
 </body>

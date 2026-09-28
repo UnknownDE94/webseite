@@ -3,6 +3,10 @@
 document.documentElement.classList.add("js");
 
 document.addEventListener("DOMContentLoaded", function () {
+  var reduceMotion = window.matchMedia
+    ? window.matchMedia("(prefers-reduced-motion: reduce)").matches
+    : false;
+
   // Theme preference is shared across all pages (an inline script in <head>
   // already applies it before the first paint to avoid a light flash).
   var themeToggle = document.querySelector(".theme-toggle");
@@ -37,23 +41,28 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   }
 
-  // Mobiles Menü umschalten
+  // Kopfzeile: leichter Schatten, sobald gescrollt wird
   var header = document.querySelector(".site-header");
-  var toggle = document.querySelector(".nav-toggle");
+  if (header) {
+    var onScroll = function () {
+      header.classList.toggle("is-scrolled", window.scrollY > 8);
+    };
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+  }
 
+  // Mobiles Menü umschalten
+  var toggle = document.querySelector(".nav-toggle");
   if (toggle && header) {
     var setMenu = function (open) {
       header.classList.toggle("is-open", open);
       toggle.setAttribute("aria-expanded", open ? "true" : "false");
       toggle.setAttribute("aria-label", open ? "Menü schließen" : "Menü öffnen");
     };
-
     toggle.addEventListener("click", function () {
       setMenu(!header.classList.contains("is-open"));
     });
-
-    // Menü schließen, wenn ein Link angeklickt oder Escape gedrückt wird (mobil)
-    header.querySelectorAll(".nav-links a").forEach(function (link) {
+    header.querySelectorAll(".nav-collapse a").forEach(function (link) {
       link.addEventListener("click", function () {
         setMenu(false);
       });
@@ -72,44 +81,149 @@ document.addEventListener("DOMContentLoaded", function () {
     yearEl.textContent = new Date().getFullYear();
   }
 
-  // Sanftes Einblenden von Inhalten beim Scrollen (kein zusätzliches HTML nötig).
-  // Elemente mit data-reveal="left|right" gleiten seitlich herein.
-  var revealSelector =
-    ".section-head, .card, .contact-card, .price-card, .service, .timeline li, .ways li, .use-list li, " +
-    ".vsteps li, .stats, .cta-band, .shot, .illu, .pullquote, .faq-list, .page-header-copy > *, [data-reveal]";
-  var revealTargets = document.querySelectorAll(revealSelector);
-  var prefersReducedMotion = window.matchMedia
-    ? window.matchMedia("(prefers-reduced-motion: reduce)").matches
-    : false;
+  // --- Einblendungen -------------------------------------------------------
+  // [data-split]  Überschrift gleitet Wort für Wort aus einer Maske
+  // [data-anim]   up | left | right | scale – mit Versatz über [data-stagger]
+  // [data-count]  Zahl zählt beim Einblenden hoch (deutsches Zahlenformat)
+  // [data-grow]   Balken (.meter i) wachsen auf ihren Wert
+  // [data-draw]   SVG-Linien zeichnen sich, Knoten erscheinen nacheinander
 
-  if (revealTargets.length && "IntersectionObserver" in window && !prefersReducedMotion) {
-    revealTargets.forEach(function (el, i) {
-      var direction = el.getAttribute("data-reveal");
-      el.classList.add("reveal");
-      if (direction === "left" || direction === "right") {
-        el.classList.add("reveal-" + direction);
+  document.querySelectorAll("[data-split]").forEach(function (el) {
+    var index = 0;
+    var walk = function (node) {
+      Array.prototype.slice.call(node.childNodes).forEach(function (child) {
+        if (child.nodeType === 3) {
+          var parts = child.textContent.split(/(\s+)/);
+          var frag = document.createDocumentFragment();
+          parts.forEach(function (part) {
+            if (!part) {
+              return;
+            }
+            if (/^\s+$/.test(part)) {
+              frag.appendChild(document.createTextNode(part));
+              return;
+            }
+            var outer = document.createElement("span");
+            var inner = document.createElement("span");
+            outer.className = "w";
+            inner.textContent = part;
+            inner.style.setProperty("--w", index++);
+            outer.appendChild(inner);
+            frag.appendChild(outer);
+          });
+          node.replaceChild(frag, child);
+        } else if (child.nodeType === 1) {
+          walk(child);
+        }
+      });
+    };
+    walk(el);
+  });
+
+  document.querySelectorAll("[data-stagger]").forEach(function (group) {
+    var i = 0;
+    Array.prototype.slice.call(group.children).forEach(function (child) {
+      if (!child.hasAttribute("data-anim")) {
+        child.setAttribute("data-anim", group.getAttribute("data-stagger") || "up");
       }
-      el.style.transitionDelay = Math.min(i % 4, 3) * 90 + "ms";
+      child.style.setProperty("--i", i++);
     });
+  });
 
+  document.querySelectorAll("[data-draw]").forEach(function (group) {
+    group.querySelectorAll("path, line").forEach(function (shape) {
+      // Ausgeblendete Linien (z. B. mobil per display: none) haben keine Länge
+      try {
+        shape.style.setProperty("--len", Math.ceil(shape.getTotalLength()) + 2);
+      } catch (error) {
+        shape.style.setProperty("--len", 0);
+      }
+    });
+    group.querySelectorAll(".hub-node, .hub-core, .flow-pop").forEach(function (node, i) {
+      node.style.setProperty("--i", i);
+    });
+  });
+
+  var formatNumber = function (value, decimals) {
+    return value.toLocaleString("de-DE", {
+      minimumFractionDigits: decimals,
+      maximumFractionDigits: decimals,
+    });
+  };
+
+  var runCount = function (el) {
+    var target = parseFloat(el.getAttribute("data-count"));
+    var decimals = parseInt(el.getAttribute("data-decimals") || "0", 10);
+    var prefix = el.getAttribute("data-prefix") || "";
+    var suffix = el.getAttribute("data-suffix") || "";
+    if (isNaN(target)) {
+      return;
+    }
+    var render = function (v) {
+      el.textContent = prefix + formatNumber(v, decimals) + suffix;
+    };
+    if (reduceMotion) {
+      render(target);
+      return;
+    }
+    var duration = 1400;
+    var start = null;
+    var step = function (now) {
+      if (start === null) {
+        start = now;
+      }
+      var t = Math.min((now - start) / duration, 1);
+      var eased = 1 - Math.pow(1 - t, 4);
+      render(target * eased);
+      if (t < 1) {
+        window.requestAnimationFrame(step);
+      } else {
+        render(target);
+      }
+    };
+    render(0);
+    window.requestAnimationFrame(step);
+  };
+
+  var targets = document.querySelectorAll("[data-anim], [data-split], [data-grow], [data-draw], [data-count]");
+  var reveal = function (el) {
+    el.classList.add("in");
+    if (el.hasAttribute("data-count")) {
+      runCount(el);
+    }
+    el.querySelectorAll("[data-count]").forEach(function (child) {
+      if (!child.dataset.counted) {
+        child.dataset.counted = "1";
+        runCount(child);
+      }
+    });
+  };
+
+  if (!("IntersectionObserver" in window) || reduceMotion) {
+    targets.forEach(function (el) {
+      el.classList.add("in");
+    });
+  } else {
     var observer = new IntersectionObserver(
       function (entries) {
         entries.forEach(function (entry) {
           if (entry.isIntersecting) {
-            entry.target.classList.add("is-visible");
+            reveal(entry.target);
             observer.unobserve(entry.target);
           }
         });
       },
-      { threshold: 0.12, rootMargin: "0px 0px -40px 0px" }
+      { threshold: 0.15, rootMargin: "0px 0px -8% 0px" }
     );
-
-    revealTargets.forEach(function (el) {
+    targets.forEach(function (el) {
+      if (el.hasAttribute("data-count") && el.closest("[data-anim], [data-grow]")) {
+        return;
+      }
       observer.observe(el);
     });
   }
 
-  // Reiter (z. B. Plattform-Einblick auf der SmartParts-Seite)
+  // --- Reiter (Plattform-Einblick auf der SmartParts-Seite) ---------------
   document.querySelectorAll("[data-tabs]").forEach(function (group) {
     var tabs = Array.prototype.slice.call(group.querySelectorAll('[role="tab"]'));
     if (!tabs.length) {
@@ -129,8 +243,9 @@ document.addEventListener("DOMContentLoaded", function () {
       if (moveFocus) {
         tab.focus();
       }
-      if (tab.scrollIntoView && tab.parentNode.scrollWidth > tab.parentNode.clientWidth) {
-        tab.parentNode.scrollTo({ left: tab.offsetLeft - 8, behavior: prefersReducedMotion ? "auto" : "smooth" });
+      var strip = tab.parentNode;
+      if (strip.scrollWidth > strip.clientWidth) {
+        strip.scrollTo({ left: tab.offsetLeft - 8, behavior: reduceMotion ? "auto" : "smooth" });
       }
     }
 
@@ -140,9 +255,9 @@ document.addEventListener("DOMContentLoaded", function () {
       });
       tab.addEventListener("keydown", function (event) {
         var next = null;
-        if (event.key === "ArrowDown" || event.key === "ArrowRight") {
+        if (event.key === "ArrowRight" || event.key === "ArrowDown") {
           next = tabs[(index + 1) % tabs.length];
-        } else if (event.key === "ArrowUp" || event.key === "ArrowLeft") {
+        } else if (event.key === "ArrowLeft" || event.key === "ArrowUp") {
           next = tabs[(index - 1 + tabs.length) % tabs.length];
         } else if (event.key === "Home") {
           next = tabs[0];
@@ -160,6 +275,36 @@ document.addEventListener("DOMContentLoaded", function () {
       return tab.getAttribute("aria-selected") === "true";
     })[0] || tabs[0];
     select(initial, false);
+  });
+
+  // --- Bildwechsel auf der dunklen Bühne (SmartParts-Kopf) ----------------
+  document.querySelectorAll("[data-thumbs]").forEach(function (group) {
+    var target = document.getElementById(group.getAttribute("data-thumbs"));
+    var caption = document.getElementById(group.getAttribute("data-thumbs") + "-titel");
+    if (!target) {
+      return;
+    }
+    group.querySelectorAll(".thumb").forEach(function (thumb) {
+      thumb.addEventListener("click", function () {
+        group.querySelectorAll(".thumb").forEach(function (other) {
+          other.setAttribute("aria-pressed", other === thumb ? "true" : "false");
+        });
+        var swap = function () {
+          target.src = thumb.getAttribute("data-src");
+          target.alt = thumb.getAttribute("data-alt");
+          if (caption) {
+            caption.textContent = thumb.getAttribute("data-titel");
+          }
+          target.classList.remove("is-swapping");
+        };
+        if (reduceMotion) {
+          swap();
+        } else {
+          target.classList.add("is-swapping");
+          window.setTimeout(swap, 250);
+        }
+      });
+    });
   });
 
   // Kontaktformular: öffnet den Mail-Client mit vorausgefüllter Nachricht.

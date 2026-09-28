@@ -22,13 +22,11 @@
   <meta name="twitter:image" content="https://werringloer.de/assets/og-image.jpg" />
   <link rel="icon" type="image/png" href="assets/favicon.png" />
   <link rel="apple-touch-icon" href="assets/apple-touch-icon.png" />
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;family=Montserrat:wght@500;700&amp;display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'" />
-  <noscript><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;family=Montserrat:wght@500;700&amp;display=swap" rel="stylesheet" /></noscript>
+  <link rel="preload" href="assets/fonts/archivo-wdth.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="preload" href="assets/fonts/inter-wght.woff2" as="font" type="font/woff2" crossorigin />
   <script>(function(d){d.classList.add("js");try{var t=localStorage.getItem("theme");if(t==="dark"||(!t&&window.matchMedia&&matchMedia("(prefers-color-scheme: dark)").matches))d.setAttribute("data-theme","dark")}catch(e){}})(document.documentElement);</script>
-  <link rel="preload" href="css/style.css?v=20260928-2" as="style" onload="this.onload=null;this.rel='stylesheet'" />
-  <noscript><link rel="stylesheet" href="css/style.css?v=20260928-2" /></noscript>
+  <link rel="preload" href="css/style.css?v=2026-3" as="style" onload="this.onload=null;this.rel='stylesheet'" />
+  <noscript><link rel="stylesheet" href="css/style.css?v=2026-3" /></noscript>
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -95,24 +93,27 @@
           <a class="btn nav-cta" href="kontakt.html">Kontakt</a>
         </div>
       </div>
-      <button class="theme-toggle" type="button" aria-label="Dunklen Modus aktivieren" aria-pressed="false">
-        <span aria-hidden="true">☾</span>
-      </button>
-      <button class="nav-toggle" type="button" aria-label="Menü öffnen" aria-expanded="false" aria-controls="hauptmenue">
-        <span></span>
-      </button>
+      <div class="nav-actions">
+        <a class="btn nav-cta" href="kontakt.html">Kontakt</a>
+        <button class="theme-toggle" type="button" aria-label="Dunklen Modus aktivieren" aria-pressed="false">
+          <span aria-hidden="true">☾</span>
+        </button>
+        <button class="nav-toggle" type="button" aria-label="Menü öffnen" aria-expanded="false" aria-controls="hauptmenue">
+          <span></span>
+        </button>
+      </div>
     </div>
   </header>
 
   <main id="main">
     <div class="page-header">
       <div class="container page-header-grid">
-        <div class="page-header-copy">
+        <div class="page-header-copy" data-stagger="up">
           <p class="breadcrumb"><a href="index.html">Start</a> / <a href="leistungen.html">Leistungen</a> / Materialstammdaten-Checkliste</p>
-          <h1>Materialstammdaten bereinigen: Checkliste für den Mittelstand</h1>
+          <h1 data-split>Materialstammdaten bereinigen: Checkliste für den Mittelstand</h1>
           <p>Sieben Schritte, mit denen sich doppelte und lückenhafte Materialstammdaten dauerhaft in den Griff bekommen lassen – nicht nur einmalig aufräumen, sondern sauber halten.</p>
         </div>
-        <figure class="illu">
+        <figure class="illu" data-anim="scale">
           <img src="assets/illustrations/struktur.webp" width="1000" height="1000" alt="" />
         </figure>
       </div>
@@ -120,11 +121,11 @@
 
     <section>
       <div class="container">
-        <div class="section-head">
+        <div class="section-head" data-stagger="up">
           <p class="eyebrow">Aus der Praxis</p>
           <h2>Warum das mehr ist als Fleißarbeit</h2>
         </div>
-        <blockquote class="pullquote glass">
+        <blockquote class="pullquote" data-anim="up">
           <p>
             In einem Bestandsprojekt fanden wir für ein einziges Ersatzteil sieben unterschiedliche
             Materialnummern im System – angelegt von sieben verschiedenen Kollegen über zwölf Jahre.
@@ -137,14 +138,14 @@
       </div>
     </section>
 
-    <section class="section-tint">
+    <section class="section-alt">
       <div class="container">
-        <div class="section-head">
+        <div class="section-head" data-stagger="up">
           <p class="eyebrow">Checkliste</p>
           <h2>Sieben Schritte zu sauberen Materialstammdaten</h2>
           <p>In dieser Reihenfolge lässt sich eine Bereinigung im laufenden Betrieb sauber durchziehen.</p>
         </div>
-        <ol class="vsteps">
+        <ol class="vsteps" data-stagger="up">
           <li>
             <h3>Ist-Zustand erfassen</h3>
             <p>Vollständigen Export aller Materialstammsätze ziehen und mit den tatsächlichen Bewegungsdaten der letzten zwei bis drei Jahre abgleichen. Häufig zeigt sich schon hier: Ein Drittel der Sätze wurde seit Jahren nicht mehr bewegt.</p>
@@ -179,10 +180,10 @@
 
     <section>
       <div class="container">
-        <div class="section-head">
+        <div class="section-head section-head--center" data-stagger="up">
           <h2>Häufige Fragen</h2>
         </div>
-        <div class="faq-list">
+        <div class="faq-list" data-stagger="up">
           <details class="faq-item">
             <summary>Wie lange dauert eine Materialstammdatenbereinigung im Mittelstand?</summary>
             <p>Erste bereinigte Warengruppen liegen meist nach wenigen Tagen vor. Für ein komplettes Lager mit einigen Tausend Materialstammsätzen sind es in der Regel zwei bis sechs Wochen, je nachdem wie viele Systeme und Standorte beteiligt sind. Der eigentliche Zeitfresser ist selten die Technik, sondern das Zusammentragen von Wissen aus verschiedenen Abteilungen.</p>
@@ -205,12 +206,18 @@
 
     <section>
       <div class="container">
-        <div class="cta-band">
+        <div class="cta-band stage" data-anim="scale">
           <div>
-            <h2>Ihre Materialstammdaten prüfen lassen?</h2>
+            <h2 data-split>Ihre Material&shy;stamm&shy;daten <span class="silver">prüfen lassen?</span></h2>
             <p>Im kostenlosen Erstgespräch klären wir Ihre Ausgangslage. Die eigentliche Sichtung von Stammdaten und Beständen übernimmt anschließend der Quick-Check – danach entscheiden Sie, wie es weitergeht.</p>
+            <div class="cta-actions">
+              <a class="btn-circle" href="kontakt.html" aria-hidden="true" tabindex="-1"></a>
+              <a class="btn btn-lime" href="kontakt.html">Kontakt</a>
+            </div>
           </div>
-          <a class="btn btn-secondary" href="kontakt.html">Kontakt</a>
+          <div class="cta-visual" aria-hidden="true">
+            <img src="assets/logo-mark-lg.webp" width="640" height="369" alt="" loading="lazy" />
+          </div>
         </div>
       </div>
     </section>
@@ -254,7 +261,7 @@
     </div>
   </footer>
 
-  <script src="js/main.js?v=20260928-2"></script>
+  <script src="js/main.js?v=2026-3"></script>
   <script data-goatcounter="https://unknownde.goatcounter.com/count"
           async src="//gc.zgo.at/count.js"></script>
 </body>

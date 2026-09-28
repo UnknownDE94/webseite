@@ -22,11 +22,10 @@
   <meta name="twitter:image" content="https://werringloer.de/assets/og-image.jpg" />
   <link rel="icon" type="image/png" href="assets/favicon.png" />
   <link rel="apple-touch-icon" href="assets/apple-touch-icon.png" />
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;family=Montserrat:wght@500;700&amp;display=swap" rel="stylesheet" />
+  <link rel="preload" href="assets/fonts/archivo-wdth.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="preload" href="assets/fonts/inter-wght.woff2" as="font" type="font/woff2" crossorigin />
   <script>(function(d){d.classList.add("js");try{var t=localStorage.getItem("theme");if(t==="dark"||(!t&&window.matchMedia&&matchMedia("(prefers-color-scheme: dark)").matches))d.setAttribute("data-theme","dark")}catch(e){}})(document.documentElement);</script>
-  <link rel="stylesheet" href="css/style.css?v=20260928-2" />
+  <link rel="stylesheet" href="css/style.css?v=2026-3" />
 </head>
 <body>
   <a class="skip-link" href="#main">Zum Inhalt springen</a>
@@ -50,28 +49,31 @@
           <a class="btn nav-cta" href="kontakt.html">Kontakt</a>
         </div>
       </div>
-      <button class="theme-toggle" type="button" aria-label="Dunklen Modus aktivieren" aria-pressed="false">
-        <span aria-hidden="true">☾</span>
-      </button>
-      <button class="nav-toggle" type="button" aria-label="Menü öffnen" aria-expanded="false" aria-controls="hauptmenue">
-        <span></span>
-      </button>
+      <div class="nav-actions">
+        <a class="btn nav-cta" href="kontakt.html">Kontakt</a>
+        <button class="theme-toggle" type="button" aria-label="Dunklen Modus aktivieren" aria-pressed="false">
+          <span aria-hidden="true">☾</span>
+        </button>
+        <button class="nav-toggle" type="button" aria-label="Menü öffnen" aria-expanded="false" aria-controls="hauptmenue">
+          <span></span>
+        </button>
+      </div>
     </div>
   </header>
 
   <main id="main">
     <div class="page-header">
       <div class="container page-header-grid">
-        <div class="page-header-copy">
+        <div class="page-header-copy" data-stagger="up">
           <p class="breadcrumb"><a href="index.html">Start</a> / Leistungen</p>
-          <h1>Ersatzteilmanagement mit messbarem wirtschaftlichem Nutzen</h1>
+          <h1 data-split>Ersatzteilmanagement mit messbarem wirtschaftlichem Nutzen</h1>
           <p>
             Vier Leistungsbereiche, jeweils mit konkretem Ergebnis, definiertem
             Umfang und festem Preis im Angebot – für mehr Transparenz und weniger
             Kapitalbindung.
           </p>
         </div>
-        <figure class="illu">
+        <figure class="illu" data-anim="scale">
           <img src="assets/illustrations/analyse.webp" width="1000" height="1000" alt="" />
         </figure>
       </div>
@@ -79,7 +81,7 @@
 
     <section>
       <div class="container services">
-        <article class="service glass" id="analyse">
+        <article class="service" data-anim="up" id="analyse">
           <div class="service-head">
             <div class="service-top">
               <span class="service-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 7h6M16 7h4"/><circle cx="12" cy="7" r="2"/><path d="M4 12h2M12 12h8"/><circle cx="8" cy="12" r="2"/><path d="M4 17h10"/><circle cx="16" cy="17" r="2"/></svg></span>
@@ -93,7 +95,7 @@
               <li>Klare Verantwortlichkeiten</li>
             </ul>
           </div>
-          <ul class="offers">
+          <ul class="offers" data-stagger="up">
             <li>
               <div>
                 <h4>Ersatzteil-Quick-Check</h4>
@@ -118,7 +120,7 @@
           </ul>
         </article>
 
-        <article class="service glass" id="stammdaten">
+        <article class="service" data-anim="up" id="stammdaten">
           <div class="service-head">
             <div class="service-top">
               <span class="service-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><ellipse cx="12" cy="5.5" rx="7" ry="2.5"/><path d="M5 5.5V18c0 1.4 3.1 2.5 7 2.5s7-1.1 7-2.5V5.5"/><path d="M5 11.8c0 1.4 3.1 2.5 7 2.5s7-1.1 7-2.5"/></svg></span>
@@ -132,7 +134,7 @@
               <li>Transparente Kennzahlen</li>
             </ul>
           </div>
-          <ul class="offers">
+          <ul class="offers" data-stagger="up">
             <li>
               <div>
                 <h4>Materialstammdaten-Optimierung</h4>
@@ -157,7 +159,7 @@
           </ul>
         </article>
 
-        <article class="service glass" id="versorgung">
+        <article class="service" data-anim="up" id="versorgung">
           <div class="service-head">
             <div class="service-top">
               <span class="service-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3 4.5 6v5.5c0 4.4 3.1 8.4 7.5 9.5 4.4-1.1 7.5-5.1 7.5-9.5V6z"/><path d="m9 12 2 2 4-4"/></svg></span>
@@ -171,7 +173,7 @@
               <li>Geprüfte Maßhaltigkeit</li>
             </ul>
           </div>
-          <ul class="offers">
+          <ul class="offers" data-stagger="up">
             <li>
               <div>
                 <h4>Alternativteil- &amp; Lieferantenrecherche</h4>
@@ -189,7 +191,7 @@
           </ul>
         </article>
 
-        <article class="service glass" id="begleitung">
+        <article class="service" data-anim="up" id="begleitung">
           <div class="service-head">
             <div class="service-top">
               <span class="service-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="7" y="7" width="10" height="10" rx="1.5"/><path d="M7 3v2M12 3v2M17 3v2M7 19v2M12 19v2M17 19v2M3 7h2M3 12h2M3 17h2M19 7h2M19 12h2M19 17h2"/></svg></span>
@@ -203,7 +205,7 @@
               <li>Praxisnahe KI-Nutzung</li>
             </ul>
           </div>
-          <ul class="offers">
+          <ul class="offers" data-stagger="up">
             <li>
               <div>
                 <h4>Kontinuierliche Betreuung</h4>
@@ -225,12 +227,12 @@
 
     <section id="preisrahmen">
       <div class="container">
-        <div class="section-head">
+        <div class="section-head section-head--center" data-stagger="up">
           <p class="eyebrow">Pakete</p>
           <h2>Pakete &amp; Preisrahmen</h2>
           <p>Vom Quick-Check über die Umsetzung bis zur laufenden Betreuung – jedes Paket ist einzeln buchbar.</p>
         </div>
-        <div class="price-grid">
+        <div class="price-grid" data-stagger="up">
           <div class="price-card">
             <h3>Quick-Check</h3>
             <p class="price-sub">Festpreis und konkreter Maßnahmenplan</p>
@@ -277,7 +279,7 @@
             <a class="btn btn-secondary" href="kontakt.html">Betreuung anfragen</a>
           </div>
         </div>
-        <p class="price-note">
+        <p class="price-note" data-anim="up">
           Wird innerhalb von 30 Tagen nach dem Priorisierungsworkshop ein Folgepaket
           beauftragt, rechnen wir 50 % des Workshophonorars an. Ihr Thema steht nicht
           auf der Liste? Auch das lässt sich meist einordnen – am schnellsten in einem
@@ -325,7 +327,7 @@
     </div>
   </footer>
 
-  <script src="js/main.js?v=20260928-2"></script>
+  <script src="js/main.js?v=2026-3"></script>
   <script data-goatcounter="https://unknownde.goatcounter.com/count"
           async src="//gc.zgo.at/count.js"></script>
 </body>

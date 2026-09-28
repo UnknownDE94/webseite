@@ -22,11 +22,10 @@
   <meta name="twitter:image" content="https://werringloer.de/assets/og-image.jpg" />
   <link rel="icon" type="image/png" href="assets/favicon.png" />
   <link rel="apple-touch-icon" href="assets/apple-touch-icon.png" />
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;family=Montserrat:wght@500;700&amp;display=swap" rel="stylesheet" />
+  <link rel="preload" href="assets/fonts/archivo-wdth.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="preload" href="assets/fonts/inter-wght.woff2" as="font" type="font/woff2" crossorigin />
   <script>(function(d){d.classList.add("js");try{var t=localStorage.getItem("theme");if(t==="dark"||(!t&&window.matchMedia&&matchMedia("(prefers-color-scheme: dark)").matches))d.setAttribute("data-theme","dark")}catch(e){}})(document.documentElement);</script>
-  <link rel="stylesheet" href="css/style.css?v=20260928-2" />
+  <link rel="stylesheet" href="css/style.css?v=2026-3" />
 </head>
 <body>
   <a class="skip-link" href="#main">Zum Inhalt springen</a>
@@ -50,44 +49,58 @@
           <a class="btn nav-cta" href="kontakt.html">Kontakt</a>
         </div>
       </div>
-      <button class="theme-toggle" type="button" aria-label="Dunklen Modus aktivieren" aria-pressed="false">
-        <span aria-hidden="true">☾</span>
-      </button>
-      <button class="nav-toggle" type="button" aria-label="Menü öffnen" aria-expanded="false" aria-controls="hauptmenue">
-        <span></span>
-      </button>
+      <div class="nav-actions">
+        <a class="btn nav-cta" href="kontakt.html">Kontakt</a>
+        <button class="theme-toggle" type="button" aria-label="Dunklen Modus aktivieren" aria-pressed="false">
+          <span aria-hidden="true">☾</span>
+        </button>
+        <button class="nav-toggle" type="button" aria-label="Menü öffnen" aria-expanded="false" aria-controls="hauptmenue">
+          <span></span>
+        </button>
+      </div>
     </div>
   </header>
 
   <main id="main">
-    <div class="page-header">
-      <div class="container page-header-grid">
-        <div class="page-header-copy">
+    <div class="page-header stage">
+      <div class="container stage-grid">
+        <div class="page-header-copy" data-stagger="up">
           <p class="breadcrumb"><a href="index.html">Start</a> / SmartParts</p>
-          <h1>WK SmartParts</h1>
+          <h1 class="stage-title" data-split>WK <span class="silver">SmartParts</span></h1>
           <p class="page-header-tagline">Software von Werringloer Komponentenmanagement</p>
           <p>
             Die Plattform für Materialdaten, Ersatzteilmanagement und technische
             Lagerprozesse – für produzierende Unternehmen, die Datenqualität und
             Versorgungssicherheit dauerhaft steuern möchten.
           </p>
+          <div class="hero-actions">
+            <a class="btn btn-lime" href="kontakt.html">Kontakt</a>
+          </div>
         </div>
-        <figure class="illu">
-          <img src="assets/illustrations/wachstum.webp" width="1000" height="1000" alt="" />
-        </figure>
+        <div class="stage-visual" data-anim="scale">
+          <figure class="window">
+            <div class="window-bar"><span class="b-dots" aria-hidden="true"><i></i><i></i><i></i></span><em id="buehne-bild-titel">WK SmartParts · Dashboard</em></div>
+            <div class="window-frame"><img id="buehne-bild" src="assets/platform/dashboard-kennzahlen.webp" width="1600" height="1000" alt="Dashboard in WK SmartParts mit Kennzahlen, Trendanalyse und kritischen Ereignissen" fetchpriority="high" /></div>
+          </figure>
+          <div class="thumbs" data-thumbs="buehne-bild" role="group" aria-label="Ansicht wählen">
+            <button class="thumb" type="button" aria-pressed="true" aria-label="Dashboard" data-src="assets/platform/dashboard-kennzahlen.webp" data-alt="Dashboard in WK SmartParts mit Kennzahlen, Trendanalyse und kritischen Ereignissen" data-titel="WK SmartParts · Dashboard"><img src="assets/platform/dashboard-kennzahlen.webp" alt="" loading="lazy" /></button>
+            <button class="thumb" type="button" aria-pressed="false" aria-label="Bestandsrisiko" data-src="assets/platform/bestandsrisiko-ampel.webp" data-alt="Bestandsrisiko in WK SmartParts: Ampel aus sicheren, riskanten und stillstandsgefährdenden Ersatzteilen mit Handlungsbedarf" data-titel="WK SmartParts · Bestandsrisiko"><img src="assets/platform/bestandsrisiko-ampel.webp" alt="" loading="lazy" /></button>
+            <button class="thumb" type="button" aria-pressed="false" aria-label="Bestandsanalyse" data-src="assets/platform/analytics-bestand.webp" data-alt="Bestandsanalyse in WK SmartParts mit Kapitalbindung, Über- und Minderbestand, ABC-/XYZ-Portfolio und Hochpreisteilen" data-titel="WK SmartParts · Bestandsanalyse"><img src="assets/platform/analytics-bestand.webp" alt="" loading="lazy" /></button>
+          </div>
+        </div>
       </div>
     </div>
 
     <!-- Plattform-Einblick -->
     <section id="einblick">
       <div class="container">
-        <div class="section-head">
+        <div class="section-head section-head--center" data-stagger="up">
           <p class="eyebrow">Einblick in die Plattform</p>
           <h2>Die fünf Säulen von WK SmartParts</h2>
           <p>Vom einzelnen Material bis zur Managementauswertung bleiben Informationen nachvollziehbar und entscheidungsfähig.</p>
         </div>
 
-        <div class="showcase" data-tabs>
+        <div class="showcase" data-tabs data-anim="up">
           <div class="showcase-tabs" role="tablist" aria-label="Säulen von WK SmartParts" aria-orientation="vertical">
             <button class="showcase-tab" type="button" role="tab" id="tab-daten" aria-controls="panel-daten" aria-selected="true">
               <span class="tab-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><ellipse cx="12" cy="5.5" rx="7" ry="2.5"/><path d="M5 5.5V18c0 1.4 3.1 2.5 7 2.5s7-1.1 7-2.5V5.5"/><path d="M5 11.8c0 1.4 3.1 2.5 7 2.5s7-1.1 7-2.5"/></svg></span>
@@ -113,44 +126,54 @@
 
           <div class="showcase-panels">
             <div class="showcase-panel" role="tabpanel" id="panel-daten" aria-labelledby="tab-daten" tabindex="0">
-              <figure class="shot">
-                <div class="shot-bar" aria-hidden="true"><span></span><span></span><span></span><em>WK SmartParts · Stammdaten-Korrektur</em></div>
-                <img src="assets/screenshots/korrektur.webp" width="1600" height="1000" alt="Stammdaten-Korrektur in WK SmartParts mit Befunden zu Dubletten, Vollständigkeit und Schreibweise" loading="lazy" />
+              <figure class="window">
+                <div class="window-bar"><span class="b-dots" aria-hidden="true"><i></i><i></i><i></i></span><em>WK SmartParts · Datenqualität</em></div>
+                <div class="window-frame"><img src="assets/platform/datenqualitaet.webp" width="1600" height="1000" alt="Datenqualität in WK SmartParts mit Qualitätskennzahlen und Datenlücken nach Feld" loading="lazy" /></div>
               </figure>
-              <h3>Datenqualität</h3>
-              <p>Jedes Material wird sauber angelegt, klassifiziert und auf Dubletten geprüft – inklusive Pflichtfeldern und verknüpften Dokumenten.</p>
+              <div>
+                <h3>Datenqualität</h3>
+                <p>Jedes Material wird sauber angelegt, klassifiziert und auf Dubletten geprüft – inklusive Pflichtfeldern und verknüpften Dokumenten.</p>
+              </div>
             </div>
             <div class="showcase-panel" role="tabpanel" id="panel-bestand" aria-labelledby="tab-bestand" tabindex="0">
-              <figure class="shot">
-                <div class="shot-bar" aria-hidden="true"><span></span><span></span><span></span><em>WK SmartParts · Materialstammanalyse</em></div>
-                <img src="assets/screenshots/analytics.webp" width="1600" height="1000" alt="Materialstammanalyse in WK SmartParts mit ABC-/XYZ-Auswertung und Kapitalbindung" loading="lazy" />
+              <figure class="window">
+                <div class="window-bar"><span class="b-dots" aria-hidden="true"><i></i><i></i><i></i></span><em>WK SmartParts · Bestandsanalyse</em></div>
+                <div class="window-frame"><img src="assets/platform/analytics-bestand.webp" width="1600" height="1000" alt="Bestandsanalyse in WK SmartParts mit Kapitalbindung, Über- und Minderbestand, ABC-/XYZ-Portfolio und Hochpreisteilen" loading="lazy" /></div>
               </figure>
-              <h3>Bestandsoptimierung</h3>
-              <p>ABC-/XYZ-Analyse und Kritikalitätsbewertung zeigen, wo Sicherheitsbestände sinnvoll sind und wo Kapital in Obsoleszenz feststeckt.</p>
+              <div>
+                <h3>Bestandsoptimierung</h3>
+                <p>ABC-/XYZ-Analyse und Kritikalitätsbewertung zeigen, wo Sicherheitsbestände sinnvoll sind und wo Kapital in Obsoleszenz feststeckt.</p>
+              </div>
             </div>
             <div class="showcase-panel" role="tabpanel" id="panel-kosten" aria-labelledby="tab-kosten" tabindex="0">
-              <figure class="shot">
-                <div class="shot-bar" aria-hidden="true"><span></span><span></span><span></span><em>WK SmartParts · Disposition</em></div>
-                <img src="assets/screenshots/disposition.webp" width="1600" height="1000" alt="Disposition in WK SmartParts mit nach Lieferant gebündelten Bestellvorschlägen" loading="lazy" />
+              <figure class="window">
+                <div class="window-bar"><span class="b-dots" aria-hidden="true"><i></i><i></i><i></i></span><em>WK SmartParts · Disposition</em></div>
+                <div class="window-frame"><img src="assets/platform/disposition-vorschlaege.webp" width="1600" height="1000" alt="Disposition in WK SmartParts mit Bestellkennzahlen und nach Lieferant gebündelten Bestellvorschlägen" loading="lazy" /></div>
               </figure>
-              <h3>Kosten und Preise</h3>
-              <p>Preisvergleiche und Preisentwicklung machen sichtbar, wie viel Kapital tatsächlich in Beschaffung und Lager gebunden ist – Bestellvorschläge werden nach Lieferant gebündelt und freigegeben.</p>
+              <div>
+                <h3>Kosten und Preise</h3>
+                <p>Preisvergleiche und Preisentwicklung machen sichtbar, wie viel Kapital tatsächlich in Beschaffung und Lager gebunden ist – Bestellvorschläge werden nach Lieferant gebündelt und freigegeben.</p>
+              </div>
             </div>
             <div class="showcase-panel" role="tabpanel" id="panel-lieferung" aria-labelledby="tab-lieferung" tabindex="0">
-              <figure class="shot">
-                <div class="shot-bar" aria-hidden="true"><span></span><span></span><span></span><em>WK SmartParts · Bestandsrisiko</em></div>
-                <img src="assets/screenshots/bestandsrisiko.webp" width="1600" height="1000" alt="Bestandsrisiko in WK SmartParts: Ampellogik aus Kritikalität, Bestand, Lieferzeit und Verbrauch zeigt, welche Ersatzteile einen Stillstand verursachen können" loading="lazy" />
+              <figure class="window">
+                <div class="window-bar"><span class="b-dots" aria-hidden="true"><i></i><i></i><i></i></span><em>WK SmartParts · Bestandsrisiko</em></div>
+                <div class="window-frame"><img src="assets/platform/bestandsrisiko-ampel.webp" width="1600" height="1000" alt="Bestandsrisiko in WK SmartParts: Ampel aus sicheren, riskanten und stillstandsgefährdenden Ersatzteilen mit Handlungsbedarf" loading="lazy" /></div>
               </figure>
-              <h3>Lieferanten und Lieferzeit</h3>
-              <p>Lieferzeiten und Lieferantenperformance im Blick, dazu Alternativteile für den Ernstfall – die Ampel im Bestandsrisiko zeigt, welche Ersatzteile einen Stillstand verursachen können.</p>
+              <div>
+                <h3>Lieferanten und Lieferzeit</h3>
+                <p>Lieferzeiten und Lieferantenperformance im Blick, dazu Alternativteile für den Ernstfall – die Ampel im Bestandsrisiko zeigt, welche Ersatzteile einen Stillstand verursachen können.</p>
+              </div>
             </div>
             <div class="showcase-panel" role="tabpanel" id="panel-governance" aria-labelledby="tab-governance" tabindex="0">
-              <figure class="shot">
-                <div class="shot-bar" aria-hidden="true"><span></span><span></span><span></span><em>WK SmartParts · Dashboard</em></div>
-                <img src="assets/screenshots/dashboard.webp" width="1600" height="1000" alt="Dashboard in WK SmartParts mit Kennzahlen und offenen Aktionen" loading="lazy" />
+              <figure class="window">
+                <div class="window-bar"><span class="b-dots" aria-hidden="true"><i></i><i></i><i></i></span><em>WK SmartParts · Dashboard</em></div>
+                <div class="window-frame"><img src="assets/platform/dashboard-kennzahlen.webp" width="1600" height="1000" alt="Dashboard in WK SmartParts mit Kennzahlen, Trendanalyse und kritischen Ereignissen" loading="lazy" /></div>
               </figure>
-              <h3>Governance und Reporting</h3>
-              <p>Rollen, Freigaben und ein lückenloser Audit-Trail sorgen für Nachvollziehbarkeit, Kennzahlen und Dashboards für den Überblick.</p>
+              <div>
+                <h3>Governance und Reporting</h3>
+                <p>Rollen, Freigaben und ein lückenloser Audit-Trail sorgen für Nachvollziehbarkeit, Kennzahlen und Dashboards für den Überblick.</p>
+              </div>
             </div>
           </div>
         </div>
@@ -163,14 +186,19 @@
     </section>
 
     <!-- Ausbaustufen -->
-    <section class="section-tint" id="ausbaustufen">
+    <section class="section-alt" id="ausbaustufen">
       <div class="container">
-        <div class="section-head">
-          <p class="eyebrow">Ausbaustufen</p>
-          <h2>Drei Ausbaustufen – wächst mit Ihren Prioritäten</h2>
-          <p>Alle Stufen bauen aufeinander auf – Einstieg jederzeit möglich, Preis auf Anfrage.</p>
+        <div class="section-head-row">
+          <div class="section-head" data-stagger="up">
+            <p class="eyebrow">Ausbaustufen</p>
+            <h2>Drei Ausbaustufen – wächst mit Ihren Prioritäten</h2>
+            <p>Alle Stufen bauen aufeinander auf – Einstieg jederzeit möglich, Preis auf Anfrage.</p>
+          </div>
+          <figure class="illu" aria-hidden="true">
+            <img src="assets/illustrations/wachstum.webp" width="760" height="760" alt="" loading="lazy" />
+          </figure>
         </div>
-        <div class="price-grid">
+        <div class="price-grid" data-stagger="up">
           <div class="price-card">
             <h3>Basis</h3>
             <p class="price-sub">Saubere Stammdaten als Fundament</p>
@@ -208,28 +236,44 @@
 
     <!-- Für wen & wann -->
     <section id="einsatz">
-      <div class="container fit-grid">
-        <div>
-          <div class="section-head">
-            <p class="eyebrow">Zielgruppe</p>
-            <h2>Für wen WK SmartParts gemacht ist</h2>
-            <p>
-              Mittelständische Produktionsbetriebe mit eigener Instandhaltung
-              und Ersatzteillager – typischerweise:
-            </p>
+      <div class="container">
+        <div class="fit-grid">
+          <div>
+            <div class="section-head" data-stagger="up">
+              <p class="eyebrow">Zielgruppe</p>
+              <h2>Für wen WK SmartParts gemacht ist</h2>
+              <p>
+                Mittelständische Produktionsbetriebe mit eigener Instandhaltung
+                und Ersatzteillager – typischerweise:
+              </p>
+            </div>
+            <ul class="list-check" data-stagger="up">
+              <li>ca. 100–1.000 Mitarbeitende</li>
+              <li>mehr als 5.000 Materialstämme</li>
+              <li>gängige ERP-/Instandhaltungssysteme wie SAP PM/MM, Maximo, Infor oder IFS</li>
+            </ul>
           </div>
-          <ul class="list-check">
-            <li>ca. 100–1.000 Mitarbeitende</li>
-            <li>mehr als 5.000 Materialstämme</li>
-            <li>gängige ERP-/Instandhaltungssysteme wie SAP PM/MM, Maximo, Infor oder IFS</li>
-          </ul>
+          <div class="hub-panel" data-draw aria-hidden="true">
+            <div class="media-slot" data-higgsfield="systeme"></div>
+            <svg class="hub-svg" viewBox="0 0 600 440" preserveAspectRatio="none">
+              <path d="M150 90 V200 Q150 230 180 230 H270 Q300 230 300 260 V334" />
+              <path d="M450 90 V200 Q450 230 420 230 H330 Q300 230 300 260 V334" />
+              <path d="M90 190 V250 Q90 280 120 280 H270 Q300 280 300 300 V334" />
+              <path d="M510 190 V250 Q510 280 480 280 H330 Q300 280 300 300 V334" />
+            </svg>
+            <span class="hub-node" style="left: 25%; top: 17%;">SAP PM/MM</span>
+            <span class="hub-node" style="left: 75%; top: 17%;">Maximo</span>
+            <span class="hub-node" style="left: 15%; top: 40%;">Infor</span>
+            <span class="hub-node" style="left: 85%; top: 40%;">IFS</span>
+            <span class="hub-core"><img src="assets/logo-mark-lg.webp" width="640" height="369" alt="" loading="lazy" /></span>
+          </div>
         </div>
-        <div>
-          <div class="section-head">
-            <p class="eyebrow">Anwendungsfelder</p>
-            <h2>Typische Einsatzsituationen</h2>
-          </div>
-          <ul class="use-list">
+
+        <div class="section-head" data-stagger="up" style="margin-top: 96px;">
+          <p class="eyebrow">Anwendungsfelder</p>
+          <h2>Typische Einsatzsituationen</h2>
+        </div>
+          <ul class="use-list" data-stagger="up">
             <li>
               <h3>Vor einer ERP-Migration</h3>
               <p>Materialstammdaten bereinigen und konsolidieren, bevor sie in ein neues System übernommen werden.</p>
@@ -247,18 +291,23 @@
               <p>Verlässlichere Ersatzteilverfügbarkeit durch saubere, konsolidierte Stammdaten.</p>
             </li>
           </ul>
-        </div>
       </div>
     </section>
 
     <section>
       <div class="container">
-        <div class="cta-band">
+        <div class="cta-band stage" data-anim="scale">
           <div>
-            <h2>Passt WK SmartParts zu Ihrer Situation?</h2>
+            <h2 data-split>Passt WK SmartParts <span class="silver">zu Ihrer Situation?</span></h2>
             <p>Im kostenlosen Erstgespräch klären wir Ihre Ausgangslage – und ob WK SmartParts, eine Beratung oder beides der richtige Weg ist.</p>
+            <div class="cta-actions">
+              <a class="btn-circle" href="kontakt.html" aria-hidden="true" tabindex="-1"></a>
+              <a class="btn btn-lime" href="kontakt.html">Kontakt</a>
+            </div>
           </div>
-          <a class="btn btn-secondary" href="kontakt.html">Kontakt</a>
+          <div class="cta-visual" aria-hidden="true">
+            <img src="assets/logo-mark-lg.webp" width="640" height="369" alt="" loading="lazy" />
+          </div>
         </div>
       </div>
     </section>
@@ -302,7 +351,7 @@
     </div>
   </footer>
 
-  <script src="js/main.js?v=20260928-2"></script>
+  <script src="js/main.js?v=2026-3"></script>
   <script data-goatcounter="https://unknownde.goatcounter.com/count"
           async src="//gc.zgo.at/count.js"></script>
 </body>

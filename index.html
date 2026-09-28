@@ -22,11 +22,10 @@
   <meta name="twitter:image" content="https://werringloer.de/assets/og-image.jpg" />
   <link rel="icon" type="image/png" href="assets/favicon.png" />
   <link rel="apple-touch-icon" href="assets/apple-touch-icon.png" />
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;family=Montserrat:wght@500;700&amp;display=swap" rel="stylesheet" />
+  <link rel="preload" href="assets/fonts/archivo-wdth.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="preload" href="assets/fonts/inter-wght.woff2" as="font" type="font/woff2" crossorigin />
   <script>(function(d){d.classList.add("js");try{var t=localStorage.getItem("theme");if(t==="dark"||(!t&&window.matchMedia&&matchMedia("(prefers-color-scheme: dark)").matches))d.setAttribute("data-theme","dark")}catch(e){}})(document.documentElement);</script>
-  <link rel="stylesheet" href="css/style.css?v=20260928-2" />
+  <link rel="stylesheet" href="css/style.css?v=2026-3" />
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -75,12 +74,15 @@
           <a class="btn nav-cta" href="kontakt.html">Kontakt</a>
         </div>
       </div>
-      <button class="theme-toggle" type="button" aria-label="Dunklen Modus aktivieren" aria-pressed="false">
-        <span aria-hidden="true">☾</span>
-      </button>
-      <button class="nav-toggle" type="button" aria-label="Menü öffnen" aria-expanded="false" aria-controls="hauptmenue">
-        <span></span>
-      </button>
+      <div class="nav-actions">
+        <a class="btn nav-cta" href="kontakt.html">Kontakt</a>
+        <button class="theme-toggle" type="button" aria-label="Dunklen Modus aktivieren" aria-pressed="false">
+          <span aria-hidden="true">☾</span>
+        </button>
+        <button class="nav-toggle" type="button" aria-label="Menü öffnen" aria-expanded="false" aria-controls="hauptmenue">
+          <span></span>
+        </button>
+      </div>
     </div>
   </header>
 
@@ -88,9 +90,9 @@
     <!-- Hero -->
     <section class="hero">
       <div class="container hero-grid">
-        <div class="hero-copy">
-          <p class="eyebrow">Ersatzteil- &amp; Materialmanagement</p>
-          <h1><span class="text-grad">Ersatzteilmanagement</span> für Unternehmen</h1>
+        <div class="hero-copy" data-stagger="up">
+          <p class="pill">Ersatzteil- &amp; Materialmanagement</p>
+          <h1 data-split><span class="accent">Ersatzteil&shy;management</span> für Unternehmen</h1>
           <p class="hero-subtitle">Mehr Versorgungssicherheit. Weniger Kapitalbindung.</p>
           <p class="hero-lead">
             Wir machen sichtbar, welche Ersatzteile kritisch sind und wo Bestände
@@ -106,87 +108,119 @@
         </div>
 
         <div class="hero-visual">
-          <figure class="shot shot--tilt">
-            <div class="shot-bar" aria-hidden="true"><span></span><span></span><span></span><em>WK SmartParts · Dashboard</em></div>
-            <img src="assets/screenshots/dashboard.webp" width="1600" height="1000" alt="Dashboard der Plattform WK SmartParts mit Kennzahlen zu Beständen, kritischen Teilen und offenen Maßnahmen" fetchpriority="high" />
-          </figure>
-          <div class="float-chip float-chip--a" aria-hidden="true">
-            <i><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3 4.5 6v5.5c0 4.4 3.1 8.4 7.5 9.5 4.4-1.1 7.5-5.1 7.5-9.5V6z"/><path d="m9 12 2 2 4-4"/></svg></i>
-            Kritische Teile priorisiert
+          <div class="bento" data-stagger="up">
+            <article class="b-card b-app" data-grow aria-label="Beispielansicht aus WK SmartParts">
+              <header class="b-head">
+                <span class="b-dots" aria-hidden="true"><i></i><i></i><i></i></span>
+                <span class="b-title">WK SmartParts · Übersicht</span>
+                <span class="tag-mono">Beispieldaten</span>
+              </header>
+              <div class="b-body">
+                <div class="kpis">
+                  <div class="kpi">
+                    <span class="kpi-label">Materialien</span>
+                    <strong class="kpi-value" data-count="395">395</strong>
+                    <span class="kpi-trend is-up">+0,8 %</span>
+                  </div>
+                  <div class="kpi">
+                    <span class="kpi-label">Lagerwert</span>
+                    <strong class="kpi-value" data-count="456.1" data-decimals="1" data-suffix=" Tsd. €">456,1 Tsd. €</strong>
+                    <span class="kpi-trend is-down">−0,4 %</span>
+                  </div>
+                  <div class="kpi">
+                    <span class="kpi-label">Datenqualität</span>
+                    <strong class="kpi-value" data-count="96" data-suffix=" %">96 %</strong>
+                    <span class="meter"><i style="--v: 0.96"></i></span>
+                  </div>
+                  <div class="kpi">
+                    <span class="kpi-label">Kritische Bestände</span>
+                    <strong class="kpi-value" data-count="77">77</strong>
+                    <span class="kpi-trend is-good">−3,8 %</span>
+                  </div>
+                </div>
+                <span class="b-sub">Bestandsrisiko</span>
+                <ul class="ampel">
+                  <li><span class="dot is-ok"></span><span class="label">Sicher</span><b data-count="219">219</b><span class="meter is-ok"><i style="--v: 0.554"></i></span></li>
+                  <li><span class="dot is-warn"></span><span class="label">Risiko</span><b data-count="136">136</b><span class="meter is-warn"><i style="--v: 0.344"></i></span></li>
+                  <li><span class="dot is-crit"></span><span class="label">Stillstand möglich</span><b data-count="40">40</b><span class="meter is-crit"><i style="--v: 0.101"></i></span></li>
+                </ul>
+              </div>
+            </article>
+            <article class="b-card b-stat b-dark">
+              <span class="tag-mono">Erfahrungswert</span>
+              <span class="stat-value">20–30 %</span>
+              <span class="stat-label">geringere Lagerkosten</span>
+            </article>
+            <article class="b-card b-stat">
+              <span class="stat-value">15–25 %</span>
+              <span class="stat-label">weniger ungeplante Stillstände</span>
+            </article>
+            <article class="b-card b-stat b-lime">
+              <span class="stat-value">1–2 Tage</span>
+              <span class="stat-label">bis zum priorisierten Maßnahmenplan</span>
+            </article>
           </div>
-          <div class="float-chip float-chip--b" aria-hidden="true">
-            <i><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19V5"/><path d="M4 19h16"/><path d="m7 14 4-4 3 3 5-6"/></svg></i>
-            Kapitalbindung sichtbar
-          </div>
+          <p class="bento-note">Erfahrungs- und Zielwerte. Den für Ihren Betrieb realistischen Hebel schätzt der Quick-Check individuell ab.</p>
         </div>
-      </div>
-
-      <div class="container">
-        <dl class="stats glass">
-          <div class="stat"><dt>20–30 %</dt><dd>geringere Lagerkosten</dd></div>
-          <div class="stat"><dt>15–25 %</dt><dd>weniger ungeplante Stillstände</dd></div>
-          <div class="stat"><dt>1–2 Tage</dt><dd>bis zum priorisierten Maßnahmenplan</dd></div>
-        </dl>
-        <p class="stats-note">Erfahrungs- und Zielwerte. Den für Ihren Betrieb realistischen Hebel schätzt der Quick-Check individuell ab.</p>
       </div>
     </section>
 
     <!-- Ausgangslage -->
-    <section id="ausgangslage">
-      <div class="container split">
-        <div>
-          <div class="section-head">
+    <section id="ausgangslage" class="section-alt">
+      <div class="container">
+        <div class="section-head-row">
+          <div class="section-head" data-stagger="up">
             <p class="eyebrow">Ausgangslage</p>
             <h2>Warum Ersatzteillager unnötig Geld kosten – und trotzdem Produktionsrisiken verursachen</h2>
             <p>Hohe Bestände bedeuten nicht automatisch hohe Versorgungssicherheit. Erst Transparenz über Kritikalität, Bedarfe und Materialstammdaten macht ein Ersatzteillager wirtschaftlich und zuverlässig.</p>
           </div>
-          <ol class="issue-list">
-            <li class="issue" data-reveal="left">
-              <span class="issue-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 7h6M16 7h4"/><circle cx="12" cy="7" r="2"/><path d="M4 12h2M12 12h8"/><circle cx="8" cy="12" r="2"/><path d="M4 17h10"/><circle cx="16" cy="17" r="2"/></svg></span>
-              <div>
-                <h3>Fehlteile</h3>
-                <p>Steht die Anlage, weil ein Ersatzteil fehlt, zählt jede Stunde. Genau das passiert, wenn Bestände nicht gepflegt sind – und am Ende kostet die Express-Beschaffung mehr als das Teil selbst.</p>
-              </div>
-            </li>
-            <li class="issue" data-reveal="right">
-              <span class="issue-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3.5 7.5 12 3.5l8.5 4v9L12 20.5l-8.5-4z"/><path d="M3.5 7.5 12 11.5l8.5-4"/><path d="M12 11.5v9"/></svg></span>
-              <div>
-                <h3>Überbestände</h3>
-                <p>Manches Ersatzteil liegt seit Jahren im Regal, ohne dass es je gebraucht wurde. Das bindet Kapital, das anderswo im Unternehmen fehlt.</p>
-              </div>
-            </li>
-            <li class="issue" data-reveal="left">
-              <span class="issue-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="4.5" width="14" height="16" rx="1.6"/><path d="M9 4.5V3.3a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1V4.5"/><path d="M8.5 10h7M8.5 13.5h7M8.5 17h4.5"/></svg></span>
-              <div>
-                <h3>Fehlende Transparenz</h3>
-                <p>Wenn dasselbe Teil unter drei verschiedenen Nummern im System steht, verlässt sich am Ende niemand mehr auf die Daten. Beschaffung und Planung laufen dann auf Bauchgefühl statt auf Fakten.</p>
-              </div>
-            </li>
-            <li class="issue" data-reveal="right">
-              <span class="issue-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><ellipse cx="12" cy="5.5" rx="7" ry="2.5"/><path d="M5 5.5V18c0 1.4 3.1 2.5 7 2.5s7-1.1 7-2.5V5.5"/><path d="M5 11.8c0 1.4 3.1 2.5 7 2.5s7-1.1 7-2.5"/></svg></span>
-              <div>
-                <h3>Fehlende Standards</h3>
-                <p>Jeder im Team macht seine Arbeit gut – nur eben auf seine eigene Art. Ohne gemeinsame Regeln für Stammdaten wächst der Pflegeaufwand über die Zeit still vor sich hin.</p>
-              </div>
-            </li>
-          </ol>
+          <figure class="illu" aria-hidden="true">
+            <img src="assets/illustrations/kapitalbindung.webp" width="760" height="760" alt="" loading="lazy" />
+          </figure>
         </div>
-        <figure class="illu illu--sticky">
-          <img src="assets/illustrations/kapitalbindung.webp" width="1000" height="1000" alt="" loading="lazy" />
-        </figure>
+        <ol class="issue-list">
+          <li class="issue" data-anim="left">
+            <span class="issue-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 7h6M16 7h4"/><circle cx="12" cy="7" r="2"/><path d="M4 12h2M12 12h8"/><circle cx="8" cy="12" r="2"/><path d="M4 17h10"/><circle cx="16" cy="17" r="2"/></svg></span>
+            <div>
+              <h3>Fehlteile</h3>
+              <p>Steht die Anlage, weil ein Ersatzteil fehlt, zählt jede Stunde. Genau das passiert, wenn Bestände nicht gepflegt sind – und am Ende kostet die Express-Beschaffung mehr als das Teil selbst.</p>
+            </div>
+          </li>
+          <li class="issue" data-anim="right">
+            <span class="issue-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3.5 7.5 12 3.5l8.5 4v9L12 20.5l-8.5-4z"/><path d="M3.5 7.5 12 11.5l8.5-4"/><path d="M12 11.5v9"/></svg></span>
+            <div>
+              <h3>Überbestände</h3>
+              <p>Manches Ersatzteil liegt seit Jahren im Regal, ohne dass es je gebraucht wurde. Das bindet Kapital, das anderswo im Unternehmen fehlt.</p>
+            </div>
+          </li>
+          <li class="issue" data-anim="left">
+            <span class="issue-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="4.5" width="14" height="16" rx="1.6"/><path d="M9 4.5V3.3a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1V4.5"/><path d="M8.5 10h7M8.5 13.5h7M8.5 17h4.5"/></svg></span>
+            <div>
+              <h3>Fehlende Transparenz</h3>
+              <p>Wenn dasselbe Teil unter drei verschiedenen Nummern im System steht, verlässt sich am Ende niemand mehr auf die Daten. Beschaffung und Planung laufen dann auf Bauchgefühl statt auf Fakten.</p>
+            </div>
+          </li>
+          <li class="issue" data-anim="right">
+            <span class="issue-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><ellipse cx="12" cy="5.5" rx="7" ry="2.5"/><path d="M5 5.5V18c0 1.4 3.1 2.5 7 2.5s7-1.1 7-2.5V5.5"/><path d="M5 11.8c0 1.4 3.1 2.5 7 2.5s7-1.1 7-2.5"/></svg></span>
+            <div>
+              <h3>Fehlende Standards</h3>
+              <p>Jeder im Team macht seine Arbeit gut – nur eben auf seine eigene Art. Ohne gemeinsame Regeln für Stammdaten wächst der Pflegeaufwand über die Zeit still vor sich hin.</p>
+            </div>
+          </li>
+        </ol>
       </div>
     </section>
 
     <!-- Warum wir -->
-    <section class="section-tint">
-      <div class="container split split--media">
+    <section>
+      <div class="container split">
         <div>
-          <div class="section-head">
+          <div class="section-head" data-stagger="up">
             <p class="eyebrow">Warum wir</p>
             <h2>Aus der Instandhaltung, nicht aus der Unternehmensberatung</h2>
             <p>Jahrelange Erfahrung in operativer Instandhaltung, Disposition und Lagerlogistik – kombiniert mit eigener Software, die wir in Deutschland entwickeln und betreiben.</p>
           </div>
-          <ul class="list-check">
+          <ul class="list-check" data-stagger="up">
             <li>Eigene Software statt Fremdlizenzen – Analyse und Werkzeug aus einer Logik</li>
             <li>Individuell an Ihre Systeme angepasst statt Lösung von der Stange</li>
             <li>Festpreisangebote mit klarem Liefergegenstand statt offener Tagessätze</li>
@@ -198,64 +232,71 @@
             <a class="link-arrow" href="ueber-mich.html">Mehr über uns</a>
           </p>
         </div>
-        <figure class="shot">
-          <div class="shot-bar" aria-hidden="true"><span></span><span></span><span></span><em>WK SmartParts · Materialstammanalyse</em></div>
-          <img src="assets/screenshots/analytics.webp" width="1600" height="1000" alt="Materialstammanalyse in WK SmartParts mit Datenqualität, ABC-/XYZ-Auswertung und Kapitalbindung" loading="lazy" />
+        <figure class="window" data-anim="scale">
+          <div class="window-bar"><span class="b-dots" aria-hidden="true"><i></i><i></i><i></i></span><em>WK SmartParts · Bestandsanalyse</em></div>
+          <div class="window-frame">
+            <img src="assets/platform/analytics-bestand.webp" width="1600" height="1000" alt="Bestandsanalyse in WK SmartParts mit Kapitalbindung, Über- und Minderbestand, ABC-/XYZ-Portfolio und Hochpreisteilen" loading="lazy" />
+          </div>
           <figcaption>Einblick in WK SmartParts – dargestellt mit Beispieldaten.</figcaption>
         </figure>
       </div>
     </section>
 
     <!-- Ablauf -->
-    <section id="ablauf">
+    <section id="ablauf" class="section-alt">
       <div class="container">
-        <div class="section-head-row">
-          <div class="section-head">
-            <p class="eyebrow">Ablauf</p>
-            <h2>So läuft die Zusammenarbeit</h2>
-            <p>
-              Erstgespräch, Quick-Check, Entscheidung und anschließend Umsetzung
-              oder eigenständige Weiterarbeit – transparent und ohne Folgeverpflichtung.
-            </p>
-          </div>
-          <figure class="illu">
-            <img src="assets/illustrations/zusammenarbeit.webp" width="1000" height="1000" alt="" loading="lazy" />
-          </figure>
+        <div class="section-head section-head--center" data-stagger="up">
+          <p class="eyebrow">Ablauf</p>
+          <h2>So läuft die Zusammenarbeit</h2>
+          <p>
+            Erstgespräch, Quick-Check, Entscheidung und anschließend Umsetzung
+            oder eigenständige Weiterarbeit – transparent und ohne Folgeverpflichtung.
+          </p>
         </div>
-        <ol class="timeline">
-          <li>
-            <h3>Erstgespräch</h3>
-            <p>Kostenlos und unverbindlich. Wir klären, ob Ihr Fall zu uns passt.</p>
-          </li>
-          <li>
-            <h3>Quick-Check</h3>
-            <p>Ein bis zwei Tage Analyse von Daten und Lager mit priorisiertem Maßnahmenplan.</p>
-          </li>
-          <li>
-            <h3>Entscheidung</h3>
-            <p>Sie setzen den Plan selbst um oder beauftragen uns. Beides ist ausdrücklich in Ordnung.</p>
-          </li>
-          <li>
-            <h3>Umsetzung und Absicherung</h3>
-            <p>Bestandslogik, Stammdaten, Dashboards oder WK SmartParts – je nach Priorität.</p>
-          </li>
-        </ol>
+        <div class="flow-panel" data-draw>
+          <div class="media-slot" data-higgsfield="ablauf" aria-hidden="true"></div>
+          <svg class="flow-line" viewBox="0 0 1000 4" preserveAspectRatio="none" aria-hidden="true"><line x1="125" y1="2" x2="875" y2="2" /></svg>
+          <ol class="flow" data-stagger="up">
+            <li>
+              <h3>Erstgespräch</h3>
+              <p>Kostenlos und unverbindlich. Wir klären, ob Ihr Fall zu uns passt.</p>
+            </li>
+            <li>
+              <h3>Quick-Check</h3>
+              <p>Ein bis zwei Tage Analyse von Daten und Lager mit priorisiertem Maßnahmenplan.</p>
+            </li>
+            <li>
+              <h3>Entscheidung</h3>
+              <p>Sie setzen den Plan selbst um oder beauftragen uns. Beides ist ausdrücklich in Ordnung.</p>
+            </li>
+            <li>
+              <h3>Umsetzung und Absicherung</h3>
+              <p>Bestandslogik, Stammdaten, Dashboards oder WK SmartParts – je nach Priorität.</p>
+            </li>
+          </ol>
+        </div>
       </div>
     </section>
 
     <!-- CTA -->
     <section>
       <div class="container">
-        <div class="cta-band">
+        <div class="cta-band stage" data-anim="scale">
           <div>
-            <h2>Sie wissen nicht, wie viel Kapital in Ihrem Lager unnötig gebunden ist?</h2>
+            <h2 data-split>Sie wissen nicht, wie viel Kapital <span class="silver">in Ihrem Lager unnötig gebunden ist?</span></h2>
             <p>
               Genau das beantwortet der Ersatzteil-Quick-Check. Festpreis ab
-              1.020 €, Ergebnis in ein bis zwei Tagen, konkreter Maßnahmenplan
+              1.020&nbsp;€, Ergebnis in ein bis zwei Tagen, konkreter Maßnahmenplan
               – den Sie auch ohne uns umsetzen können.
             </p>
+            <div class="cta-actions">
+              <a class="btn-circle" href="kontakt.html" aria-hidden="true" tabindex="-1"></a>
+              <a class="btn btn-lime" href="kontakt.html">Quick-Check anfragen</a>
+            </div>
           </div>
-          <a class="btn btn-secondary" href="kontakt.html">Quick-Check anfragen</a>
+          <div class="cta-visual" aria-hidden="true">
+            <img src="assets/logo-mark-lg.webp" width="640" height="369" alt="" loading="lazy" />
+          </div>
         </div>
       </div>
     </section>
@@ -299,7 +340,7 @@
     </div>
   </footer>
 
-  <script src="js/main.js?v=20260928-2"></script>
+  <script src="js/main.js?v=2026-3"></script>
   <script data-goatcounter="https://unknownde.goatcounter.com/count"
           async src="//gc.zgo.at/count.js"></script>
 </body>
