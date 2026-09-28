@@ -1,7 +1,10 @@
 // Werringloer Komponentenmanagement – kleine UI-Helfer (kein Framework, kein Build-Schritt)
 
+document.documentElement.classList.add("js");
+
 document.addEventListener("DOMContentLoaded", function () {
-  // Theme preference is shared across all pages.
+  // Theme preference is shared across all pages (an inline script in <head>
+  // already applies it before the first paint to avoid a light flash).
   var themeToggle = document.querySelector(".theme-toggle");
   var savedTheme = null;
   try {
@@ -39,17 +42,27 @@ document.addEventListener("DOMContentLoaded", function () {
   var toggle = document.querySelector(".nav-toggle");
 
   if (toggle && header) {
+    var setMenu = function (open) {
+      header.classList.toggle("is-open", open);
+      toggle.setAttribute("aria-expanded", open ? "true" : "false");
+      toggle.setAttribute("aria-label", open ? "Menü schließen" : "Menü öffnen");
+    };
+
     toggle.addEventListener("click", function () {
-      var isOpen = header.classList.toggle("is-open");
-      toggle.setAttribute("aria-expanded", isOpen ? "true" : "false");
+      setMenu(!header.classList.contains("is-open"));
     });
 
-    // Menü schließen, wenn ein Link angeklickt wird (mobil)
+    // Menü schließen, wenn ein Link angeklickt oder Escape gedrückt wird (mobil)
     header.querySelectorAll(".nav-links a").forEach(function (link) {
       link.addEventListener("click", function () {
-        header.classList.remove("is-open");
-        toggle.setAttribute("aria-expanded", "false");
+        setMenu(false);
       });
+    });
+    document.addEventListener("keydown", function (event) {
+      if (event.key === "Escape" && header.classList.contains("is-open")) {
+        setMenu(false);
+        toggle.focus();
+      }
     });
   }
 
@@ -59,9 +72,11 @@ document.addEventListener("DOMContentLoaded", function () {
     yearEl.textContent = new Date().getFullYear();
   }
 
-  // Sanftes Einblenden von Inhalten beim Scrollen (kein zusätzliches HTML nötig)
+  // Sanftes Einblenden von Inhalten beim Scrollen (kein zusätzliches HTML nötig).
+  // Elemente mit data-reveal="left|right" gleiten seitlich herein.
   var revealSelector =
-    ".card, .section-head, .steps li, .cta-band, .contact-card, .page-header > .container > *, .two-col > *";
+    ".section-head, .card, .contact-card, .price-card, .service, .timeline li, .ways li, .use-list li, " +
+    ".vsteps li, .stats, .cta-band, .shot, .illu, .pullquote, .faq-list, .page-header-copy > *, [data-reveal]";
   var revealTargets = document.querySelectorAll(revealSelector);
   var prefersReducedMotion = window.matchMedia
     ? window.matchMedia("(prefers-reduced-motion: reduce)").matches
@@ -69,8 +84,12 @@ document.addEventListener("DOMContentLoaded", function () {
 
   if (revealTargets.length && "IntersectionObserver" in window && !prefersReducedMotion) {
     revealTargets.forEach(function (el, i) {
+      var direction = el.getAttribute("data-reveal");
       el.classList.add("reveal");
-      el.style.transitionDelay = Math.min(i % 4, 3) * 70 + "ms";
+      if (direction === "left" || direction === "right") {
+        el.classList.add("reveal-" + direction);
+      }
+      el.style.transitionDelay = Math.min(i % 4, 3) * 90 + "ms";
     });
 
     var observer = new IntersectionObserver(
@@ -89,6 +108,59 @@ document.addEventListener("DOMContentLoaded", function () {
       observer.observe(el);
     });
   }
+
+  // Reiter (z. B. Plattform-Einblick auf der SmartParts-Seite)
+  document.querySelectorAll("[data-tabs]").forEach(function (group) {
+    var tabs = Array.prototype.slice.call(group.querySelectorAll('[role="tab"]'));
+    if (!tabs.length) {
+      return;
+    }
+
+    function select(tab, moveFocus) {
+      tabs.forEach(function (other) {
+        var active = other === tab;
+        var panel = document.getElementById(other.getAttribute("aria-controls"));
+        other.setAttribute("aria-selected", active ? "true" : "false");
+        other.setAttribute("tabindex", active ? "0" : "-1");
+        if (panel) {
+          panel.hidden = !active;
+        }
+      });
+      if (moveFocus) {
+        tab.focus();
+      }
+      if (tab.scrollIntoView && tab.parentNode.scrollWidth > tab.parentNode.clientWidth) {
+        tab.parentNode.scrollTo({ left: tab.offsetLeft - 8, behavior: prefersReducedMotion ? "auto" : "smooth" });
+      }
+    }
+
+    tabs.forEach(function (tab, index) {
+      tab.addEventListener("click", function () {
+        select(tab, false);
+      });
+      tab.addEventListener("keydown", function (event) {
+        var next = null;
+        if (event.key === "ArrowDown" || event.key === "ArrowRight") {
+          next = tabs[(index + 1) % tabs.length];
+        } else if (event.key === "ArrowUp" || event.key === "ArrowLeft") {
+          next = tabs[(index - 1 + tabs.length) % tabs.length];
+        } else if (event.key === "Home") {
+          next = tabs[0];
+        } else if (event.key === "End") {
+          next = tabs[tabs.length - 1];
+        }
+        if (next) {
+          event.preventDefault();
+          select(next, true);
+        }
+      });
+    });
+
+    var initial = tabs.filter(function (tab) {
+      return tab.getAttribute("aria-selected") === "true";
+    })[0] || tabs[0];
+    select(initial, false);
+  });
 
   // Kontaktformular: öffnet den Mail-Client mit vorausgefüllter Nachricht.
   // Es gibt bewusst kein Server-Backend – kann später z.B. über einen
