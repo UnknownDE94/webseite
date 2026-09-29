@@ -352,6 +352,8 @@ html[data-theme="dark"] .btn-primary:hover,
 html[data-theme="dark"] .nav-cta:hover { background: #e2f37f; }
 .btn-primary:hover::after,
 .nav-cta:hover::after { transform: translateX(3px); }
+.btn-noarrow { padding-right: 20px; }
+.btn-noarrow::after { display: none; }
 
 .nav-cta {
   min-height: 42px;
