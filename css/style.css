@@ -1815,9 +1815,12 @@ main { overflow-x: clip; }
 
 /* --- Responsive --- */
 @media (max-width: 1080px) {
+  /* Einspaltig: Das Video bleibt hinter dem Text, die Szene steht darunter auf ruhigem Grund */
+  .hero { --hero-pb: 96px; padding-bottom: var(--hero-pb); }
+  .hero-media { bottom: calc(var(--hero-pb) + min(640px, 100vw - 48px) * 0.625 + 24px); }
   .hero-video {
-    -webkit-mask-image: linear-gradient(180deg, #000 0%, #000 55%, transparent 78%);
-    mask-image: linear-gradient(180deg, #000 0%, #000 55%, transparent 78%);
+    -webkit-mask-image: linear-gradient(180deg, #000 0%, #000 70%, transparent 100%);
+    mask-image: linear-gradient(180deg, #000 0%, #000 70%, transparent 100%);
   }
   .nav-links a { padding: 8px 10px; }
   .hero-grid { grid-template-columns: 1fr; gap: 48px; }
@@ -1887,10 +1890,9 @@ main { overflow-x: clip; }
   .brand-name { font-size: 0.88rem; }
   .brand-sub { font-size: 0.5rem; }
   section { padding: 56px 0; }
-  .hero { padding: 40px 0 56px; }
+  .hero { --hero-pb: 56px; padding: 40px 0 var(--hero-pb); }
   .hero-actions { flex-direction: column; }
-  .hero-actions .btn { width: 100%; justify-content: space-between; }
-  .hero-actions .btn-secondary { justify-content: center; }
+  .hero-actions .btn { width: 100%; justify-content: center; }
   .b-stat { min-height: 150px; }
   .bento .b-dark { min-height: 180px; }
   .issue-list,
