@@ -84,8 +84,6 @@ document.addEventListener("DOMContentLoaded", function () {
   // --- Einblendungen -------------------------------------------------------
   // [data-split]  Überschrift gleitet Wort für Wort aus einer Maske
   // [data-anim]   up | left | right | scale – mit Versatz über [data-stagger]
-  // [data-count]  Zahl zählt beim Einblenden hoch (deutsches Zahlenformat)
-  // [data-grow]   Balken (.meter i) wachsen auf ihren Wert
   // [data-draw]   SVG-Linien zeichnen sich, Knoten erscheinen nacheinander
 
   document.querySelectorAll("[data-split]").forEach(function (el) {
@@ -144,60 +142,7 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   });
 
-  var formatNumber = function (value, decimals) {
-    return value.toLocaleString("de-DE", {
-      minimumFractionDigits: decimals,
-      maximumFractionDigits: decimals,
-    });
-  };
-
-  var runCount = function (el) {
-    var target = parseFloat(el.getAttribute("data-count"));
-    var decimals = parseInt(el.getAttribute("data-decimals") || "0", 10);
-    var prefix = el.getAttribute("data-prefix") || "";
-    var suffix = el.getAttribute("data-suffix") || "";
-    if (isNaN(target)) {
-      return;
-    }
-    var render = function (v) {
-      el.textContent = prefix + formatNumber(v, decimals) + suffix;
-    };
-    if (reduceMotion) {
-      render(target);
-      return;
-    }
-    var duration = 1400;
-    var start = null;
-    var step = function (now) {
-      if (start === null) {
-        start = now;
-      }
-      var t = Math.min((now - start) / duration, 1);
-      var eased = 1 - Math.pow(1 - t, 4);
-      render(target * eased);
-      if (t < 1) {
-        window.requestAnimationFrame(step);
-      } else {
-        render(target);
-      }
-    };
-    render(0);
-    window.requestAnimationFrame(step);
-  };
-
-  var targets = document.querySelectorAll("[data-anim], [data-split], [data-grow], [data-draw], [data-count]");
-  var reveal = function (el) {
-    el.classList.add("in");
-    if (el.hasAttribute("data-count")) {
-      runCount(el);
-    }
-    el.querySelectorAll("[data-count]").forEach(function (child) {
-      if (!child.dataset.counted) {
-        child.dataset.counted = "1";
-        runCount(child);
-      }
-    });
-  };
+  var targets = document.querySelectorAll("[data-anim], [data-split], [data-draw]");
 
   if (!("IntersectionObserver" in window) || reduceMotion) {
     targets.forEach(function (el) {
@@ -208,7 +153,7 @@ document.addEventListener("DOMContentLoaded", function () {
       function (entries) {
         entries.forEach(function (entry) {
           if (entry.isIntersecting) {
-            reveal(entry.target);
+            entry.target.classList.add("in");
             observer.unobserve(entry.target);
           }
         });
@@ -216,9 +161,6 @@ document.addEventListener("DOMContentLoaded", function () {
       { threshold: 0.15, rootMargin: "0px 0px -8% 0px" }
     );
     targets.forEach(function (el) {
-      if (el.hasAttribute("data-count") && el.closest("[data-anim], [data-grow]")) {
-        return;
-      }
       observer.observe(el);
     });
   }
@@ -275,6 +217,100 @@ document.addEventListener("DOMContentLoaded", function () {
       return tab.getAttribute("aria-selected") === "true";
     })[0] || tabs[0];
     select(initial, false);
+  });
+
+  // --- Leistungsbereiche: Reiter mit seitlich gleitenden Bereichen ---------
+  document.querySelectorAll("[data-svc]").forEach(function (root) {
+    var tabs = Array.prototype.slice.call(root.querySelectorAll('[role="tab"]'));
+    var panels = tabs.map(function (tab) {
+      return document.getElementById(tab.getAttribute("aria-controls"));
+    });
+    var viewport = root.querySelector(".svc-viewport");
+    var track = root.querySelector(".svc-track");
+    var bars = root.querySelectorAll(".svc-progress i");
+    var current = 0;
+    if (!tabs.length || !viewport || !track) {
+      return;
+    }
+
+    var fitHeight = function () {
+      viewport.style.height = panels[current].offsetHeight + "px";
+    };
+
+    var show = function (index, moveFocus) {
+      current = (index + panels.length) % panels.length;
+      track.style.transform = "translateX(" + current * -100 + "%)";
+      tabs.forEach(function (tab, i) {
+        var active = i === current;
+        tab.setAttribute("aria-selected", active ? "true" : "false");
+        tab.setAttribute("tabindex", active ? "0" : "-1");
+        panels[i].classList.toggle("is-active", active);
+        // Nicht sichtbare Bereiche sind weder fokussierbar noch vorlesbar
+        panels[i].inert = !active;
+        panels[i].setAttribute("aria-hidden", active ? "false" : "true");
+        if (bars[i]) {
+          bars[i].classList.toggle("is-active", active);
+        }
+      });
+      fitHeight();
+      if (moveFocus) {
+        tabs[current].focus();
+        tabs[current].scrollIntoView({ block: "nearest", inline: "nearest" });
+      }
+    };
+
+    tabs.forEach(function (tab, i) {
+      tab.addEventListener("click", function () {
+        show(i, false);
+      });
+      tab.addEventListener("keydown", function (event) {
+        var step = { ArrowRight: 1, ArrowLeft: -1 }[event.key];
+        if (step) {
+          event.preventDefault();
+          show(current + step, true);
+        } else if (event.key === "Home" || event.key === "End") {
+          event.preventDefault();
+          show(event.key === "Home" ? 0 : panels.length - 1, true);
+        }
+      });
+    });
+    root.querySelector(".svc-prev").addEventListener("click", function () {
+      show(current - 1, false);
+    });
+    root.querySelector(".svc-next").addEventListener("click", function () {
+      show(current + 1, false);
+    });
+
+    // Wischen auf Touch-Geräten
+    var startX = null;
+    var startY = null;
+    viewport.addEventListener("touchstart", function (event) {
+      startX = event.touches[0].clientX;
+      startY = event.touches[0].clientY;
+    }, { passive: true });
+    viewport.addEventListener("touchend", function (event) {
+      if (startX === null) {
+        return;
+      }
+      var dx = event.changedTouches[0].clientX - startX;
+      var dy = event.changedTouches[0].clientY - startY;
+      if (Math.abs(dx) > 50 && Math.abs(dx) > Math.abs(dy)) {
+        show(current + (dx < 0 ? 1 : -1), false);
+      }
+      startX = null;
+    }, { passive: true });
+
+    window.addEventListener("resize", fitHeight);
+    window.addEventListener("load", fitHeight);
+
+    // Direktlink auf einen Bereich (z. B. leistungen.html#stammdaten)
+    var fromHash = panels.map(function (panel) {
+      return "#" + panel.id;
+    }).indexOf(window.location.hash);
+    show(fromHash > -1 ? fromHash : 0, false);
+    if (fromHash > -1) {
+      root.scrollIntoView();
+    }
   });
 
   // --- Bildwechsel auf der dunklen Bühne (SmartParts-Kopf) ----------------
