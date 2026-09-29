@@ -7,6 +7,14 @@ document.addEventListener("DOMContentLoaded", function () {
     ? window.matchMedia("(prefers-reduced-motion: reduce)").matches
     : false;
 
+  // Hintergrundfilm im Hero: bei reduzierter Bewegung nur das Standbild zeigen
+  document.querySelectorAll(".hero-video").forEach(function (video) {
+    if (reduceMotion) {
+      video.removeAttribute("autoplay");
+      video.pause();
+    }
+  });
+
   // Theme preference is shared across all pages (an inline script in <head>
   // already applies it before the first paint to avoid a light flash).
   var themeToggle = document.querySelector(".theme-toggle");
@@ -302,6 +310,12 @@ document.addEventListener("DOMContentLoaded", function () {
 
     window.addEventListener("resize", fitHeight);
     window.addEventListener("load", fitHeight);
+    // Bilder in den Bereichen laden verzögert – danach Höhe neu anpassen
+    track.querySelectorAll("img").forEach(function (img) {
+      if (!img.complete) {
+        img.addEventListener("load", fitHeight);
+      }
+    });
 
     // Direktlink auf einen Bereich (z. B. leistungen.html#stammdaten)
     var fromHash = panels.map(function (panel) {
