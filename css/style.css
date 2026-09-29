@@ -517,8 +517,10 @@ html[data-theme="dark"] .hero .b-card:not(.b-dark):not(.b-lime) { background: #1
 html[data-theme="dark"] .hero .b-lime { background: #232b16; }
 @media (max-width: 960px) {
   /* Mobil liegt der Text über der ganzen Breite: gleichmäßig abdecken */
-  .hero-media::after { background: rgba(245, 244, 239, 0.8); }
-  html[data-theme="dark"] .hero-media::after { background: rgba(12, 14, 13, 0.8); }
+  .hero-media::after { background: rgba(245, 244, 239, 0.88); }
+  html[data-theme="dark"] .hero-media::after { background: rgba(12, 14, 13, 0.88); }
+  /* Mobil nur als dezente Textur: kaum erkennbar, Text bleibt gut lesbar */
+  .hero-video { opacity: 0.3; }
 }
 .hero-grid {
   display: grid;
