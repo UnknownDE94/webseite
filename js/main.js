@@ -8,10 +8,19 @@ document.addEventListener("DOMContentLoaded", function () {
     : false;
 
   // Hintergrundfilm im Hero: bei reduzierter Bewegung nur das Standbild zeigen
+  // Bei Datensparmodus oder langsamer Mobilverbindung wird der Film gar nicht erst geladen.
+  var connection = navigator.connection || {};
+  var saveData = connection.saveData === true || /(^|-)2g$/.test(connection.effectiveType || "");
   document.querySelectorAll(".hero-video").forEach(function (video) {
-    if (reduceMotion) {
+    if (reduceMotion || saveData) {
       video.removeAttribute("autoplay");
       video.pause();
+      if (saveData) {
+        video.querySelectorAll("source").forEach(function (source) {
+          source.remove();
+        });
+        video.load();
+      }
     }
   });
 
