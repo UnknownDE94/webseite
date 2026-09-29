@@ -553,10 +553,19 @@ html[data-theme="dark"] .hero .b-lime { background: #232b16; }
 }
 .hero-grid {
   display: grid;
-  grid-template-columns: minmax(0, 0.92fr) minmax(0, 1.08fr);
-  gap: 56px;
+  grid-template-columns: 1fr;
+  gap: 48px;
   align-items: center;
 }
+/* Desktop: Video nur hinter dem Text, die Szene steht darunter rechts auf ruhigem Grund */
+.hero { --hero-pb: 96px; }
+.hero-media { bottom: calc(var(--hero-pb) + 640px * 0.625 + 24px); }
+.hero-video {
+  -webkit-mask-image: linear-gradient(180deg, #000 0%, #000 70%, transparent 100%);
+  mask-image: linear-gradient(180deg, #000 0%, #000 70%, transparent 100%);
+}
+.hero-visual { justify-self: end; width: 100%; }
+.hero-scene { margin: 0 0 0 auto; }
 .hero-copy { min-width: 0; }
 .hero h1 {
   margin: 0 0 20px;
@@ -1824,6 +1833,7 @@ main { overflow-x: clip; }
   }
   .nav-links a { padding: 8px 10px; }
   .hero-grid { grid-template-columns: 1fr; gap: 48px; }
+  .hero-scene { margin: 0 auto; }
   .stage-grid { grid-template-columns: 1fr; gap: 40px; }
   .cta-band { grid-template-columns: 1fr; padding: 48px; }
   .cta-visual { display: none; }
