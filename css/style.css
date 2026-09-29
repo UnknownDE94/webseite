@@ -925,10 +925,9 @@ html[data-theme="dark"] .flow li { background: rgba(18, 22, 20, 0.88); }
   height: 18px;
   border-radius: 50%;
   transform: translateX(-50%);
-  background: #f2f3ee;
-  box-shadow: 0 0 0 6px rgba(242, 243, 238, 0.28), 0 6px 16px rgba(10, 30, 20, 0.2);
+  background: var(--lime);
+  box-shadow: 0 0 0 6px rgba(212, 236, 95, 0.3), 0 0 22px 4px rgba(212, 236, 95, 0.55);
 }
-.flow li:last-child::before { background: var(--lime); box-shadow: 0 0 0 6px rgba(212, 236, 95, 0.3), 0 6px 16px rgba(10, 30, 20, 0.2); }
 .flow li::after {
   content: "";
   position: absolute;
