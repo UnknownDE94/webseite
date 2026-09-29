@@ -522,9 +522,6 @@ html[data-theme="dark"] .info-bild img { opacity: 0.8; }
 .hero-scene .sc-limb { fill: none; stroke: #9ea6aa; stroke-width: 15; stroke-linecap: round; }
 .hero-scene .sc-body { fill: #2f8a52; }
 .hero-scene .sc-face { fill: #eef0ec; stroke: rgba(14, 42, 27, 0.25); stroke-width: 2; }
-.hero-scene .sc-brow,
-.hero-scene .sc-mouth { fill: none; stroke: #0e1411; stroke-width: 2.4; stroke-linecap: round; }
-.hero-scene .sc-eye { fill: #0e1411; }
 .hero-scene .sc-head { transform-origin: 470px 208px; animation: sc-head 5s ease-in-out infinite; }
 .hero-scene .sc-arm { animation: sc-arm 5s ease-in-out infinite alternate; }
 .hero-scene .sc-arm-l { transform-origin: 447px 238px; }
