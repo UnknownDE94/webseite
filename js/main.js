@@ -84,8 +84,6 @@ document.addEventListener("DOMContentLoaded", function () {
   // --- Einblendungen -------------------------------------------------------
   // [data-split]  Überschrift gleitet Wort für Wort aus einer Maske
   // [data-anim]   up | left | right | scale – mit Versatz über [data-stagger]
-  // [data-count]  Zahl zählt beim Einblenden hoch (deutsches Zahlenformat)
-  // [data-grow]   Balken (.meter i) wachsen auf ihren Wert
   // [data-draw]   SVG-Linien zeichnen sich, Knoten erscheinen nacheinander
 
   document.querySelectorAll("[data-split]").forEach(function (el) {
@@ -144,60 +142,7 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   });
 
-  var formatNumber = function (value, decimals) {
-    return value.toLocaleString("de-DE", {
-      minimumFractionDigits: decimals,
-      maximumFractionDigits: decimals,
-    });
-  };
-
-  var runCount = function (el) {
-    var target = parseFloat(el.getAttribute("data-count"));
-    var decimals = parseInt(el.getAttribute("data-decimals") || "0", 10);
-    var prefix = el.getAttribute("data-prefix") || "";
-    var suffix = el.getAttribute("data-suffix") || "";
-    if (isNaN(target)) {
-      return;
-    }
-    var render = function (v) {
-      el.textContent = prefix + formatNumber(v, decimals) + suffix;
-    };
-    if (reduceMotion) {
-      render(target);
-      return;
-    }
-    var duration = 1400;
-    var start = null;
-    var step = function (now) {
-      if (start === null) {
-        start = now;
-      }
-      var t = Math.min((now - start) / duration, 1);
-      var eased = 1 - Math.pow(1 - t, 4);
-      render(target * eased);
-      if (t < 1) {
-        window.requestAnimationFrame(step);
-      } else {
-        render(target);
-      }
-    };
-    render(0);
-    window.requestAnimationFrame(step);
-  };
-
-  var targets = document.querySelectorAll("[data-anim], [data-split], [data-grow], [data-draw], [data-count]");
-  var reveal = function (el) {
-    el.classList.add("in");
-    if (el.hasAttribute("data-count")) {
-      runCount(el);
-    }
-    el.querySelectorAll("[data-count]").forEach(function (child) {
-      if (!child.dataset.counted) {
-        child.dataset.counted = "1";
-        runCount(child);
-      }
-    });
-  };
+  var targets = document.querySelectorAll("[data-anim], [data-split], [data-draw]");
 
   if (!("IntersectionObserver" in window) || reduceMotion) {
     targets.forEach(function (el) {
@@ -208,7 +153,7 @@ document.addEventListener("DOMContentLoaded", function () {
       function (entries) {
         entries.forEach(function (entry) {
           if (entry.isIntersecting) {
-            reveal(entry.target);
+            entry.target.classList.add("in");
             observer.unobserve(entry.target);
           }
         });
@@ -216,9 +161,6 @@ document.addEventListener("DOMContentLoaded", function () {
       { threshold: 0.15, rootMargin: "0px 0px -8% 0px" }
     );
     targets.forEach(function (el) {
-      if (el.hasAttribute("data-count") && el.closest("[data-anim], [data-grow]")) {
-        return;
-      }
       observer.observe(el);
     });
   }
