@@ -611,10 +611,7 @@ html[data-theme="dark"] .hero .b-lime { background: #232b16; }
 }
 .hero-note {
   margin: 26px 0 0;
-  font-family: var(--font-mono);
-  font-size: 0.76rem;
-  letter-spacing: 0.04em;
-  text-transform: uppercase;
+  font-size: 0.9rem;
   color: var(--ink-3);
 }
 
