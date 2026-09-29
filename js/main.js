@@ -7,6 +7,23 @@ document.addEventListener("DOMContentLoaded", function () {
     ? window.matchMedia("(prefers-reduced-motion: reduce)").matches
     : false;
 
+  // Hintergrundfilm im Hero: bei reduzierter Bewegung nur das Standbild zeigen.
+  // Bei Datensparmodus oder langsamer Mobilverbindung wird der Film gar nicht erst geladen.
+  var connection = navigator.connection || {};
+  var saveData = connection.saveData === true || /(^|-)2g$/.test(connection.effectiveType || "");
+  document.querySelectorAll(".hero-video").forEach(function (video) {
+    if (reduceMotion || saveData) {
+      video.removeAttribute("autoplay");
+      video.pause();
+      if (saveData) {
+        video.querySelectorAll("source").forEach(function (source) {
+          source.remove();
+        });
+        video.load();
+      }
+    }
+  });
+
   // Theme preference is shared across all pages (an inline script in <head>
   // already applies it before the first paint to avoid a light flash).
   var themeToggle = document.querySelector(".theme-toggle");

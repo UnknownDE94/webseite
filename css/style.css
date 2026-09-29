@@ -213,12 +213,13 @@ html[data-theme="dark"] :focus-visible { outline-color: var(--lime); }
 .brand-text {
   display: flex;
   flex-direction: column;
+  align-items: center;
   line-height: 1;
   font-family: var(--font-brand);
   text-transform: uppercase;
 }
-.brand-name { font-weight: 700; font-size: 0.98rem; letter-spacing: 0.035em; color: #0c1b12; }
-.brand-sub { margin-top: 5px; font-weight: 500; font-size: 0.57rem; letter-spacing: 0.43em; color: #626362; }
+.brand-name { padding-left: 0.035em; font-weight: 700; font-size: 0.98rem; letter-spacing: 0.035em; color: #0c1b12; }
+.brand-sub { padding-left: 0.43em; margin-top: 5px; font-weight: 500; font-size: 0.57rem; letter-spacing: 0.43em; color: #626362; }
 html[data-theme="dark"] .brand-name,
 .site-footer .brand-name { color: #f1f4f2; }
 html[data-theme="dark"] .brand-sub,
@@ -493,12 +494,20 @@ html[data-theme="dark"] .info-bild img { opacity: 0.8; }
   overflow: hidden;
   pointer-events: none;
 }
-/* Hintergrundszene: Person wägt zwischen Geld und Risiko ab (reines SVG, keine Videodatei) */
-.hero-scene {
+.hero-video {
   display: block;
   width: 100%;
   height: 100%;
-  opacity: 0.9;
+  object-fit: cover;
+  opacity: 0.5;
+}
+/* Szene im Hero: Person wägt zwischen Geld und Risiko ab (reines SVG) */
+.hero-scene {
+  display: block;
+  width: 100%;
+  max-width: 640px;
+  height: auto;
+  margin: 0 auto;
 }
 .hero-scene .sc-ring { fill: none; stroke: var(--lime); stroke-width: 2; opacity: 0.35; transform-origin: 470px 250px; animation: sc-ring 6s ease-in-out infinite; }
 .hero-scene .sc-ring-2 { opacity: 0.2; animation-delay: -3s; }
@@ -560,19 +569,13 @@ html[data-theme="dark"] .hero-media::after {
 /* Kacheln über dem Film bleiben deckend */
 html[data-theme="dark"] .hero .b-card:not(.b-dark):not(.b-lime) { background: #151917; }
 html[data-theme="dark"] .hero .b-lime { background: #232b16; }
-/* Auf großen Bildschirmen scheint die Szene dezent durch die Kacheln */
-@media (min-width: 961px) {
-  .hero .b-card { background-color: color-mix(in srgb, var(--surface) 72%, transparent); -webkit-backdrop-filter: blur(5px); backdrop-filter: blur(5px); }
-  html[data-theme="dark"] .hero .b-card:not(.b-dark):not(.b-lime) { background: rgba(21, 25, 23, 0.72); }
-  html[data-theme="dark"] .hero .b-lime { background: rgba(35, 43, 22, 0.75); }
-  .hero .b-dark { background: linear-gradient(160deg, rgba(17, 73, 45, 0.82) 0%, rgba(12, 58, 36, 0.82) 60%, rgba(10, 47, 29, 0.82) 100%); }
 }
 @media (max-width: 960px) {
   /* Mobil liegt der Text über der ganzen Breite: gleichmäßig abdecken */
   .hero-media::after { background: rgba(245, 244, 239, 0.88); }
   html[data-theme="dark"] .hero-media::after { background: rgba(12, 14, 13, 0.88); }
   /* Mobil nur als dezente Textur: kaum erkennbar, Text bleibt gut lesbar */
-  .hero-scene { opacity: 0.6; }
+  .hero-video { opacity: 0.3; }
 }
 .hero-grid {
   display: grid;
