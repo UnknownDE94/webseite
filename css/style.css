@@ -483,6 +483,43 @@ html[data-theme="dark"] .info-bild img { opacity: 0.8; }
   padding: 72px 0 96px;
   overflow: hidden;
 }
+/* Hintergrundfilm: halbtransparent, links zur Textseite hin weich abgedeckt */
+.hero-media {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+.hero-video {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0.5;
+}
+.hero-media::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(90deg, rgba(245, 244, 239, 0.9) 0%, rgba(245, 244, 239, 0.7) 38%, rgba(245, 244, 239, 0.15) 70%, rgba(245, 244, 239, 0) 100%),
+    linear-gradient(180deg, rgba(245, 244, 239, 0) 70%, rgba(245, 244, 239, 1) 100%);
+}
+html[data-theme="dark"] .hero-media::after {
+  background:
+    linear-gradient(90deg, rgba(12, 14, 13, 0.9) 0%, rgba(12, 14, 13, 0.7) 38%, rgba(12, 14, 13, 0.15) 70%, rgba(12, 14, 13, 0) 100%),
+    linear-gradient(180deg, rgba(12, 14, 13, 0) 70%, rgba(12, 14, 13, 1) 100%);
+}
+.hero > .container { position: relative; z-index: 1; }
+/* Kacheln über dem Film bleiben deckend */
+html[data-theme="dark"] .hero .b-card:not(.b-dark):not(.b-lime) { background: #151917; }
+html[data-theme="dark"] .hero .b-lime { background: #232b16; }
+@media (max-width: 960px) {
+  /* Mobil liegt der Text über der ganzen Breite: gleichmäßig abdecken */
+  .hero-media::after { background: rgba(245, 244, 239, 0.8); }
+  html[data-theme="dark"] .hero-media::after { background: rgba(12, 14, 13, 0.8); }
+}
 .hero-grid {
   display: grid;
   grid-template-columns: minmax(0, 0.92fr) minmax(0, 1.08fr);

@@ -7,6 +7,14 @@ document.addEventListener("DOMContentLoaded", function () {
     ? window.matchMedia("(prefers-reduced-motion: reduce)").matches
     : false;
 
+  // Hintergrundfilm im Hero: bei reduzierter Bewegung nur das Standbild zeigen
+  document.querySelectorAll(".hero-video").forEach(function (video) {
+    if (reduceMotion) {
+      video.removeAttribute("autoplay");
+      video.pause();
+    }
+  });
+
   // Theme preference is shared across all pages (an inline script in <head>
   // already applies it before the first paint to avoid a light flash).
   var themeToggle = document.querySelector(".theme-toggle");
