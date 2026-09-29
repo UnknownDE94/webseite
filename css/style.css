@@ -806,6 +806,111 @@ html[data-theme="dark"] .media-slot { filter: brightness(0.62) saturate(0.9); }
   inset: 0;
   background: linear-gradient(180deg, rgba(12, 30, 20, 0) 30%, rgba(12, 30, 20, 0.3) 100%);
 }
+/* Ablauf-Hintergrund: dunkle Bühne wie im Hero, fünf Szenen laufen nacheinander (25 s) */
+.flow-panel--stage {
+  background:
+    radial-gradient(45% 70% at 80% 10%, rgba(212, 236, 95, 0.1), transparent 70%),
+    linear-gradient(160deg, #1d2220 0%, #0f1211 55%, #0a0c0b 100%);
+}
+.flow-body { position: relative; }
+.flow-scenes { display: block; width: calc(100% - 56px); height: auto; margin: 20px 28px 0; }
+.flow-scenes .sc-tile { fill: rgba(255, 255, 255, 0.04); stroke: rgba(255, 255, 255, 0.1); }
+.flow-scenes .sc-ground { stroke: rgba(255, 255, 255, 0.16); stroke-width: 2; }
+.flow-scenes .sc-limb { fill: none; stroke: #9ea6aa; stroke-width: 8; stroke-linecap: round; }
+.flow-scenes .sc-screen { fill: #10161a; stroke: #d4ec5f; stroke-width: 1.6; }
+.flow-scenes .sc-desk,
+.flow-scenes .sc-table { fill: #9ea6aa; }
+.flow-scenes .sc-shelf { fill: none; stroke: #4a5a52; stroke-width: 3; stroke-linecap: round; }
+.flow-scenes .sc-box rect { fill: #34403a; stroke: #4a5a52; }
+.flow-scenes .sc-dash { fill: none; stroke: #4a5a52; stroke-width: 1.6; stroke-dasharray: 4 4; }
+.flow-scenes .sc-ui rect { fill: none; stroke: #d4ec5f; stroke-width: 1.8; }
+.flow-scenes .sc-uibar rect { fill: #4a5a52; }
+.flow-scenes .sc-chk { fill: none; stroke: #d4ec5f; stroke-width: 2.8; stroke-linecap: round; stroke-linejoin: round; stroke-dasharray: 20; }
+.flow-scenes .sc-paper { fill: #f1f4f1; }
+.flow-scenes .sc-paper-l { fill: none; stroke: #9aa7a0; stroke-width: 2.4; stroke-linecap: round; }
+.flow-scenes .sc-sel { fill: none; stroke: #d4ec5f; stroke-width: 2.4; stroke-dasharray: 5 4; }
+.flow-scenes .sc-crate { fill: #34403a; stroke: #4a5a52; }
+.flow-scenes .sc-bars-l { fill: none; stroke: #9fb0a7; stroke-width: 2.4; }
+.flow-scenes .sc-sweep { stroke: #d4ec5f; stroke-width: 2; stroke-linecap: round; }
+.flow-scenes .sc-beam { fill: #d4ec5f; opacity: 0.3; }
+.flow-scenes .sc-gbars rect { fill: #d4ec5f; transform-box: fill-box; transform-origin: bottom; }
+.flow-scenes .sc-gbars .g1,
+.flow-scenes .sc-gbars .g2,
+.flow-scenes .sc-gbars .g3 { fill: #2f8a52; }
+
+/* Zeitsteuerung: ein Zyklus = 25 s, Szene k ist im Fenster [5k, 5k+5] s aktiv */
+.flow-scenes .sc-vis,
+.flow-scenes .sc-vis-a,
+.flow-scenes .sc-vis-b,
+.flow-scenes .sc-b1,
+.flow-scenes .sc-b2,
+.flow-scenes .sc-chk,
+.flow-scenes .sc-doc,
+.flow-scenes .sc-rej,
+.flow-scenes .sc-sel,
+.flow-scenes .sc-selchk,
+.flow-scenes .sc-fly1,
+.flow-scenes .sc-fly2,
+.flow-scenes .sc-ok,
+.flow-scenes .sc-gbars rect {
+  animation-duration: 25s;
+  animation-timing-function: ease-in-out;
+  animation-iteration-count: infinite;
+  animation-delay: calc((var(--k, 0) - 5) * 5s + var(--d, 0s));
+}
+.flow-scenes .sc-vis { animation-name: sc-vis; }
+.flow-scenes .sc-vis-a { animation-name: sc-vis-a; }
+.flow-scenes .sc-vis-b { animation-name: sc-vis-b; }
+.flow-scenes .sc-b1 { animation-name: sc-b1; }
+.flow-scenes .sc-b2 { animation-name: sc-b2; }
+.flow-scenes .sc-chk1 { animation-name: sc-chk1; }
+.flow-scenes .sc-chk2 { animation-name: sc-chk2; }
+.flow-scenes .sc-chk3 { animation-name: sc-chk3; }
+.flow-scenes .sc-doc { animation-name: sc-doc; }
+.flow-scenes .sc-doc2 { --d: 0.5s; }
+.flow-scenes .sc-rej { animation-name: sc-rej; }
+.flow-scenes .sc-sel { animation-name: sc-sel; }
+.flow-scenes .sc-selchk { animation-name: sc-selchk; }
+.flow-scenes .sc-fly1 { animation-name: sc-fly1; }
+.flow-scenes .sc-fly2 { animation-name: sc-fly2; --d: 0.5s; }
+.flow-scenes .sc-ok { animation-name: sc-ok; }
+.flow-scenes .sc-gbars rect { animation-name: sc-grow; }
+.flow-scenes .sc-gbars .g2 { --d: 0.3s; }
+.flow-scenes .sc-gbars .g3 { --d: 0.6s; }
+.flow-scenes .sc-gbars .g4 { --d: 0.9s; }
+.flow-scenes .sc-swing { animation: sc-swing 2.6s ease-in-out infinite alternate; }
+.flow-scenes .sc-blink { animation: sc-blink 1s ease-in-out infinite alternate; }
+.flow-scenes .sc-beam { animation: sc-pulse 0.9s ease-in-out infinite alternate; }
+.flow-scenes .sc-sweep { animation: sc-sweep 1.4s ease-in-out infinite alternate; }
+@keyframes sc-vis { 0%, 17% { opacity: 1; } 22%, 94% { opacity: 0.28; } 100% { opacity: 1; } }
+@keyframes sc-vis-a { 0%, 17% { opacity: 1; } 22%, 40% { opacity: 0; } 45%, 94% { opacity: 0.28; } 100% { opacity: 1; } }
+@keyframes sc-vis-b { 0%, 17% { opacity: 1; } 22%, 94% { opacity: 0; } 100% { opacity: 1; } }
+@keyframes sc-b1 { 0%, 100% { opacity: 0; } 2%, 8% { opacity: 1; } 10% { opacity: 0; } }
+@keyframes sc-b2 { 0%, 10%, 100% { opacity: 0; } 12%, 18% { opacity: 1; } 20% { opacity: 0; } }
+@keyframes sc-chk1 { 0%, 3%, 21%, 100% { stroke-dashoffset: 20; } 6%, 19% { stroke-dashoffset: 0; } }
+@keyframes sc-chk2 { 0%, 8%, 21%, 100% { stroke-dashoffset: 20; } 11%, 19% { stroke-dashoffset: 0; } }
+@keyframes sc-chk3 { 0%, 13%, 21%, 100% { stroke-dashoffset: 20; } 16%, 19% { stroke-dashoffset: 0; } }
+@keyframes sc-doc { 0%, 3%, 21%, 100% { opacity: 0; transform: translateX(-70px); } 9%, 19% { opacity: 1; transform: none; } }
+@keyframes sc-rej { 0%, 10%, 21%, 100% { opacity: 1; } 13%, 19% { opacity: 0.25; } }
+@keyframes sc-sel { 0%, 10%, 21%, 100% { opacity: 0; } 12%, 19% { opacity: 1; } }
+@keyframes sc-selchk { 0%, 12%, 21%, 100% { opacity: 0; } 14%, 19% { opacity: 1; } }
+@keyframes sc-fly1 { 0%, 2%, 21%, 100% { opacity: 0; transform: translate(0, 0); } 3% { opacity: 1; transform: translate(0, 0); } 10%, 19% { opacity: 1; transform: translate(93px, -42px); } }
+@keyframes sc-fly2 { 0%, 2%, 21%, 100% { opacity: 0; transform: translate(0, 0); } 3% { opacity: 1; transform: translate(0, 0); } 10%, 19% { opacity: 1; transform: translate(176px, -42px); } }
+@keyframes sc-ok { 0%, 11%, 21%, 100% { opacity: 0; } 13%, 19% { opacity: 1; } }
+@keyframes sc-grow { 0%, 4%, 21%, 100% { transform: scaleY(0); } 9%, 19% { transform: scaleY(1); } }
+@keyframes sc-swing { from { transform: rotate(-6deg); } to { transform: rotate(6deg); } }
+@keyframes sc-blink { from { opacity: 1; } to { opacity: 0.2; } }
+@keyframes sc-pulse { from { opacity: 0.12; } to { opacity: 0.4; } }
+@keyframes sc-sweep { from { transform: translateY(0); } to { transform: translateY(38px); } }
+@media (max-width: 640px) {
+  .flow-scenes { display: none; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .flow-scenes,
+  .flow-scenes * { animation: none !important; }
+  .flow-scenes .sc-4b { display: none; }
+}
+
 .flow {
   position: relative;
   display: grid;
