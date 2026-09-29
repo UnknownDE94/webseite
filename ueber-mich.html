@@ -22,11 +22,10 @@
   <meta name="twitter:image" content="https://werringloer.de/assets/og-image.jpg" />
   <link rel="icon" type="image/png" href="assets/favicon.png" />
   <link rel="apple-touch-icon" href="assets/apple-touch-icon.png" />
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;family=Montserrat:wght@500;700&amp;display=swap" rel="stylesheet" />
+  <link rel="preload" href="assets/fonts/archivo-wdth.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="preload" href="assets/fonts/inter-wght.woff2" as="font" type="font/woff2" crossorigin />
   <script>(function(d){d.classList.add("js");try{var t=localStorage.getItem("theme");if(t==="dark"||(!t&&window.matchMedia&&matchMedia("(prefers-color-scheme: dark)").matches))d.setAttribute("data-theme","dark")}catch(e){}})(document.documentElement);</script>
-  <link rel="stylesheet" href="css/style.css?v=20260928-2" />
+  <link rel="stylesheet" href="css/style.css?v=2026-3" />
 </head>
 <body>
   <a class="skip-link" href="#main">Zum Inhalt springen</a>
@@ -50,21 +49,24 @@
           <a class="btn nav-cta" href="kontakt.html">Kontakt</a>
         </div>
       </div>
-      <button class="theme-toggle" type="button" aria-label="Dunklen Modus aktivieren" aria-pressed="false">
-        <span aria-hidden="true">☾</span>
-      </button>
-      <button class="nav-toggle" type="button" aria-label="Menü öffnen" aria-expanded="false" aria-controls="hauptmenue">
-        <span></span>
-      </button>
+      <div class="nav-actions">
+        <a class="btn nav-cta" href="kontakt.html">Kontakt</a>
+        <button class="theme-toggle" type="button" aria-label="Dunklen Modus aktivieren" aria-pressed="false">
+          <span aria-hidden="true">☾</span>
+        </button>
+        <button class="nav-toggle" type="button" aria-label="Menü öffnen" aria-expanded="false" aria-controls="hauptmenue">
+          <span></span>
+        </button>
+      </div>
     </div>
   </header>
 
   <main id="main">
     <div class="page-header">
       <div class="container">
-        <div class="page-header-copy">
+        <div class="page-header-copy" data-stagger="up">
           <p class="breadcrumb"><a href="index.html">Start</a> / Über uns</p>
-          <h1>Über uns</h1>
+          <h1 data-split>Über uns</h1>
           <p>Beratung und digitale Umsetzung für Instandhaltung, Ersatzteil- und Materialwirtschaft – aus einer Hand.</p>
         </div>
       </div>
@@ -73,7 +75,7 @@
     <section>
       <div class="container two-col">
         <div>
-          <div class="section-head">
+          <div class="section-head" data-stagger="up">
             <h2>Werringloer Komponentenmanagement</h2>
             <p>
               Werringloer Komponentenmanagement ist ein Unternehmen mit Sitz
@@ -89,17 +91,17 @@
             </p>
           </div>
 
-          <div class="section-head section-head--tight">
+          <div class="section-head section-head--tight" data-anim="up">
             <h2>Arbeitsweise</h2>
           </div>
-          <ul class="list-check">
+          <ul class="list-check" data-stagger="up">
             <li>Kein Bruch zwischen Fachkonzept und IT – wer analysiert, setzt auch um</li>
             <li>Gezielter Einsatz KI-gestützter Assistenzsysteme für schnelle und gründliche Ergebnisse</li>
             <li>Ergebnisse als Excel-Modelle, Dashboards, Datenmodelle, Power-Apps, Python-Anwendungen oder Schnittstellen</li>
           </ul>
         </div>
 
-        <div class="contact-card">
+        <div class="contact-card" data-anim="right">
           <h3>Auf einen Blick</h3>
           <div class="contact-detail">
             <div>
@@ -124,10 +126,10 @@
       </div>
     </section>
 
-    <section class="section-tint" id="drei-wege">
+    <section class="section-alt" id="drei-wege">
       <div class="container">
         <div class="section-head-row">
-          <div class="section-head">
+          <div class="section-head" data-stagger="up">
             <p class="eyebrow">Zusammenarbeit</p>
             <h2>Drei Wege, mit uns zu arbeiten</h2>
             <p>
@@ -136,11 +138,11 @@
               Software – einzeln oder kombiniert.
             </p>
           </div>
-          <figure class="illu">
+          <figure class="illu" data-anim="scale">
             <img src="assets/illustrations/struktur.webp" width="1000" height="1000" alt="" loading="lazy" />
           </figure>
         </div>
-        <ol class="ways">
+        <ol class="ways" data-stagger="up">
           <li>
             <span class="ways-num" aria-hidden="true">01</span>
             <h3>Analyse &amp; Beratung</h3>
@@ -199,7 +201,7 @@
     </div>
   </footer>
 
-  <script src="js/main.js?v=20260928-2"></script>
+  <script src="js/main.js?v=2026-3"></script>
   <script data-goatcounter="https://unknownde.goatcounter.com/count"
           async src="//gc.zgo.at/count.js"></script>
 </body>
