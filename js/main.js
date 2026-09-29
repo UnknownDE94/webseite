@@ -302,6 +302,12 @@ document.addEventListener("DOMContentLoaded", function () {
 
     window.addEventListener("resize", fitHeight);
     window.addEventListener("load", fitHeight);
+    // Bilder in den Bereichen laden verzögert – danach Höhe neu anpassen
+    track.querySelectorAll("img").forEach(function (img) {
+      if (!img.complete) {
+        img.addEventListener("load", fitHeight);
+      }
+    });
 
     // Direktlink auf einen Bereich (z. B. leistungen.html#stammdaten)
     var fromHash = panels.map(function (panel) {
