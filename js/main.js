@@ -11,7 +11,7 @@ document.addEventListener("DOMContentLoaded", function () {
   // Bei Datensparmodus oder langsamer Mobilverbindung wird der Film gar nicht erst geladen.
   var connection = navigator.connection || {};
   var saveData = connection.saveData === true || /(^|-)2g$/.test(connection.effectiveType || "");
-  document.querySelectorAll(".hero-video").forEach(function (video) {
+  document.querySelectorAll(".hero-video, .stage-video").forEach(function (video) {
     if (reduceMotion || saveData) {
       video.removeAttribute("autoplay");
       video.pause();
