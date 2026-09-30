@@ -2,7 +2,7 @@
    Aufruf (Playwright muss global installiert sein):
      NODE_PATH=$(npm root -g) node tools/film/render.js still <block> <t1,t2,...> <ausgabeordner>
      NODE_PATH=$(npm root -g) node tools/film/render.js video <block> <ausgabe.mp4> <ffmpeg>
-   Blöcke: n1 = Pharma + Werkstatt, n2 = Handschlag + Analyse. 30 Bilder pro Sekunde. */
+   Blöcke: n1 = Stahlguss + Pharma + Werkstatt, n2 = Handschlag + Analyse. 30 Bilder pro Sekunde. */
 const { chromium } = require("playwright");
 const { spawn } = require("child_process");
 const path = require("path");
@@ -15,7 +15,7 @@ const fs = require("fs");
   page.on("pageerror", (e) => console.error("PAGEERROR", e.message));
   await page.goto("file://" + path.resolve(__dirname, "film.html"));
   await page.evaluate(() => document.fonts.ready);
-  const total = await page.evaluate((b) => (b === "n1" ? window.LEN.pharma + window.LEN.werk : window.LEN.lager), block);
+  const total = await page.evaluate((b) => window.TOTAL[b], block);
   if (mode === "still") {
     fs.mkdirSync(arg4, { recursive: true });
     for (const t of arg3.split(",").map(Number)) {
