@@ -25,7 +25,7 @@
   <link rel="preload" href="assets/fonts/archivo-wdth.woff2" as="font" type="font/woff2" crossorigin />
   <link rel="preload" href="assets/fonts/inter-wght.woff2" as="font" type="font/woff2" crossorigin />
   <script>(function(d){d.classList.add("js");try{var t=localStorage.getItem("theme");if(t==="dark"||(!t&&window.matchMedia&&matchMedia("(prefers-color-scheme: dark)").matches))d.setAttribute("data-theme","dark")}catch(e){}})(document.documentElement);</script>
-  <link rel="stylesheet" href="css/style.css?v=2026-9" />
+  <link rel="stylesheet" href="css/style.css?v=2026-12" />
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -118,16 +118,19 @@
   </header>
 
   <main id="main">
-    <div class="page-header">
+    <div class="page-header page-header--video">
+      <div class="hero-media" aria-hidden="true">
+        <video class="hero-video" autoplay muted loop playsinline preload="metadata" poster="assets/media/film-poster.jpg">
+          <source src="assets/media/film-hintergrund.webm" type="video/webm" />
+          <source src="assets/media/film-hintergrund.mp4" type="video/mp4" />
+        </video>
+      </div>
       <div class="container page-header-grid">
         <div class="page-header-copy" data-stagger="up">
           <p class="breadcrumb"><a href="index.html">Start</a> / Kontakt</p>
           <h1 data-split>Kontakt</h1>
           <p>Schildern Sie kurz Ihre Ausgangslage – wir melden uns zeitnah für ein unverbindliches Erstgespräch.</p>
         </div>
-        <figure class="info-bild" data-anim="right" aria-hidden="true">
-          <img src="assets/bilder/13-plattform-dashboard.webp" width="960" height="639" alt="" decoding="async" />
-        </figure>
       </div>
     </div>
 
@@ -261,7 +264,7 @@
             <p>
               Der Quick-Check startet bei 1.020&nbsp;€ bis 5.000 Artikel. Weitere
               Leistungen erhalten Sie als klar abgegrenztes Festpreisangebot.
-              Details finden Sie im <a href="leistungen.html#preisrahmen">Preisrahmen</a>.
+              Details finden Sie im <a href="leistungen.html#quick-check">Leistungsseite</a>.
             </p>
           </details>
           <details class="faq-item">
@@ -304,7 +307,6 @@
             <li><a href="leistungen.html">Leistungen</a></li>
             <li><a href="smartparts.html">SmartParts</a></li>
             <li><a href="ueber-mich.html">Über uns</a></li>
-            <li><a href="materialstammdaten-checkliste.html">Checkliste Materialstammdaten</a></li>
           </ul>
         </div>
         <div>

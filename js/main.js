@@ -326,7 +326,7 @@ document.addEventListener("DOMContentLoaded", function () {
       }
     });
 
-    // Direktlink auf einen Bereich (z. B. leistungen.html#stammdaten)
+    // Direktlink auf einen Bereich (z. B. leistungen.html#projekt)
     var fromHash = panels.map(function (panel) {
       return "#" + panel.id;
     }).indexOf(window.location.hash);
