@@ -1,0 +1,514 @@
+<!doctype html>
+<meta charset="utf-8" />
+<title>Imagefilm – Szenen</title>
+<style>
+  @font-face { font-family: "Inter"; src: url("../../assets/fonts/inter-wght.woff2"); font-weight: 100 900; }
+  html, body { margin: 0; background: #000; }
+  svg { display: block; }
+  text { font-family: "Inter", sans-serif; }
+</style>
+<svg id="s" width="1280" height="720" viewBox="0 0 1280 720"></svg>
+<script>
+/* ---------------------------------------------------------------------------
+   Szenen für den Imagefilm (flacher Vektorstil, 1280 × 720).
+   Block "n1": Pharma + Werkstatt   Block "n2": Handschlag + Analyse
+   Jede Szene ist eine reine Funktion der Zeit: window.setFrame(block, t).
+   Die Arme werden per Zwei-Knochen-IK berechnet – sie können nicht überstreckt sein.
+--------------------------------------------------------------------------- */
+const NS = "http://www.w3.org/2000/svg";
+const svg = document.getElementById("s");
+const el = (tag, a = {}, parent = svg) => { const e = document.createElementNS(NS, tag); for (const k in a) e.setAttribute(k, a[k]); parent.appendChild(e); return e; };
+const clamp = (x, a = 0, b = 1) => Math.min(b, Math.max(a, x));
+const seg = (t, a, b) => clamp((t - a) / (b - a));
+const ease = (x) => (x < 0.5 ? 2 * x * x : 1 - Math.pow(-2 * x + 2, 2) / 2);
+const easeOut = (x) => 1 - Math.pow(1 - x, 3);
+const lerp = (a, b, k) => a + (b - a) * k;
+const rad = (d) => (d * Math.PI) / 180;
+function rng(seed) { return function () { seed |= 0; seed = (seed + 0x6d2b79f5) | 0; let t = Math.imul(seed ^ (seed >>> 15), 1 | seed); t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t; return ((t ^ (t >>> 14)) >>> 0) / 4294967296; }; }
+
+const LIME = "#d4ec5f", GREEN = "#2c7f57", DGREEN = "#0e3d27", FILMGREEN = "#0a3a26";
+
+/* ----- Person ------------------------------------------------------------ */
+const L1 = 88, L2 = 84;              // Oberarm, Unterarm (Summe = 172 bei Körperhöhe ≈ 430)
+function ik(S, T, bendDown = true) {
+  let dx = T[0] - S[0], dy = T[1] - S[1];
+  let d = Math.hypot(dx, dy);
+  const max = L1 + L2 - 1.5;
+  if (d > max) { dx *= max / d; dy *= max / d; d = max; }
+  d = Math.max(d, 24);
+  const a = (L1 * L1 - L2 * L2 + d * d) / (2 * d);
+  const h = Math.sqrt(Math.max(L1 * L1 - a * a, 0));
+  const ux = dx / d, uy = dy / d;
+  const c1 = [S[0] + a * ux - h * uy, S[1] + a * uy + h * ux];
+  const c2 = [S[0] + a * ux + h * uy, S[1] + a * uy - h * ux];
+  const E = (c1[1] > c2[1]) === bendDown ? c1 : c2;
+  return { E, H: [S[0] + dx, S[1] + dy] };
+}
+function Person(parent, o) {
+  const P = { o, x: 0, y: 0, sc: 1, dir: 1 };
+  P.g = el("g", {}, parent);
+  P.body = el("g", {}, P.g);
+  const legs = [-14, 14].map((hx) => {
+    const l = el("g", { transform: `translate(${hx} -190)` }, P.body);
+    el("rect", { x: -15, y: 0, width: 30, height: 186, rx: 12, fill: o.pants }, l);
+    el("rect", { x: -17, y: 178, width: 50, height: 14, rx: 7, fill: o.shoe }, l);
+    return l;
+  });
+  P.legs = legs;
+  P.armBack = el("g", {}, P.body);
+  P.torso = el("g", {}, P.body);
+  el("rect", { x: -50, y: -350, width: 100, height: 170, rx: 34, fill: o.coat }, P.torso);
+  if (o.stripes) { el("rect", { x: -50, y: -222, width: 100, height: 9, fill: LIME }, P.torso); el("rect", { x: -50, y: -200, width: 100, height: 9, fill: LIME }, P.torso); }
+  if (o.badge) el("rect", { x: 14, y: -300, width: 12, height: 10, rx: 2, fill: LIME }, P.torso);
+  el("rect", { x: -9, y: -364, width: 18, height: 24, fill: o.skin }, P.body);
+  P.head = el("g", { transform: "translate(0 -394)" }, P.body);
+  el("circle", { cx: 0, cy: 0, r: 36, fill: o.skin }, P.head);
+  el("circle", { cx: 14, cy: 12, r: 6.5, fill: o.cheek || "#d68b69", opacity: 0.55 }, P.head);
+  el("circle", { cx: 20, cy: -4, r: 3.2, fill: "#1b1f1d" }, P.head);
+  el("path", { d: "M12 18 q9 8 20 0", fill: "none", stroke: "#8a4a34", "stroke-width": 3, "stroke-linecap": "round" }, P.head);
+  el("circle", { cx: -20, cy: 2, r: 6, fill: o.skin }, P.head);
+  if (o.hat === "hard") {
+    el("path", { d: "M-40 -6 A40 40 0 0 1 40 -6 Z", fill: o.hatColor }, P.head);
+    el("rect", { x: -44, y: -8, width: 96, height: 12, rx: 6, fill: o.hatColor }, P.head);
+  } else if (o.hat === "cap") {
+    el("path", { d: "M-38 -2 A38 38 0 0 1 38 -2 Z", fill: o.hatColor }, P.head);
+  } else if (o.hat === "hair") {
+    el("path", { d: "M-37 -4 A37 37 0 0 1 37 -8 L26 -12 Q0 -20 -30 -6 Z", fill: "#15181a" }, P.head);
+  }
+  P.armFront = el("g", {}, P.body);
+  // Arme: Polylinie + Hand
+  const mkArm = (parent2) => {
+    const g = el("g", {}, parent2);
+    const path = el("path", { fill: "none", stroke: o.coat, "stroke-width": 30, "stroke-linecap": "round", "stroke-linejoin": "round" }, g);
+    const cuff = o.stripes ? el("path", { fill: "none", stroke: LIME, "stroke-width": 30, "stroke-linecap": "butt" }, g) : null;
+    const hand = el("circle", { r: 15, fill: o.skin }, g);
+    const item = el("g", {}, g);
+    return { g, path, cuff, hand, item };
+  };
+  P.armF = mkArm(P.armFront);
+  P.armB = mkArm(P.armBack);
+  P.shoulder = { front: [44, -326], back: [-44, -326] };
+  P.place = (x, y, sc = 1, dir = 1) => { P.x = x; P.y = y; P.sc = sc; P.dir = dir; P.g.setAttribute("transform", `translate(${x} ${y}) scale(${sc * dir} ${sc})`); };
+  P.local = (wx, wy) => [(wx - P.x) / (P.sc * P.dir), (wy - P.y) / P.sc];
+  P.arm = (which, target, world = false) => {
+    const A = which === "front" ? P.armF : P.armB;
+    const S = P.shoulder[which];
+    const T = world ? P.local(target[0], target[1]) : target;
+    const { E, H } = ik(S, T, true);
+    A.path.setAttribute("d", `M${S[0]} ${S[1]} L${E[0]} ${E[1]} L${H[0]} ${H[1]}`);
+    if (A.cuff) { const vx = H[0] - E[0], vy = H[1] - E[1], n = Math.hypot(vx, vy) || 1; const ax = H[0] - (vx / n) * 22, ay = H[1] - (vy / n) * 22, bx = H[0] - (vx / n) * 12, by = H[1] - (vy / n) * 12; A.cuff.setAttribute("d", `M${ax} ${ay} L${bx} ${by}`); }
+    A.hand.setAttribute("cx", H[0]); A.hand.setAttribute("cy", H[1]);
+    A.item.setAttribute("transform", `translate(${H[0]} ${H[1]})`);
+    return H;
+  };
+  P.walk = (phase, amount = 1) => {
+    const a = 24 * amount;
+    legs[0].setAttribute("transform", `translate(-14 -190) rotate(${Math.sin(phase) * a})`);
+    legs[1].setAttribute("transform", `translate(14 -190) rotate(${-Math.sin(phase) * a})`);
+    P.body.setAttribute("transform", `translate(0 ${-Math.abs(Math.sin(phase)) * 5 * amount})`);
+  };
+  P.stand = () => P.walk(0, 0);
+  P.nod = (deg) => P.head.setAttribute("transform", `translate(0 -394) rotate(${deg})`);
+  return P;
+}
+
+/* ----- Wischübergang (wie im Originalfilm: grüne Schräge mit Lime-Kante) ---- */
+let wipeG;
+function buildWipe() {
+  wipeG = el("g", {});
+  wipeG.green = el("polygon", { fill: FILMGREEN }, wipeG);
+  wipeG.stripe = el("polygon", { fill: LIME }, wipeG);
+}
+function setWipe(p) { // p: null | 0..1 abdecken | 1..2 aufdecken
+  if (p === null) { wipeG.setAttribute("display", "none"); return; }
+  wipeG.removeAttribute("display");
+  const SL = 216;
+  if (p <= 1) {
+    const xb = lerp(-270, 1290, ease(p));
+    wipeG.green.setAttribute("points", `-5,-5 ${xb + SL},-5 ${xb},725 -5,725`);
+    wipeG.stripe.setAttribute("points", `${xb + SL},-5 ${xb + SL + 46},-5 ${xb + 46},725 ${xb},725`);
+  } else {
+    const xb = lerp(-270, 1290, ease(p - 1));
+    wipeG.green.setAttribute("points", `${xb + SL},-5 1290,-5 1290,725 ${xb},725`);
+    wipeG.stripe.setAttribute("points", "0,0 0,0 0,0");
+  }
+}
+const REVEAL = 0.5, COVER = 0.35;
+function wipeFor(t, len) {
+  if (t < REVEAL) return 1 + t / REVEAL;
+  if (t > len - COVER) return clamp((t - (len - COVER)) / COVER);
+  return null;
+}
+
+/* ======================= Szene: Pharma ==================================== */
+function Pharma() {
+  const S = {};
+  S.g = el("g", {});
+  const defs = el("defs", {}, S.g);
+  const bg = el("linearGradient", { id: "phbg", x1: 0, y1: 0, x2: 0, y2: 1 }, defs);
+  el("stop", { offset: 0, "stop-color": "#0a1411" }, bg); el("stop", { offset: 1, "stop-color": "#10221b" }, bg);
+  const gl = el("radialGradient", { id: "phlight" }, defs);
+  el("stop", { offset: 0, "stop-color": "#eaf6f0", "stop-opacity": 0.9 }, gl); el("stop", { offset: 1, "stop-color": "#eaf6f0", "stop-opacity": 0 }, gl);
+  el("rect", { width: 1280, height: 720, fill: "url(#phbg)" }, S.g);
+  // Wandfelder (Laborfenster)
+  S.panels = [];
+  for (let i = 0; i < 8; i++) {
+    el("rect", { x: 30 + i * 154, y: 90, width: 134, height: 330, rx: 8, fill: "rgba(120,200,170,0.05)", stroke: "rgba(160,220,200,0.14)", "stroke-width": 2 }, S.g);
+    S.panels.push(el("rect", { x: 40 + i * 154, y: 100, width: 114, height: 310, rx: 5, fill: "#9fe0c4", opacity: 0.05 }, S.g));
+  }
+  // Decke + Leuchten
+  el("rect", { x: 0, y: 24, width: 1280, height: 10, fill: "#1a2a24" }, S.g);
+  for (let i = 0; i < 7; i++) {
+    el("ellipse", { cx: 110 + i * 175, cy: 52, rx: 46, ry: 40, fill: "url(#phlight)", opacity: 0.35 }, S.g);
+    el("rect", { x: 84 + i * 175, y: 46, width: 52, height: 7, rx: 3.5, fill: "#eef7f2" }, S.g);
+  }
+  // Kreuz-Emblem
+  S.cross = el("g", {}, S.g);
+  el("circle", { cx: 176, cy: 250, r: 84, fill: "none", stroke: LIME, "stroke-width": 3, opacity: 0.35 }, S.cross);
+  el("rect", { x: 152, y: 234, width: 48, height: 32, rx: 5, fill: LIME }, S.cross);
+  el("rect", { x: 160, y: 226, width: 32, height: 48, rx: 5, fill: LIME }, S.cross);
+  // Kapseln
+  S.caps = [];
+  [[330, 170, -25], [1090, 150, 30], [1000, 300, -12]].forEach(([x, y, r], i) => {
+    const c = el("g", {}, S.g);
+    el("rect", { x: -34, y: -14, width: 34, height: 28, rx: 14, fill: LIME }, c);
+    el("rect", { x: 0, y: -14, width: 34, height: 28, rx: 14, fill: "#eef3ee" }, c);
+    c.base = [x, y, r, i]; S.caps.push(c);
+  });
+  // Abfüllmaschine
+  el("rect", { x: 470, y: 118, width: 300, height: 96, rx: 16, fill: "#cfd3cd" }, S.g);
+  el("rect", { x: 470, y: 198, width: 300, height: 9, fill: LIME }, S.g);
+  el("rect", { x: 500, y: 140, width: 70, height: 36, rx: 6, fill: "#aab1ac" }, S.g);
+  S.led = el("circle", { cx: 730, cy: 146, r: 7, fill: LIME }, S.g);
+  for (const x of [560, 620, 680]) { el("rect", { x: x - 8, y: 214, width: 16, height: 180, fill: "#8b938e" }, S.g); el("path", { d: `M${x - 12} 392 h24 l-6 30 h-12 z`, fill: "#6d7571" }, S.g); }
+  S.drops = [560, 620, 680].map((x) => { const d = el("circle", { cx: x, r: 5, fill: "#8fe08f" }, S.g); d.x = x; return d; });
+  // Förderband
+  el("rect", { x: 0, y: 548, width: 1280, height: 26, fill: "#1e2a25" }, S.g);
+  el("rect", { x: 0, y: 574, width: 1280, height: 146, fill: "#0b110f" }, S.g);
+  S.rollers = []; for (let i = 0; i < 34; i++) S.rollers.push(el("circle", { cy: 561, r: 5, fill: "#3b4b43" }, S.g));
+  // Fläschchen
+  S.vials = [];
+  for (let i = 0; i < 9; i++) {
+    const v = el("g", {}, S.g);
+    v.liq = el("rect", { x: -20, width: 40, rx: 6, fill: "#8fe08f", opacity: 0.85 }, v);
+    el("rect", { x: -24, y: -104, width: 48, height: 104, rx: 12, fill: "rgba(215,238,228,0.13)", stroke: "rgba(232,246,240,0.6)", "stroke-width": 2 }, v);
+    v.cap = el("rect", { x: -15, y: -122, width: 30, height: 16, rx: 3, fill: LIME }, v);
+    S.vials.push(v);
+  }
+  // Roboterarm
+  S.robot = el("g", {}, S.g);
+  el("path", { d: "M900 548 h70 l-14 -34 h-42 z", fill: "#0f4a2f" }, S.robot);
+  S.rs1 = el("line", { stroke: "#c6e34a", "stroke-width": 20, "stroke-linecap": "round" }, S.robot);
+  S.rs2 = el("line", { stroke: "#c6e34a", "stroke-width": 16, "stroke-linecap": "round" }, S.robot);
+  S.rj1 = el("circle", { r: 15, fill: "#0f4a2f" }, S.robot);
+  S.rj2 = el("circle", { r: 12, fill: "#0f4a2f" }, S.robot);
+  S.beam = el("polygon", { fill: LIME, opacity: 0.22 }, S.robot);
+  // Forscherin
+  S.p = Person(S.g, { coat: "#e9efeb", skin: "#a6684a", cheek: "#8e4f36", pants: "#c2cbc7", shoe: "#dfe6e2", hat: "cap", hatColor: "#dfe8e4", stripes: false });
+  S.tablet = el("g", {}, S.p.armF.item);
+  el("rect", { x: -26, y: -66, width: 52, height: 70, rx: 7, fill: "#121816", stroke: "#cfd3cd", "stroke-width": 3, transform: "rotate(-8)" }, S.tablet);
+  el("rect", { x: -18, y: -58, width: 36, height: 54, rx: 3, fill: "#2c7f57", transform: "rotate(-8)" }, S.tablet);
+  el("path", { d: "M-12 -20 l8 -14 l8 8 l10 -18", fill: "none", stroke: LIME, "stroke-width": 3, "stroke-linecap": "round", transform: "rotate(-8)" }, S.tablet);
+  S.update = (t) => {
+    S.panels.forEach((p, i) => p.setAttribute("opacity", 0.05 + 0.08 * (0.5 + 0.5 * Math.sin(t * 1.2 + i * 1.7))));
+    S.cross.setAttribute("opacity", 0.65 + 0.35 * Math.sin(t * 2.2));
+    S.caps.forEach((c) => { const [x, y, r, i] = c.base; c.setAttribute("transform", `translate(${x} ${y + Math.sin(t * 1.4 + i * 2) * 10}) rotate(${r + Math.sin(t * 0.9 + i) * 8})`); });
+    S.led.setAttribute("opacity", 0.5 + 0.5 * Math.sin(t * 8));
+    const sp = 150, W = 1280 + 190;
+    S.rollers.forEach((r, i) => r.setAttribute("cx", (((i * 40 + t * sp) % 1360) - 40)));
+    let under = false;
+    S.vials.forEach((v, i) => {
+      const x = ((i * 190 + t * sp) % W) - 95;
+      v.setAttribute("transform", `translate(${x} 548)`);
+      const f = clamp((x - 520) / 190);
+      const h = 80 * f;
+      v.liq.setAttribute("y", -10 - h); v.liq.setAttribute("height", h + 0.01);
+      v.cap.setAttribute("opacity", x > 760 ? 1 : 0);
+      if (Math.abs(x - 620) < 70) under = true;
+    });
+    S.drops.forEach((d, i) => { const k = ((t * 2.6 + i * 0.3) % 1); d.setAttribute("cy", 428 + k * 90); d.setAttribute("opacity", under ? 0.9 * (1 - k * 0.3) : 0); });
+    // Roboterarm
+    const a1 = rad(-118 + 14 * Math.sin(t * 1.3)), a2 = a1 + rad(70 + 22 * Math.sin(t * 1.3 + 1.2));
+    const bx = 935, by = 520, e = [bx + Math.cos(a1) * 120, by + Math.sin(a1) * 120], h = [e[0] + Math.cos(a2) * 100, e[1] + Math.sin(a2) * 100];
+    S.rs1.setAttribute("x1", bx); S.rs1.setAttribute("y1", by); S.rs1.setAttribute("x2", e[0]); S.rs1.setAttribute("y2", e[1]);
+    S.rs2.setAttribute("x1", e[0]); S.rs2.setAttribute("y1", e[1]); S.rs2.setAttribute("x2", h[0]); S.rs2.setAttribute("y2", h[1]);
+    S.rj1.setAttribute("cx", bx); S.rj1.setAttribute("cy", by); S.rj2.setAttribute("cx", e[0]); S.rj2.setAttribute("cy", e[1]);
+    S.beam.setAttribute("points", `${h[0]},${h[1]} ${h[0] - 26},548 ${h[0] + 26},548`);
+    S.beam.setAttribute("opacity", 0.14 + 0.14 * Math.sin(t * 6));
+    // Forscherin steht vorn rechts und schaut auf die Linie
+    S.p.place(1110, 716, 0.86, -1); S.p.stand(); S.p.nod(Math.sin(t * 1.3) * 3);
+    S.p.arm("front", [78, -296]);
+    S.p.arm("back", [-58, -178 + Math.sin(t * 1.1) * 4]);
+  };
+  return S;
+}
+
+/* ======================= Szene: Werkstatt (Handwerk) ====================== */
+function Werkstatt() {
+  const S = {};
+  S.g = el("g", {});
+  const defs = el("defs", {}, S.g);
+  const bg = el("linearGradient", { id: "wbg", x1: 0, y1: 0, x2: 0, y2: 1 }, defs);
+  el("stop", { offset: 0, "stop-color": "#120c08" }, bg); el("stop", { offset: 1, "stop-color": "#1f140d" }, bg);
+  const gl = el("radialGradient", { id: "wglow" }, defs);
+  el("stop", { offset: 0, "stop-color": "#ff8a2a", "stop-opacity": 0.55 }, gl); el("stop", { offset: 1, "stop-color": "#ff8a2a", "stop-opacity": 0 }, gl);
+  el("rect", { width: 1280, height: 720, fill: "url(#wbg)" }, S.g);
+  S.glow1 = el("circle", { cx: 535, cy: 440, r: 260, fill: "url(#wglow)" }, S.g);
+  S.glow2 = el("circle", { cx: 990, cy: 540, r: 200, fill: "url(#wglow)" }, S.g);
+  // Lochwand mit Werkzeug
+  el("rect", { x: 50, y: 70, width: 500, height: 340, rx: 10, fill: "#1a130e", stroke: "#2c2018", "stroke-width": 3 }, S.g);
+  for (let x = 70; x < 540; x += 30) for (let y = 90; y < 400; y += 30) el("circle", { cx: x, cy: y, r: 2.2, fill: "#2d2117" }, S.g);
+  const tool = "#b4b9ba", handle = "#8a6a45";
+  // Hammer
+  el("rect", { x: 92, y: 170, width: 12, height: 150, rx: 5, fill: handle }, S.g); el("rect", { x: 72, y: 150, width: 52, height: 30, rx: 5, fill: tool }, S.g);
+  // Schraubenschlüssel
+  el("rect", { x: 170, y: 150, width: 14, height: 170, rx: 6, fill: tool }, S.g);
+  el("path", { d: "M160 110 a26 26 0 1 1 34 0 v18 h-34 z", fill: tool }, S.g);
+  // Zange
+  el("path", { d: "M250 120 l-10 120 M290 120 l10 120", stroke: tool, "stroke-width": 14, "stroke-linecap": "round" }, S.g);
+  el("path", { d: "M240 240 l-14 90 M300 240 l14 90", stroke: handle, "stroke-width": 16, "stroke-linecap": "round" }, S.g);
+  // Säge
+  el("path", { d: "M350 130 h130 l-6 90 h-124 z", fill: tool }, S.g); el("rect", { x: 340, y: 216, width: 150, height: 22, rx: 8, fill: handle }, S.g);
+  // Schraubendreher
+  for (let i = 0; i < 3; i++) { el("rect", { x: 380 + i * 34, y: 270, width: 10, height: 90, rx: 4, fill: tool }, S.g); el("rect", { x: 376 + i * 34, y: 350, width: 18, height: 50, rx: 8, fill: i === 1 ? LIME : "#0f4a2f" }, S.g); }
+  // Regal rechts oben
+  el("rect", { x: 720, y: 230, width: 300, height: 10, fill: "#4a3524" }, S.g);
+  for (let i = 0; i < 4; i++) { el("rect", { x: 736 + i * 68, y: 170, width: 52, height: 60, rx: 4, fill: "#8b938e" }, S.g); el("rect", { x: 736 + i * 68, y: 190, width: 52, height: 20, fill: i % 2 ? LIME : "#2c7f57" }, S.g); }
+  // Werkbank
+  el("rect", { x: 250, y: 480, width: 640, height: 24, rx: 4, fill: "#7a5a3c" }, S.g);
+  el("rect", { x: 262, y: 504, width: 616, height: 40, fill: "#4a3524" }, S.g);
+  el("rect", { x: 270, y: 544, width: 28, height: 176, fill: "#3b2a1c" }, S.g); el("rect", { x: 842, y: 544, width: 28, height: 176, fill: "#3b2a1c" }, S.g);
+  el("rect", { x: 270, y: 640, width: 600, height: 12, fill: "#3b2a1c" }, S.g);
+  // Schraubstock
+  el("rect", { x: 720, y: 450, width: 70, height: 30, rx: 4, fill: "#0f4a2f" }, S.g); el("rect", { x: 780, y: 440, width: 22, height: 44, rx: 4, fill: "#8b938e" }, S.g);
+  // Amboss + Werkstück
+  el("path", { d: "M470 470 h150 l-16 -18 h-46 q-24 0 -30 -12 h-58 z", fill: "#4b5257" }, S.g);
+  S.piece = el("rect", { x: 486, y: 428, width: 112, height: 12, rx: 3, fill: "#ff8a2a" }, S.g);
+  // Schleifbock rechts
+  el("rect", { x: 1005, y: 560, width: 70, height: 160, fill: "#39424a" }, S.g);
+  el("rect", { x: 985, y: 540, width: 110, height: 30, rx: 6, fill: "#4b5257" }, S.g);
+  S.wheel = el("g", { transform: "translate(1040 520)" }, S.g);
+  el("circle", { r: 60, fill: "#8e9598" }, S.wheel); el("circle", { r: 20, fill: "#39424a" }, S.wheel);
+  for (let i = 0; i < 6; i++) el("line", { x1: 0, y1: 0, x2: 0, y2: -56, stroke: "#6f777b", "stroke-width": 4, transform: `rotate(${i * 60})` }, S.wheel);
+  // Pendelleuchte
+  S.lamp = el("g", {}, S.g);
+  el("line", { x1: 0, y1: 0, x2: 0, y2: 90, stroke: "#39424a", "stroke-width": 4 }, S.lamp);
+  el("path", { d: "M-34 118 A34 34 0 0 1 34 118 z", fill: "#cfd3cd" }, S.lamp);
+  S.cone = el("polygon", { points: "-30,120 30,120 140,470 -140,470", fill: "#ffd7a0", opacity: 0.07 }, S.lamp);
+  // Personen
+  S.pA = Person(S.g, { coat: "#0f4a2f", skin: "#e2a67c", pants: "#5d6260", shoe: "#1b1f1d", hat: "hard", hatColor: "#d8ee5a", stripes: true });
+  S.pB = Person(S.g, { coat: "#1a1d1c", skin: "#a6684a", cheek: "#8e4f36", pants: "#2b302e", shoe: "#0f1211", hat: "hard", hatColor: LIME, stripes: false, badge: true });
+  // Hammer in der Hand
+  S.hammer = el("g", {}, S.pA.armF.item);
+  el("rect", { x: -6, y: -6, width: 88, height: 12, rx: 5, fill: "#8a6a45" }, S.hammer);
+  el("rect", { x: 70, y: -26, width: 30, height: 52, rx: 5, fill: "#b4b9ba" }, S.hammer);
+  // Werkstück in Hand B
+  S.workB = el("g", {}, S.pB.armF.item);
+  el("rect", { x: 0, y: -8, width: 46, height: 16, rx: 4, fill: "#b4b9ba" }, S.workB);
+  // Funken
+  S.sparks = []; for (let i = 0; i < 60; i++) S.sparks.push(el("circle", { r: 3, fill: "#ffb347" }, S.g));
+  S.update = (t) => {
+    const P = 0.9, k = (t % P) / P, n = Math.floor(t / P);
+    // Hammerzyklus: heben – zuschlagen – zurückfedern
+    let hx, hy, ang;
+    const up = [468, 322], dn = [492, 408];
+    if (k < 0.58) { const e = ease(k / 0.58); hx = lerp(dn[0], up[0], e); hy = lerp(dn[1], up[1], e); ang = lerp(14, -68, e); }
+    else if (k < 0.68) { const e = (k - 0.58) / 0.10; hx = lerp(up[0], dn[0], e * e); hy = lerp(up[1], dn[1], e * e); ang = lerp(-68, 14, e * e); }
+    else { hx = dn[0]; hy = dn[1]; ang = 14 - (k - 0.68) * 30; }
+    S.pA.place(395, 690, 0.9, 1); S.pA.stand(); S.pA.nod(k < 0.6 ? -3 : 4);
+    S.pA.arm("front", [hx, hy], true);
+    S.pA.arm("back", [-22, -190]);
+    S.hammer.setAttribute("transform", `rotate(${ang})`);
+    // Schlag → Glühen + Funken
+    const strike = k >= 0.68 ? (k - 0.68) * P : (k < 0.58 ? (k + 1 - 0.68) * P : 0);
+    const flash = Math.exp(-strike * 5);
+    S.piece.setAttribute("fill", `rgb(255,${Math.round(110 + 90 * flash)},${Math.round(30 + 60 * flash)})`);
+    S.glow1.setAttribute("opacity", 0.55 + 0.45 * flash);
+    const r = rng(7);
+    S.sparks.forEach((s, i) => {
+      if (i < 30) {
+        const strikeN = k >= 0.68 ? n : n - 1, ts = t - (strikeN * P + 0.68 * P);
+        const vx = (r() * 2 - 0.3) * 330, vy = -(60 + r() * 300);
+        if (strikeN >= 0 && ts >= 0 && ts < 0.7) { s.setAttribute("cx", 540 + vx * ts); s.setAttribute("cy", 430 + vy * ts + 620 * ts * ts); s.setAttribute("opacity", 1 - ts / 0.7); s.setAttribute("r", 3.4 * (1 - ts / 0.9)); } else s.setAttribute("opacity", 0);
+      } else {
+        // Schleiffunken (Dauerstrom)
+        const life = 0.55, ph = ((t * 1.8 + r()) % 1), ts = ph * life;
+        const vx = -(80 + r() * 260) * -1, vy = -(30 + r() * 150);
+        s.setAttribute("cx", 984 + vx * ts * 0.6 - 30 * ts); s.setAttribute("cy", 532 + vy * ts + 520 * ts * ts); s.setAttribute("opacity", 1 - ph); s.setAttribute("r", 2.8 * (1 - ph * 0.6));
+      }
+    });
+    // Zweiter Handwerker am Schleifbock
+    S.pB.place(880, 700, 0.86, 1); S.pB.stand(); S.pB.nod(4 + Math.sin(t * 2) * 1.5);
+    S.pB.arm("front", [975 - 20, 526 + Math.sin(t * 9) * 2.5], true);
+    S.pB.arm("back", [70, -250], false);
+    S.wheel.setAttribute("transform", `translate(1040 520) rotate(${t * 720})`);
+    S.glow2.setAttribute("opacity", 0.5 + 0.3 * Math.sin(t * 7));
+    // Lampe
+    S.lamp.setAttribute("transform", `translate(600 0) rotate(${Math.sin(t * 0.9) * 2.2})`);
+  };
+  return S;
+}
+
+/* ======================= Szene: Lager – Handschlag + Analyse =============== */
+function Lager() {
+  const S = {};
+  S.g = el("g", {});
+  el("rect", { width: 1280, height: 720, fill: "#eef0ea" }, S.g);
+  // Boden
+  el("rect", { y: 604, width: 1280, height: 116, fill: "#d9dcd6" }, S.g);
+  el("rect", { y: 646, width: 1280, height: 5, fill: "#d6ec5a" }, S.g);
+  el("ellipse", { cx: 640, cy: 628, rx: 360, ry: 15, fill: "#c5cdc5" }, S.g);
+  // Regal
+  const rows = [
+    [241, [[86, 190, 96, 47, "t"], [190, 185, 55, 52, "t"], [253, 173, 78, 64, "l"], [339, 182, 64, 55, "g"], [474, 195, 64, 42, "l"], [546, 187, 63, 50, "l"], [617, 177, 59, 60, "l"], [684, 162, 49, 75, "t"], [863, 150, 72, 87, "t"], [944, 161, 75, 76, "g"], [1027, 196, 48, 41, "t"], [1084, 184, 71, 53, "t"]]],
+    [357, [[86, 307, 80, 46, "t"], [174, 310, 74, 43, "d"], [257, 278, 50, 75, "d"], [315, 271, 50, 82, "t"], [474, 277, 52, 76, "t"], [533, 301, 68, 52, "t"], [609, 290, 68, 63, "t"], [685, 266, 68, 87, "g"], [866, 300, 88, 53, "t"], [962, 270, 96, 83, "l"], [1067, 269, 82, 84, "g"]]],
+    [473, [[86, 384, 101, 84, "l"], [193, 392, 54, 76, "d"], [255, 383, 92, 85, "g"], [355, 419, 56, 49, "t"], [474, 412, 64, 56, "t"], [546, 401, 52, 67, "d"], [607, 405, 52, 63, "t"], [667, 407, 96, 61, "l"], [863, 404, 86, 64, "d"], [958, 386, 98, 82, "d"], [1065, 395, 92, 73, "t"]]],
+    [589, [[86, 505, 92, 80, "t"], [186, 514, 54, 71, "t"], [248, 497, 91, 88, "t"], [474, 514, 92, 71, "l"], [575, 508, 77, 77, "t"], [660, 542, 60, 43, "t"], [863, 536, 98, 49, "d"], [969, 510, 97, 75, "g"], [1074, 538, 76, 47, "t"]]],
+  ];
+  const col = { t: "#c9aa7c", l: "#d8dbd6", g: "#aeb4b8", d: GREEN };
+  S.boxes = [];
+  rows.forEach(([by, list]) => {
+    el("rect", { x: 70, y: by, width: 1140, height: 10, fill: "#d6ec5a" }, S.g);
+    list.forEach(([x, y, w, h, c]) => {
+      const r = el("rect", { x, y, width: w, height: h, fill: col[c] }, S.g);
+      if (c === "t") { el("rect", { x: x + w * 0.4, y, width: w * 0.2, height: h, fill: "#d6bb90" }, S.g); }
+      S.boxes.push({ cx: x + w / 2, top: y, w, h, x, y });
+    });
+  });
+  el("rect", { x: 64, y: 216, width: 12, height: 390, fill: DGREEN }, S.g);
+  el("rect", { x: 1204, y: 216, width: 12, height: 390, fill: DGREEN }, S.g);
+  // Personen
+  S.w = Person(S.g, { coat: "#0f4a2f", skin: "#e2a67c", pants: "#5d6260", shoe: "#141817", hat: "hard", hatColor: "#d8ee5a", stripes: true });
+  S.c = Person(S.g, { coat: "#1a1d1c", skin: "#a6684a", cheek: "#8e4f36", pants: "#232726", shoe: "#0f1211", hat: "hair", stripes: false, badge: true });
+  // Tablet
+  S.tablet = el("g", {}, S.c.armF.item);
+  const tb = el("g", { transform: "translate(6 -30) rotate(-14)" }, S.tablet);
+  el("rect", { x: -34, y: -50, width: 68, height: 96, rx: 8, fill: "#121816" }, tb);
+  el("rect", { x: -27, y: -43, width: 54, height: 82, rx: 3, fill: "#f3f6f1" }, tb);
+  el("rect", { x: -16, y: -34, width: 20, height: 30, fill: GREEN }, tb);
+  S.tabBar = el("rect", { x: -16, y: 2, width: 30, height: 12, fill: LIME }, tb);
+  el("path", { d: "M-22 30 l12 -10 l10 8 l14 -14", fill: "none", stroke: "#123", "stroke-width": 2.4, "stroke-linecap": "round" }, tb);
+  // Scan-Effekt
+  const defs = el("defs", {}, S.g);
+  const bm = el("linearGradient", { id: "beam", x1: 0, y1: 0, x2: 1, y2: 0 }, defs);
+  el("stop", { offset: 0, "stop-color": LIME, "stop-opacity": 0 }, bm); el("stop", { offset: 1, "stop-color": LIME, "stop-opacity": 0.55 }, bm);
+  S.beam = el("g", {}, S.g);
+  el("rect", { x: -150, y: 200, width: 150, height: 400, fill: "url(#beam)" }, S.beam);
+  el("rect", { x: -3, y: 200, width: 6, height: 400, rx: 3, fill: LIME }, S.beam);
+  // Status-Punkte
+  const R = rng(11);
+  S.flags = S.boxes.map((b, i) => {
+    const q = R();
+    if (Math.abs(b.cx - 250) < 80 || Math.abs(b.cx - 1030) < 80) return null; const st = q < 0.10 ? "r" : q < 0.26 ? "a" : "g";
+    const g = el("g", {}, S.g);
+    const fill = st === "r" ? "#e2483d" : st === "a" ? "#f0a637" : "#3fae6a";
+    el("circle", { r: 13, fill: "#ffffff" }, g); el("circle", { r: 9.5, fill }, g);
+    if (st === "g") el("path", { d: "M-4.6 0 l3.2 3.4 l6 -6.6", fill: "none", stroke: "#fff", "stroke-width": 2.4, "stroke-linecap": "round", "stroke-linejoin": "round" }, g);
+    else el("rect", { x: -1.4, y: -5.5, width: 2.8, height: 7, rx: 1.4, fill: "#fff" }, g), el("circle", { cy: 5, r: 1.6, fill: "#fff" }, g);
+    let ring = null;
+    if (st === "r") ring = el("rect", { x: b.x - 3, y: b.y - 3, width: b.w + 6, height: b.h + 6, rx: 4, fill: "none", stroke: "#e2483d", "stroke-width": 4 }, S.g);
+    return { g, b, st, ring };
+  });
+  // Kennzahlen-Karten
+  const cards = [
+    { x: 150, label: "Kapitalbindung gesamt", value: 456.1, unit: " Tsd. €", accent: "#3fae6a", dec: 1 },
+    { x: 490, label: "Einsparpotenzial max.", value: 364.8, unit: " Tsd. €", accent: "#3fae6a", dec: 1 },
+    { x: 830, label: "Kritische Ersatzteile ohne Bestand", value: 10, unit: "", accent: "#e2483d", dec: 0 },
+  ];
+  S.cards = cards.map((c) => {
+    const g = el("g", {}, S.g);
+    el("rect", { x: 3, y: 5, width: 300, height: 92, rx: 12, fill: "#000", opacity: 0.1 }, g);
+    el("rect", { width: 300, height: 92, rx: 12, fill: "#fbfcfa", stroke: "#dde1da", "stroke-width": 1.5 }, g);
+    el("rect", { width: 7, height: 92, rx: 3.5, fill: c.accent }, g);
+    el("text", { x: 26, y: 34, "font-size": 16, "font-weight": 500, fill: "#5a655e" }, g).textContent = c.label;
+    const v = el("text", { x: 26, y: 76, "font-size": 38, "font-weight": 700, fill: "#14201a" }, g);
+    g.v = v; g.c = c; return g;
+  });
+  S.check = el("g", {}, S.g);
+  el("circle", { r: 34, fill: LIME }, S.check);
+  el("path", { d: "M-15 1 l10 11 l20 -23", fill: "none", stroke: "#0e1411", "stroke-width": 7, "stroke-linecap": "round", "stroke-linejoin": "round" }, S.check);
+  // Zeitplan
+  const T = { walk0: 0.5, meet: 2.0, shakeA: 2.2, shakeB: 4.3, apart: 4.7, apartEnd: 6.0, scan0: 6.2, scan1: 8.9, cards0: 8.4, check: 10.9 };
+  S.update = (t) => {
+    const yG = 618, sc = 0.93;
+    const wx = (() => { // Arbeiter
+      if (t < T.meet) return lerp(180, 500, ease(seg(t, T.walk0, T.meet)));
+      if (t < T.apart) return 500;
+      return lerp(500, 250, ease(seg(t, T.apart, T.apartEnd)));
+    })();
+    const cx = (() => {
+      if (t < T.meet) return lerp(1100, 780, ease(seg(t, T.walk0, T.meet)));
+      if (t < T.apart) return 780;
+      return lerp(780, 1030, ease(seg(t, T.apart, T.apartEnd)));
+    })();
+    const walkingIn = t >= T.walk0 && t < T.meet, walkingOut = t >= T.apart && t < T.apartEnd;
+    const phase = t * 9;
+    S.w.place(wx, yG, sc, 1); S.c.place(cx, yG, sc, -1);
+    const wa = walkingIn || walkingOut ? 1 : 0;
+    S.w.walk(phase, wa); S.c.walk(phase + 1, wa);
+    S.w.nod(0); S.c.nod(0);
+    // Arme
+    const meet = [640, 402];
+    const sh = t >= T.shakeA && t < T.shakeB ? Math.sin((t - T.shakeA) * 15) * 16 : 0;
+    const reach = t < T.meet ? 0 : t < T.apart ? ease(seg(t, T.meet - 0.2, T.meet + 0.3)) * (1 - ease(seg(t, T.apart - 0.3, T.apart + 0.1))) : 0;
+    const wSw = wa ? Math.sin(phase) * 38 : 0;
+    const wHand = [lerp(wx + 30 * sc + wSw * 0.4, meet[0], reach), lerp(yG - 128 * sc, meet[1] + sh, reach)];
+    S.w.arm("front", wHand, true);
+    S.w.arm("back", [-40 - (wa ? wSw * 0.5 : 0), -178], false);
+    const cHand = [lerp(cx - (30 * sc + (wa ? Math.sin(phase + 1) * 38 * 0.4 : 0)), meet[0] + 4, reach), lerp(yG - 128 * sc, meet[1] + sh, reach)];
+    // Berater: rechte (vordere) Hand zum Handschlag; die hintere hält das Tablet
+    S.c.arm("front", cHand, true);
+    const tabUp = t >= T.apartEnd - 0.3 ? ease(seg(t, T.apartEnd - 0.3, T.apartEnd + 0.4)) : 0;
+    const tabLocal = t < T.apart ? [-30, -260] : [lerp(-30, 44, tabUp), lerp(-260, -282, tabUp)];
+    S.c.armB.item.setAttribute("transform", "");
+    const hB = S.c.arm("back", tabLocal, false);
+    // Tablet gehört zur hinteren Hand
+    if (!S.tabMoved) { S.c.armB.item.appendChild(S.tablet); S.tabMoved = true; }
+    S.tablet.setAttribute("transform", `translate(0 0) rotate(${8 - 20 * tabUp})`);
+    S.tabBar.setAttribute("width", 8 + 22 * clamp((t - T.scan0) / 3));
+    // Scanstrahl
+    const sp = seg(t, T.scan0, T.scan1);
+    const bx = lerp(40, 1250, ease(sp));
+    S.beam.setAttribute("transform", `translate(${bx} 0)`);
+    S.beam.setAttribute("opacity", t >= T.scan0 && t <= T.scan1 + 0.3 ? 1 : 0);
+    S.flags.forEach((f, i) => {
+      if (!f) return;
+      const k = seg(bx, f.b.cx - 5, f.b.cx + 40);
+      const on = t >= T.scan0 && k > 0;
+      const pop = easeOut(clamp(k)) * (on ? 1 : 0);
+      f.g.setAttribute("transform", `translate(${f.b.cx} ${f.b.top - 4}) scale(${pop})`);
+      f.g.setAttribute("opacity", pop);
+      if (f.ring) f.ring.setAttribute("opacity", on ? (0.35 + 0.65 * (0.5 + 0.5 * Math.sin(t * 6))) * pop : 0);
+    });
+    // Karten
+    S.cards.forEach((g, i) => {
+      const a = seg(t, T.cards0 + i * 0.5, T.cards0 + i * 0.5 + 0.55);
+      const e = easeOut(a);
+      g.setAttribute("transform", `translate(${g.c.x} ${lerp(-120, 34, e)})`);
+      g.setAttribute("opacity", e);
+      const cnt = easeOut(seg(t, T.cards0 + i * 0.5 + 0.2, T.cards0 + i * 0.5 + 1.4));
+      g.v.textContent = (g.c.value * cnt).toFixed(g.c.dec).replace(".", ",") + g.c.unit;
+    });
+    const ck = easeOut(seg(t, T.check, T.check + 0.4));
+    S.check.setAttribute("transform", `translate(1170 82) scale(${ck})`);
+  };
+  return S;
+}
+
+/* ----- Steuerung ---------------------------------------------------------- */
+buildWipe();
+const scenes = { pharma: Pharma(), werk: Werkstatt(), lager: Lager() };
+[scenes.pharma.g, scenes.werk.g, scenes.lager.g].forEach((g) => svg.insertBefore(g, wipeG));
+const LEN = { pharma: 5.05, werk: 5.05, lager: 11.85 };
+window.LEN = LEN;
+window.setFrame = (block, t) => {
+  for (const k in scenes) scenes[k].g.setAttribute("display", "none");
+  let name, lt;
+  if (block === "n1") { if (t < LEN.pharma) { name = "pharma"; lt = t; } else { name = "werk"; lt = t - LEN.pharma; } }
+  else { name = "lager"; lt = t; }
+  scenes[name].g.removeAttribute("display");
+  scenes[name].update(lt);
+  setWipe(wipeFor(lt, LEN[name]));
+};
+window.setFrame("n1", 0);
+</script>
