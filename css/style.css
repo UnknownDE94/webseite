@@ -488,40 +488,41 @@ html[data-theme="dark"] .info-bild img { opacity: 0.8; }
   height: auto;
   margin: 0 auto;
 }
-.hero-scene .sc-ring { fill: none; stroke: var(--lime); stroke-width: 2; opacity: 0.35; transform-origin: 470px 250px; animation: sc-ring 6s ease-in-out infinite; }
-.hero-scene .sc-ring-2 { opacity: 0.2; animation-delay: -3s; }
-.hero-scene .sc-bars rect { fill: var(--green-3); opacity: 0.55; transform-box: fill-box; transform-origin: bottom; animation: sc-bar 5s ease-in-out infinite; }
-.hero-scene .sc-bars rect:nth-child(2) { animation-delay: -1s; }
-.hero-scene .sc-bars rect:nth-child(3) { animation-delay: -2s; }
-.hero-scene .sc-bars rect:nth-child(4) { animation-delay: -3s; }
-.hero-scene .sc-bars rect:nth-child(5) { animation-delay: -4s; }
-.hero-scene .sc-card { fill: var(--surface); stroke: var(--line-2); }
-.hero-scene .sc-card-line { fill: var(--line-2); }
-.hero-scene .sc-ground { stroke: var(--line-2); stroke-width: 2; }
-.hero-scene .sc-limb { fill: none; stroke: #9ea6aa; stroke-width: 15; stroke-linecap: round; }
-.hero-scene .sc-body { fill: #2f8a52; }
-.hero-scene .sc-face { fill: #eef0ec; stroke: rgba(14, 42, 27, 0.25); stroke-width: 2; }
 .hero-scene .sc-head { transform-origin: 470px 208px; animation: sc-head 5s ease-in-out infinite; }
 .hero-scene .sc-arm { animation: sc-arm 5s ease-in-out infinite alternate; }
 .hero-scene .sc-arm-l { transform-origin: 447px 238px; }
 .hero-scene .sc-arm-r { transform-origin: 493px 238px; }
 .hero-scene .sc-hold { animation: sc-arm 5s ease-in-out infinite alternate-reverse; }
-.hero-scene .sc-hold-l { transform-origin: 326px 216px; }
-.hero-scene .sc-hold-r { transform-origin: 614px 216px; }
+.hero-scene .sc-hold-l { transform-origin: 372px 200px; }
+.hero-scene .sc-hold-r { transform-origin: 568px 200px; }
+/* Flacher Illustrationsstil wie im Imagefilm: helle Kachel, Regale, Mitarbeiter mit Helm */
+.hero-scene .hs-bg { fill: #eceee9; }
+.hero-scene .hs-shelf rect { fill: #0f4a2f; }
+.hero-scene .hs-shelf .hs-board { fill: #cfe84f; }
+.hero-scene .hs-floor { fill: #cfd3cd; }
+.hero-scene .hs-floor-line { fill: #cfe84f; }
+.hero-scene .hs-trouser { fill: #5d6260; }
+.hero-scene .hs-shoe { fill: #1b1f1d; }
+.hero-scene .hs-jacket { fill: #0f4a2f; }
+.hero-scene .hs-hivis { fill: #d4ec5f; }
+.hero-scene .hs-skin { fill: #e2a67c; }
+.hero-scene .hs-cheek { fill: #d68b69; opacity: 0.55; }
+.hero-scene .hs-eye { fill: #1b1f1d; }
+.hero-scene .hs-mouth { fill: none; stroke: #8a4a34; stroke-width: 2.4; stroke-linecap: round; }
+.hero-scene .hs-hat { fill: #d8ee5a; }
+.hero-scene .hs-arm { fill: none; stroke: #0f4a2f; stroke-width: 17; stroke-linecap: round; stroke-linejoin: round; }
 .hero-scene .sc-coin { fill: var(--lime); }
 .hero-scene .sc-risk { fill: var(--warn); stroke: var(--warn); stroke-width: 8; stroke-linejoin: round; }
 .hero-scene .sc-sym { font: 700 30px var(--font-display); fill: #0e1411; }
 .hero-scene .sc-halo { fill: var(--lime); opacity: 0.18; animation: sc-halo 5s ease-in-out infinite; }
 .hero-scene .sc-halo-r { fill: var(--crit); animation-delay: -2.5s; }
-.hero-scene .sc-label { font: 500 13px var(--font-mono); letter-spacing: 0.14em; fill: var(--ink-3); }
+.hero-scene .sc-label { font: 500 13px var(--font-mono); letter-spacing: 0.14em; fill: #56605a; }
 .hero-scene .sc-q text { font: 700 44px var(--font-display); fill: var(--green-2); opacity: 0; animation: sc-q 3.6s ease-in-out infinite; }
 .hero-scene .sc-q .q2 { animation-delay: 1.2s; }
 .hero-scene .sc-q .q3 { animation-delay: 2.4s; }
 @keyframes sc-arm { from { transform: rotate(14deg); } to { transform: rotate(-14deg); } }
 @keyframes sc-head { 0%, 100% { transform: rotate(-7deg); } 50% { transform: rotate(7deg); } }
 @keyframes sc-halo { 0%, 100% { opacity: 0.08; } 50% { opacity: 0.4; } }
-@keyframes sc-bar { 0%, 100% { transform: scaleY(1); } 50% { transform: scaleY(0.7); } }
-@keyframes sc-ring { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.05); } }
 @keyframes sc-q {
   0% { opacity: 0; transform: translateY(14px); }
   30%, 60% { opacity: 0.9; }

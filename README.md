@@ -11,7 +11,6 @@ leistungen.html                     Leistungsbereiche & Pakete
 smartparts.html                     WK SmartParts (Plattform-Einblick mit Ansichten aus der Plattform)
 ueber-mich.html                     Über uns
 kontakt.html                        Kontaktformular (mailto) & Kontaktdaten
-materialstammdaten-checkliste.html  Praxis-Checkliste Materialstammdaten
 impressum.html                      Impressum (Entwurf – vor Veröffentlichung prüfen)
 datenschutz.html                    Datenschutzerklärung (Entwurf – vor Veröffentlichung prüfen)
 css/style.css                       Gemeinsames Stylesheet (Design 2026: Creme, Waldgrün, Limette; Hell/Dunkel)
