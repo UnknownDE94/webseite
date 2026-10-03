@@ -6,56 +6,24 @@
   <title>Motion Graphics Demo – Werringloer Komponentenmanagement</title>
   <link rel="stylesheet" href="css/style.css" />
   <link rel="stylesheet" href="css/animations.css" />
-  <style>
-    .demo-section {
-      padding: 60px 0;
-      border-bottom: 1px solid var(--line);
-    }
-    .demo-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 24px;
-      margin-top: 32px;
-    }
-    .demo-box {
-      padding: 32px;
-      border: 1px solid var(--line);
-      border-radius: var(--radius);
-      background: var(--surface);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      min-height: 200px;
-      font-weight: 600;
-      text-align: center;
-    }
-    .demo-preview {
-      max-width: 400px;
-      margin: 32px 0;
-      padding: 24px;
-      border: 1px solid var(--line);
-      border-radius: var(--radius);
-      background: var(--bg-2);
-    }
-    .code-block {
-      background: #0f0f0f;
-      color: #d4ec5f;
-      padding: 16px;
-      border-radius: 8px;
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 0.85rem;
-      overflow-x: auto;
-      margin: 16px 0;
-    }
-  </style>
+  <link rel="stylesheet" href="css/components.css" />
 </head>
 <body>
   <header class="site-header">
     <div class="container nav">
-      <a class="brand" href="index.html">
+      <a class="brand" href="index.html" aria-label="Werringloer Komponentenmanagement – zur Startseite">
         <span class="brand-plate"><img src="assets/logo-mark.webp" alt="" class="brand-mark" width="272" height="155" /></span>
-        <span class="brand-text"><span class="brand-name">Werringloer</span><span class="brand-sub">Komponenten</span></span>
+        <span class="brand-text" aria-hidden="true"><span class="brand-name">Werringloer</span><span class="brand-sub">Komponenten</span></span>
       </a>
+      <div class="nav-actions">
+        <a class="btn nav-cta" href="kontakt.html">Kostenlos anfragen</a>
+        <button class="theme-toggle" type="button" aria-label="Dunklen Modus aktivieren" aria-pressed="false">
+          <span aria-hidden="true">☾</span>
+        </button>
+        <button class="nav-toggle" type="button" aria-label="Menü öffnen" aria-expanded="false" aria-controls="hauptmenue">
+          <span></span>
+        </button>
+      </div>
     </div>
   </header>
 
@@ -128,29 +96,17 @@
       <div class="container">
         <h2>Counter & Zahlen Animationen</h2>
         <div class="demo-grid">
-          <div class="demo-box">
-            <div style="text-align: center;">
-              <div style="font-size: 2.5rem; margin-bottom: 8px;">
-                <span data-counter="2500" data-duration="2000">0</span>
-              </div>
-              <p style="margin: 0; color: var(--ink-2);">Implementierungen</p>
-            </div>
+          <div class="demo-box counter-item">
+            <div class="counter-value"><span data-counter="2500" data-duration="2000">0</span></div>
+            <p class="counter-label">Implementierungen</p>
           </div>
-          <div class="demo-box">
-            <div style="text-align: center;">
-              <div style="font-size: 2.5rem; margin-bottom: 8px;">
-                <span data-counter="85" data-duration="2000">0</span>%
-              </div>
-              <p style="margin: 0; color: var(--ink-2);">Effizienzgewinn</p>
-            </div>
+          <div class="demo-box counter-item">
+            <div class="counter-value"><span data-counter="85" data-duration="2000">0</span>%</div>
+            <p class="counter-label">Effizienzgewinn</p>
           </div>
-          <div class="demo-box">
-            <div style="text-align: center;">
-              <div style="font-size: 2.5rem; margin-bottom: 8px;">
-                <span data-counter="42" data-duration="2000">0</span>
-              </div>
-              <p style="margin: 0; color: var(--ink-2);">Tage Lieferzeit</p>
-            </div>
+          <div class="demo-box counter-item">
+            <div class="counter-value"><span data-counter="42" data-duration="2000">0</span></div>
+            <p class="counter-label">Tage Lieferzeit</p>
           </div>
         </div>
       </div>
@@ -191,52 +147,40 @@ await WerringloerMotionGraphics.SaaSIntegration.syncExternalData({
       <div class="container">
         <h2>SaaS Integration Features</h2>
         <div class="demo-grid">
-          <div class="demo-box">
-            <div style="text-align: center;">
-              <h3 style="margin: 0 0 8px;">📊 Analytics</h3>
-              <p style="margin: 0; color: var(--ink-2); font-size: 0.9rem;">
-                Automatisches Event Tracking und Performance Monitoring
-              </p>
+          <div class="demo-box demo-content-center">
+            <div>
+              <h3>📊 Analytics</h3>
+              <p class="demo-feature-text">Automatisches Event Tracking und Performance Monitoring</p>
             </div>
           </div>
-          <div class="demo-box">
-            <div style="text-align: center;">
-              <h3 style="margin: 0 0 8px;">🔄 Data Sync</h3>
-              <p style="margin: 0; color: var(--ink-2); font-size: 0.9rem;">
-                Nahtlose Synchronisation mit externen Systemen
-              </p>
+          <div class="demo-box demo-content-center">
+            <div>
+              <h3>🔄 Data Sync</h3>
+              <p class="demo-feature-text">Nahtlose Synchronisation mit externen Systemen</p>
             </div>
           </div>
-          <div class="demo-box">
-            <div style="text-align: center;">
-              <h3 style="margin: 0 0 8px;">⚙️ Personalisierung</h3>
-              <p style="margin: 0; color: var(--ink-2); font-size: 0.9rem;">
-                Adaptive UI basierend auf Benutzervorlieben
-              </p>
+          <div class="demo-box demo-content-center">
+            <div>
+              <h3>⚙️ Personalisierung</h3>
+              <p class="demo-feature-text">Adaptive UI basierend auf Benutzervorlieben</p>
             </div>
           </div>
-          <div class="demo-box">
-            <div style="text-align: center;">
-              <h3 style="margin: 0 0 8px;">🧪 A/B Testing</h3>
-              <p style="margin: 0; color: var(--ink-2); font-size: 0.9rem;">
-                Built-in Framework für Varianten-Tests
-              </p>
+          <div class="demo-box demo-content-center">
+            <div>
+              <h3>🧪 A/B Testing</h3>
+              <p class="demo-feature-text">Built-in Framework für Varianten-Tests</p>
             </div>
           </div>
-          <div class="demo-box">
-            <div style="text-align: center;">
-              <h3 style="margin: 0 0 8px;">📱 Offline-First</h3>
-              <p style="margin: 0; color: var(--ink-2); font-size: 0.9rem;">
-                Service Worker & Sync für Offline-Unterstützung
-              </p>
+          <div class="demo-box demo-content-center">
+            <div>
+              <h3>📱 Offline-First</h3>
+              <p class="demo-feature-text">Service Worker & Sync für Offline-Unterstützung</p>
             </div>
           </div>
-          <div class="demo-box">
-            <div style="text-align: center;">
-              <h3 style="margin: 0 0 8px;">⚡ Performance</h3>
-              <p style="margin: 0; color: var(--ink-2); font-size: 0.9rem;">
-                Core Web Vitals Monitoring & Optimization
-              </p>
+          <div class="demo-box demo-content-center">
+            <div>
+              <h3>⚡ Performance</h3>
+              <p class="demo-feature-text">Core Web Vitals Monitoring & Optimization</p>
             </div>
           </div>
         </div>
@@ -248,18 +192,18 @@ await WerringloerMotionGraphics.SaaSIntegration.syncExternalData({
       <div class="container">
         <h2>Scroll-basierte Animationen</h2>
         <p>Diese Elemente animieren, wenn Sie sie in den Viewport scrollen:</p>
-        <div style="display: grid; gap: 32px; margin-top: 32px;">
-          <div class="anim-on-scroll" style="padding: 32px; background: var(--surface); border-radius: var(--radius); border: 1px solid var(--line);">
+        <div class="scroll-elements">
+          <div class="anim-on-scroll scroll-item">
             <h3>Scroll Element 1</h3>
-            <p style="color: var(--ink-2);">Scrolle nach unten um diese Animation zu sehen</p>
+            <p>Scrolle nach unten um diese Animation zu sehen</p>
           </div>
-          <div class="anim-on-scroll" style="padding: 32px; background: var(--surface); border-radius: var(--radius); border: 1px solid var(--line);">
+          <div class="anim-on-scroll scroll-item">
             <h3>Scroll Element 2</h3>
-            <p style="color: var(--ink-2);">Jedes Element hat eine eigene Verzögerung</p>
+            <p>Jedes Element hat eine eigene Verzögerung</p>
           </div>
-          <div class="anim-on-scroll" style="padding: 32px; background: var(--surface); border-radius: var(--radius); border: 1px solid var(--line);">
+          <div class="anim-on-scroll scroll-item">
             <h3>Scroll Element 3</h3>
-            <p style="color: var(--ink-2);">Smooth und elegant in die Seite</p>
+            <p>Smooth und elegant in die Seite</p>
           </div>
         </div>
       </div>
@@ -281,7 +225,7 @@ await WerringloerMotionGraphics.SaaSIntegration.syncExternalData({
 
   <footer class="site-footer">
     <div class="container">
-      <p style="color: #a9b2ac; margin: 0;">Motion Graphics Demo v2.0 | <a href="index.html" style="color: var(--lime);">Zur Startseite</a></p>
+      <p class="footer-demo">Motion Graphics Demo v2.0 | <a href="index.html" class="footer-demo-link">Zur Startseite</a></p>
     </div>
   </footer>
 
