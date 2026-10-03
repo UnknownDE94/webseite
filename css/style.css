@@ -45,6 +45,7 @@
 
 /* --- Tokens --- */
 :root {
+  /* Colors */
   --bg: #f5f4ef;
   --bg-2: #ecebe4;
   --surface: #ffffff;
@@ -65,22 +66,43 @@
   --warn: #e0a526;
   --crit: #d64545;
 
+  /* Spacing Scale */
+  --space-xs: 4px;
+  --space-sm: 8px;
+  --space-md: 16px;
+  --space-lg: 24px;
+  --space-xl: 32px;
+  --space-2xl: 60px;
+  --space-3xl: 80px;
+
+  /* Component Sizes */
+  --header-height: 68px;
+  --btn-height: 48px;
+  --input-height: 44px;
+
+  /* Buttons */
   --btn-bg: var(--green);
   --btn-ink: #ffffff;
-  --btn-2-bg: #e7e6de;
-  --btn-2-ink: var(--ink);
 
+  /* Border & Radius */
   --radius: 14px;
   --radius-lg: 22px;
   --radius-sm: 8px;
+
+  /* Shadows */
   --shadow: 0 1px 2px rgba(14, 42, 27, 0.04), 0 12px 32px rgba(14, 42, 27, 0.06);
   --shadow-lg: 0 2px 4px rgba(14, 42, 27, 0.05), 0 28px 60px rgba(14, 42, 27, 0.12);
 
+  /* Layout */
   --max-width: 1200px;
+
+  /* Typography */
   --font-display: "Archivo", "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
   --font-body: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
   --font-mono: "JetBrains Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
   --font-brand: "Montserrat", "Inter", system-ui, sans-serif;
+
+  /* Easing */
   --ease: cubic-bezier(0.2, 0.7, 0.2, 1);
   --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
 
@@ -305,13 +327,13 @@ html[data-theme="dark"] .brand-sub,
 .site-header.is-open .nav-toggle span::before { transform: translateY(6px) rotate(45deg); }
 .site-header.is-open .nav-toggle span::after { transform: translateY(-6px) rotate(-45deg); }
 
-/* --- Buttons --- */
+/* === BUTTONS === */
 .btn {
   display: inline-flex;
   align-items: center;
   justify-content: center;
   gap: 12px;
-  min-height: 48px;
+  min-height: var(--btn-height);
   padding: 0 20px;
   border: 1px solid transparent;
   border-radius: var(--radius-sm);
@@ -325,28 +347,50 @@ html[data-theme="dark"] .brand-sub,
 }
 .btn:active { transform: translateY(1px); }
 
-/* Hauptschaltfläche: dunkles Grün, ohne Pfeil */
-.btn-primary,
-.nav-cta {
+/* Primary Button: dunkles Grün */
+.btn-primary {
   color: var(--btn-ink);
   background: var(--btn-bg);
 }
-.btn-primary:hover,
-.nav-cta:hover { background: var(--green-2); }
-html[data-theme="dark"] .btn-primary:hover,
-html[data-theme="dark"] .nav-cta:hover { background: #e2f37f; }
+.btn-primary:hover {
+  background: var(--green-2);
+}
+html[data-theme="dark"] .btn-primary:hover {
+  background: #e2f37f;
+}
 
+/* Nav CTA Button (Primary im Header) */
 .nav-cta {
   min-height: 42px;
   padding: 0 16px;
   font-size: 0.9rem;
+  color: var(--btn-ink);
+  background: var(--btn-bg);
+}
+.nav-cta:hover {
+  background: var(--green-2);
+}
+html[data-theme="dark"] .nav-cta:hover {
+  background: #e2f37f;
 }
 
+/* Secondary Button: transparent mit Border */
 .btn-secondary {
-  color: var(--btn-2-ink);
-  background: var(--btn-2-bg);
+  color: var(--green);
+  background: transparent;
+  border: 1px solid var(--green);
 }
-.btn-secondary:hover { border-color: var(--line-2); }
+.btn-secondary:hover {
+  background: var(--lime-2);
+  border-color: var(--lime);
+}
+html[data-theme="dark"] .btn-secondary {
+  color: var(--lime);
+  border-color: var(--lime);
+}
+html[data-theme="dark"] .btn-secondary:hover {
+  background: rgba(212, 236, 95, 0.2);
+}
 
 .link-arrow {
   display: inline-flex;
@@ -1042,7 +1086,7 @@ html[data-theme="dark"] .flow li { background: rgba(18, 22, 20, 0.88); }
   50% { transform: translateY(-12px) rotate(0deg); }
 }
 
-/* Limetten-Pill mit Kreispfeil */
+/* Lime Button: Limettengelb mit abgerundeten Ecken */
 .btn-lime {
   min-height: 50px;
   padding: 0 22px;
@@ -1050,7 +1094,16 @@ html[data-theme="dark"] .flow li { background: rgba(18, 22, 20, 0.88); }
   color: #0e1411;
   background: var(--lime);
 }
-.btn-lime:hover { background: #e2f37f; }
+.btn-lime:hover {
+  background: #e2f37f;
+}
+html[data-theme="dark"] .btn-lime {
+  color: #0e1411;
+  background: var(--lime);
+}
+html[data-theme="dark"] .btn-lime:hover {
+  background: #e2f37f;
+}
 
 /* --- Seitenkopf (Unterseiten) --- */
 .page-header {
