@@ -1,0 +1,143 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <title>Motion & Video – Werringloer</title>
+  <script src="./support.js"></script>
+  <style>
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes pulse {
+      0%, 100% { opacity: 0.6; }
+      50% { opacity: 1; }
+    }
+    @keyframes float {
+      0%, 100% { transform: translateY(0px); }
+      50% { transform: translateY(8px); }
+    }
+  </style>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <style>
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      background: #0f1419;
+      color: #ffffff;
+    }
+    h1, h2 { font-weight: 600; letter-spacing: -0.01em; }
+    h2 { font-size: 2.2rem; }
+  </style>
+</helmet>
+
+<div style="width: 1440px; padding: 0; position: relative; background: #0f1419">
+
+  <!-- Background -->
+  <div style="position: fixed; inset: 0; z-index: 0">
+    <div style="position: absolute; inset: 0; background: linear-gradient(135deg, #0f1419 0%, #1a1a1a 50%, #0c3a24 100%); z-index: 1"></div>
+    <div style="position: absolute; inset: 0; background: radial-gradient(circle at 50% 50%, rgba(47, 138, 82, 0.1) 0%, transparent 70%); z-index: 2"></div>
+  </div>
+
+  <!-- Header -->
+  <div style="position: relative; z-index: 10; padding: 24px 60px; border-bottom: 1px solid rgba(255, 255, 255, 0.08); background: rgba(0, 0, 0, 0.3); backdrop-filter: blur(12px); display: flex; justify-content: space-between; align-items: center">
+    <div style="font-size: 18px; font-weight: 600; color: #d4ec5f">Werringloer</div>
+    <div style="display: flex; gap: 48px; align-items: center; font-size: 14px">
+      <a href="#" style="color: #ffffff; text-decoration: none">Leistungen</a>
+      <a href="#" style="color: #ffffff; text-decoration: none">Über uns</a>
+      <a href="#" style="color: #ffffff; text-decoration: none">Kontakt</a>
+      <button style="padding: 10px 20px; background: linear-gradient(135deg, #d4ec5f 0%, #cfe84f 100%); color: #0e1411; border: none; border-radius: 6px; font-size: 14px; font-weight: 500; cursor: pointer">Anfrage</button>
+    </div>
+  </div>
+
+  <!-- Video Section -->
+  <div style="position: relative; z-index: 5; padding: 80px 60px">
+    <h1 style="font-size: 2.8rem; margin: 0 0 20px 0; color: #ffffff; animation: fadeInUp 1s ease-out">Werbevideo</h1>
+    <p style="color: rgba(255, 255, 255, 0.7); margin: 0 0 40px 0; font-size: 16px; animation: fadeInUp 1s ease-out 0.1s both">Seite an Seite mit deinem Team – so sieht echte Beratung aus.</p>
+
+    <!-- Video Container -->
+    <div style="background: linear-gradient(135deg, rgba(12, 58, 36, 0.8) 0%, rgba(47, 138, 82, 0.5) 100%); border: 1px solid rgba(212, 236, 95, 0.2); border-radius: 12px; aspect-ratio: 16/9; display: flex; align-items: center; justify-content: center; position: relative; margin-bottom: 40px; overflow: hidden; backdrop-filter: blur(10px); animation: fadeInUp 1s ease-out 0.2s both">
+
+      <!-- Video (autoplay, loop, muted) -->
+      <video style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover" autoplay muted loop playsinline preload="metadata" poster="assets/media/film-poster.jpg">
+        <source src="assets/media/film-hintergrund.webm" type="video/webm">
+        <source src="assets/media/film-hintergrund.mp4" type="video/mp4">
+      </video>
+
+      <!-- Overlay gradient für bessere Lesbarkeit -->
+      <div style="position: absolute; inset: 0; background: radial-gradient(ellipse at center, transparent 0%, rgba(15, 20, 25, 0.3) 100%); z-index: 1"></div>
+
+      <!-- Play Button (als Fallback/Info) -->
+      <svg style="width: 120px; height: 120px; position: relative; z-index: 2; animation: float 2s ease-in-out infinite" viewBox="0 0 100 100">
+        <circle cx="50" cy="50" r="45" fill="none" stroke="#d4ec5f" stroke-width="2" opacity="0.9"/>
+        <circle cx="50" cy="50" r="50" fill="none" stroke="#d4ec5f" stroke-width="1" opacity="0.3" style="animation: pulse 2s ease-in-out infinite"/>
+        <path d="M 40 35 L 40 65 L 65 50 Z" fill="#d4ec5f" opacity="0.95"/>
+      </svg>
+    </div>
+
+    <p style="font-size: 14px; color: rgba(255, 255, 255, 0.5); margin: 0; text-align: center">Klick zum Abspielen</p>
+  </div>
+
+  <!-- Animation Examples -->
+  <div style="position: relative; z-index: 5; padding: 80px 60px; border-top: 1px solid rgba(212, 236, 95, 0.1); border-bottom: 1px solid rgba(212, 236, 95, 0.1); background: rgba(12, 58, 36, 0.3)">
+    <h2 style="margin: 0 0 60px 0; color: #ffffff">Motion auf der Webseite</h2>
+
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 60px; max-width: 1000px">
+
+      <div style="padding: 32px; background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(212, 236, 95, 0.15); border-radius: 8px; backdrop-filter: blur(10px); animation: fadeInUp 0.8s ease-out 0.2s both">
+        <h3 style="font-size: 16px; margin: 0 0 16px 0; color: #d4ec5f">Fade In beim Scrollen</h3>
+        <p style="font-size: 14px; color: rgba(255, 255, 255, 0.7); line-height: 1.7; margin: 0">Inhalte erscheinen sanft, während der Nutzer scrollt. Nicht aufdringlich, nicht ablenkend.</p>
+      </div>
+
+      <div style="padding: 32px; background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(212, 236, 95, 0.15); border-radius: 8px; backdrop-filter: blur(10px); animation: fadeInUp 0.8s ease-out 0.3s both">
+        <h3 style="font-size: 16px; margin: 0 0 16px 0; color: #d4ec5f">Gradient Backgrounds</h3>
+        <p style="font-size: 14px; color: rgba(255, 255, 255, 0.7); line-height: 1.7; margin: 0">Subtile Farbverläufe erzeugen Tiefe ohne abzulenken. Modern und elegant.</p>
+      </div>
+
+      <div style="padding: 32px; background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(212, 236, 95, 0.15); border-radius: 8px; backdrop-filter: blur(10px); animation: fadeInUp 0.8s ease-out 0.4s both">
+        <h3 style="font-size: 16px; margin: 0 0 16px 0; color: #d4ec5f">Video-Integrationen</h3>
+        <p style="font-size: 14px; color: rgba(255, 255, 255, 0.7); line-height: 1.7; margin: 0">Werbevideo im Hero, Prozess-Videos bei den Leistungen. Mit Overlay und Play-Button.</p>
+      </div>
+
+      <div style="padding: 32px; background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(212, 236, 95, 0.15); border-radius: 8px; backdrop-filter: blur(10px); animation: fadeInUp 0.8s ease-out 0.5s both">
+        <h3 style="font-size: 16px; margin: 0 0 16px 0; color: #d4ec5f">Glasmorphism</h3>
+        <p style="font-size: 14px; color: rgba(255, 255, 255, 0.7); line-height: 1.7; margin: 0">Halbtransparente Elemente mit Blur-Effekt. Modernes Design, keine Kitsch.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Design Principles -->
+  <div style="position: relative; z-index: 5; padding: 80px 60px; animation: fadeInUp 1s ease-out 0.4s both">
+    <h2 style="margin: 0 0 40px 0; color: #ffffff">Design-Philosophie</h2>
+
+    <div style="max-width: 900px; font-size: 16px; color: rgba(255, 255, 255, 0.8); line-height: 1.8">
+      <p style="margin: 0 0 24px 0; padding: 24px; background: rgba(212, 236, 95, 0.08); border-left: 3px solid #d4ec5f; border-radius: 6px">
+        <strong style="color: #d4ec5f">Dunkel, modern, tiefenwirksam.</strong> Der dunkle Hintergrund mit Gradienten schafft Tiefe und Fokus auf die Inhalte. Keine bunten Kacheln, keine Überladung.
+      </p>
+      <p style="margin: 0 0 24px 0; padding: 24px; background: rgba(212, 236, 95, 0.08); border-left: 3px solid #d4ec5f; border-radius: 6px">
+        <strong style="color: #d4ec5f">Video & Bewegung zielgerichtet.</strong> Wir nutzen Motion, um zu führen und zu informieren. Keine reinen Effekte.
+      </p>
+      <p style="margin: 0 0 24px 0; padding: 24px; background: rgba(212, 236, 95, 0.08); border-left: 3px solid #d4ec5f; border-radius: 6px">
+        <strong style="color: #d4ec5f">Halbtransparenz + Blur.</strong> Glasmorphism-Effekte geben eine luftige, moderne Ästhetik. Funktional und schön zugleich.
+      </p>
+      <p style="margin: 0; padding: 24px; background: rgba(212, 236, 95, 0.08); border-left: 3px solid #d4ec5f; border-radius: 6px">
+        <strong style="color: #d4ec5f">Konsistent & performant.</strong> Alles lädt schnell, alles funktioniert auch ohne JavaScript. Moderne Web-Standards.
+      </p>
+    </div>
+  </div>
+
+</div>
+</x-dc>
+
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":900}}'>
+class Component extends DCLogic {
+  renderVals() {
+    return {};
+  }
+}
+</script>
+</body>
+</html>
