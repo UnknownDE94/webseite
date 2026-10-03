@@ -1,0 +1,291 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Motion Graphics Demo – Werringloer Komponentenmanagement</title>
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="css/animations.css" />
+  <style>
+    .demo-section {
+      padding: 60px 0;
+      border-bottom: 1px solid var(--line);
+    }
+    .demo-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 24px;
+      margin-top: 32px;
+    }
+    .demo-box {
+      padding: 32px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: var(--surface);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 200px;
+      font-weight: 600;
+      text-align: center;
+    }
+    .demo-preview {
+      max-width: 400px;
+      margin: 32px 0;
+      padding: 24px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: var(--bg-2);
+    }
+    .code-block {
+      background: #0f0f0f;
+      color: #d4ec5f;
+      padding: 16px;
+      border-radius: 8px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.85rem;
+      overflow-x: auto;
+      margin: 16px 0;
+    }
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <div class="container nav">
+      <a class="brand" href="index.html">
+        <span class="brand-plate"><img src="assets/logo-mark.webp" alt="" class="brand-mark" width="272" height="155" /></span>
+        <span class="brand-text"><span class="brand-name">Werringloer</span><span class="brand-sub">Komponenten</span></span>
+      </a>
+    </div>
+  </header>
+
+  <main id="main">
+    <section class="page-header">
+      <div class="container">
+        <h1>Motion Graphics Demo</h1>
+        <p>Komplette Übersicht aller verfügbaren Animationen und Effekte</p>
+      </div>
+    </section>
+
+    <!-- Fade Animationen -->
+    <section class="demo-section">
+      <div class="container">
+        <h2>Fade Animationen</h2>
+        <div class="demo-grid">
+          <div class="demo-box anim-fadeInUp">fadeInUp</div>
+          <div class="demo-box anim-fadeInLeft">fadeInLeft</div>
+          <div class="demo-box anim-fadeInRight">fadeInRight</div>
+          <div class="demo-box anim-fadeInScale">fadeInScale</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Motion Animationen -->
+    <section class="demo-section">
+      <div class="container">
+        <h2>Motion Animationen</h2>
+        <div class="demo-grid">
+          <div class="demo-box anim-float">Float</div>
+          <div class="demo-box anim-bounce">Bounce</div>
+          <div class="demo-box anim-pulse">Pulse</div>
+          <div class="demo-box anim-rotate">Rotate</div>
+          <div class="demo-box anim-swing">Swing</div>
+          <div class="demo-box anim-shake">Shake</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Text Animationen -->
+    <section class="demo-section">
+      <div class="container">
+        <h2>Text & Content Animationen</h2>
+        <div class="demo-preview">
+          <h3 data-split>Animated Headline mit Word Reveal</h3>
+          <p>Diese Überschrift animiert sich Wort für Wort in die Seite.</p>
+        </div>
+
+        <div class="demo-preview">
+          <div class="anim-stagger">
+            <p data-stagger-item>Erste Zeile mit Stagger</p>
+            <p data-stagger-item>Zweite Zeile mit Stagger</p>
+            <p data-stagger-item>Dritte Zeile mit Stagger</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SVG Animationen -->
+    <section class="demo-section">
+      <div class="container">
+        <h2>SVG Motion Graphics</h2>
+        <p>Eingebettete Motion Graphics mit Echtzeit-Animationen:</p>
+        <img src="assets/motion-graphics.svg" alt="Motion Graphics Dashboard" style="width: 100%; max-width: 800px; margin: 32px 0;" />
+      </div>
+    </section>
+
+    <!-- Counter Animationen -->
+    <section class="demo-section">
+      <div class="container">
+        <h2>Counter & Zahlen Animationen</h2>
+        <div class="demo-grid">
+          <div class="demo-box">
+            <div style="text-align: center;">
+              <div style="font-size: 2.5rem; margin-bottom: 8px;">
+                <span data-counter="2500" data-duration="2000">0</span>
+              </div>
+              <p style="margin: 0; color: var(--ink-2);">Implementierungen</p>
+            </div>
+          </div>
+          <div class="demo-box">
+            <div style="text-align: center;">
+              <div style="font-size: 2.5rem; margin-bottom: 8px;">
+                <span data-counter="85" data-duration="2000">0</span>%
+              </div>
+              <p style="margin: 0; color: var(--ink-2);">Effizienzgewinn</p>
+            </div>
+          </div>
+          <div class="demo-box">
+            <div style="text-align: center;">
+              <div style="font-size: 2.5rem; margin-bottom: 8px;">
+                <span data-counter="42" data-duration="2000">0</span>
+              </div>
+              <p style="margin: 0; color: var(--ink-2);">Tage Lieferzeit</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Code Beispiele -->
+    <section class="demo-section">
+      <div class="container">
+        <h2>Code Beispiele</h2>
+
+        <h3>HTML für Fade Animation:</h3>
+        <div class="code-block">&lt;div class="anim-fadeInUp"&gt;
+  Dieses Element fade-in und bewegt sich nach oben
+&lt;/div&gt;</div>
+
+        <h3>JavaScript API:</h3>
+        <div class="code-block">// Event Tracking
+WerringloerMotionGraphics.SaaSIntegration.trackEvent('button_click', {
+  buttonId: 'cta-main'
+});
+
+// Data Sync
+await WerringloerMotionGraphics.SaaSIntegration.syncExternalData({
+  source: 'erp-system'
+});</div>
+
+        <h3>CSS Variablen:</h3>
+        <div class="code-block">/* Eigene Animationen mit CSS Variablen */
+.my-element {
+  animation: fadeInUp var(--anim-duration-base)
+             var(--anim-ease-out) forwards;
+}</div>
+      </div>
+    </section>
+
+    <!-- SaaS Features -->
+    <section class="demo-section">
+      <div class="container">
+        <h2>SaaS Integration Features</h2>
+        <div class="demo-grid">
+          <div class="demo-box">
+            <div style="text-align: center;">
+              <h3 style="margin: 0 0 8px;">📊 Analytics</h3>
+              <p style="margin: 0; color: var(--ink-2); font-size: 0.9rem;">
+                Automatisches Event Tracking und Performance Monitoring
+              </p>
+            </div>
+          </div>
+          <div class="demo-box">
+            <div style="text-align: center;">
+              <h3 style="margin: 0 0 8px;">🔄 Data Sync</h3>
+              <p style="margin: 0; color: var(--ink-2); font-size: 0.9rem;">
+                Nahtlose Synchronisation mit externen Systemen
+              </p>
+            </div>
+          </div>
+          <div class="demo-box">
+            <div style="text-align: center;">
+              <h3 style="margin: 0 0 8px;">⚙️ Personalisierung</h3>
+              <p style="margin: 0; color: var(--ink-2); font-size: 0.9rem;">
+                Adaptive UI basierend auf Benutzervorlieben
+              </p>
+            </div>
+          </div>
+          <div class="demo-box">
+            <div style="text-align: center;">
+              <h3 style="margin: 0 0 8px;">🧪 A/B Testing</h3>
+              <p style="margin: 0; color: var(--ink-2); font-size: 0.9rem;">
+                Built-in Framework für Varianten-Tests
+              </p>
+            </div>
+          </div>
+          <div class="demo-box">
+            <div style="text-align: center;">
+              <h3 style="margin: 0 0 8px;">📱 Offline-First</h3>
+              <p style="margin: 0; color: var(--ink-2); font-size: 0.9rem;">
+                Service Worker & Sync für Offline-Unterstützung
+              </p>
+            </div>
+          </div>
+          <div class="demo-box">
+            <div style="text-align: center;">
+              <h3 style="margin: 0 0 8px;">⚡ Performance</h3>
+              <p style="margin: 0; color: var(--ink-2); font-size: 0.9rem;">
+                Core Web Vitals Monitoring & Optimization
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Scroll Animationen Demo -->
+    <section class="demo-section">
+      <div class="container">
+        <h2>Scroll-basierte Animationen</h2>
+        <p>Diese Elemente animieren, wenn Sie sie in den Viewport scrollen:</p>
+        <div style="display: grid; gap: 32px; margin-top: 32px;">
+          <div class="anim-on-scroll" style="padding: 32px; background: var(--surface); border-radius: var(--radius); border: 1px solid var(--line);">
+            <h3>Scroll Element 1</h3>
+            <p style="color: var(--ink-2);">Scrolle nach unten um diese Animation zu sehen</p>
+          </div>
+          <div class="anim-on-scroll" style="padding: 32px; background: var(--surface); border-radius: var(--radius); border: 1px solid var(--line);">
+            <h3>Scroll Element 2</h3>
+            <p style="color: var(--ink-2);">Jedes Element hat eine eigene Verzögerung</p>
+          </div>
+          <div class="anim-on-scroll" style="padding: 32px; background: var(--surface); border-radius: var(--radius); border: 1px solid var(--line);">
+            <h3>Scroll Element 3</h3>
+            <p style="color: var(--ink-2);">Smooth und elegant in die Seite</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Weitere Ressourcen -->
+    <section class="demo-section">
+      <div class="container">
+        <h2>Dokumentation & Ressourcen</h2>
+        <ul class="list-check">
+          <li><a href="MOTION_GRAPHICS.md">Vollständige Motion Graphics Dokumentation</a></li>
+          <li><a href="css/animations.css">CSS Animation Library</a></li>
+          <li><a href="js/motion-graphics.js">JavaScript Motion Graphics API</a></li>
+          <li><a href="assets/motion-graphics.svg">Motion Graphics SVG Datei</a></li>
+        </ul>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <p style="color: #a9b2ac; margin: 0;">Motion Graphics Demo v2.0 | <a href="index.html" style="color: var(--lime);">Zur Startseite</a></p>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+  <script src="js/motion-graphics.js"></script>
+</body>
+</html>
