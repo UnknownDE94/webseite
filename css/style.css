@@ -1111,6 +1111,34 @@ html[data-theme="dark"] .btn-lime:hover {
   padding: 72px 0 48px;
   border-bottom: 1px solid var(--line);
 }
+.page-header-media {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+.page-header-video {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0.15;
+}
+.page-header-media::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(90deg, rgba(245, 244, 239, 0.9) 0%, rgba(245, 244, 239, 0.7) 38%, rgba(245, 244, 239, 0.15) 70%, rgba(245, 244, 239, 0) 100%),
+    linear-gradient(180deg, rgba(245, 244, 239, 0) 70%, rgba(245, 244, 239, 1) 100%);
+}
+html[data-theme="dark"] .page-header-media::after {
+  background:
+    linear-gradient(90deg, rgba(12, 14, 13, 0.9) 0%, rgba(12, 14, 13, 0.7) 38%, rgba(12, 14, 13, 0.15) 70%, rgba(12, 14, 13, 0) 100%),
+    linear-gradient(180deg, rgba(12, 14, 13, 0) 70%, rgba(12, 14, 13, 1) 100%);
+}
+.page-header > .container { position: relative; z-index: 1; }
 .page-header-grid {                                     /* Text links, Bild rechts */
   display: grid;
   grid-template-columns: minmax(0, 1fr) minmax(0, 0.72fr);
