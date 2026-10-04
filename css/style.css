@@ -1345,16 +1345,22 @@ html[data-theme="dark"] .svc-next { color: var(--green); background: var(--lime)
   display: flex;
   flex-direction: column;
   padding: 32px 28px 28px;
-  border: 1px solid var(--line);
+  border: 1px solid rgba(212, 236, 95, 0.1);
   border-radius: var(--radius-lg);
-  background: var(--surface);
+  background: rgba(12, 58, 36, 0.15);
+  backdrop-filter: blur(8px);
   transition: transform 0.35s var(--ease-out), box-shadow 0.35s var(--ease-out);
 }
-.price-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-lg); }
+html[data-theme="light"] .price-card {
+  background: rgba(212, 236, 95, 0.08);
+  border-color: rgba(212, 236, 95, 0.2);
+}
+.price-card:hover { transform: translateY(-4px); }
 .price-card.featured {
-  border-color: transparent;
+  border-color: rgba(212, 236, 95, 0.2);
   color: #ffffff;
-  background: linear-gradient(160deg, #11492d 0%, #0c3a24 60%, #0a2f1d 100%);
+  background: rgba(12, 58, 36, 0.3);
+  backdrop-filter: blur(12px);
 }
 .price-card.featured h3,
 .price-card.featured .price-tag { color: #ffffff; }
