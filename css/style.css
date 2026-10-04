@@ -2149,3 +2149,16 @@ main { overflow-x: clip; }
   .hero-scene *,
   .hero-scene { animation: none !important; }
 }
+
+/* Header so hoch wie der Erklärfilm (16:9), höchstens bildschirmhoch – Inhalt mittig */
+@media (min-width: 961px) {
+  .hero,
+  .page-header {
+    min-height: min(56.25vw, calc(100vh - 68px));
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  .hero > .container,
+  .page-header > .container { width: 100%; }
+}
