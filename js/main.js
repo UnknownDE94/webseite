@@ -473,24 +473,4 @@ document.addEventListener("DOMContentLoaded", function () {
       heroMedia.style.transform = "translateY(" + offset + "px)";
     }, { passive: true });
   }
-
-  // Glow-Effekt auf .issue-card bei Scroll-In-View
-  var issueCards = document.querySelectorAll(".issue-card");
-  if ("IntersectionObserver" in window && issueCards.length) {
-    var glowObserver = new IntersectionObserver(
-      function (entries) {
-        entries.forEach(function (entry) {
-          if (entry.isIntersecting) {
-            entry.target.classList.add("is-glowing");
-          } else {
-            entry.target.classList.remove("is-glowing");
-          }
-        });
-      },
-      { threshold: 0.2 }
-    );
-    issueCards.forEach(function (card) {
-      glowObserver.observe(card);
-    });
-  }
 });
