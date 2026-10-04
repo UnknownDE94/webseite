@@ -801,8 +801,8 @@ html[data-theme="dark"] .issue-card p {
 .list-check li {
   display: grid;
   grid-template-columns: 24px minmax(0, 1fr);
-  gap: 14px;
-  padding: 14px 0;
+  gap: 12px;
+  padding: 10px 0;
   border-bottom: 1px solid var(--line);
 }
 .list-check li::before {
