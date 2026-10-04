@@ -129,48 +129,6 @@ html[data-theme="dark"] .code-block {
   font-size: 0.9rem;
 }
 
-/* === SECTION-HEAD === */
-.section-head {
-  margin-bottom: 32px;
-}
-
-.section-head h2 {
-  margin-bottom: 16px;
-  color: var(--ink);
-}
-
-.section-head > p {
-  color: var(--ink-2);
-  font-size: 1rem;
-  line-height: 1.6;
-}
-
-/* === LIST-CHECK === */
-.list-check {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-}
-
-.list-check li {
-  padding-left: 28px;
-  margin-bottom: 12px;
-  position: relative;
-  color: var(--ink-2);
-  line-height: 1.6;
-}
-
-.list-check li::before {
-  content: "";
-  position: absolute;
-  left: 0;
-  top: 2px;
-  width: 16px;
-  height: 16px;
-  background: var(--check) center / contain no-repeat;
-  opacity: 0.7;
-}
-
 /* === STAGGER-ANIMATION === */
 .anim-stagger {
   display: grid;
@@ -215,10 +173,8 @@ html[data-theme="dark"] .demo-preview {
   color: var(--ink);
 }
 
-html[data-theme="dark"] .section-head > p,
 html[data-theme="dark"] .demo-section > .container > p,
-html[data-theme="dark"] .demo-preview p,
-html[data-theme="dark"] .list-check li {
+html[data-theme="dark"] .demo-preview p {
   color: var(--ink-2);
 }
 
