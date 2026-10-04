@@ -695,35 +695,37 @@ html[data-theme="dark"] .b-lime { border-color: rgba(212, 236, 95, 0.2); }
   color: var(--ink-3);
 }
 
-/* --- Problemliste (Ausgangslage) --- */
-.issue-list {
+/* --- Problemgitter (Ausgangslage) --- */
+.issues-grid {
   display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 28px;
+  margin-top: 48px;
+}
+.issue-card {
+  padding: 32px;
+  border-radius: var(--radius-lg);
+  background: rgba(12, 58, 36, 0.2);
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(212, 236, 95, 0.1);
+}
+html[data-theme="dark"] .issue-card {
+  background: rgba(12, 58, 36, 0.15);
+  border-color: rgba(212, 236, 95, 0.08);
+}
+.issue-card h3 {
+  margin: 0 0 12px;
+  font-size: 1.2rem;
+  color: #d4ec5f;
+}
+.issue-card p {
   margin: 0;
-  padding: 0;
-  list-style: none;
-  border-top: 1px solid var(--line);
+  color: var(--ink-2);
+  line-height: 1.6;
 }
-.issue {
-  display: grid;
-  grid-template-columns: 48px minmax(0, 1fr);
-  gap: 20px;
-  padding: 36px 32px 36px 0;
-  border-bottom: 1px solid var(--line);
+html[data-theme="dark"] .issue-card p {
+  color: #b0b8b0;
 }
-.issue:nth-child(2n) { padding-left: 32px; padding-right: 0; border-left: 1px solid var(--line); }
-.issue-icon {
-  width: 48px;
-  height: 48px;
-  display: grid;
-  place-items: center;
-  border-radius: 12px;
-  color: var(--green-2);
-  background: var(--lime-2);
-}
-.issue-icon svg { width: 22px; height: 22px; }
-.issue h3 { margin: 0 0 8px; font-size: 1.3rem; }
-.issue p { color: var(--ink-2); }
 
 /* --- Zwei Spalten --- */
 .split > *,
@@ -811,87 +813,57 @@ html[data-theme="dark"] .b-lime { border-color: rgba(212, 236, 95, 0.2); }
   color: var(--ink-3);
 }
 
-/* --- Ablauf: Nebel-Landschaft mit verbundenen Schritten (Higgsfield-Platz) --- */
-.flow-panel {
-  position: relative;
-  overflow: hidden;
-  isolation: isolate;
+/* --- Ablauf: Schrittweise Prozess --- */
+.flow-steps {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 28px;
+  margin: 48px 0 0;
+  padding: 0;
+  list-style: none;
+  counter-reset: flow-step;
+}
+.flow-steps li {
+  padding: 32px;
   border-radius: var(--radius-lg);
-  background: #cfd9d0;
+  background: rgba(12, 58, 36, 0.15);
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(212, 236, 95, 0.1);
+  counter-increment: flow-step;
 }
-.media-slot {
-  position: absolute;
-  inset: 0;
-  z-index: -1;
-  overflow: hidden;
-  background: #b9c9bd var(--poster, url("../assets/media/landschaft.svg")) center / cover no-repeat;
+.flow-steps li::before {
+  content: counter(flow-step);
+  display: inline-block;
+  width: 36px;
+  height: 36px;
+  margin-bottom: 16px;
+  line-height: 36px;
+  text-align: center;
+  font-weight: 600;
+  color: #0c3a24;
+  background: #d4ec5f;
+  border-radius: 50%;
 }
-html[data-theme="dark"] .media-slot { filter: brightness(0.62) saturate(0.9); }
-.media-slot video {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
+.flow-steps h3 {
+  margin: 0 0 8px;
+  font-size: 1.1rem;
+  color: #ffffff;
 }
-.media-slot::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(180deg, rgba(12, 30, 20, 0) 30%, rgba(12, 30, 20, 0.3) 100%);
+.flow-steps p {
+  margin: 0;
+  color: #b0b8b0;
+  line-height: 1.6;
 }
-/* Ablauf-Hintergrund: dunkle Bühne wie im Hero, fünf Szenen laufen nacheinander (25 s) */
-.flow-panel--stage {
-  background:
-    radial-gradient(45% 70% at 80% 10%, rgba(212, 236, 95, 0.1), transparent 70%),
-    linear-gradient(160deg, #1d2220 0%, #0f1211 55%, #0a0c0b 100%);
+html[data-theme="light"] .flow-steps li {
+  background: rgba(212, 236, 95, 0.08);
+  border-color: rgba(212, 236, 95, 0.2);
 }
-.flow-body { position: relative; }
-.flow-scenes { display: block; width: calc(100% - 56px); height: auto; margin: 20px 28px 0; }
-.flow-scenes .sc-tile { fill: rgba(255, 255, 255, 0.04); stroke: rgba(255, 255, 255, 0.1); }
-.flow-scenes .sc-ground { stroke: rgba(255, 255, 255, 0.16); stroke-width: 2; }
-.flow-scenes .sc-limb { fill: none; stroke: #9ea6aa; stroke-width: 8; stroke-linecap: round; }
-.flow-scenes .sc-screen { fill: #10161a; stroke: #d4ec5f; stroke-width: 1.6; }
-.flow-scenes .sc-desk,
-.flow-scenes .sc-table { fill: #9ea6aa; }
-.flow-scenes .sc-shelf { fill: none; stroke: #4a5a52; stroke-width: 3; stroke-linecap: round; }
-.flow-scenes .sc-box rect { fill: #34403a; stroke: #4a5a52; }
-.flow-scenes .sc-dash { fill: none; stroke: #4a5a52; stroke-width: 1.6; stroke-dasharray: 4 4; }
-.flow-scenes .sc-ui rect { fill: none; stroke: #d4ec5f; stroke-width: 1.8; }
-.flow-scenes .sc-uibar rect { fill: #4a5a52; }
-.flow-scenes .sc-chk { fill: none; stroke: #d4ec5f; stroke-width: 2.8; stroke-linecap: round; stroke-linejoin: round; stroke-dasharray: 20; }
-.flow-scenes .sc-paper { fill: #f1f4f1; }
-.flow-scenes .sc-paper-l { fill: none; stroke: #9aa7a0; stroke-width: 2.4; stroke-linecap: round; }
-.flow-scenes .sc-sel { fill: none; stroke: #d4ec5f; stroke-width: 2.4; stroke-dasharray: 5 4; }
-.flow-scenes .sc-crate { fill: #34403a; stroke: #4a5a52; }
-.flow-scenes .sc-bars-l { fill: none; stroke: #9fb0a7; stroke-width: 2.4; }
-.flow-scenes .sc-sweep { stroke: #d4ec5f; stroke-width: 2; stroke-linecap: round; }
-.flow-scenes .sc-beam { fill: #d4ec5f; opacity: 0.3; }
-.flow-scenes .sc-gbars rect { fill: #d4ec5f; transform-box: fill-box; transform-origin: bottom; }
-.flow-scenes .sc-gbars .g1,
-.flow-scenes .sc-gbars .g2,
-.flow-scenes .sc-gbars .g3 { fill: #2f8a52; }
-
-/* Zeitsteuerung: ein Zyklus = 25 s, Szene k ist im Fenster [5k, 5k+5] s aktiv */
-.flow-scenes .sc-vis,
-.flow-scenes .sc-vis-a,
-.flow-scenes .sc-vis-b,
-.flow-scenes .sc-b1,
-.flow-scenes .sc-b2,
-.flow-scenes .sc-chk,
-.flow-scenes .sc-doc,
-.flow-scenes .sc-rej,
-.flow-scenes .sc-sel,
-.flow-scenes .sc-selchk,
-.flow-scenes .sc-fly1,
-.flow-scenes .sc-fly2,
-.flow-scenes .sc-ok,
-.flow-scenes .sc-gbars rect {
-  animation-duration: 25s;
-  animation-timing-function: ease-in-out;
-  animation-iteration-count: infinite;
-  animation-delay: calc((var(--k, 0) - 5) * 5s + var(--d, 0s));
+html[data-theme="light"] .flow-steps h3 {
+  color: #0c3a24;
 }
-.flow-scenes .sc-vis { animation-name: sc-vis; }
-.flow-scenes .sc-vis-a { animation-name: sc-vis-a; }
+html[data-theme="light"] .flow-steps p {
+  color: #4b5751;
+}
 .flow-scenes .sc-vis-b { animation-name: sc-vis-b; }
 .flow-scenes .sc-b1 { animation-name: sc-b1; }
 .flow-scenes .sc-b2 { animation-name: sc-b2; }
