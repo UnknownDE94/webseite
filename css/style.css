@@ -816,6 +816,45 @@ section:has(.split):nth-of-type(2n) .split > * {
   background: var(--lime) var(--check) center / 14px no-repeat;
 }
 
+/* --- Kompakte Vorteils-Kacheln --- */
+.why-top .section-head { margin-bottom: 24px; }
+.why-top .meta-row { margin-top: 0; }
+.usp-grid {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 12px;
+  margin: 48px 0 0;
+  padding: 0;
+  list-style: none;
+}
+.usp-grid li {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 16px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--surface);
+}
+.usp-grid li::before {
+  content: "";
+  width: 22px;
+  height: 22px;
+  margin-bottom: 8px;
+  border-radius: 6px;
+  background: var(--lime) var(--check) center / 13px no-repeat;
+}
+.usp-grid strong { font-size: 0.98rem; line-height: 1.3; color: var(--ink); }
+.usp-grid span { font-size: 0.88rem; line-height: 1.45; color: var(--ink-2); }
+@media (max-width: 1024px) {
+  .usp-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); margin-top: 32px; }
+}
+@media (max-width: 560px) {
+  .usp-grid { grid-template-columns: 1fr; }
+  .usp-grid li { display: grid; grid-template-columns: 22px minmax(0, 1fr); column-gap: 12px; row-gap: 2px; padding: 12px 14px; }
+  .usp-grid li::before { grid-row: span 2; margin: 0; }
+}
+
 /* --- Produktfenster mit Plattform-Ausschnitt --- */
 .window {
   margin: 0;
