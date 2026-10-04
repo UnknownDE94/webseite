@@ -1079,12 +1079,11 @@ html[data-theme="dark"] .flow li { background: rgba(18, 22, 20, 0.88); }
 .flow p { font-size: 0.93rem; color: var(--ink-2); }
 
 /* --- Karten --- */
-.card,
+/* Formular offen, Kontaktblock mit Akzentlinie statt Kasten */
+.card { padding: 0; }
 .contact-card {
-  padding: 32px;
-  border: 1px solid var(--line);
-  border-radius: var(--radius-lg);
-  background: var(--surface);
+  padding: 4px 0 4px 28px;
+  border-left: 2px solid var(--lime);
 }
 .card h3,
 .contact-card h3 { margin: 0 0 12px; }
@@ -1133,13 +1132,18 @@ html[data-theme="dark"] .flow li { background: rgba(18, 22, 20, 0.88); }
   grid-template-columns: minmax(0, 1.25fr) minmax(0, 0.75fr);
   align-items: center;
   gap: 40px;
-  padding: 64px;
-  border-radius: 28px;
+  padding: 56px 0;
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
 }
+.cta-band.stage { overflow: visible; color: var(--ink); background: none; }
+.cta-band.stage h2 { color: var(--ink); }
+.cta-band.stage p { color: var(--ink-2); }
+.cta-band.stage .silver { color: var(--ink-3); }
 .cta-band h2 {
   margin: 0 0 18px;
-  font-size: clamp(2.1rem, 3.9vw, 3.3rem);
-  line-height: 0.98;
+  font-size: clamp(2rem, 3.4vw, 2.8rem);
+  line-height: 1.08;
 }
 .cta-band p { max-width: 54ch; margin: 0 0 30px; }
 .cta-actions { display: flex; align-items: center; gap: 12px; }
@@ -1450,44 +1454,25 @@ html[data-theme="dark"] .svc-next { color: var(--green); background: var(--lime)
 .price-grid {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 20px;
+  gap: 0;
   align-items: stretch;
+  border-top: 1px solid var(--line);
 }
 .price-card {
   position: relative;
   display: flex;
   flex-direction: column;
-  padding: 32px 28px 28px;
-  border: 1px solid rgba(212, 236, 95, 0.1);
-  border-radius: var(--radius-lg);
-  background: rgba(12, 58, 36, 0.15);
-  backdrop-filter: blur(8px);
-  transition: transform 0.35s var(--ease-out), box-shadow 0.35s var(--ease-out);
+  padding: 36px 32px 8px;
+  border-left: 1px solid var(--line);
 }
-html[data-theme="light"] .price-card {
-  background: rgba(212, 236, 95, 0.08);
-  border-color: rgba(212, 236, 95, 0.2);
-}
-.price-card:hover { transform: translateY(-4px); }
-.price-card.featured {
-  border-color: rgba(212, 236, 95, 0.2);
-  color: #ffffff;
-  background: rgba(12, 58, 36, 0.3);
-  backdrop-filter: blur(12px);
-}
-.price-card.featured h3,
-.price-card.featured .price-tag { color: #ffffff; }
-.price-card.featured .price-sub,
-.price-card.featured .price-tag span,
-.price-card.featured ul li { color: rgba(255, 255, 255, 0.78); }
-.price-card.featured .price-tag { border-color: rgba(255, 255, 255, 0.14); }
-.price-card.featured .btn-primary { color: var(--green); background: var(--lime); }
-.price-card.featured .btn-primary:hover { background: #e2f37f; }
+.price-card:first-child { padding-left: 0; border-left: 0; }
+.price-card:last-child { padding-right: 0; }
+.price-card.featured { box-shadow: inset 0 3px 0 var(--lime); }
 /* Badge sitzt oben rechts auf Höhe des Titels – verschiebt keine Inhalte */
 .price-badge {
   position: absolute;
-  top: 34px;
-  right: 28px;
+  top: 38px;
+  right: 32px;
   margin: 0;
   padding: 4px 9px;
   border-radius: 5px;
@@ -1727,25 +1712,28 @@ html[data-theme="dark"] .ways li:last-child::before { color: var(--lime); }
   margin: 0;
   padding: 0;
   list-style: none;
+  counter-reset: vstep;
 }
 .vsteps li {
   display: grid;
-  grid-template-columns: 28px minmax(0, 1fr);
+  grid-template-columns: 56px minmax(0, 1fr);
   gap: 2px 16px;
   padding: 26px 0;
   border-top: 1px solid var(--line);
   align-content: start;
+  counter-increment: vstep;
 }
 .vsteps li > * { grid-column: 2; }
 .vsteps li::before {
   grid-row: 1 / span 2;
-  content: "";
-  width: 28px;
-  height: 28px;
-  margin-top: 2px;
-  border-radius: 7px;
-  background: var(--lime) var(--check) center / 15px no-repeat;
+  content: counter(vstep, decimal-leading-zero);
+  font-family: var(--font-display);
+  font-size: 2rem;
+  font-weight: 600;
+  line-height: 1;
+  color: var(--green-3);
 }
+html[data-theme="dark"] .vsteps li::before { color: var(--lime); }
 .vsteps h3 { margin: 0 0 12px; }
 .vsteps p { color: var(--ink-2); }
 
@@ -2148,7 +2136,11 @@ main { overflow-x: clip; }
   .flow-line,
   .flow li::after { display: none; }
   .flow li::before { display: none; }
-  .price-grid { grid-template-columns: 1fr; max-width: 520px; margin: 0 auto; }
+  .price-grid { grid-template-columns: 1fr; max-width: 560px; margin: 0 auto; }
+  .price-card,
+  .price-card:first-child,
+  .price-card:last-child { padding: 32px 0 28px; border-left: 0; border-bottom: 1px solid var(--line); }
+  .price-card .price-badge { right: 0; }
   .showcase-panel { grid-template-columns: 1fr; gap: 24px; }
   .showcase-tabs { flex-wrap: nowrap; justify-content: flex-start; overflow-x: auto; border-radius: 16px; scrollbar-width: none; }
   .showcase-tab { flex: none; }
@@ -2183,11 +2175,9 @@ main { overflow-x: clip; }
   .service { padding: 26px 22px; }
   .offers li { grid-template-columns: 1fr; gap: 10px; }
   .offers .price { justify-self: start; }
-  .card,
-  .contact-card,
-  .price-card { padding: 26px 22px; }
-  .cta-band { padding: 36px 24px; border-radius: 22px; }
-  .cta-band h2 { font-size: 2rem; }
+  .contact-card { padding-left: 20px; }
+  .cta-band { padding: 40px 0; }
+  .cta-band h2 { font-size: 1.8rem; }
   .section-head h2 { font-size: clamp(1.9rem, 8.4vw, 2.3rem); }
   .cta-actions { flex-wrap: wrap; }
   .page-header { padding: 48px 0 32px; }
