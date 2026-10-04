@@ -1,0 +1,157 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <title>Werringloer – Komponenten Management</title>
+  <script src="./support.js"></script>
+  <style>
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes float {
+      0%, 100% { transform: translateY(0px); }
+      50% { transform: translateY(8px); }
+    }
+  </style>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <style>
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      background: #0f1419;
+      color: #ffffff;
+      line-height: 1.6;
+    }
+    * { box-sizing: border-box; }
+    h1, h2, h3 { font-weight: 600; letter-spacing: -0.01em; }
+    h1 { font-size: 3.5rem; line-height: 1.1; }
+    h2 { font-size: 2.2rem; line-height: 1.2; }
+    a { color: #d4ec5f; text-decoration: none; transition: opacity 0.3s; }
+    a:hover { opacity: 0.8; text-decoration: underline; }
+  </style>
+</helmet>
+
+<div style="width: 1440px; min-height: 100vh; padding: 0; position: relative; overflow: hidden">
+
+  <!-- Background gradient + video overlay -->
+  <div style="position: fixed; inset: 0; z-index: 0">
+    <!-- Video background (autoplay, loop, muted) -->
+    <video style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; z-index: 0; opacity: 0.15" autoplay muted loop playsinline preload="metadata" poster="assets/media/film-poster.jpg">
+      <source src="assets/media/film-hintergrund.webm" type="video/webm">
+      <source src="assets/media/film-hintergrund.mp4" type="video/mp4">
+    </video>
+
+    <!-- Gradient background -->
+    <div style="position: absolute; inset: 0; background: linear-gradient(135deg, #0c3a24 0%, #1a1a1a 40%, #0f1419 100%); z-index: 1"></div>
+
+    <!-- Animated gradient overlay -->
+    <div style="position: absolute; inset: 0; background: radial-gradient(circle at 20% 50%, rgba(47, 138, 82, 0.15) 0%, transparent 50%), radial-gradient(circle at 80% 80%, rgba(212, 236, 95, 0.08) 0%, transparent 60%); z-index: 2; animation: fadeInUp 3s ease-out"></div>
+
+    <!-- Subtle animated shapes -->
+    <svg style="position: absolute; inset: 0; width: 100%; height: 100%; z-index: 1; opacity: 0.05" viewBox="0 0 1440 900">
+      <circle cx="100" cy="100" r="200" fill="none" stroke="#d4ec5f" stroke-width="1" style="animation: float 6s ease-in-out infinite"/>
+      <circle cx="1300" cy="700" r="250" fill="none" stroke="#2f8a52" stroke-width="1" style="animation: float 8s ease-in-out infinite 1s"/>
+    </svg>
+  </div>
+
+  <!-- Header -->
+  <div style="position: relative; z-index: 10; padding: 24px 60px; border-bottom: 1px solid rgba(255, 255, 255, 0.08); background: rgba(0, 0, 0, 0.3); backdrop-filter: blur(12px); display: flex; justify-content: space-between; align-items: center">
+    <div style="font-size: 18px; font-weight: 600; color: #d4ec5f">Werringloer</div>
+    <div style="display: flex; gap: 48px; align-items: center; font-size: 14px">
+      <a href="#" style="color: #ffffff">Leistungen</a>
+      <a href="#" style="color: #ffffff">Über uns</a>
+      <a href="#" style="color: #ffffff">Kontakt</a>
+      <button style="padding: 10px 20px; background: linear-gradient(135deg, #2f8a52 0%, #0c3a24 100%); color: #ffffff; border: none; border-radius: 6px; font-size: 14px; font-weight: 500; cursor: pointer; transition: all 0.3s">Anfrage</button>
+    </div>
+  </div>
+
+  <!-- Hero -->
+  <div style="position: relative; z-index: 5; padding: 120px 60px 80px; display: flex; align-items: center; min-height: calc(100vh - 68px)">
+    <div style="max-width: 700px; animation: fadeInUp 1s ease-out">
+
+      <div style="display: inline-block; margin-bottom: 24px; padding: 8px 16px; background: rgba(212, 236, 95, 0.15); border: 1px solid rgba(212, 236, 95, 0.3); border-radius: 6px; font-size: 12px; font-weight: 600; letter-spacing: 0.05em; text-transform: uppercase; color: #d4ec5f">
+        Für Produktion
+      </div>
+
+      <h1 style="margin: 0 0 24px 0; color: #ffffff">
+        Ersatzteile<br><span style="background: linear-gradient(135deg, #d4ec5f 0%, #b9bcc0 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text">sichtbar machen</span>
+      </h1>
+
+      <p style="font-size: 18px; color: rgba(255, 255, 255, 0.8); margin: 0 0 32px 0; line-height: 1.7; max-width: 600px">
+        Weniger Lagerkosten. Mehr Versorgungssicherheit. Wir helfen produzierenden Unternehmen, ihre Ersatzteillager wirtschaftlich und zuverlässig zu machen.
+      </p>
+
+      <div style="display: flex; gap: 16px; margin-bottom: 60px">
+        <button style="padding: 14px 28px; background: linear-gradient(135deg, #d4ec5f 0%, #cfe84f 100%); color: #0e1411; border: none; border-radius: 6px; font-size: 15px; font-weight: 500; cursor: pointer; transition: all 0.3s; box-shadow: 0 10px 30px rgba(212, 236, 95, 0.2)">Quick-Check anfragen</button>
+        <button style="padding: 14px 28px; background: rgba(255, 255, 255, 0.1); border: 1px solid rgba(255, 255, 255, 0.3); color: #ffffff; border-radius: 6px; font-size: 15px; font-weight: 500; cursor: pointer; transition: all 0.3s; backdrop-filter: blur(10px)">Mehr erfahren →</button>
+      </div>
+
+      <p style="font-size: 13px; color: rgba(255, 255, 255, 0.5); margin: 0">Individuell entwickelt · Umsetzung in Tagen, nicht Monaten</p>
+    </div>
+  </div>
+
+  <!-- Problem Section -->
+  <div style="position: relative; z-index: 5; padding: 80px 60px; border-top: 1px solid rgba(255, 255, 255, 0.08); background: rgba(15, 20, 25, 0.6); backdrop-filter: blur(10px); animation: fadeInUp 1s ease-out 0.2s both">
+    <div style="max-width: 700px">
+      <h2 style="margin: 0 0 40px 0; color: #ffffff">Das Problem</h2>
+
+      <p style="font-size: 16px; color: rgba(255, 255, 255, 0.8); margin: 0 0 24px 0; line-height: 1.8">
+        Hohe Bestände bedeuten nicht automatisch hohe Versorgungssicherheit. Am häufigsten sehen wir diese vier Fehler:
+      </p>
+
+      <ul style="margin: 0; padding: 0; list-style: none; font-size: 16px; color: rgba(255, 255, 255, 0.7); line-height: 1.8">
+        <li style="margin-bottom: 16px; padding-left: 28px; position: relative">
+          <span style="position: absolute; left: 0; color: #d4ec5f">→</span>
+          <strong style="color: #d4ec5f">Fehlteile</strong> – Anlagen stehen, weil das eine Teil fehlt
+        </li>
+        <li style="margin-bottom: 16px; padding-left: 28px; position: relative">
+          <span style="position: absolute; left: 0; color: #d4ec5f">→</span>
+          <strong style="color: #d4ec5f">Überbestände</strong> – Teile liegen seit Jahren ungenutzt im Regal
+        </li>
+        <li style="margin-bottom: 16px; padding-left: 28px; position: relative">
+          <span style="position: absolute; left: 0; color: #d4ec5f">→</span>
+          <strong style="color: #d4ec5f">Fehlende Transparenz</strong> – dasselbe Teil unter drei verschiedenen Nummern
+        </li>
+        <li style="padding-left: 28px; position: relative">
+          <span style="position: absolute; left: 0; color: #d4ec5f">→</span>
+          <strong style="color: #d4ec5f">Keine Standards</strong> – jeder macht es auf seine Art
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Solution Section -->
+  <div style="position: relative; z-index: 5; padding: 80px 60px; background: linear-gradient(180deg, rgba(15, 20, 25, 0.8) 0%, rgba(12, 58, 36, 0.3) 100%); border-top: 1px solid rgba(212, 236, 95, 0.1); animation: fadeInUp 1s ease-out 0.4s both">
+    <div style="max-width: 700px">
+      <h2 style="margin: 0 0 40px 0; color: #ffffff">Die Lösung</h2>
+
+      <p style="font-size: 16px; color: rgba(255, 255, 255, 0.8); margin: 0 0 24px 0; line-height: 1.8">
+        Wir bringen Klarheit: Analyse deiner Daten und Lager, priorisierte Maßnahmen, Umsetzung mit deinem Team oder in Eigenregie. Alles mit unserer Software, entwickelt in Deutschland.
+      </p>
+
+      <p style="font-size: 16px; color: rgba(255, 255, 255, 0.8); margin: 0; line-height: 1.8">
+        Drei Jahre operative Erfahrung in Instandhaltung und Disposition. Nicht aus der Unternehmensberatung. Das macht den Unterschied.
+      </p>
+
+      <div style="margin-top: 40px; padding: 24px; background: rgba(212, 236, 95, 0.1); border-left: 3px solid #d4ec5f; border-radius: 6px; backdrop-filter: blur(10px)">
+        <p style="margin: 0; font-size: 14px; color: #d4ec5f; font-weight: 500">💡 Made in Germany · DSGVO konform · Server lokal · Festpreis</p>
+      </div>
+    </div>
+  </div>
+
+</div>
+</x-dc>
+
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":900}}'>
+class Component extends DCLogic {
+  renderVals() {
+    return {};
+  }
+}
+</script>
+</body>
+</html>
