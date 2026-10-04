@@ -758,7 +758,7 @@ html[data-theme="dark"] .issue-card.is-glowing {
 }
 .issue-card h3 {
   margin: 0 0 12px;
-  font-size: 1.2rem;
+  font-size: 1.3rem;
   color: #d4ec5f;
 }
 .issue-card p {
@@ -894,8 +894,8 @@ section:has(.split):nth-of-type(2n) .split > * {
   border-radius: 50%;
 }
 .flow-steps h3 {
-  margin: 0 0 8px;
-  font-size: 1.1rem;
+  margin: 0 0 12px;
+  font-size: 1.3rem;
   color: #ffffff;
 }
 .flow-steps p {
@@ -1013,7 +1013,7 @@ html[data-theme="dark"] .flow li { background: rgba(18, 22, 20, 0.88); }
   height: 40px;
   background: rgba(255, 255, 255, 0.95);
 }
-.flow h3 { margin: 0 0 8px; font-size: 1.12rem; }
+.flow h3 { margin: 0 0 12px; }
 .flow p { font-size: 0.93rem; color: var(--ink-2); }
 
 /* --- Karten --- */
@@ -1025,7 +1025,7 @@ html[data-theme="dark"] .flow li { background: rgba(18, 22, 20, 0.88); }
   background: var(--surface);
 }
 .card h3,
-.contact-card h3 { margin: 0 0 16px; font-size: 1.3rem; }
+.contact-card h3 { margin: 0 0 12px; }
 .card p { margin: 0 0 12px; color: var(--ink-2); }
 .card p:last-child { margin-bottom: 0; }
 .contact-card .btn { margin-top: 18px; }
@@ -1286,7 +1286,7 @@ html[data-theme="dark"] .page-header-media::after {
 }
 html[data-theme="dark"] .service-icon { color: var(--green); background: var(--lime); }
 .service-icon svg { width: 22px; height: 22px; }
-.service h3 { margin: 0 0 12px; font-size: 1.6rem; }
+.service h3 { margin: 0 0 12px; font-size: 1.4rem; }
 .service-head > p { color: var(--ink-2); }
 .offers { margin: 0; padding: 0; list-style: none; border-top: 1px solid var(--line); }
 .offers li {
@@ -1436,7 +1436,7 @@ html[data-theme="light"] .price-card {
   color: var(--green);
   background: var(--lime);
 }
-.price-card h3 { margin: 0 0 6px; padding-right: 0; font-size: 1.4rem; }
+.price-card h3 { margin: 0 0 12px; padding-right: 0; font-size: 1.3rem; }
 .price-card.featured h3 { padding-right: 120px; }
 /* Titel, Preise, Listen und Buttons liegen kartenübergreifend auf einer Linie */
 @supports (grid-template-rows: subgrid) {
@@ -1540,7 +1540,7 @@ html[data-theme="dark"] .showcase-tab[aria-selected="true"] { color: #0e1411; ba
   animation: panel-in 0.6s var(--ease-out);
 }
 .showcase-panel[hidden] { display: none; }
-.showcase-panel h3 { margin: 0 0 12px; font-size: 1.6rem; }
+.showcase-panel h3 { margin: 0 0 12px; font-size: 1.4rem; }
 .showcase-panel p { color: var(--ink-2); }
 @keyframes panel-in {
   from { opacity: 0; transform: translateX(28px); }
@@ -1619,7 +1619,7 @@ html:not(.js) .showcase-panels { display: grid; gap: 56px; }
 }
 .use-list li { padding: 28px 28px 28px 0; border-bottom: 1px solid var(--line); }
 .use-list li:nth-child(2n) { padding-left: 28px; padding-right: 0; border-left: 1px solid var(--line); }
-.use-list h3 { margin: 0 0 8px; font-size: 1.3rem; }
+.use-list h3 { margin: 0 0 12px; }
 .use-list p { font-size: 0.95rem; color: var(--ink-2); }
 
 /* --- Drei Wege (Über uns) --- */
@@ -1643,7 +1643,7 @@ html:not(.js) .showcase-panels { display: grid; gap: 56px; }
 .ways li:last-child h3 { color: #ffffff; }
 .ways li:last-child p { color: rgba(255, 255, 255, 0.78); }
 .ways li:last-child a { color: var(--lime); }
-.ways h3 { margin: 0 0 10px; font-size: 1.35rem; }
+.ways h3 { margin: 0 0 12px; font-size: 1.3rem; }
 .ways p { color: var(--ink-2); }
 
 /* --- Zitat & Schritte (Checkliste) --- */
@@ -1685,7 +1685,7 @@ html:not(.js) .showcase-panels { display: grid; gap: 56px; }
   border-radius: 7px;
   background: var(--lime) var(--check) center / 15px no-repeat;
 }
-.vsteps h3 { margin: 4px 0 8px; font-size: 1.3rem; }
+.vsteps h3 { margin: 0 0 12px; }
 .vsteps p { color: var(--ink-2); }
 
 /* --- FAQ --- */
