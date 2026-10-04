@@ -169,6 +169,13 @@ h1, h2, h3, h4 {
   line-height: 1;
   color: var(--ink);
 }
+
+h1, h2 {
+  background: linear-gradient(135deg, var(--ink) 0%, var(--lime) 80%, var(--lime) 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
 h3 { font-size: 1.3rem; letter-spacing: -0.015em; line-height: 1.1; }
 h4 { font-size: 1.12rem; letter-spacing: -0.01em; line-height: 1.15; }
 
@@ -343,8 +350,9 @@ html[data-theme="dark"] .brand-sub,
   line-height: 1.2;
   text-decoration: none;
   cursor: pointer;
-  transition: background-color 0.25s var(--ease), color 0.25s var(--ease), border-color 0.25s var(--ease), transform 0.25s var(--ease);
+  transition: background-color 0.25s var(--ease), color 0.25s var(--ease), border-color 0.25s var(--ease), transform 0.25s var(--ease), box-shadow 0.25s var(--ease);
 }
+.btn:hover { transform: scale(1.05); }
 .btn:active { transform: translateY(1px); }
 
 /* Primary Button: dunkles Grün */
@@ -354,9 +362,11 @@ html[data-theme="dark"] .brand-sub,
 }
 .btn-primary:hover {
   background: var(--green-2);
+  box-shadow: 0 0 20px rgba(212, 236, 95, 0.4);
 }
 html[data-theme="dark"] .btn-primary:hover {
   background: #e2f37f;
+  box-shadow: 0 0 24px rgba(212, 236, 95, 0.5), inset 0 0 0 1px rgba(212, 236, 95, 0.3);
 }
 
 /* Nav CTA Button (Primary im Header) */
@@ -369,9 +379,11 @@ html[data-theme="dark"] .btn-primary:hover {
 }
 .nav-cta:hover {
   background: var(--green-2);
+  box-shadow: 0 0 16px rgba(212, 236, 95, 0.35);
 }
 html[data-theme="dark"] .nav-cta:hover {
   background: #e2f37f;
+  box-shadow: 0 0 20px rgba(212, 236, 95, 0.45);
 }
 
 /* Secondary Button: transparent mit Border */
@@ -464,6 +476,18 @@ section { padding: 96px 0; }
   margin: 0 0 16px;
   font-size: clamp(2.2rem, 4.2vw, 3.5rem);
   line-height: 0.98;
+  position: relative;
+  padding-bottom: 16px;
+}
+.section-head h2::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 60px;
+  height: 4px;
+  background: linear-gradient(90deg, #d4ec5f, rgba(212, 236, 95, 0.3));
+  border-radius: 2px;
 }
 .section-head p {
   margin: 0 0 10px;
@@ -577,11 +601,14 @@ html[data-theme="dark"] .info-bild img { opacity: 0.8; }
   position: absolute;
   inset: 0;
   background:
+    radial-gradient(circle at 20% 50%, rgba(212, 236, 95, 0.08) 0%, transparent 40%),
     linear-gradient(90deg, rgba(245, 244, 239, 0.9) 0%, rgba(245, 244, 239, 0.7) 38%, rgba(245, 244, 239, 0.15) 70%, rgba(245, 244, 239, 0) 100%),
     linear-gradient(180deg, rgba(245, 244, 239, 0) 70%, rgba(245, 244, 239, 1) 100%);
 }
 html[data-theme="dark"] .hero-media::after {
   background:
+    radial-gradient(circle at 20% 50%, rgba(212, 236, 95, 0.12) 0%, transparent 40%),
+    linear-gradient(135deg, rgba(12, 58, 36, 0.75) 0%, rgba(12, 14, 13, 0.9) 50%),
     linear-gradient(90deg, rgba(12, 14, 13, 0.9) 0%, rgba(12, 14, 13, 0.7) 38%, rgba(12, 14, 13, 0.15) 70%, rgba(12, 14, 13, 0) 100%),
     linear-gradient(180deg, rgba(12, 14, 13, 0) 70%, rgba(12, 14, 13, 1) 100%);
 }
@@ -708,10 +735,29 @@ html[data-theme="dark"] .b-lime { border-color: rgba(212, 236, 95, 0.2); }
   background: rgba(12, 58, 36, 0.2);
   backdrop-filter: blur(8px);
   border: 1px solid rgba(212, 236, 95, 0.1);
+  transition: box-shadow 0.3s var(--ease), border-color 0.3s var(--ease), background 0.3s var(--ease);
+}
+.issue-card:hover {
+  box-shadow: 0 0 30px rgba(212, 236, 95, 0.25), inset 0 0 20px rgba(212, 236, 95, 0.08);
+  border-color: rgba(212, 236, 95, 0.2);
+  background: rgba(12, 58, 36, 0.3);
 }
 html[data-theme="dark"] .issue-card {
   background: rgba(12, 58, 36, 0.15);
   border-color: rgba(212, 236, 95, 0.08);
+}
+html[data-theme="dark"] .issue-card:hover {
+  box-shadow: 0 0 35px rgba(212, 236, 95, 0.3), inset 0 0 25px rgba(212, 236, 95, 0.12);
+  border-color: rgba(212, 236, 95, 0.25);
+  background: rgba(12, 58, 36, 0.25);
+}
+.issue-card.is-glowing {
+  box-shadow: 0 0 25px rgba(212, 236, 95, 0.2);
+  border-color: rgba(212, 236, 95, 0.15);
+}
+html[data-theme="dark"] .issue-card.is-glowing {
+  box-shadow: 0 0 28px rgba(212, 236, 95, 0.25), inset 0 0 15px rgba(212, 236, 95, 0.08);
+  border-color: rgba(212, 236, 95, 0.15);
 }
 .issue-card h3 {
   margin: 0 0 12px;
