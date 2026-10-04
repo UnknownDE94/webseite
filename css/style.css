@@ -2150,15 +2150,50 @@ main { overflow-x: clip; }
   .hero-scene { animation: none !important; }
 }
 
-/* Header so hoch wie der Erklärfilm (16:9), höchstens bildschirmhoch – Inhalt mittig */
-@media (min-width: 961px) {
-  .hero,
-  .page-header {
-    min-height: min(56.25vw, calc(100vh - 68px));
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
+
+
+/* Erklärfilm vollständig zeigen: im 16:9-Format rechts neben dem Text, an allen
+   Rändern weich ausgeblendet. Header behalten ihre ursprüngliche Höhe. */
+.hero-video,
+.page-header-video,
+.stage-video {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: auto;
+  height: 100%;
+  max-width: 100%;
+  aspect-ratio: 16 / 9;
+  object-fit: contain;
+  object-position: right center;
+  -webkit-mask-image: linear-gradient(90deg, transparent 0%, #000 22%, #000 90%, transparent 100%), linear-gradient(180deg, transparent 0%, #000 12%, #000 86%, transparent 100%);
+  -webkit-mask-composite: source-in;
+  mask-image: linear-gradient(90deg, transparent 0%, #000 22%, #000 90%, transparent 100%), linear-gradient(180deg, transparent 0%, #000 12%, #000 86%, transparent 100%);
+  mask-composite: intersect;
+}
+/* Helles Theme: Film invertiert, damit er hell statt als grauer Block erscheint */
+html:not([data-theme="dark"]) .hero-video,
+html:not([data-theme="dark"]) .page-header-video,
+html:not([data-theme="dark"]) .stage-video { filter: invert(1) hue-rotate(180deg); }
+.hero-media::after,
+.page-header-media::after { background: linear-gradient(90deg, rgba(245, 244, 239, 0.85) 0%, rgba(245, 244, 239, 0.4) 34%, rgba(245, 244, 239, 0) 55%); }
+html[data-theme="dark"] .hero-media::after,
+html[data-theme="dark"] .page-header-media::after { background: linear-gradient(90deg, rgba(12, 14, 13, 0.85) 0%, rgba(12, 14, 13, 0.4) 34%, rgba(12, 14, 13, 0) 55%); }
+.stage-media::after { background: linear-gradient(90deg, rgba(10, 12, 11, 0.86) 0%, rgba(10, 12, 11, 0.45) 40%, rgba(10, 12, 11, 0.1) 60%); }
+@media (max-width: 960px) {
+  .hero-video,
+  .page-header-video,
+  .stage-video {
+    top: auto;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: auto;
+    object-position: center bottom;
   }
-  .hero > .container,
-  .page-header > .container { width: 100%; }
+  .hero-media::after,
+  .page-header-media::after { background: rgba(245, 244, 239, 0.55); }
+  html[data-theme="dark"] .hero-media::after,
+  html[data-theme="dark"] .page-header-media::after,
+  .stage-media::after { background: rgba(12, 14, 13, 0.55); }
 }
