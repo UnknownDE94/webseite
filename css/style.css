@@ -882,8 +882,9 @@ section:has(.split):nth-of-type(2n) .split > * {
   color: var(--ink-3);
 }
 
-/* --- Ablauf: Zeitstrahl --- */
+/* --- Ablauf: Zeitstrahl, der sich beim Einblenden bis Schritt 4 füllt --- */
 .flow-steps {
+  position: relative;
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: 32px;
@@ -891,14 +892,37 @@ section:has(.split):nth-of-type(2n) .split > * {
   padding: 0;
   list-style: none;
   counter-reset: flow-step;
+  --charge: 2.4s;
 }
+/* Linie von Kreis 1 bis Kreis 4: endet eine Spaltenbreite minus Kreisradius vor dem rechten Rand */
+.flow-steps::before,
+.flow-steps::after {
+  content: "";
+  position: absolute;
+  z-index: 0;
+  top: -1px;
+  left: 18px;
+  right: calc((100% - 96px) / 4 - 18px);
+  height: 2px;
+  background: var(--line-2);
+}
+.flow-steps::after {
+  background: var(--lime);
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: transform var(--charge) linear 0.2s;
+}
+.flow-steps.is-charged::after { transform: scaleX(1); }
 .flow-steps li {
   position: relative;
+  z-index: 1;
   padding-top: 40px;
-  border-top: 2px solid var(--line-2);
   counter-increment: flow-step;
 }
-.flow-steps li:first-child { border-top-color: var(--lime); }
+.flow-steps li:nth-child(1) { --k: 0; }
+.flow-steps li:nth-child(2) { --k: 1; }
+.flow-steps li:nth-child(3) { --k: 2; }
+.flow-steps li:nth-child(4) { --k: 3; }
 .flow-steps li::before {
   content: counter(flow-step);
   position: absolute;
@@ -909,19 +933,47 @@ section:has(.split):nth-of-type(2n) .split > * {
   display: grid;
   place-items: center;
   font-weight: 600;
-  color: #0c3a24;
-  background: var(--lime);
+  color: var(--ink-2);
+  background: var(--surface-2);
+  border: 2px solid var(--line-2);
   border-radius: 50%;
   box-shadow: 0 0 0 6px var(--bg-2);
+  transition: background-color 0.3s var(--ease), border-color 0.3s var(--ease), color 0.3s var(--ease), box-shadow 0.3s var(--ease);
+  transition-delay: calc(var(--k) * var(--charge) / 3 + 0.2s);
 }
+.flow-steps.is-charged li::before {
+  color: #0c3a24;
+  background: var(--lime);
+  border-color: var(--lime);
+  box-shadow: 0 0 0 6px var(--bg-2), 0 0 18px rgba(212, 236, 95, 0.45);
+}
+html:not(.js) .flow-steps::after { transform: none; }
+html:not(.js) .flow-steps li::before { color: #0c3a24; background: var(--lime); border-color: var(--lime); }
 .flow-steps h3 { margin: 0 0 10px; }
 .flow-steps p { color: var(--ink-2); }
 @media (max-width: 900px) {
   .flow-steps { grid-template-columns: 1fr; gap: 0; margin-left: 18px; }
-  .flow-steps li { padding: 0 0 28px 36px; border-top: 0; border-left: 2px solid var(--line-2); }
-  .flow-steps li:first-child { border-left-color: var(--lime); }
+  .flow-steps::before, .flow-steps::after { display: none; }
+  .flow-steps li { padding: 0 0 28px 36px; border-left: 2px solid var(--line-2); }
   .flow-steps li:last-child { padding-bottom: 0; border-left-color: transparent; }
   .flow-steps li::before { top: -4px; left: -19px; }
+  .flow-steps li:not(:last-child)::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: -2px;
+    width: 2px;
+    background: var(--lime);
+    transform: scaleY(0);
+    transform-origin: top center;
+    transition: transform calc(var(--charge) / 3) linear calc(var(--k) * var(--charge) / 3 + 0.2s);
+  }
+  .flow-steps.is-charged li::after { transform: scaleY(1); }
+  html:not(.js) .flow-steps li::after { transform: none; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .flow-steps::after, .flow-steps li::before, .flow-steps li::after { transition: none; }
 }
 .flow-scenes .sc-vis-b { animation-name: sc-vis-b; }
 .flow-scenes .sc-b1 { animation-name: sc-b1; }

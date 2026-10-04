@@ -466,6 +466,18 @@ document.addEventListener("DOMContentLoaded", function () {
 
   // --- Parallax & Scroll-Effekte -----------------------------------------------
   // Leichte Parallax auf Hero-Media
+  document.querySelectorAll(".flow-steps").forEach(function (steps) {
+    if (!("IntersectionObserver" in window)) { steps.classList.add("is-charged"); return; }
+    var chargeObserver = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (!entry.isIntersecting) return;
+        entry.target.classList.add("is-charged");
+        chargeObserver.unobserve(entry.target);
+      });
+    }, { threshold: 0.5 });
+    chargeObserver.observe(steps);
+  });
+
   var heroMedia = document.querySelector(".hero-media");
   if (heroMedia) {
     window.addEventListener("scroll", function () {
