@@ -366,20 +366,34 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   });
 
-  // Kontaktformular: prüft Pflichtfelder, dann normales POST an FormPost (wie von FormPost vorgesehen)
+  // Kontaktformular: sendet an FormPost und leitet auf danke.html weiter.
+  // FormPost liefert keine CORS-Antwort, daher "no-cors": nur Netzwerkfehler sind erkennbar.
+  // Setzt voraus, dass das Captcha bei FormPost aus ist; ohne JavaScript greift das normale POST.
   var form = document.getElementById("contact-form");
-  if (form) {
+  if (form && window.fetch) {
     var status = document.getElementById("form-status");
+    var button = form.querySelector('button[type="submit"]');
+    var show = function (text, kind) {
+      status.textContent = text;
+      status.className = "form-status is-visible " + kind;
+    };
     form.addEventListener("submit", function (event) {
+      event.preventDefault();
       var email = form.elements.email;
       if (!form.elements.name.value.trim() || !email.value.trim() || !email.checkValidity()) {
-        event.preventDefault();
-        status.textContent = "Bitte Name und eine gültige E-Mail-Adresse angeben.";
-        status.className = "form-status is-visible error";
+        show("Bitte Name und eine gültige E-Mail-Adresse angeben.", "error");
         return;
       }
-      status.textContent = "Ihre Anfrage wird gesendet …";
-      status.className = "form-status is-visible pending";
+      button.disabled = true;
+      show("Ihre Anfrage wird gesendet …", "pending");
+      fetch(form.action, { method: "POST", body: new FormData(form), mode: "no-cors" })
+        .then(function () {
+          window.location.href = "danke.html";
+        })
+        .catch(function () {
+          button.disabled = false;
+          show("Die Anfrage konnte gerade nicht gesendet werden. Bitte versuchen Sie es erneut oder schreiben Sie an service@werringloer.de (+49 160 277 65 12).", "error");
+        });
     });
   }
 
