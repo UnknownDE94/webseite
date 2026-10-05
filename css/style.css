@@ -171,6 +171,7 @@ h1, h2, h3, h4 {
 }
 
 h1 { font-size: 2.2rem; }
+h1, h2 { overflow-wrap: break-word; }
 h2 { font-size: 1.8rem; }
 h3 { font-size: 1.3rem; letter-spacing: -0.015em; line-height: 1.1; }
 h4 { font-size: 1.12rem; letter-spacing: -0.01em; line-height: 1.15; }
@@ -444,7 +445,7 @@ html[data-theme="dark"] .btn-secondary:hover {
   padding: 4px 8px;
   border-radius: 5px;
   font-family: var(--font-mono);
-  font-size: 0.7rem;
+  font-size: 0.75rem;
   letter-spacing: 0.08em;
   text-transform: uppercase;
   color: var(--green-2);
@@ -542,10 +543,6 @@ html[data-theme="dark"] .hero-media::after {
 .hero-copy { min-width: 0; }
 .hero h1 {
   margin: 0 0 20px;
-  font-size: clamp(2.2rem, 4.3vw, 3.9rem);
-  font-stretch: 75%;
-  line-height: 0.96;
-  letter-spacing: -0.03em;
 }
 .hero h1 .accent { color: var(--green-2); }
 .hero-subtitle {
@@ -723,6 +720,8 @@ section:has(.split):nth-of-type(2n) .split > * {
   overflow: hidden;
   background: #f1f3f2;
 }
+html[data-theme="dark"] .window-frame { background: #d5d9d6; }
+html[data-theme="dark"] .window-frame img { filter: brightness(0.86); }
 .window-frame img {
   display: block;
   width: 100%;
@@ -888,6 +887,7 @@ html:not(.js) .flow-steps li::before { color: #0c3a24; background: var(--lime); 
   border-top: 1px solid var(--line);
   border-bottom: 1px solid var(--line);
 }
+section:not(.section-alt) + section:has(> .container > .cta-band) { padding-top: 0; }
 .cta-band.stage { overflow: visible; color: var(--ink); background: none; }
 .cta-band.stage h2 { color: var(--ink); }
 .cta-band.stage p { color: var(--ink-2); }
@@ -943,6 +943,8 @@ html[data-theme="dark"] .btn-lime {
 html[data-theme="dark"] .btn-lime:hover {
   background: #e2f37f;
 }
+.cta-band .btn-lime { color: var(--btn-ink); background: var(--btn-bg); }
+html:not([data-theme="dark"]) .cta-band .btn-lime:hover { background: var(--green-2); }
 
 /* --- Seitenkopf (Unterseiten) --- */
 .page-header {
@@ -989,10 +991,13 @@ html[data-theme="dark"] .page-header-media::after {
 /* Kopfbereich mit dem Imagefilm der Startseite als Hintergrund */
 .page-header--video { overflow: hidden; }
 .page-header--video > .container { position: relative; z-index: 1; }
+.page-header h1 { margin: 0 0 18px; }
+/* Eine Seitenüberschrift für alle Seiten */
+.hero h1,
 .page-header h1 {
-  margin: 0 0 18px;
-  font-size: clamp(2.3rem, 5.2vw, 4.4rem);
-  line-height: 0.96;
+  font-size: clamp(2.2rem, 4.6vw, 3.6rem);
+  line-height: 1.02;
+  letter-spacing: -0.02em;
 }
 .page-header p {
   max-width: 60ch;
@@ -1011,7 +1016,7 @@ html[data-theme="dark"] .page-header-media::after {
 .page-header .breadcrumb {
   margin: 0 0 22px;
   font-family: var(--font-mono);
-  font-size: 0.74rem;
+  font-size: 0.78rem;
   letter-spacing: 0.04em;
   color: var(--ink-3);
 }
@@ -1211,7 +1216,7 @@ html[data-theme="dark"] .svc-next { color: var(--green); background: var(--lime)
   padding: 4px 9px;
   border-radius: 5px;
   font-family: var(--font-mono);
-  font-size: 0.7rem;
+  font-size: 0.75rem;
   letter-spacing: 0.1em;
   text-transform: uppercase;
   color: var(--green);
@@ -1536,7 +1541,7 @@ html[data-theme="dark"] .callout { color: #f0d99a; border-color: rgba(240, 217, 
   padding: 4px 9px;
   border-radius: 5px;
   font-family: var(--font-mono);
-  font-size: 0.7rem;
+  font-size: 0.75rem;
   letter-spacing: 0.1em;
   text-transform: uppercase;
   color: #0e1411;
@@ -1752,7 +1757,7 @@ main { overflow-x: clip; }
   .hero-grid { grid-template-columns: 1fr; gap: 48px; }
   .hero-scene { margin: 0 auto; }
   .stage-grid { grid-template-columns: 1fr; gap: 40px; }
-  .cta-band { grid-template-columns: 1fr; padding: 48px; }
+  .cta-band { grid-template-columns: 1fr; padding: 48px 0; }
   .cta-visual { display: none; }
 }
 
@@ -1795,6 +1800,11 @@ main { overflow-x: clip; }
   .price-card .price-badge { right: 0; }
   .showcase-panel { grid-template-columns: 1fr; gap: 24px; }
   .showcase-tabs { flex-wrap: nowrap; justify-content: flex-start; overflow-x: auto; border-radius: 16px; scrollbar-width: none; }
+  .showcase-tabs,
+  .svc-tabs { -webkit-mask-image: linear-gradient(90deg, #000 calc(100% - 48px), transparent); mask-image: linear-gradient(90deg, #000 calc(100% - 48px), transparent); }
+  .footer-grid li { margin-bottom: 0; }
+  .footer-grid li a,
+  .footer-grid p a { display: inline-block; padding: 10px 0; }
   .showcase-tab { flex: none; }
   .ways li { grid-template-columns: 40px minmax(0, 1fr); gap: 6px 16px; }
   .ways li p { grid-column: 2; }
