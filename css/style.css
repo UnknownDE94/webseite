@@ -1443,6 +1443,7 @@ html[data-theme="dark"] .vsteps li::before { color: var(--lime); }
 .faq-item p { max-width: 70ch; margin: 0 0 24px; color: var(--ink-2); }
 
 /* --- Formular --- */
+.form-trap { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
 .form-field { margin-bottom: 18px; }
 .form-field label { display: block; margin-bottom: 6px; font-size: 0.9rem; font-weight: 600; color: var(--ink); }
 .form-field label span { font-size: 0.8rem; font-weight: 500; color: var(--ink-3); }
@@ -1486,6 +1487,7 @@ html[data-theme="dark"] .form-field select { color-scheme: dark; }
 .form-status { display: none; margin-top: 14px; padding: 12px 14px; border-radius: var(--radius-sm); font-size: 0.92rem; }
 .form-status.is-visible { display: block; }
 .form-status.success { color: var(--green-2); background: var(--mint); }
+.form-status.pending { color: var(--ink-2); background: var(--bg-2); }
 .form-status.error { color: #a02222; background: rgba(214, 69, 69, 0.1); }
 html[data-theme="dark"] .form-status.error { color: #f0a3a3; }
 

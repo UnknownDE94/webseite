@@ -366,55 +366,48 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   });
 
-  // Kontaktformular: öffnet den Mail-Client mit vorausgefüllter Nachricht.
-  // Es gibt bewusst kein Server-Backend – kann später z.B. über einen
-  // Formular-Dienst (Formspree, Netlify Forms o.ä.) ersetzt werden.
+  // Kontaktformular: sendet an FormPost; ohne JavaScript übernimmt das normale Formular-POST
   var form = document.getElementById("contact-form");
   if (form) {
+    var status = document.getElementById("form-status");
+    var button = form.querySelector('button[type="submit"]');
+    var show = function (text, kind) {
+      status.textContent = text;
+      status.className = "form-status is-visible " + kind;
+    };
+    var fallback = " Alternativ erreichen Sie uns unter service@werringloer.de oder +49 160 277 65 12.";
+
     form.addEventListener("submit", function (event) {
       event.preventDefault();
+      var name = form.elements.name.value.trim();
+      var email = form.elements.email;
 
-      var name = document.getElementById("name").value.trim();
-      var email = document.getElementById("email").value.trim();
-      var company = document.getElementById("company").value.trim();
-      var date = document.getElementById("date").value;
-      var time = document.getElementById("time").value;
-      var message = document.getElementById("message").value.trim();
-      var status = document.getElementById("form-status");
-
-      if (!name || !email) {
-        if (status) {
-          status.textContent = "Bitte Name und E-Mail ausfüllen.";
-          status.className = "form-status is-visible error";
-        }
+      if (!name || !email.value.trim() || !email.checkValidity()) {
+        show("Bitte Name und eine gültige E-Mail-Adresse angeben.", "error");
         return;
       }
 
-      var subject = encodeURIComponent("Terminanfrage – " + name);
-      var bodyLines = [
-        "Name: " + name,
-        "Unternehmen: " + (company || "-"),
-        "E-Mail: " + email,
-        "Wunschtermin: " + (date || "Keine Präferenz"),
-        "Wunschzeit: " + (time || "Keine Präferenz"),
-        "",
-        message || "Kein zusätzlicher Hinweis.",
-      ];
-      var body = encodeURIComponent(bodyLines.join("\n"));
-      var mailto = "mailto:service@werringloer.de?subject=" + subject + "&body=" + body;
+      button.disabled = true;
+      show("Ihre Anfrage wird gesendet …", "pending");
 
-      var mailLink = document.createElement("a");
-      mailLink.href = mailto;
-      mailLink.target = "_self";
-      mailLink.rel = "noreferrer";
-      document.body.appendChild(mailLink);
-      mailLink.click();
-      mailLink.remove();
-
-      if (status) {
-        status.textContent = "Ihr E-Mail-Programm sollte sich jetzt mit einer vorausgefüllten Nachricht öffnen.";
-        status.className = "form-status is-visible success";
-      }
+      fetch(form.action, { method: "POST", body: new FormData(form), headers: { Accept: "application/json" } })
+        .then(function (response) {
+          if (!response.ok) throw new Error("HTTP " + response.status);
+          form.reset();
+          show("Vielen Dank! Ihre Anfrage ist eingegangen – wir melden uns zeitnah.", "success");
+        })
+        .catch(function (error) {
+          // TypeError: Antwort nicht lesbar (z. B. CORS) – die Anfrage kann trotzdem angekommen sein
+          if (error instanceof TypeError) {
+            form.reset();
+            show("Ihre Anfrage wurde abgeschickt. Sollten Sie keine Rückmeldung erhalten, melden Sie sich bitte direkt." + fallback, "success");
+          } else {
+            show("Die Anfrage konnte gerade nicht gesendet werden." + fallback, "error");
+          }
+        })
+        .then(function () {
+          button.disabled = false;
+        });
     });
   }
 
