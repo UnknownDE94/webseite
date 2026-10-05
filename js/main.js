@@ -366,48 +366,20 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   });
 
-  // Kontaktformular: sendet an FormPost; ohne JavaScript übernimmt das normale Formular-POST
+  // Kontaktformular: prüft Pflichtfelder, dann normales POST an FormPost (wie von FormPost vorgesehen)
   var form = document.getElementById("contact-form");
   if (form) {
     var status = document.getElementById("form-status");
-    var button = form.querySelector('button[type="submit"]');
-    var show = function (text, kind) {
-      status.textContent = text;
-      status.className = "form-status is-visible " + kind;
-    };
-    var fallback = " Alternativ erreichen Sie uns unter service@werringloer.de oder +49 160 277 65 12.";
-
     form.addEventListener("submit", function (event) {
-      event.preventDefault();
-      var name = form.elements.name.value.trim();
       var email = form.elements.email;
-
-      if (!name || !email.value.trim() || !email.checkValidity()) {
-        show("Bitte Name und eine gültige E-Mail-Adresse angeben.", "error");
+      if (!form.elements.name.value.trim() || !email.value.trim() || !email.checkValidity()) {
+        event.preventDefault();
+        status.textContent = "Bitte Name und eine gültige E-Mail-Adresse angeben.";
+        status.className = "form-status is-visible error";
         return;
       }
-
-      button.disabled = true;
-      show("Ihre Anfrage wird gesendet …", "pending");
-
-      fetch(form.action, { method: "POST", body: new FormData(form), headers: { Accept: "application/json" } })
-        .then(function (response) {
-          if (!response.ok) throw new Error("HTTP " + response.status);
-          form.reset();
-          show("Vielen Dank! Ihre Anfrage ist eingegangen – wir melden uns zeitnah.", "success");
-        })
-        .catch(function (error) {
-          // TypeError: Antwort nicht lesbar (z. B. CORS) – die Anfrage kann trotzdem angekommen sein
-          if (error instanceof TypeError) {
-            form.reset();
-            show("Ihre Anfrage wurde abgeschickt. Sollten Sie keine Rückmeldung erhalten, melden Sie sich bitte direkt." + fallback, "success");
-          } else {
-            show("Die Anfrage konnte gerade nicht gesendet werden." + fallback, "error");
-          }
-        })
-        .then(function () {
-          button.disabled = false;
-        });
+      status.textContent = "Ihre Anfrage wird gesendet …";
+      status.className = "form-status is-visible pending";
     });
   }
 
