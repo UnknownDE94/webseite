@@ -418,10 +418,12 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   }
 
-  // Baustellen-Hinweis (Pop-up): weist Besucher darauf hin, dass die
-  // Website noch im Aufbau ist. Erscheint bewusst auf jeder Seite bei
-  // jedem Aufruf erneut (kein Merken per sessionStorage mehr).
+  // Baustellen-Hinweis (Pop-up): einmal pro Browser-Sitzung
   (function () {
+    try {
+      if (window.sessionStorage.getItem("wk-notice-seen")) return;
+      window.sessionStorage.setItem("wk-notice-seen", "1");
+    } catch (error) {}
     var overlay = document.createElement("div");
     overlay.className = "site-notice-overlay";
     overlay.setAttribute("role", "dialog");
