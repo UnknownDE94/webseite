@@ -21,7 +21,6 @@ assets/logo-mark-lg.webp            Große Bildmarke für die dunklen Aktionsfl�
 assets/favicon.png, favicon.ico     Favicons, apple-touch-icon.png für iOS
 assets/og-image.jpg                 Vorschaubild für Social Media (1200×630)
 assets/platform/                    Ansichten aus WK SmartParts (Beispieldaten, 16:10, einheitlicher Rahmen)
-assets/bilder/                      Freigestellte Motive neben den Informationen (WebP mit Transparenz)
 assets/media/                       Hintergrundmotive (Landschaft; Platz für spätere Hintergrundvideos)
 assets/fonts/                       Lokal gehostete Schriften (Archivo, Inter, JetBrains Mono, Montserrat; SIL OFL)
 ```

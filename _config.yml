@@ -1,0 +1,8 @@
+# GitHub Pages: Arbeits- und Entwurfsdateien nicht veröffentlichen
+exclude:
+  - README.md
+  - tools
+  - "*.dc.html"
+  - assets/media/film-hintergrund.mp4
+  - assets/media/film-hintergrund.webm
+  - assets/media/film-poster.jpg
