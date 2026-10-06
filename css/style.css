@@ -66,6 +66,11 @@
   --warn: #e0a526;
   --crit: #d64545;
 
+  /* Tier Colors */
+  --bronze: #8b6f47;
+  --silver-tier: #9ca3af;
+  --gold: #d4af37;
+
   /* Spacing Scale */
   --space-xs: 4px;
   --space-sm: 8px;
@@ -1062,9 +1067,9 @@ html[data-theme="dark"] .stage-media::after {
 }
 .page-header .stage-title .silver { display: block; }
 .page-header.stage .breadcrumb,
-.page-header.stage .breadcrumb a { color: #7b8588; }
-.page-header.stage .page-header-tagline { color: #9aa4a0; }
-.page-header.stage p:not(.page-header-tagline):not(.breadcrumb) { color: #a9b2ac; }
+.page-header.stage .breadcrumb a { color: var(--ink-3); }
+.page-header.stage .page-header-tagline { color: var(--ink-2); }
+.page-header.stage p:not(.page-header-tagline):not(.breadcrumb) { color: var(--ink); }
 .page-header.stage .hero-actions { margin-top: 32px; }
 .thumb {
   width: 60px;
@@ -1811,9 +1816,9 @@ main { overflow-x: clip; }
   font-size: 1.1rem;
   text-align: center;
 }
-.tier-header.tier-basic { background: var(--green); }
-.tier-header.tier-pro { background: var(--green-2); }
-.tier-header.tier-expert { background: var(--green-3); }
+.tier-header.tier-basic { background: var(--bronze); }
+.tier-header.tier-pro { background: var(--silver-tier); }
+.tier-header.tier-expert { background: var(--gold); color: #000000; }
 .tier-content {
   padding: 28px 24px;
   flex: 1;
