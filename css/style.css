@@ -1816,9 +1816,9 @@ main { overflow-x: clip; }
   font-size: 1.1rem;
   text-align: center;
 }
-.tier-header.tier-basic { background: var(--bronze); }
-.tier-header.tier-pro { background: var(--silver-tier); }
-.tier-header.tier-expert { background: var(--gold); color: #000000; }
+.tier-header.tier-basic { background: var(--green); }
+.tier-header.tier-pro { background: var(--green-2); }
+.tier-header.tier-expert { background: var(--green-3); }
 .tier-content {
   padding: 28px 24px;
   flex: 1;
