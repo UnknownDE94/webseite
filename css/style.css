@@ -1032,13 +1032,23 @@ html[data-theme="dark"] .page-header-media::after {
   position: absolute;
   inset: 0;
   background:
-    linear-gradient(90deg, rgba(10, 12, 11, 0.86) 0%, rgba(10, 12, 11, 0.6) 46%, rgba(10, 12, 11, 0.3) 100%),
-    linear-gradient(180deg, rgba(10, 12, 11, 0) 70%, rgba(10, 12, 11, 0.7) 100%);
+    linear-gradient(90deg, rgba(245, 244, 239, 0.9) 0%, rgba(245, 244, 239, 0.7) 46%, rgba(245, 244, 239, 0.15) 100%),
+    linear-gradient(180deg, rgba(245, 244, 239, 0) 70%, rgba(245, 244, 239, 1) 100%);
+}
+html[data-theme="dark"] .stage-media::after {
+  background:
+    linear-gradient(90deg, rgba(12, 58, 36, 0.75) 0%, rgba(12, 14, 13, 0.9) 46%, rgba(12, 14, 13, 0.3) 100%),
+    linear-gradient(180deg, rgba(12, 14, 13, 0) 70%, rgba(12, 14, 13, 0.7) 100%);
 }
 .page-header.stage > .container { position: relative; z-index: 1; }
 @media (max-width: 960px) {
   .stage-video { opacity: 0.22; }
-  .stage-media::after { background: rgba(10, 12, 11, 0.6); }
+  .stage-media::after {
+    background: rgba(245, 244, 239, 0.85);
+  }
+  html[data-theme="dark"] .stage-media::after {
+    background: rgba(12, 14, 13, 0.8);
+  }
 }
 .stage-grid {
   display: grid;
@@ -1748,6 +1758,188 @@ main { overflow-x: clip; }
   .svc-anim .sa-carry { transform: translate(212px, -38px); }
 }
 
+/* --- Leistungsportfolio: Services --- */
+.services-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 20px;
+  margin-bottom: 60px;
+}
+.service-card {
+  background: var(--surface);
+  padding: 24px;
+  border-radius: var(--radius);
+  border-left: 4px solid var(--green);
+  box-shadow: var(--shadow);
+  transition: transform 0.25s var(--ease), box-shadow 0.25s var(--ease);
+}
+.service-card:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-lg);
+}
+.service-card h3 { margin: 0 0 12px; font-size: 1.05rem; color: var(--ink); }
+.service-card p { margin: 0; font-size: 0.9rem; color: var(--ink-2); }
+
+/* Tier-Container für dreistufige Services */
+.tier-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 28px;
+  margin-bottom: 60px;
+}
+.tier-card {
+  background: var(--surface);
+  border-radius: var(--radius);
+  overflow: hidden;
+  box-shadow: var(--shadow);
+  transition: transform 0.25s var(--ease), box-shadow 0.25s var(--ease);
+  display: flex;
+  flex-direction: column;
+}
+.tier-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-lg);
+}
+.tier-card.featured {
+  box-shadow: 0 0 0 2px var(--lime), var(--shadow-lg);
+  transform: scale(1.02);
+}
+.tier-header {
+  padding: 20px 24px;
+  color: #ffffff;
+  font-weight: 600;
+  font-size: 1.1rem;
+  text-align: center;
+}
+.tier-header.tier-basic { background: var(--green); }
+.tier-header.tier-pro { background: var(--green-2); }
+.tier-header.tier-expert { background: var(--green-3); }
+.tier-content {
+  padding: 28px 24px;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+.tier-content h4 {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--ink-3);
+  margin: 0 0 12px;
+  font-weight: 600;
+}
+.tier-content p { margin: 0 0 12px; font-size: 0.9rem; line-height: 1.6; color: var(--ink-2); }
+.tier-features {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 20px;
+}
+.tier-features li {
+  padding: 6px 0 6px 20px;
+  position: relative;
+  font-size: 0.9rem;
+  color: var(--ink-2);
+}
+.tier-features li::before {
+  content: "✓";
+  position: absolute;
+  left: 0;
+  color: var(--ok);
+  font-weight: bold;
+}
+.tier-duration {
+  font-size: 0.85rem;
+  color: var(--ink-3);
+  margin: 12px 0;
+}
+.tier-price {
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: var(--ink);
+  margin-top: 20px;
+  padding-top: 20px;
+  border-top: 1px solid var(--line);
+}
+.tier-subtext {
+  display: block;
+  font-size: 0.8rem;
+  font-weight: 400;
+  color: var(--ink-3);
+  margin-top: 4px;
+}
+
+/* Retainer Table */
+.retainer-table {
+  background: var(--surface);
+  border-radius: var(--radius);
+  overflow: hidden;
+  box-shadow: var(--shadow);
+  margin-bottom: 40px;
+}
+.retainer-row {
+  display: grid;
+  grid-template-columns: 180px 140px 1fr 130px;
+  gap: 0;
+  border-bottom: 1px solid var(--line);
+  align-items: center;
+}
+.retainer-row.header {
+  background: var(--surface-2);
+  border-bottom: 2px solid var(--line-2);
+}
+.retainer-row.header .retainer-cell {
+  font-weight: 600;
+  color: var(--ink);
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+.retainer-cell {
+  padding: 20px;
+  font-size: 0.9rem;
+  color: var(--ink-2);
+}
+.retainer-cell.price {
+  text-align: right;
+  font-weight: 600;
+  color: var(--ink);
+}
+.retainer-row:last-child { border-bottom: 0; }
+
+/* Services Summary Cards */
+.services-summary {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 24px;
+  margin-bottom: 60px;
+}
+.service-summary-card {
+  background: var(--surface);
+  padding: 28px;
+  border-radius: var(--radius);
+  border: 1px solid var(--line);
+  box-shadow: var(--shadow);
+  transition: transform 0.25s var(--ease);
+}
+.service-summary-card:hover {
+  transform: translateY(-2px);
+}
+.service-summary-card h4 {
+  margin: 0 0 10px;
+  font-size: 1.05rem;
+  color: var(--ink);
+}
+.service-summary-card p {
+  margin: 0 0 10px;
+  font-size: 0.9rem;
+  color: var(--ink-2);
+}
+.service-summary-card p:first-of-type {
+  font-weight: 600;
+  color: var(--green);
+  margin-bottom: 12px;
+}
+
 /* --- WK SmartParts Familie: Produkte --- */
 .products-grid {
   display: grid;
@@ -1844,7 +2036,7 @@ main { overflow-x: clip; }
 
 /* --- Responsive --- */
 @media (max-width: 1080px) {
-  .hero { --hero-pb: 96px; padding-bottom: var(--hero-pb); }
+  .hero { --hero-pb: 120px; padding-bottom: var(--hero-pb); }
   .hero-video {
     -webkit-mask-image: linear-gradient(180deg, #000 0%, #000 70%, transparent 100%);
     mask-image: linear-gradient(180deg, #000 0%, #000 70%, transparent 100%);
@@ -1891,6 +2083,14 @@ main { overflow-x: clip; }
   .page-header-grid { grid-template-columns: 1fr; gap: 32px; }
   .price-grid { grid-template-columns: 1fr; max-width: 560px; margin: 0 auto; }
   .products-grid { grid-template-columns: 1fr; }
+  .services-grid { grid-template-columns: 1fr; }
+  .tier-container { grid-template-columns: 1fr; }
+  .tier-card.featured { transform: scale(1); }
+  .retainer-row { grid-template-columns: 1fr; }
+  .retainer-row.header { grid-template-columns: 1fr; }
+  .retainer-cell { padding: 16px; border-bottom: 1px solid var(--line); }
+  .retainer-cell.price { text-align: left; }
+  .services-summary { grid-template-columns: 1fr; }
   .price-card,
   .price-card:first-child,
   .price-card:last-child { padding: 32px 0 28px; border-left: 0; border-bottom: 1px solid var(--line); }
@@ -1983,7 +2183,8 @@ html:not([data-theme="dark"]) .stage-video { filter: invert(1) hue-rotate(180deg
 .page-header-media::after { background: linear-gradient(90deg, rgba(245, 244, 239, 0.85) 0%, rgba(245, 244, 239, 0.4) 34%, rgba(245, 244, 239, 0) 55%); }
 html[data-theme="dark"] .hero-media::after,
 html[data-theme="dark"] .page-header-media::after { background: linear-gradient(90deg, rgba(12, 14, 13, 0.85) 0%, rgba(12, 14, 13, 0.4) 34%, rgba(12, 14, 13, 0) 55%); }
-.stage-media::after { background: linear-gradient(90deg, rgba(10, 12, 11, 0.86) 0%, rgba(10, 12, 11, 0.45) 40%, rgba(10, 12, 11, 0.1) 60%); }
+.stage-media::after { background: linear-gradient(90deg, rgba(245, 244, 239, 0.86) 0%, rgba(245, 244, 239, 0.45) 40%, rgba(245, 244, 239, 0.1) 60%); }
+html[data-theme="dark"] .stage-media::after { background: linear-gradient(90deg, rgba(12, 58, 36, 0.75) 0%, rgba(12, 14, 13, 0.45) 40%, rgba(12, 14, 13, 0.1) 60%); }
 @media (max-width: 960px) {
   .hero-video,
   .page-header-video,
@@ -1996,8 +2197,9 @@ html[data-theme="dark"] .page-header-media::after { background: linear-gradient(
     object-position: center bottom;
   }
   .hero-media::after,
-  .page-header-media::after { background: rgba(245, 244, 239, 0.55); }
+  .page-header-media::after { background: rgba(245, 244, 239, 0.65); }
   html[data-theme="dark"] .hero-media::after,
   html[data-theme="dark"] .page-header-media::after,
-  .stage-media::after { background: rgba(12, 14, 13, 0.55); }
+  .stage-media::after { background: rgba(245, 244, 239, 0.65); }
+  html[data-theme="dark"] .stage-media::after { background: rgba(12, 14, 13, 0.65); }
 }
