@@ -1037,22 +1037,25 @@ html[data-theme="dark"] .page-header-media::after {
   position: absolute;
   inset: 0;
   background:
-    linear-gradient(90deg, rgba(245, 244, 239, 0.9) 0%, rgba(245, 244, 239, 0.7) 46%, rgba(245, 244, 239, 0.15) 100%),
-    linear-gradient(180deg, rgba(245, 244, 239, 0) 70%, rgba(245, 244, 239, 1) 100%);
+    radial-gradient(circle at 20% 50%, rgba(212, 236, 95, 0.08) 0%, transparent 40%),
+    linear-gradient(90deg, rgba(245, 244, 239, 0.85) 0%, rgba(245, 244, 239, 0.6) 38%, rgba(245, 244, 239, 0.1) 70%, rgba(245, 244, 239, 0) 100%),
+    linear-gradient(180deg, rgba(245, 244, 239, 0) 70%, rgba(245, 244, 239, 0.95) 100%);
 }
 html[data-theme="dark"] .stage-media::after {
   background:
-    linear-gradient(90deg, rgba(12, 58, 36, 0.75) 0%, rgba(12, 14, 13, 0.9) 46%, rgba(12, 14, 13, 0.3) 100%),
-    linear-gradient(180deg, rgba(12, 14, 13, 0) 70%, rgba(12, 14, 13, 0.7) 100%);
+    radial-gradient(circle at 20% 50%, rgba(212, 236, 95, 0.12) 0%, transparent 40%),
+    linear-gradient(135deg, rgba(12, 58, 36, 0.6) 0%, rgba(12, 14, 13, 0.75) 50%),
+    linear-gradient(90deg, rgba(12, 14, 13, 0.85) 0%, rgba(12, 14, 13, 0.6) 38%, rgba(12, 14, 13, 0.1) 70%, rgba(12, 14, 13, 0) 100%),
+    linear-gradient(180deg, rgba(12, 14, 13, 0) 70%, rgba(12, 14, 13, 0.95) 100%);
 }
 .page-header.stage > .container { position: relative; z-index: 1; }
 @media (max-width: 960px) {
   .stage-video { opacity: 0.3; }
   .stage-media::after {
-    background: rgba(245, 244, 239, 0.85);
+    background: rgba(245, 244, 239, 0.75);
   }
   html[data-theme="dark"] .stage-media::after {
-    background: rgba(12, 14, 13, 0.8);
+    background: rgba(12, 14, 13, 0.7);
   }
 }
 .stage-grid {
@@ -2188,8 +2191,8 @@ html:not([data-theme="dark"]) .stage-video { filter: invert(1) hue-rotate(180deg
 .page-header-media::after { background: linear-gradient(90deg, rgba(245, 244, 239, 0.85) 0%, rgba(245, 244, 239, 0.4) 34%, rgba(245, 244, 239, 0) 55%); }
 html[data-theme="dark"] .hero-media::after,
 html[data-theme="dark"] .page-header-media::after { background: linear-gradient(90deg, rgba(12, 14, 13, 0.85) 0%, rgba(12, 14, 13, 0.4) 34%, rgba(12, 14, 13, 0) 55%); }
-.stage-media::after { background: linear-gradient(90deg, rgba(245, 244, 239, 0.86) 0%, rgba(245, 244, 239, 0.45) 40%, rgba(245, 244, 239, 0.1) 60%); }
-html[data-theme="dark"] .stage-media::after { background: linear-gradient(90deg, rgba(12, 58, 36, 0.75) 0%, rgba(12, 14, 13, 0.45) 40%, rgba(12, 14, 13, 0.1) 60%); }
+.stage-media::after { background: linear-gradient(90deg, rgba(245, 244, 239, 0.8) 0%, rgba(245, 244, 239, 0.4) 40%, rgba(245, 244, 239, 0.05) 60%); }
+html[data-theme="dark"] .stage-media::after { background: linear-gradient(90deg, rgba(12, 14, 13, 0.8) 0%, rgba(12, 14, 13, 0.4) 40%, rgba(12, 14, 13, 0.05) 60%); }
 @media (max-width: 960px) {
   .hero-video,
   .page-header-video,
