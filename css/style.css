@@ -2222,8 +2222,8 @@ html[data-theme="dark"] .stage-media::after { background: linear-gradient(90deg,
   }
   .hero-media::after,
   .page-header-media::after { background: rgba(245, 244, 239, 0.65); }
+  html:not([data-theme="dark"]) .stage-media::after { background: rgba(245, 244, 239, 0.65); }
   html[data-theme="dark"] .hero-media::after,
   html[data-theme="dark"] .page-header-media::after,
-  .stage-media::after { background: rgba(245, 244, 239, 0.65); }
   html[data-theme="dark"] .stage-media::after { background: rgba(12, 14, 13, 0.65); }
 }
