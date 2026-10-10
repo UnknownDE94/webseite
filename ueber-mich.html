@@ -86,21 +86,29 @@
   </header>
 
   <main id="main">
-    <div class="page-header">
-      <div class="page-header-media" aria-hidden="true">
-        <video class="page-header-video" autoplay muted loop playsinline preload="metadata" poster="assets/media/erklaerfilm-poster.jpg?v=2">
+    <!-- Hero (wie Startseite) -->
+    <section class="hero page-hero">
+      <div class="hero-media" aria-hidden="true">
+        <video class="hero-video" autoplay muted loop playsinline preload="metadata" poster="assets/media/erklaerfilm-poster.jpg?v=2">
           <source src="assets/media/erklaerfilm.webm?v=2" type="video/webm" />
           <source src="assets/media/erklaerfilm.mp4?v=2" type="video/mp4" />
         </video>
       </div>
-      <div class="container">
-        <div class="page-header-copy" data-stagger="up">
+      <div class="container hero-grid">
+        <div class="hero-copy" data-stagger="up">
           <p class="breadcrumb"><a href="index.html">Start</a> / Über uns</p>
-          <h1 data-split>Über uns</h1>
-          <p>Beratung und digitale Umsetzung für Instandhaltung, Ersatzteil- und Materialwirtschaft – aus einer Hand.</p>
+          <h1 data-split><span class="accent">Über</span> uns</h1>
+          <p class="hero-subtitle">Beratung und digitale Umsetzung aus einer Hand.</p>
+          <p class="hero-lead">
+            Für Instandhaltung, Ersatzteil- und Materialwirtschaft – aus der Werkshalle heraus entwickelt.
+          </p>
+          <div class="hero-actions">
+            <a class="btn btn-primary" href="kontakt.html">Erstgespräch vereinbaren</a>
+            <a class="btn btn-secondary" href="leistungen.html">Leistungen ansehen</a>
+          </div>
         </div>
       </div>
-    </div>
+    </section>
 
     <section>
       <div class="container two-col">
@@ -158,27 +166,51 @@
     <section class="section-alt" id="drei-wege">
       <div class="container">
         <div class="section-head" data-stagger="up">
-          <h2>Drei Wege, mit uns zu arbeiten</h2>
+          <h2>Drei Wege – und welcher zu Ihnen passt</h2>
           <p>
-            Je nach Ausgangslage starten Sie mit einer Analyse, holen uns für die
-            Umsetzung ins Werk oder sichern die Ergebnisse dauerhaft in unserer
-            Software – einzeln oder kombiniert.
+            Wir empfehlen fast immer dieselbe Reihenfolge: erst prüfen, dann umsetzen,
+            dann entscheiden, ob eine Plattform dauerhaft sinnvoll ist.
           </p>
         </div>
-        <ol class="ways" data-stagger="up">
-          <li>
-            <h3>Analyse &amp; Beratung</h3>
-            <p>Lager, Bestände und Stammdaten prüfen und den größten Hebel mit priorisiertem Maßnahmenplan benennen.</p>
-          </li>
-          <li>
-            <h3>Umsetzung vor Ort</h3>
-            <p>Min-/Max-Bestände, Kritikalitätsbewertung, Dispositionslogik und Lagerstruktur umsetzen.</p>
-          </li>
-          <li>
-            <h3>WK SmartParts</h3>
-            <p>Datenqualität, Bestandssteuerung, Governance und Reporting dauerhaft in einem System sichern. <a href="smartparts.html">Zur Plattform</a></p>
-          </li>
-        </ol>
+        <div class="ways-grid" data-stagger="up">
+          <article class="way way--recommended">
+            <span class="way-badge">Unsere Empfehlung für den Start</span>
+            <h3>1. Quick-Check</h3>
+            <p class="way-when"><strong>Wann:</strong> Sie wissen nicht, wo im Lager Kapital gebunden ist oder wo Ausfälle drohen.</p>
+            <ul>
+              <li>Ergebnis in 1–2 Wochen</li>
+              <li>Ab 1.250 EUR netto</li>
+              <li>Priorisierter Maßnahmenplan</li>
+            </ul>
+            <p class="way-rec"><strong>Unsere Empfehlung:</strong> Immer zuerst. Ohne Analyse wissen wir nicht, was sich umzusetzen lohnt.</p>
+            <a class="way-link" href="leistungen.html#service-quick-check">Zum Quick-Check</a>
+          </article>
+          <article class="way">
+            <h3>2. Projektumsetzung</h3>
+            <p class="way-when"><strong>Wann:</strong> Die Analyse liegt vor und die Maßnahmen sollen umgesetzt werden.</p>
+            <ul>
+              <li>Stammdaten-Bereinigung und Governance</li>
+              <li>Bestandslogik und Workflows</li>
+              <li>Festpreis nach Quick-Check</li>
+            </ul>
+            <p class="way-rec"><strong>Unsere Empfehlung:</strong> Haben Sie intern keine Kapazität, setzen wir gemeinsam vor Ort um. SAP-/ERP-Integration begleiten wir nur.</p>
+            <a class="way-link" href="leistungen.html#service-projekt">Zur Projektumsetzung</a>
+          </article>
+          <article class="way">
+            <h3>3. WK SmartParts</h3>
+            <p class="way-when"><strong>Wann:</strong> Die Ergebnisse sollen dauerhaft im System laufen und mehrere Teams sehen dieselben Daten.</p>
+            <ul>
+              <li>Basic: Kernmodule für Lager, Material und Einkauf</li>
+              <li>Pro: Analyse, Maschinen und Instandhaltung</li>
+              <li>Expert: Individualisierung und SharePoint-Anbindung</li>
+            </ul>
+            <p class="way-rec"><strong>Unsere Empfehlung:</strong> Mit Basic starten. Pro, sobald Analyse und Instandhaltung gebraucht werden. Expert nur bei konkretem Individualisierungsbedarf.</p>
+            <a class="way-link" href="smartparts.html">Zu SmartParts</a>
+          </article>
+        </div>
+        <p class="way-foot">
+          Faustregel: Quick-Check, dann Projektumsetzung, dann SmartParts. Jede Stufe baut auf den Ergebnissen der vorherigen auf.
+        </p>
       </div>
     </section>
   </main>
