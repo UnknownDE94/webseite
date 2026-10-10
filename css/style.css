@@ -820,11 +820,12 @@ html:not(.js) .flow-steps li::before { color: #0c3a24; background: var(--accent)
   .flow-steps::before, .flow-steps::after { display: none; }
   .flow-steps li { padding: 0 0 28px 36px; border-left: 2px solid var(--line-2); }
   .flow-steps li:last-child { padding-bottom: 0; border-left-color: transparent; }
-  .flow-steps li::before { top: -4px; left: -19px; }
+  .flow-steps li::before { top: -4px; left: -19px; z-index: 2; }
   .flow-steps li:not(:last-child)::after {
     content: "";
     position: absolute;
-    top: 0;
+    z-index: 0;
+    top: 14px;
     bottom: 0;
     left: -2px;
     width: 2px;
