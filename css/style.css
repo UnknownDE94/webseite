@@ -2334,3 +2334,38 @@ html[data-theme="light"] {
   box-shadow: var(--shadow), inset 0 1px 0 rgba(255, 255, 255, 0.6);
 }
 .service-card { border-left-color: var(--green); }
+
+/* Mobil: Erklärfilm steht unterhalb des Kopf-Textes, nicht mehr als Hintergrund dahinter */
+@media (max-width: 960px) {
+  .hero,
+  .page-header.stage {
+    display: flex;
+    flex-direction: column;
+  }
+  .hero > .container,
+  .page-header.stage > .container { order: 1; }
+  .hero-media,
+  .stage-media {
+    order: 2;
+    position: relative;
+    inset: auto;
+    width: 100%;
+    height: auto;
+    margin-top: 40px;
+  }
+  .hero-video,
+  .stage-video {
+    position: relative;
+    top: auto;
+    right: auto;
+    width: 100%;
+    height: auto;
+    max-width: 100%;
+    aspect-ratio: 16 / 9;
+    opacity: 1;
+    -webkit-mask-image: none;
+    mask-image: none;
+  }
+  .hero-media::after,
+  .stage-media::after { display: none; }
+}
