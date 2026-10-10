@@ -242,10 +242,10 @@ html[data-theme="dark"] :focus-visible { outline-color: var(--accent); }
   transition: filter 0.3s var(--ease);
 }
 html[data-theme="dark"] .brand-mark {
-  filter: saturate(1.4) brightness(1.15) drop-shadow(0 0 12px rgba(212, 236, 95, 0.6));
+  filter: saturate(1.4) brightness(1.15) drop-shadow(0 0 12px rgba(12, 58, 36, 0.6));
 }
 .brand-mark:hover {
-  filter: saturate(1.5) brightness(1.2) drop-shadow(0 0 16px rgba(212, 236, 95, 0.8));
+  filter: saturate(1.5) brightness(1.2) drop-shadow(0 0 16px rgba(12, 58, 36, 0.8));
 }
 .brand-text {
   display: flex;
