@@ -2288,3 +2288,22 @@ html[data-theme="dark"] .stage-media::after { background: linear-gradient(90deg,
   text-align: center;
 }
 .glass-card--center .hero-actions { justify-content: center; }
+
+/* Unterseiten-Köpfe mit dunkler Bühne (Leistungen, SmartParts):
+   im hellen Theme wie die Startseite hell, Textfarben entsprechend invertiert */
+html:not([data-theme="dark"]) .page-header.stage {
+  background: var(--bg);
+  color: var(--ink);
+}
+html:not([data-theme="dark"]) .page-header.stage h1,
+html:not([data-theme="dark"]) .page-header.stage h2,
+html:not([data-theme="dark"]) .page-header.stage h3 { color: var(--ink); }
+html:not([data-theme="dark"]) .page-header.stage p { color: var(--ink-2); }
+html:not([data-theme="dark"]) .page-header.stage .silver { color: var(--ink-3); }
+/* Bühnen-Film im hellen Theme wie der Startseiten-Hero: invertiert, mit hellem Verlauf */
+html:not([data-theme="dark"]) .stage-video { filter: invert(1) hue-rotate(180deg); }
+html:not([data-theme="dark"]) .stage-media::after {
+  background:
+    linear-gradient(90deg, rgba(245, 244, 239, 0.85) 0%, rgba(245, 244, 239, 0.4) 34%, rgba(245, 244, 239, 0) 55%),
+    linear-gradient(180deg, rgba(245, 244, 239, 0) 70%, rgba(245, 244, 239, 1) 100%);
+}
