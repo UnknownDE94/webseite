@@ -2226,3 +2226,65 @@ html[data-theme="dark"] .stage-media::after { background: linear-gradient(90deg,
   html[data-theme="dark"] .page-header-media::after,
   html[data-theme="dark"] .stage-media::after { background: rgba(12, 14, 13, 0.65); }
 }
+
+/* Leistungen: Listen, Hinweise und Glas-Karten (Projektumsetzung, Retainer, WK-Module) */
+.service-list-grid {
+  display: grid;
+  gap: 16px;
+  margin-top: 8px;
+}
+.service-list {
+  list-style: none;
+  margin: 0;
+  padding: 24px 28px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 12px 28px;
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  border-radius: 16px;
+  -webkit-backdrop-filter: blur(var(--glass-blur));
+  backdrop-filter: blur(var(--glass-blur));
+}
+.service-list li {
+  position: relative;
+  padding-left: 22px;
+}
+.service-list li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0.55em;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--lime);
+}
+.service-note {
+  margin: 0;
+  padding: 14px 20px;
+  border: 1px solid var(--glass-border);
+  border-radius: 12px;
+  background: var(--glass-bg);
+  -webkit-backdrop-filter: blur(var(--glass-blur));
+  backdrop-filter: blur(var(--glass-blur));
+}
+.section-foot-note {
+  text-align: center;
+  color: var(--ink-3);
+  margin: 32px 0 0;
+}
+.glass-card {
+  max-width: 720px;
+  padding: 32px;
+  border: 1px solid var(--glass-border);
+  border-radius: 20px;
+  background: var(--glass-bg);
+  -webkit-backdrop-filter: blur(var(--glass-blur));
+  backdrop-filter: blur(var(--glass-blur));
+}
+.glass-card--center {
+  margin: 0 auto;
+  text-align: center;
+}
+.glass-card--center .hero-actions { justify-content: center; }
