@@ -1,0 +1,803 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Erfahrung statt Software – Hintergrund-Loop</title>
+<meta name="description" content="Motion-Graphics-Hintergrund: 48 s nahtloser Loop, FPV-Drohne durch eine stilisierte Fabrik.">
+<style>
+:root{
+  --bg:#0E1412;
+  --smart:#1E6B4A; --smart-glow:#3FBF7F;
+  --fin:#C9505F; --parts:#2EC4D6; --quick:#A6E22E;
+  --warn:#F2A93B; --crit:#E5484D;
+  --ink:#E8F3EE; --ink-dim:rgba(232,243,238,.55);
+}
+@media (prefers-color-scheme: light){
+  :root:not([data-theme="dark"]){ --bg:#0E1412; }
+}
+:root[data-theme="dark"]{ --bg:#0E1412; }
+html,body{margin:0;height:100%;background:var(--bg);overflow:hidden}
+body{color:var(--ink);font-family:system-ui,-apple-system,"Segoe UI",sans-serif}
+#viewport{position:fixed;inset:0;overflow:hidden;background:var(--bg)}
+#grid{position:absolute;inset:0;pointer-events:none;opacity:.06;
+  background-image:linear-gradient(rgba(120,200,160,1) 1px,transparent 1px),linear-gradient(90deg,rgba(120,200,160,1) 1px,transparent 1px);
+  background-size:48px 48px}
+#stage{position:absolute;left:50%;top:50%;width:1920px;height:1080px;transform-origin:0 0;will-change:transform}
+#scene{position:absolute;inset:0;width:1920px;height:1080px;display:block}
+#ui{position:absolute;inset:0;width:1920px;height:1080px;pointer-events:none}
+#shade{position:absolute;inset:0;pointer-events:none;
+  background:linear-gradient(90deg,rgba(14,20,18,.9) 0%,rgba(14,20,18,.6) 40%,rgba(14,20,18,0) 72%),
+             radial-gradient(ellipse at 60% 45%,transparent 45%,rgba(14,20,18,.55) 100%)}
+.panel{position:absolute;left:0;top:0;padding:14px 16px;border-radius:14px;min-width:150px;
+  background:rgba(255,255,255,.08);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);
+  border:1px solid var(--c,#3FBF7F);box-shadow:0 0 24px color-mix(in srgb,var(--c,#3FBF7F) 25%,transparent);
+  opacity:0;will-change:transform,opacity;white-space:nowrap}
+.panel .lbl{font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-dim)}
+.panel .val{font-size:30px;font-weight:700;font-variant-numeric:tabular-nums;color:var(--c,#3FBF7F);margin-top:2px}
+.panel .unit{font-size:14px;color:var(--ink-dim);margin-left:4px}
+.dash{width:620px;padding:22px;display:grid;grid-template-columns:1fr 1fr;gap:14px;white-space:normal}
+.kpi{padding:12px 14px;border-radius:12px;background:rgba(255,255,255,.06);border:1px solid rgba(63,191,127,.45)}
+.kpi .val{font-size:26px}
+.donut{width:120px;height:120px}
+.donutwrap{display:flex;gap:18px;align-items:center;justify-content:space-around;grid-column:1 / span 2}
+.ring{width:150px;height:150px;position:relative}
+.ring svg{width:150px;height:150px;transform:rotate(-90deg)}
+.ringnum{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:30px;font-weight:700;font-variant-numeric:tabular-nums}
+.bigcount{font-size:64px;font-weight:800;font-variant-numeric:tabular-nums;line-height:1}
+.mono{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);font-size:150px;font-weight:800;letter-spacing:.06em;
+  color:#E8F3EE;opacity:0;text-shadow:0 0 40px rgba(63,191,127,.5)}
+.hold{position:absolute;left:0;top:0;opacity:0;pointer-events:none}
+</style>
+</head>
+<body>
+<div id="viewport">
+  <div id="grid"></div>
+  <div id="stage">
+    <svg id="scene" viewBox="0 0 1920 1080" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+      <defs>
+        <radialGradient id="gDataGlow" cx="50%" cy="50%" r="50%">
+          <stop offset="0" stop-color="#3FBF7F" stop-opacity="1"/>
+          <stop offset="1" stop-color="#3FBF7F" stop-opacity="0"/>
+        </radialGradient>
+        <linearGradient id="gBeam" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0" stop-color="#E8F3EE" stop-opacity=".22"/>
+          <stop offset="1" stop-color="#E8F3EE" stop-opacity="0"/>
+        </linearGradient>
+        <filter id="fGlow" x="-50%" y="-50%" width="200%" height="200%">
+          <feGaussianBlur stdDeviation="6" result="b"/>
+          <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+        </filter>
+      </defs>
+      <g id="lightBeams"></g>
+      <g id="floorGrid"></g>
+      <g id="world"></g>
+      <g id="particles"></g>
+      <g id="scanLayer"></g>
+      <g id="flow"></g>
+      <g id="markers"></g>
+    </svg>
+    <div id="ui">
+      <div class="panel" id="pNoStop" style="--c:#E5484D"><div class="lbl">Stillstand</div><div class="val"><span id="vCost">0</span><span class="unit">€</span></div></div>
+      <div class="panel" id="pQuick" style="--c:#A6E22E"><div class="lbl">Quick Check</div><div class="val" id="vQuick">Risiko 3/3</div></div>
+      <div class="panel dash" id="pDash" style="--c:#3FBF7F">
+        <div class="kpi" style="--c:#3FBF7F"><div class="lbl">Materialanzahl</div><div class="val" id="kMat">0</div></div>
+        <div class="kpi" style="--c:#3FBF7F"><div class="lbl">Lagerwert</div><div class="val"><span id="kLager">0</span> €</div></div>
+        <div class="kpi" style="--c:#E5484D"><div class="lbl">Kritische Bestände</div><div class="val" id="kKrit">0</div></div>
+        <div class="kpi" style="--c:#2EC4D6"><div class="lbl">Datenqualität</div><div class="val"><span id="kDq">0</span> %</div></div>
+        <div class="donutwrap">
+          <div class="ring" id="ringABC"><svg viewBox="0 0 150 150"><circle cx="75" cy="75" r="58" fill="none" stroke="rgba(255,255,255,.08)" stroke-width="14"/><circle id="arcABC" cx="75" cy="75" r="58" fill="none" stroke="#3FBF7F" stroke-width="14" stroke-dasharray="0 364.4" stroke-linecap="round"/></svg><div class="ringnum" id="nABC">A</div></div>
+          <div class="ring" id="ringXYZ"><svg viewBox="0 0 150 150"><circle cx="75" cy="75" r="58" fill="none" stroke="rgba(255,255,255,.08)" stroke-width="14"/><circle id="arcXYZ" cx="75" cy="75" r="58" fill="none" stroke="#2EC4D6" stroke-width="14" stroke-dasharray="0 364.4" stroke-linecap="round"/></svg><div class="ringnum" id="nXYZ">X</div></div>
+        </div>
+      </div>
+      <div class="panel" id="pMat" style="--c:#3FBF7F"><div class="lbl">Dubletten</div><div class="val" id="vDup">0</div></div>
+      <div class="panel" id="pMaint" style="--c:#3FBF7F"><div class="lbl">Wartung</div><div class="val"><span id="vMaint">0</span> %</div></div>
+      <div class="panel" id="pParts" style="--c:#2EC4D6"><div class="lbl">Lieferzeit</div><div class="val"><span id="vLead">14</span> Tage</div></div>
+      <div class="panel" id="pFin" style="--c:#C9505F"><div class="lbl">Rechnungen</div><div class="val"><span id="vInv">0</span> geprüft</div></div>
+      <div class="panel" id="pTotal" style="--c:#3FBF7F"><div class="lbl">Gesamtkosten</div><div class="val"><span id="vTotal">100</span> %</div></div>
+      <div class="mono" id="mono">WK</div>
+    </div>
+    <div id="shade"></div>
+  </div>
+</div>
+<script>
+(() => {
+'use strict';
+const NS = 'http://www.w3.org/2000/svg';
+const W = 1920, H = 1080, FOCAL = 1150, LOOP = 48;
+const $ = id => document.getElementById(id);
+const clamp = (v, a = 0, b = 1) => Math.min(b, Math.max(a, v));
+const lerp = (a, b, k) => a + (b - a) * k;
+const smooth = x => x * x * (3 - 2 * x);
+
+/* cubic-bezier(x1,y1,x2,y2) – Bisektion, robust und deterministisch */
+function bezier(x1, y1, x2, y2) {
+  const cx = 3 * x1, bx = 3 * (x2 - x1) - cx, ax = 1 - cx - bx;
+  const cy = 3 * y1, by = 3 * (y2 - y1) - cy, ay = 1 - cy - by;
+  const sx = s => ((ax * s + bx) * s + cx) * s;
+  const sy = s => ((ay * s + by) * s + cy) * s;
+  return x => {
+    if (x <= 0) return 0;
+    if (x >= 1) return 1;
+    let lo = 0, hi = 1, s = x;
+    for (let i = 0; i < 30; i++) { s = (lo + hi) / 2; if (sx(s) < x) lo = s; else hi = s; }
+    return sy(s);
+  };
+}
+const EASE = bezier(0.22, 1, 0.36, 1);
+/* win: eased 0→1 zwischen a und b; lin: linear; beide sind 48-s-periodisch verwendbar */
+const win = (t, a, b) => EASE(clamp((t - a) / (b - a)));
+const lin = (t, a, b) => clamp((t - a) / (b - a));
+
+const V = {
+  add: (a, b) => [a[0] + b[0], a[1] + b[1], a[2] + b[2]],
+  sub: (a, b) => [a[0] - b[0], a[1] - b[1], a[2] - b[2]],
+  mul: (a, k) => [a[0] * k, a[1] * k, a[2] * k],
+  dot: (a, b) => a[0] * b[0] + a[1] * b[1] + a[2] * b[2],
+  cross: (a, b) => [a[1] * b[2] - a[2] * b[1], a[2] * b[0] - a[0] * b[2], a[0] * b[1] - a[1] * b[0]],
+  norm: a => { const l = Math.hypot(a[0], a[1], a[2]) || 1; return [a[0] / l, a[1] / l, a[2] / l]; }
+};
+
+const hexRgb = h => [1, 3, 5].map(i => parseInt(h.substr(i, 2), 16));
+const mixRgb = (a, b, k) => a.map((v, i) => lerp(v, b[i], k));
+const rgbStr = c => `rgb(${c.map(v => Math.round(clamp(v, 0, 255))).join(',')})`;
+
+/* ---------- Kamera: Catmull-Rom über Keyframes, Start == Ende (nahtloser Loop) ---------- */
+const KEYS = [
+  { t: 0,  p: [0, 20, -16],  l: [0, 11, -15] },    // Anflug über dem Oberlicht
+  { t: 5,  p: [-2, 8, -15],  l: [-6, 2, 2] },      // Sturzflug durch das Oberlicht, Roboter
+  { t: 10, p: [-16, 9, 10],  l: [-6, 2, 4] },      // Umkreisen des defekten Lagers
+  { t: 15, p: [0, 30, -2],   l: [0, 0, 0] },       // Vogelperspektive, Quick Check
+  { t: 19, p: [4, 9, -16],   l: [0, 5, -2] },      // Dashboard-Durchflug
+  { t: 22, p: [-14, 6, -26], l: [-14, 3.5, -14] }, // Regalgasse
+  { t: 27, p: [-14, 7, -10], l: [-14, 3, -1] },
+  { t: 32, p: [-14, 9, 12],  l: [-6, 3, 4] },      // zurück an den Roboter
+  { t: 37, p: [8, 9, 20],    l: [10, 3, 8] },      // Drucker / Ersatzteil
+  { t: 42, p: [4, 10, -14],  l: [8, 4, -4] },      // Finanz-Halle
+  { t: 44, p: [-20, 26, 16], l: [0, 2, 0] },       // Gesamtbild, Orbit
+  { t: 46, p: [0, 9, -13],   l: [0, 11, -15] },    // Steigflug durch das Oberlicht
+  { t: 48, p: [0, 20, -16],  l: [0, 11, -15] }     // == t 0
+];
+
+function camAt(t) {
+  const n = KEYS.length;
+  let i = 0;
+  while (i < n - 2 && t >= KEYS[i + 1].t) i++;
+  const k0 = KEYS[Math.max(0, i - 1)], k1 = KEYS[i], k2 = KEYS[i + 1], k3 = KEYS[Math.min(n - 1, i + 2)];
+  const u = clamp((t - k1.t) / (k2.t - k1.t)), u2 = u * u, u3 = u2 * u;
+  const cr = (a, b, c, d) => 0.5 * (2 * b + (-a + c) * u + (2 * a - 5 * b + 4 * c - d) * u2 + (-a + 3 * b - 3 * c + d) * u3);
+  return {
+    pos: [0, 1, 2].map(j => cr(k0.p[j], k1.p[j], k2.p[j], k3.p[j])),
+    look: [0, 1, 2].map(j => cr(k0.l[j], k1.l[j], k2.l[j], k3.l[j]))
+  };
+}
+
+function makeCam(t) {
+  const { pos, look } = camAt(t);
+  const f = V.norm(V.sub(look, pos));
+  const r0 = V.norm(V.cross([0, 1, 0], f));
+  const u0 = V.cross(f, r0);
+  const roll = 0.035 * Math.sin(2 * Math.PI * t / LOOP); // periodisch: sin(0)=sin(2π)
+  const c = Math.cos(roll), s = Math.sin(roll);
+  return { pos, f, r: V.add(V.mul(r0, c), V.mul(u0, s)), u: V.add(V.mul(u0, c), V.mul(r0, -s)) };
+}
+
+function proj(cam, p) {
+  const d = V.sub(p, cam.pos);
+  const z = V.dot(d, cam.f);
+  if (z < 0.3) return null;
+  return [W / 2 + FOCAL * V.dot(d, cam.r) / z, H / 2 - FOCAL * V.dot(d, cam.u) / z, z];
+}
+
+/* ---------- Geometrie: orientierte Quader (Yaw um Y, Pitch um Z) ---------- */
+function rot(v, yaw, pitch) {
+  const cp = Math.cos(pitch), sp = Math.sin(pitch), cy = Math.cos(yaw), sy = Math.sin(yaw);
+  const x1 = v[0] * cp - v[1] * sp, y1 = v[0] * sp + v[1] * cp, z1 = v[2];
+  return [x1 * cy + z1 * sy, y1, -x1 * sy + z1 * cy];
+}
+const BOX_FACES = [
+  [1, 3, 7, 5, [1, 0, 0]], [0, 2, 6, 4, [-1, 0, 0]], [2, 3, 7, 6, [0, 1, 0]],
+  [0, 4, 5, 1, [0, -1, 0]], [4, 5, 7, 6, [0, 0, 1]], [0, 1, 3, 2, [0, 0, -1]]
+];
+let QUEUE = [];
+/* o: { solid 0..1 (Füllung), a (Deckkraft), glow (Emission) } */
+function addBox(c, h, yaw, pitch, color, o = {}) {
+  const k = [];
+  for (let i = 0; i < 8; i++) {
+    const lp = [i & 1 ? h[0] : -h[0], i & 2 ? h[1] : -h[1], i & 4 ? h[2] : -h[2]];
+    k.push(V.add(c, rot(lp, yaw, pitch)));
+  }
+  for (const [a, b, cc, d, n] of BOX_FACES) {
+    QUEUE.push({ q: [k[a], k[b], k[cc], k[d]], n: rot(n, yaw, pitch), col: color, o });
+  }
+}
+/* Zylinder-artig: achteckige Säule als Quader-Kette (sparsam genutzt) */
+function addPrism(c, rad, hgt, sides, color, o = {}) {
+  for (let i = 0; i < sides; i++) {
+    const a = i / sides * Math.PI * 2, da = Math.PI * 2 / sides;
+    const p0 = [Math.cos(a) * rad, 0, Math.sin(a) * rad], p1 = [Math.cos(a + da) * rad, 0, Math.sin(a + da) * rad];
+    const mid = [(p0[0] + p1[0]) / 2, 0, (p0[2] + p1[2]) / 2];
+    const len = Math.hypot(p1[0] - p0[0], p1[2] - p0[2]);
+    addBox(V.add(c, [mid[0], hgt / 2, mid[2]]), [len / 2, hgt / 2, 0.01], -a - da / 2 + Math.PI / 2, 0, color, o);
+  }
+}
+
+/* ---------- Pools: wiederverwendete SVG-Elemente, keine DOM-Neuanlage pro Frame ---------- */
+function Pool(parent, tag) {
+  const items = [];
+  let n = 0;
+  return {
+    begin() { n = 0; },
+    next() {
+      if (n >= items.length) { const el = document.createElementNS(NS, tag); parent.appendChild(el); items.push(el); }
+      const el = items[n++];
+      if (el.style.display === 'none') el.style.display = '';
+      return el;
+    },
+    end() { for (let i = n; i < items.length; i++) items[i].style.display = 'none'; }
+  };
+}
+const gradCache = {};
+function glowGrad(hex) {
+  if (gradCache[hex]) return gradCache[hex];
+  const defs = $('scene').querySelector('defs');
+  const g = document.createElementNS(NS, 'radialGradient');
+  g.id = 'glow' + hex.slice(1);
+  g.innerHTML = `<stop offset="0" stop-color="${hex}" stop-opacity="1"/><stop offset="1" stop-color="${hex}" stop-opacity="0"/>`;
+  defs.appendChild(g);
+  return (gradCache[hex] = g.id);
+}
+
+const LAYERS = { beams: $('lightBeams'), grid: $('floorGrid'), world: $('world'), part: $('particles'), scan: $('scanLayer'), flow: $('flow'), mark: $('markers') };
+const facePool = Pool(LAYERS.world, 'path');
+const beamPool = Pool(LAYERS.beams, 'path');
+const dotPool = Pool(LAYERS.part, 'circle');
+const glowPool = Pool(LAYERS.flow, 'circle');
+const markPool = Pool(LAYERS.mark, 'path');
+const gridEl = document.createElementNS(NS, 'path');
+gridEl.setAttribute('fill', 'none');
+gridEl.setAttribute('stroke', 'rgb(120,200,160)');
+gridEl.setAttribute('stroke-width', '1');
+LAYERS.grid.appendChild(gridEl);
+
+const LIGHT = V.norm([-0.5, 1, -0.35]);
+function pathD(pts) { return 'M' + pts.map(p => p[0].toFixed(1) + ',' + p[1].toFixed(1)).join('L') + 'Z'; }
+
+/* Flächen: sortieren (Painter's Algorithm), Rückseiten verwerfen, Schattierung */
+function flushFaces(cam, g) {
+  const list = [];
+  for (const f of QUEUE) {
+    const cen = V.mul(f.q.reduce((a, p) => V.add(a, p), [0, 0, 0]), 0.25);
+    if (V.dot(f.n, V.sub(cam.pos, cen)) <= 0) continue;
+    const pts = f.q.map(p => proj(cam, p));
+    if (pts.some(p => !p)) continue;
+    list.push({ pts, z: (pts[0][2] + pts[1][2] + pts[2][2] + pts[3][2]) / 4, f });
+  }
+  list.sort((a, b) => b.z - a.z);
+  facePool.begin();
+  for (const it of list) {
+    const el = facePool.next();
+    const f = it.f, o = f.o;
+    const lam = clamp(V.dot(f.n, LIGHT));
+    const base = hexRgb(f.col);
+    const shade = mixRgb([14, 20, 18], base, 0.42 + 0.58 * lam);
+    const solid = o.solid === undefined ? 1 : o.solid;
+    const a = (o.a === undefined ? 1 : o.a) * g;
+    el.setAttribute('d', pathD(it.pts));
+    el.setAttribute('fill', rgbStr(o.glow ? mixRgb(shade, [255, 255, 255], 0.25) : shade));
+    el.setAttribute('fill-opacity', (solid * a * (o.glow ? 0.95 : 0.9)).toFixed(3));
+    el.setAttribute('stroke', rgbStr(mixRgb(base, [255, 255, 255], 0.45)));
+    el.setAttribute('stroke-opacity', ((0.35 + 0.45 * (1 - solid)) * a).toFixed(3));
+    el.setAttribute('stroke-width', '1');
+    el.setAttribute('stroke-linejoin', 'round');
+    LAYERS.world.appendChild(el);
+  }
+  facePool.end();
+  QUEUE = [];
+}
+
+/* Bodengitter (Blueprint-Raster in 3D) als ein einziger Pfad */
+function drawGrid(cam, g) {
+  let d = '';
+  const seg = (a, b) => {
+    const pa = proj(cam, a), pb = proj(cam, b);
+    if (pa && pb) d += `M${pa[0].toFixed(1)},${pa[1].toFixed(1)}L${pb[0].toFixed(1)},${pb[1].toFixed(1)}`;
+  };
+  for (let x = -24; x <= 24; x += 3) seg([x, 0, -24], [x, 0, 12]);
+  for (let z = -24; z <= 12; z += 3) seg([-24, 0, z], [24, 0, z]);
+  gridEl.setAttribute('d', d);
+  gridEl.setAttribute('stroke-opacity', (0.16 * g).toFixed(3));
+}
+
+/* Lichtkegel vom Oberlicht */
+function drawBeam(cam, g, top, bottomR, alpha) {
+  const tops = [], bots = [];
+  for (let i = 0; i < 4; i++) {
+    const a = Math.PI / 4 + i * Math.PI / 2;
+    tops.push(proj(cam, [top[0] + Math.cos(a) * 2.2, top[1], top[2] + Math.sin(a) * 2.2]));
+    bots.push(proj(cam, [top[0] + Math.cos(a) * bottomR, 0, top[2] + Math.sin(a) * bottomR]));
+  }
+  if (tops.some(p => !p) || bots.some(p => !p)) return;
+  const el = beamPool.next();
+  el.setAttribute('d', pathD([tops[0], tops[1], bots[1], bots[0]]) + pathD([tops[1], tops[2], bots[2], bots[1]]) + pathD([tops[2], tops[3], bots[3], bots[2]]) + pathD([tops[3], tops[0], bots[0], bots[3]]));
+  el.setAttribute('fill', 'url(#gBeam)');
+  el.setAttribute('fill-opacity', (alpha * g).toFixed(3));
+}
+
+/* Glühender Punkt (Lampe, Datenpartikel, Puls) */
+function glowAt(cam, p, r, hex, a) {
+  const s = proj(cam, p);
+  if (!s || a <= 0.005) return;
+  const el = glowPool.next();
+  el.setAttribute('cx', s[0].toFixed(1));
+  el.setAttribute('cy', s[1].toFixed(1));
+  el.setAttribute('r', Math.max(1, r * FOCAL / s[2]).toFixed(1));
+  el.setAttribute('fill', `url(#${glowGrad(hex)})`);
+  el.setAttribute('opacity', clamp(a).toFixed(3));
+}
+
+/* Staub-/Datenpartikel: periodisch (ganzzahlige Frequenzen über 48 s) */
+const DUST = [];
+(() => {
+  let seed = 7;
+  const rnd = () => (seed = (seed * 16807) % 2147483647) / 2147483647;
+  for (let i = 0; i < 90; i++) DUST.push({ p: [rnd() * 40 - 20, rnd() * 16 + 1, rnd() * 34 - 22], k: 1 + Math.floor(rnd() * 3), ph: rnd() * 6.283, c: rnd() < 0.7 ? '#3FBF7F' : '#2EC4D6' });
+})();
+function drawDust(cam, t, g) {
+  dotPool.begin();
+  for (const d of DUST) {
+    const w = 2 * Math.PI * t / LOOP * d.k + d.ph;
+    const p = [d.p[0] + 0.6 * Math.sin(w), d.p[1] + 0.8 * Math.sin(w * 0.5 + 1.3), d.p[2] + 0.6 * Math.cos(w)];
+    const s = proj(cam, p);
+    if (!s) continue;
+    const el = dotPool.next();
+    el.setAttribute('cx', s[0].toFixed(1));
+    el.setAttribute('cy', s[1].toFixed(1));
+    el.setAttribute('r', clamp(1.6 * FOCAL / s[2] / 12, 0.6, 2.2).toFixed(2));
+    el.setAttribute('fill', d.c);
+    el.setAttribute('opacity', (0.35 * g).toFixed(3));
+  }
+  dotPool.end();
+}
+
+/* Zustand pro Zeitpunkt – wird in part3 gefüllt */
+window.__renderAt = null;
+window.__scenes = {};
+const ctx = { cam: null };
+window.__ctx = ctx;
+
+/* ---------- Zustand je Zeitpunkt (alle Fenster sind bei 0 und 48 identisch -> nahtloser Loop) ---------- */
+function state(t) {
+  const S = {};
+  S.g = 0.12 + 0.88 * win(t, 0, 1.2) - 0.88 * win(t, 45.5, 47.8);            // Halle an / aus
+  S.solid = win(t, 0, 0.9) - win(t, 45.5, 47.5);                              // Blueprint → Volumen
+  S.belt = clamp(1 - win(t, 5, 6.2) + win(t, 14, 16));                         // Förderband
+  S.mot = clamp(1 - win(t, 5, 6) + win(t, 18.5, 20));                          // Roboterbewegung
+  S.lampRed = clamp(win(t, 5, 5.3) - win(t, 18.8, 19.3));
+  S.wave = t >= 5 && t < 9 ? lin(t, 5, 9) : -1;                                // rote Welle
+  S.cost = 48600 * (win(t, 5, 12) - win(t, 27, 32));                           // Stillstandskosten
+  S.bearing = win(t, 6.5, 8.5) - win(t, 13, 15.5);                             // Explosionszeichnung
+  S.blink = (win(t, 6, 7) - win(t, 15, 16)) * (0.5 + 0.5 * Math.sin(2 * Math.PI * t));
+  S.bay = win(t, 15.5, 19) - win(t, 46, 47);                                   // Regalfach füllt sich
+  S.scan = lin(t, 10, 14.5);                                                   // Quick-Check-Radar
+  S.scanA = lin(t, 9.8, 10.2) * (1 - lin(t, 14.3, 14.8));
+  S.ring = win(t, 10, 11) - win(t, 15, 16);                                    // Status-Ringe
+  S.shield = win(t, 16, 18) - win(t, 45, 46.5);                                // Schild um Roboter
+  S.pull = win(t, 23, 25) - win(t, 46, 47);                                    // Dubletten magnetisch
+  S.dupVis = 1 - win(t, 25.2, 25.6) + win(t, 46, 46.5);
+  S.dupGlow = win(t, 22, 23) - win(t, 46, 47);
+  S.over = win(t, 22, 27) - win(t, 46, 47);                                    // Überbestand schrumpft
+  S.eflow = win(t, 23, 26) - win(t, 46, 47);                                   // €-Partikel
+  S.maintVis = win(t, 27, 28) - win(t, 46, 47);
+  S.maint = win(t, 28, 31.5);
+  S.greyVis = win(t, 32, 32.8) - win(t, 33.4, 34);                             // abgekündigtes Teil
+  S.scanY = lin(t, 32.2, 33.4);
+  S.grow = win(t, 33.5, 35.5);                                                 // Layer-Druck
+  S.fly = smooth(clamp((t - 35.6) / 1.2));
+  S.partVis = win(t, 33.5, 33.8) - win(t, 38, 38.8);
+  S.coin = clamp(1 - win(t, 36.5, 37.5) + win(t, 46, 47));                     // Münzstapel
+  S.inv = win(t, 37, 38) - win(t, 42, 44.5);                                   // Rechnungen
+  S.net = win(t, 42, 43) - win(t, 45.5, 46.5);                                 // Gesamtbild
+  S.risk = win(t, 42.5, 45) - win(t, 46, 47);
+  S.tablet = win(t, 43.5, 44.5) - win(t, 46, 46.8);
+  S.dash = win(t, 15, 17) * (1 - win(t, 21, 22.5));
+  S.dashY = 120 * (1 - win(t, 15, 17));
+  S.dashBreak = win(t, 21, 22.5);
+  S.beam = win(t, 17, 19.5) * (1 - win(t, 21, 22.5));
+  S.mono = Math.max(win(t, 46, 47.8), 1 - win(t, 0, 1.5));
+  S.pNoStop = (win(t, 5, 5.5) - win(t, 27.5, 28.5));
+  S.pQuick = win(t, 10, 11) - win(t, 15, 16);
+  S.pMat = win(t, 22, 23) - win(t, 25.5, 26.5);
+  S.pFin = S.inv;
+  S.pNet = S.net;
+  S.pParts = win(t, 32, 33) - win(t, 44, 45);
+  S.lead = 14 - 11 * (win(t, 35, 36.5) - win(t, 44, 45));
+  return S;
+}
+
+const C = {
+  frame: '#1E6B4A', body: '#1B2622', belt: '#24453B', rack: '#2A3A34', crate: '#2F6F55',
+  cnc: '#2A4A43', crit: '#E5484D', critDark: '#7A2A33', warn: '#F2A93B', quick: '#A6E22E',
+  fin: '#C9505F', grey: '#6B7770', light: '#3FBF7F', cyan: '#2EC4D6', steel: '#8FA69B'
+};
+const ROBOT = [-6, 0, 4], BEARING = [-8.6, 1.2, 1.8], PRINTER = [12, 0, 8];
+const PRINT_TOP = [12, 3.3, 8], HOVER = [12, 5.6, 8], TARGET = [-4.6, 4.4, 4.4];
+const RACK_X = [-17, -11], LEVELS = [1.0, 2.8, 4.6, 6.4];
+const rackZ = k => -18 + 2 * k;
+const EMPTY = [-11, 2.8, rackZ(3)];
+const DUP_A0 = [-11, 1.0, rackZ(5)], DUP_B0 = [-17, 1.0, rackZ(6)], DUP_MID = [-14, 1.0, (rackZ(5) + rackZ(6)) / 2];
+
+function ringPath(cam, c, r, y, color, alpha, w, frac) {
+  const n = 28, m = Math.max(2, Math.round(n * (frac === undefined ? 1 : frac)));
+  let d = '', last = null;
+  for (let i = 0; i <= m; i++) {
+    const a = i / n * Math.PI * 2;
+    const p = proj(cam, [c[0] + Math.cos(a) * r, y, c[2] + Math.sin(a) * r]);
+    if (p) d += (d ? 'L' : 'M') + p[0].toFixed(1) + ',' + p[1].toFixed(1);
+    last = p;
+  }
+  if (!d || alpha <= 0.005) return;
+  const el = markPool.next();
+  el.setAttribute('d', d);
+  el.setAttribute('fill', 'none');
+  el.setAttribute('stroke', color);
+  el.setAttribute('stroke-opacity', clamp(alpha).toFixed(3));
+  el.setAttribute('stroke-width', w || 2);
+  el.setAttribute('stroke-dasharray', '');
+}
+function linePath(cam, a, b, color, alpha, w) {
+  const pa = proj(cam, a), pb = proj(cam, b);
+  if (!pa || !pb || alpha <= 0.005) return;
+  const el = markPool.next();
+  el.setAttribute('d', `M${pa[0].toFixed(1)},${pa[1].toFixed(1)}L${pb[0].toFixed(1)},${pb[1].toFixed(1)}`);
+  el.setAttribute('fill', 'none');
+  el.setAttribute('stroke', color);
+  el.setAttribute('stroke-opacity', clamp(alpha).toFixed(3));
+  el.setAttribute('stroke-width', w || 1.5);
+  el.setAttribute('stroke-dasharray', '');
+}
+
+/* ---------- Maschinen (generisch) ---------- */
+function drawRobot(t, S) {
+  const yaw = 0.6, s0 = [ROBOT[0], 4.7, ROBOT[2]];
+  addBox([ROBOT[0], 0.5, ROBOT[2]], [1.1, 0.5, 1.1], 0, 0, C.body);
+  addBox([ROBOT[0], 2.6, ROBOT[2]], [0.45, 2.1, 0.45], 0, 0, C.frame);
+  const w = 2 * Math.PI * t / 6;                       // periodisch über 48 s
+  const p1 = -0.9 + 0.35 * Math.sin(w) * S.mot;
+  const p2 = p1 + 0.8 + 0.3 * Math.sin(w + 1) * S.mot;
+  const L1 = 3.2, L2 = 2.6;
+  addBox(V.add(s0, rot([0, L1 / 2, 0], yaw, p1)), [0.32, L1 / 2, 0.32], yaw, p1, C.frame);
+  const e = V.add(s0, rot([0, L1, 0], yaw, p1));
+  addBox(V.add(e, rot([0, L2 / 2, 0], yaw, p2)), [0.28, L2 / 2, 0.28], yaw, p2, C.frame);
+  const tip = V.add(e, rot([0, L2, 0], yaw, p2));
+  addBox(tip, [0.4, 0.4, 0.4], yaw, p2, C.body);
+  const lamp = [ROBOT[0], 5.25, ROBOT[2]];
+  glowAt(ctx.cam, lamp, 0.9, C.crit, S.lampRed * S.g);
+  glowAt(ctx.cam, lamp, 0.9, C.light, (1 - S.lampRed) * S.g);
+  return tip;
+}
+function drawBelt(t, S) {
+  addBox([-1, 0.7, -2], [14.4, 0.5, 1.7], 0, 0, C.body);
+  addBox([-1, 1.1, -2], [14, 0.25, 1.4], 0, 0, C.belt);
+  for (let k = 0; k < 11; k++) addBox([-13 + k * 2.7, 1.42, -2], [0.18, 0.3, 1.3], 0, 0, C.frame);
+  const ph = (t / 4) % 1;                              // Herzschlag-Puls, 12 Zyklen
+  glowAt(ctx.cam, [-13 + 24 * ph, 1.7, -2], 0.5, C.light, S.belt * S.g);
+}
+function drawCnc() {
+  addBox([7, 1.6, -7], [2, 1.6, 1.5], 0, 0, C.frame);
+  addBox([7, 3.9, -7], [0.5, 1.1, 0.5], 0, 0, C.body);
+  addBox([7, 5.1, -7], [0.9, 0.12, 0.9], 0, 0, C.cnc);
+}
+function drawRack(t, S) {
+  for (const x of RACK_X) {
+    addBox([x - 1.0, 3.4, -11], [0.06, 3.6, 9.4], 0, 0, C.frame);
+    addBox([x + 1.0, 3.4, -11], [0.06, 3.6, 9.4], 0, 0, C.frame);
+    for (const y of LEVELS) addBox([x, y - 0.6, -11], [1.0, 0.06, 9.4], 0, 0, C.rack);
+  }
+  for (let ri = 0; ri < 2; ri++) for (let l = 0; l < 4; l++) for (let k = 0; k < 8; k++) {
+    const x = RACK_X[ri], y = LEVELS[l], z = rackZ(k);
+    if (ri === 1 && l === 1 && k === 3) continue;                   // leeres Fach
+    if (l > 1 && (ri + k) % 3 === 0) continue;                       // sparsame Belegung
+    const over = (ri === 0 && (k === 2 || k === 5) && l === 0) ? 1 - 0.45 * S.over : 1;
+    addBox([x, y - 0.12, z], [0.75, 0.42 * over, 0.8], 0, 0, C.crate);
+    if (over < 1 || (ri === 0 && (k === 2 || k === 5) && l === 0)) {
+      addBox([x, y + 0.85 * over, z], [0.75, 0.42 * over, 0.8], 0, 0, C.crate);
+    }
+  }
+  const ef = S.bay;                                                  // Regalfach füllt sich
+  if (ef > 0.01) addBox([EMPTY[0], EMPTY[1] - 0.12, EMPTY[2]], [0.75 * ef, 0.42 * ef, 0.8 * ef], 0, 0, C.light, { a: 1 });
+  const blinkA = S.blink * (1 - S.bay);
+  if (blinkA > 0.02) glowAt(ctx.cam, [EMPTY[0], EMPTY[1], EMPTY[2]], 1.3, C.crit, blinkA * S.g);
+  const dA = [DUP_A0[0] + (DUP_MID[0] - DUP_A0[0]) * S.pull, DUP_A0[1], DUP_A0[2] + (DUP_MID[2] - DUP_A0[2]) * S.pull];
+  const dB = [DUP_B0[0] + (DUP_MID[0] - DUP_B0[0]) * S.pull, DUP_B0[1], DUP_B0[2] + (DUP_MID[2] - DUP_B0[2]) * S.pull];
+  addBox(dA, [0.75, 0.42, 0.8], 0, 0, C.warn);
+  if (S.dupVis > 0.5) addBox(dB, [0.75, 0.42, 0.8], 0, 0, C.warn);
+  if (S.dupGlow > 0.01) { glowAt(ctx.cam, dA, 1.2, C.warn, S.dupGlow * S.g); glowAt(ctx.cam, dB, 1.2, C.warn, S.dupGlow * S.g * S.dupVis); }
+  for (let i = 0; i < 6; i++) {                                      // €-Partikel fließen heraus
+    const u = (t * 0.5 + i / 6) % 1;
+    const p = [-16 + 4 * u, 1.5 + 6 * u, -8 + 2 * u];
+    glowAt(ctx.cam, p, 0.35, C.light, S.eflow * Math.sin(Math.PI * u) * S.g);
+  }
+}
+function drawBearing(S) {
+  const e = S.bearing, c = BEARING;
+  addBox(c, [0.7, 0.5, 0.7], 0, 0, C.critDark);
+  const pieces = [[0.5, 1.8, -0.8], [-1.4, 2.4, 1.1], [1.2, 2.6, 1.4], [-0.3, 3.1, -1.6]];
+  pieces.forEach((d, i) => {
+    const off = V.mul(d, e);
+    const p = V.add(c, off);
+    addBox(p, i === 0 ? [0.45, 0.12, 0.45] : [0.16, 0.16, 0.16], 0, 0, i === 0 ? C.steel : C.crit);
+    if (e > 0.02) linePath(ctx.cam, c, p, C.steel, 0.5 * e * S.g, 1);
+  });
+}
+function drawPrinter(t, S) {
+  addBox(V.add(PRINTER, [0, 1.6, 0]), [1.9, 1.6, 1.7], 0, 0, C.body);
+  addBox(V.add(PRINTER, [0, 3.3, 0]), [1.9, 0.06, 1.7], 0, 0, C.frame);
+  addBox(V.add(PRINTER, [0, 3.9, -1.6]), [1.6, 0.7, 0.06], 0, 0, C.frame);
+  const pv = S.partVis;
+  if (S.fly < 0.001) {
+    const h = 0.7 * S.grow;
+    if (h > 0.02 && pv > 0.01) addBox([PRINTER[0], 3.36 + h, PRINTER[2]], [0.7, h, 0.7], 0, 0, C.cyan);
+  } else {
+    const o = S.fly < 1 ? 1 - Math.pow(1 - S.fly, 3) + 0.06 * Math.sin(Math.PI * S.fly) : 1;
+    const p = V.add(V.mul(PRINT_TOP, 1 - o), V.mul(TARGET, o));
+    if (pv > 0.01) addBox(V.add(p, [0, 0.7, 0]), [0.7, 0.7, 0.7], 0.6, 0, C.cyan);
+  }
+}
+function drawGreyPart(t, S) {
+  if (S.greyVis <= 0.01) return;
+  const c = HOVER;
+  addBox(c, [0.7, 0.7, 0.7], 0.4, 0, C.grey, { a: S.greyVis });
+  const sy = lerp(c[1] - 0.7, c[1] + 0.7, S.scanY);
+  ringPath(ctx.cam, [c[0], 0, c[2]], 1.2, sy, C.cyan, S.greyVis * (1 - S.scanY * 0.4) * S.g, 2);
+  linePath(ctx.cam, [c[0] - 1, c[1] + 1, c[2] - 1], [c[0] + 1, c[1] - 1, c[2] + 1], C.crit, S.greyVis * 0.9, 3);
+  linePath(ctx.cam, [c[0] - 1, c[1] - 1, c[2] - 1], [c[0] + 1, c[1] + 1, c[2] + 1], C.crit, S.greyVis * 0.9, 3);
+}
+function drawRing(cam, t, S) {
+  if (S.ring > 0.01) {
+    ringPath(cam, [ROBOT[0], 0, ROBOT[2]], 4.2, 0.3, C.crit, S.ring * S.g, 2.5);
+    ringPath(cam, [-1, 0, -2], 15.5, 0.3, C.warn, S.ring * S.g * 0.9, 2);
+    ringPath(cam, [-14, 0, -11], 9.8, 0.3, C.warn, S.ring * S.g * 0.8, 2);
+    ringPath(cam, [7, 0, -7], 3.6, 0.3, C.light, S.ring * S.g, 2);
+  }
+  if (S.shield > 0.01) ringPath(cam, [ROBOT[0], 0, ROBOT[2]], 3.4, 4.6, C.light, S.shield * S.g, 3);
+  if (S.wave >= 0) {
+    const r = 1 + 14 * S.wave;
+    ringPath(cam, [ROBOT[0], 0, ROBOT[2]], r, 0.2, C.crit, (1 - S.wave) * S.g, 3);
+  }
+  if (S.scanA > 0.01) {
+    const z = lerp(-22, 12, S.scan);
+    linePath(cam, [-24, 0.4, z], [24, 0.4, z], C.quick, S.scanA * S.g, 3);
+    linePath(cam, [-24, 0.4, z - 0.8], [24, 0.4, z - 0.8], C.quick, S.scanA * S.g * 0.4, 1);
+  }
+}
+
+/* ---------- Szenenaufbau für einen Zeitpunkt ---------- */
+function buildScene(t, S) {
+  const cam = ctx.cam;
+  // Dach mit Oberlicht und pulsierendem Datenlicht
+  for (const z of [-22, 8]) addBox([0, 12, z], [22, 0.12, 0.12], 0, 0, C.frame, { a: 0.8 });
+  for (const x of [-22, 22]) addBox([x, 12, -7], [0.12, 0.12, 15], 0, 0, C.frame, { a: 0.8 });
+  for (const [x, z] of [[-22, -22], [22, -22], [-22, 8], [22, 8]]) addBox([x, 6, z], [0.2, 6, 0.2], 0, 0, C.frame, { a: 0.7 });
+  addBox([0, 12.02, -15], [2.2, 0.04, 2.2], 0, 0, C.light, { glow: true, a: 0.9 });
+  glowAt(cam, [9, 12.3, -14], 1.4, C.light, (0.6 + 0.4 * Math.sin(2 * Math.PI * 2 * t)) * S.g);
+  // Maschinen
+  drawRobot(t, S);
+  drawBelt(t, S);
+  drawCnc();
+  drawRack(t, S);
+  drawBearing(S);
+  drawPrinter(t, S);
+  drawGreyPart(t, S);
+  // Münzstapel: fließt bis Szene 8, steht dann still (Periode 12 s)
+  for (let i = 0; i < 7; i++) addBox([8.5, 0.5 + i * 0.28, -2], [0.6, 0.12, 0.6], 0, 0, C.steel);
+  for (let i = 0; i < 5; i++) {
+    const u = (t / 12 + i / 5) % 1;
+    glowAt(cam, [8.5, 1.6 + 4 * u, -2], 0.3, C.light, S.coin * Math.sin(Math.PI * u) * S.g);
+  }
+  // Wartungs-Zeitachse um den Roboter
+  if (S.maintVis > 0.01) {
+    ringPath(cam, ROBOT, 3.6, 0.6, C.light, S.maintVis * S.g, 1.5, S.maint);
+    for (let i = 0; i < 4; i++) {
+      const a = i * Math.PI / 2 + S.maint * Math.PI;
+      const p = [ROBOT[0] + Math.cos(a) * 3.6, 0.6, ROBOT[2] + Math.sin(a) * 3.6];
+      glowAt(cam, p, 0.5, C.light, S.maintVis * S.g * (i / 4 < S.maint ? 1 : 0.3));
+    }
+  }
+  // Oberlicht-Lichtkegel, Bodengitter, Staub, Scanner
+  drawBeam(cam, S.g, [0, 12, -15], 14, 0.05);
+  drawGrid(cam, S.g);
+  drawDust(cam, t, S.g);
+  drawRing(cam, t, S);
+}
+
+/* ---------- UI-Ebene: Glas-Panels, KPIs, Rechnungskarten, Netzwerk ---------- */
+const ui = $('ui');
+const fmt = v => Math.round(v).toLocaleString('de-DE');
+const netLine = Pool(LAYERS.flow, 'path');
+const netNode = Pool(LAYERS.flow, 'circle');
+const beamLine = document.createElementNS(NS, 'path');
+beamLine.setAttribute('fill', 'none');
+beamLine.setAttribute('stroke', '#3FBF7F');
+beamLine.setAttribute('stroke-width', '2');
+beamLine.setAttribute('stroke-dasharray', '6 8');
+LAYERS.flow.appendChild(beamLine);
+const KRIT = [1312, 350], DASH_POS = [1150, 180];
+const PRODUCTS = ['#3FBF7F', '#2F8F62', '#4FB386', '#C9505F', '#2EC4D6', '#A6E22E'];
+const NET_C = [1320, 540], NET_R = 300;
+
+/* Rechnungskarten (Szene 8) */
+const INV = [];
+for (let i = 0; i < 9; i++) {
+  const el = document.createElement('div');
+  el.className = 'panel';
+  el.style.cssText += `;--c:${i === 8 ? '#E5484D' : '#C9505F'};padding:8px 12px;min-width:150px;border-radius:10px`;
+  el.innerHTML = `<div class="lbl">RG ${2040 + i * 7}</div><div class="val" style="font-size:20px">${(1200 + i * 317).toLocaleString('de-DE')} €</div>` +
+    (i === 8 ? '<div class="xb" style="position:absolute;right:-14px;top:-14px;width:34px;height:34px;border-radius:50%;background:#E5484D;color:#fff;font:700 22px/34px system-ui;text-align:center">&times;</div>' : '');
+  ui.appendChild(el);
+  INV.push(el);
+}
+/* Quick-Check-Ampel (Szene 3) */
+$('pQuick').insertAdjacentHTML('beforeend', '<div style="display:flex;gap:10px;margin-top:8px">' +
+  ['#E5484D', '#F2A93B', '#F2A93B'].map(c => `<span style="width:18px;height:18px;border-radius:50%;background:${c};box-shadow:0 0 12px ${c}"></span>`).join('') + '</div>');
+/* Werkzeug → Tablet (Szene 9) */
+const tool = document.createElement('div');
+tool.style.cssText = 'position:absolute;left:0;top:0;width:150px;height:150px;border-radius:50%;border:1px solid #3FBF7F;background:rgba(255,255,255,.08);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px)';
+tool.innerHTML = '<div id="wrench" style="position:absolute;left:58px;top:30px;width:34px;height:90px;border-radius:17px;border:3px solid #3FBF7F;transform:rotate(35deg)"></div>' +
+  '<div id="tablet" style="position:absolute;left:44px;top:34px;width:62px;height:82px;border-radius:12px;border:3px solid #2EC4D6;opacity:0"></div>';
+ui.appendChild(tool);
+
+const setPanel = (el, x, y, a, extra) => {
+  el.style.opacity = clamp(a).toFixed(3);
+  el.style.transform = `translate(${x.toFixed(1)}px,${y.toFixed(1)}px)${extra || ''}`;
+};
+const setText = (id, v) => { const el = $(id); if (el.textContent !== v) el.textContent = v; };
+
+function updateUI(t, S, cam) {
+  const rob = proj(cam, [ROBOT[0], 6.4, ROBOT[2]]) || [900, 300, 1];
+  setPanel($('pNoStop'), rob[0] + 40, rob[1] - 60, S.pNoStop);
+  setText('vCost', fmt(S.cost));
+  setPanel($('pQuick'), 1200, 110, S.pQuick);
+  setPanel($('pMat'), 1180, 800, S.pMat);
+  setText('vDup', fmt(14 * (1 - S.pull)));
+  setPanel($('pMaint'), 1200, 300, S.maintVis);
+  setText('vMaint', fmt(100 * S.maint));
+  setPanel($('pParts'), 1200, 300, S.pParts);
+  setText('vLead', fmt(S.lead));
+  setPanel($('pFin'), 1180, 620, S.inv);
+  setText('vInv', fmt(214 * win(t, 38, 41)));
+  setPanel($('pTotal'), 1180, 800, S.net);
+  setText('vTotal', fmt(100 - 62 * win(t, 42, 45)));
+
+  /* Dashboard */
+  const dash = $('pDash');
+  setPanel(dash, DASH_POS[0], DASH_POS[1] + S.dashY + S.dashBreak * 60, S.dash, ` scale(${(1 + 0.06 * S.dashBreak).toFixed(3)})`);
+  dash.style.filter = S.dashBreak > 0 ? `blur(${(S.dashBreak * 6).toFixed(1)}px)` : '';
+  const dq = win(t, 16, 21);
+  setText('kMat', fmt(12480 * win(t, 16, 19)));
+  setText('kLager', fmt(3400000 * win(t, 16, 19)));
+  setText('kKrit', fmt(17 * win(t, 16, 19)));
+  setText('kDq', fmt(62 + 32 * dq));
+  $('arcABC').setAttribute('stroke-dasharray', `${(364.4 * 0.78 * win(t, 17, 20)).toFixed(1)} 364.4`);
+  $('arcXYZ').setAttribute('stroke-dasharray', `${(364.4 * 0.46 * win(t, 17, 20)).toFixed(1)} 364.4`);
+
+  /* Datenstrahl: kritischer Bestand → leeres Fach */
+  const bay = proj(cam, EMPTY);
+  if (bay && S.beam > 0.01) {
+    const bx = lerp(KRIT[0], bay[0], S.beam), by = lerp(KRIT[1], bay[1], S.beam);
+    beamLine.setAttribute('d', `M${KRIT[0]},${KRIT[1]}L${bx.toFixed(1)},${by.toFixed(1)}`);
+    beamLine.setAttribute('stroke-opacity', (S.beam * (1 - S.dashBreak)).toFixed(3));
+  } else beamLine.setAttribute('stroke-opacity', '0');
+
+  /* Rechnungskarten: Wirbel → drei Spalten, Duplikate verschwinden, fehlerhafte bekommt rotes X */
+  for (let i = 0; i < 9; i++) {
+    const el = INV[i];
+    const u = win(t, 37 + i * 0.08, 39.5 + i * 0.08);
+    const ang = i * 1.3 + (t - 37) * 1.6;
+    const sx = 1300 + Math.cos(ang) * 420, sy = 540 + Math.sin(ang) * 230;
+    const tx = 1080 + (i % 3) * 250 + (i >= 6 && i <= 7 ? 14 : 0), ty = 250 + Math.floor(i / 3) * 100;
+    let x = lerp(sx, tx, u), y = lerp(sy, ty, u);
+    if (i === 8) y += 380 * win(t, 42.5, 44.5);
+    const op = S.inv * (i >= 6 && i <= 7 ? 1 - win(t, 40, 41) : 1) * (i === 8 ? 1 - win(t, 43, 44) : 1);
+    setPanel(el, x, y, op, ` scaleX(${(1 - 0.25 * Math.sin(Math.PI * u)).toFixed(3)})`);
+    const xb = el.querySelector('.xb');
+    if (xb) xb.style.opacity = clamp(win(t, 41, 41.8) - win(t, 43, 44.5)).toFixed(3);
+  }
+
+  /* Werkzeug-Hand → Tablet */
+  tool.style.opacity = clamp(S.net).toFixed(3);
+  tool.style.transform = `translate(${NET_C[0] - 75}px,${NET_C[1] + 300}px)`;
+  $('wrench').style.opacity = clamp(1 - S.tablet).toFixed(3);
+  $('tablet').style.opacity = clamp(S.tablet).toFixed(3);
+
+  /* Gesamtbild: Produktfarben laufen in den WK-Knoten */
+  netLine.begin(); netNode.begin();
+  const ncol = mixRgb(hexRgb(C.crit), hexRgb(C.light), S.risk);
+  for (let i = 0; i < 6; i++) {
+    const a = -Math.PI / 2 + i * Math.PI / 3;
+    const nx = NET_C[0] + Math.cos(a) * NET_R, ny = NET_C[1] + Math.sin(a) * NET_R * 0.8;
+    const l = netLine.next();
+    l.setAttribute('d', `M${nx.toFixed(1)},${ny.toFixed(1)}L${NET_C[0]},${NET_C[1]}`);
+    l.setAttribute('fill', 'none');
+    l.setAttribute('stroke', PRODUCTS[i]);
+    l.setAttribute('stroke-width', '3');
+    l.setAttribute('stroke-dasharray', '12 10');
+    l.setAttribute('stroke-dashoffset', (-t * 2.75).toFixed(2));
+    l.setAttribute('stroke-opacity', (0.85 * S.net).toFixed(3));
+    const n = netNode.next();
+    n.setAttribute('cx', nx.toFixed(1)); n.setAttribute('cy', ny.toFixed(1)); n.setAttribute('r', '16');
+    n.setAttribute('fill', PRODUCTS[i]); n.setAttribute('fill-opacity', (0.35 * S.net).toFixed(3));
+    n.setAttribute('stroke', PRODUCTS[i]); n.setAttribute('stroke-width', '2'); n.setAttribute('stroke-opacity', S.net.toFixed(3));
+  }
+  const c = netNode.next();
+  c.setAttribute('cx', NET_C[0]); c.setAttribute('cy', NET_C[1]); c.setAttribute('r', '72');
+  c.setAttribute('fill', 'rgba(14,20,18,.6)'); c.setAttribute('fill-opacity', S.net.toFixed(3));
+  c.setAttribute('stroke', rgbStr(ncol)); c.setAttribute('stroke-width', '8'); c.setAttribute('stroke-opacity', S.net.toFixed(3));
+
+  /* Erfahrungs-Ausbruch der Glasschicht (Szene 4) */
+  if (t >= 21 && t < 23.2) {
+    for (let i = 0; i < 24; i++) {
+      const ang = i / 24 * Math.PI * 2 + (i % 3) * 0.2;
+      const d = 700 * win(t, 21, 23) * (0.6 + 0.4 * ((i * 37) % 10) / 10);
+      const n = netNode.next();
+      n.setAttribute('cx', (DASH_POS[0] + 310 + Math.cos(ang) * d).toFixed(1));
+      n.setAttribute('cy', (DASH_POS[1] + 200 + Math.sin(ang) * d).toFixed(1));
+      n.setAttribute('r', '3');
+      n.setAttribute('fill', '#E8F3EE'); n.setAttribute('fill-opacity', (1 - lin(t, 21, 23)).toFixed(3));
+      n.setAttribute('stroke', 'none');
+    }
+  }
+  netLine.end(); netNode.end();
+
+  /* WK-Monogramm: am Ende und am Anfang des Loops sichtbar */
+  $('mono').style.opacity = clamp(S.mono).toFixed(3);
+}
+
+/* ---------- Bühne: skaliert auf Viewport (cover) ---------- */
+const stage = $('stage');
+function fit() {
+  const vw = window.innerWidth, vh = window.innerHeight;
+  const s = Math.max(vw / W, vh / H);
+  stage.style.transform = `scale(${s})`;
+  stage.style.left = ((vw - W * s) / 2) + 'px';
+  stage.style.top = ((vh - H * s) / 2) + 'px';
+}
+window.addEventListener('resize', fit);
+fit();
+
+/* ---------- Ein Bild für Zeit t (deterministisch, auch für MP4-Aufnahme) ---------- */
+function renderAt(time) {
+  const t = ((time % LOOP) + LOOP) % LOOP;
+  const cam = makeCam(t);
+  ctx.cam = cam;
+  const S = state(t);
+  QUEUE = [];
+  beamPool.begin(); glowPool.begin(); markPool.begin();
+  buildScene(t, S);
+  flushFaces(cam, S.g);
+  beamPool.end(); glowPool.end(); markPool.end();
+  updateUI(t, S, cam);
+}
+window.renderAt = renderAt;
+window.LOOP_SECONDS = LOOP;
+
+const params = new URLSearchParams(location.search);
+const fixedT = params.has('t') ? parseFloat(params.get('t')) : null;
+if (fixedT !== null && !Number.isNaN(fixedT)) {
+  renderAt(fixedT);
+} else {
+  const t0 = performance.now();
+  let last = -1;
+  const frame = now => {
+    if (now - last >= 1000 / 30) {                      // 30 fps, CPU-schonend
+      last = now;
+      renderAt((now - t0) / 1000);
+    }
+    requestAnimationFrame(frame);
+  };
+  requestAnimationFrame(frame);
+}
+})();
+</script>
+</body>
+</html>
