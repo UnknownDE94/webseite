@@ -1,221 +1,170 @@
-// Werringloer Komponentenmanagement – kleine UI-Helfer (kein Framework, kein Build-Schritt)
+// Werringloer Komponentenmanagement – UI-Helfer (kein Framework, kein Build-Schritt)
+// Theme · Navigation (Dropdowns, mobil als Akkordeon) · Einblendungen · Prozessweg
+// · Reiter · App-Showcase · Motivwechsel · Kennzahlen · Rechenbeispiel
+// · Lesefortschritt · Kontaktformular
 
 document.documentElement.classList.add("js");
 
 document.addEventListener("DOMContentLoaded", function () {
-  var reduceMotion = window.matchMedia
-    ? window.matchMedia("(prefers-reduced-motion: reduce)").matches
-    : false;
+  "use strict";
+  var doc = document.documentElement;
+  var reduceMotion = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  var each = function (selector, fn, root) {
+    Array.prototype.forEach.call((root || document).querySelectorAll(selector), fn);
+  };
 
-  // Theme preference is shared across all pages (an inline script in <head>
-  // already applies it before the first paint to avoid a light flash).
+  // --- Theme (hell/dunkel), seitenübergreifend gespeichert -----------------
   var themeToggle = document.querySelector(".theme-toggle");
-  var savedTheme = null;
-  try {
-    savedTheme = window.localStorage.getItem("theme");
-  } catch (error) {
-    savedTheme = null;
-  }
-  var prefersDark = window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches;
-  var isDark = savedTheme ? savedTheme === "dark" : prefersDark;
-
-  function applyTheme(dark) {
-    document.documentElement.setAttribute("data-theme", dark ? "dark" : "light");
+  var applyTheme = function (theme) {
+    doc.setAttribute("data-theme", theme);
     if (themeToggle) {
-      themeToggle.setAttribute("aria-pressed", dark ? "true" : "false");
+      var dark = theme !== "light";
+      themeToggle.setAttribute("aria-pressed", dark ? "false" : "true");
       themeToggle.setAttribute("aria-label", dark ? "Hellen Modus aktivieren" : "Dunklen Modus aktivieren");
-      themeToggle.querySelector("span").textContent = dark ? "☀" : "☾";
+      var use = themeToggle.querySelector("use");
+      if (use) {
+        use.setAttribute("href", "assets/icons.svg#" + (dark ? "sun" : "moon"));
+      }
     }
-  }
-
-  applyTheme(isDark);
+  };
+  applyTheme(doc.getAttribute("data-theme") === "light" ? "light" : "dark");
   if (themeToggle) {
     themeToggle.addEventListener("click", function () {
-      isDark = !isDark;
+      var next = doc.getAttribute("data-theme") === "light" ? "dark" : "light";
       try {
-        window.localStorage.setItem("theme", isDark ? "dark" : "light");
+        window.localStorage.setItem("theme", next);
       } catch (error) {
-        // Theme still works for the current page when storage is unavailable.
+        // Ohne Speicher gilt die Wahl nur für diese Seite.
       }
-      applyTheme(isDark);
+      applyTheme(next);
     });
   }
 
-  // Kopfzeile: leichter Schatten, sobald gescrollt wird
+  // --- Navigation ----------------------------------------------------------
   var header = document.querySelector(".site-header");
-  if (header) {
-    var onScroll = function () {
-      header.classList.toggle("is-scrolled", window.scrollY > 8);
-    };
-    onScroll();
-    window.addEventListener("scroll", onScroll, { passive: true });
-  }
-
-  // Mobiles Menü umschalten
-  var toggle = document.querySelector(".nav-toggle");
-  if (toggle && header) {
-    var setMenu = function (open) {
-      header.classList.toggle("is-open", open);
-      toggle.setAttribute("aria-expanded", open ? "true" : "false");
-      toggle.setAttribute("aria-label", open ? "Menü schließen" : "Menü öffnen");
-    };
-    toggle.addEventListener("click", function () {
+  var navToggle = document.querySelector(".nav-toggle");
+  var panels = Array.prototype.slice.call(document.querySelectorAll(".has-panel"));
+  var closePanels = function (except) {
+    panels.forEach(function (li) {
+      if (li !== except) {
+        li.classList.remove("is-open");
+        li.querySelector("button").setAttribute("aria-expanded", "false");
+      }
+    });
+  };
+  panels.forEach(function (li) {
+    var button = li.querySelector("button");
+    button.addEventListener("click", function () {
+      var open = !li.classList.contains("is-open");
+      closePanels(li);
+      li.classList.toggle("is-open", open);
+      button.setAttribute("aria-expanded", open ? "true" : "false");
+    });
+  });
+  document.addEventListener("click", function (event) {
+    if (!event.target.closest(".has-panel")) {
+      closePanels(null);
+    }
+  });
+  var setMenu = function (open) {
+    if (!header || !navToggle) {
+      return;
+    }
+    header.classList.toggle("is-open", open);
+    navToggle.setAttribute("aria-expanded", open ? "true" : "false");
+    navToggle.setAttribute("aria-label", open ? "Menü schließen" : "Menü öffnen");
+  };
+  if (navToggle) {
+    navToggle.addEventListener("click", function () {
       setMenu(!header.classList.contains("is-open"));
     });
-    header.querySelectorAll(".nav-collapse a").forEach(function (link) {
-      link.addEventListener("click", function () {
-        setMenu(false);
-      });
-    });
-    document.addEventListener("keydown", function (event) {
-      if (event.key === "Escape" && header.classList.contains("is-open")) {
-        setMenu(false);
-        toggle.focus();
-      }
-    });
   }
+  document.addEventListener("keydown", function (event) {
+    if (event.key !== "Escape") {
+      return;
+    }
+    var open = panels.filter(function (li) {
+      return li.classList.contains("is-open");
+    })[0];
+    if (open) {
+      closePanels(null);
+      open.querySelector("button").focus();
+    } else if (header && header.classList.contains("is-open")) {
+      setMenu(false);
+      navToggle.focus();
+    }
+  });
 
-  // Aktuelles Jahr im Footer
-  var yearEl = document.getElementById("year");
-  if (yearEl) {
-    yearEl.textContent = new Date().getFullYear();
-  }
-
-  // --- Einblendungen -------------------------------------------------------
-  // [data-split]  Überschrift gleitet Wort für Wort aus einer Maske
-  // [data-anim]   up | left | right | scale – mit Versatz über [data-stagger]
-  // [data-draw]   SVG-Linien zeichnen sich, Knoten erscheinen nacheinander
-
-  document.querySelectorAll("[data-split]").forEach(function (el) {
-    var index = 0;
-    var walk = function (node) {
-      Array.prototype.slice.call(node.childNodes).forEach(function (child) {
-        if (child.nodeType === 3) {
-          var parts = child.textContent.split(/(\s+)/);
-          var frag = document.createDocumentFragment();
-          parts.forEach(function (part) {
-            if (!part) {
-              return;
-            }
-            if (/^\s+$/.test(part)) {
-              frag.appendChild(document.createTextNode(part));
-              return;
-            }
-            var outer = document.createElement("span");
-            var inner = document.createElement("span");
-            outer.className = "w";
-            inner.textContent = part;
-            inner.style.setProperty("--w", index++);
-            outer.appendChild(inner);
-            frag.appendChild(outer);
-          });
-          node.replaceChild(frag, child);
-        } else if (child.nodeType === 1) {
-          walk(child);
-        }
-      });
+  // Lesefortschritt unter der Kopfzeile
+  if (header) {
+    var progress = document.createElement("span");
+    progress.className = "scroll-progress";
+    progress.setAttribute("aria-hidden", "true");
+    header.appendChild(progress);
+    var queued = false;
+    var setProgress = function () {
+      queued = false;
+      var max = doc.scrollHeight - window.innerHeight;
+      progress.style.transform = "scaleX(" + (max > 0 ? Math.min(1, window.scrollY / max) : 0) + ")";
     };
-    walk(el);
-  });
+    window.addEventListener("scroll", function () {
+      if (!queued) {
+        queued = true;
+        window.requestAnimationFrame(setProgress);
+      }
+    }, { passive: true });
+    window.addEventListener("resize", setProgress);
+    setProgress();
+  }
 
-  document.querySelectorAll("[data-stagger]").forEach(function (group) {
-    var i = 0;
-    Array.prototype.slice.call(group.children).forEach(function (child) {
+  var year = document.getElementById("year");
+  if (year) {
+    year.textContent = new Date().getFullYear();
+  }
+
+  // --- Einblendungen (dezent) ----------------------------------------------
+  each("[data-stagger]", function (group) {
+    Array.prototype.forEach.call(group.children, function (child, i) {
       if (!child.hasAttribute("data-anim")) {
-        child.setAttribute("data-anim", group.getAttribute("data-stagger") || "up");
+        child.setAttribute("data-anim", "");
       }
-      child.style.setProperty("--i", i++);
+      child.style.setProperty("--i", i);
     });
   });
-
-  document.querySelectorAll("[data-draw]").forEach(function (group) {
-    group.querySelectorAll("path, line").forEach(function (shape) {
-      // Ausgeblendete Linien (z. B. mobil per display: none) haben keine Länge
-      try {
-        shape.style.setProperty("--len", Math.ceil(shape.getTotalLength()) + 2);
-      } catch (error) {
-        shape.style.setProperty("--len", 0);
-      }
-    });
-    group.querySelectorAll(".hub-node, .hub-core, .flow-pop").forEach(function (node, i) {
-      node.style.setProperty("--i", i);
-    });
+  each(".process__curve path", function (path) {
+    try {
+      path.style.setProperty("--len", Math.ceil(path.getTotalLength()) + 2);
+    } catch (error) {
+      path.style.setProperty("--len", 0);
+    }
   });
-
-  var targets = document.querySelectorAll("[data-anim], [data-split], [data-draw]");
-
+  var revealTargets = document.querySelectorAll("[data-anim], .process, .showcase-app");
   if (!("IntersectionObserver" in window) || reduceMotion) {
-    targets.forEach(function (el) {
-      el.classList.add("in");
+    each("[data-anim], .process, .showcase-app", function (el) {
+      el.classList.add("in", "is-in");
     });
   } else {
-    var observer = new IntersectionObserver(
-      function (entries) {
-        entries.forEach(function (entry) {
-          if (entry.isIntersecting) {
-            entry.target.classList.add("in");
-            observer.unobserve(entry.target);
-          }
-        });
-      },
-      { threshold: 0.15, rootMargin: "0px 0px -8% 0px" }
-    );
-    targets.forEach(function (el) {
-      observer.observe(el);
-    });
-  }
-
-  // --- Kennzahlen zählen hoch ([data-count]) -------------------------------
-  // Ohne JavaScript oder bei reduzierter Bewegung steht der Endwert sofort da.
-  var counters = document.querySelectorAll("[data-count]");
-  if (counters.length && !reduceMotion && "IntersectionObserver" in window) {
-    var formatNumber = function (value) {
-      return Math.round(value).toLocaleString("de-DE");
-    };
-    var render = function (el, value) {
-      el.textContent = (el.getAttribute("data-prefix") || "") + formatNumber(value) + (el.getAttribute("data-suffix") || "");
-    };
-    var runCounter = function (el) {
-      var end = parseFloat(el.getAttribute("data-count")) || 0;
-      var duration = 1600;
-      var start = null;
-      var step = function (now) {
-        if (start === null) {
-          start = now;
-        }
-        var t = Math.min(1, (now - start) / duration);
-        var eased = 1 - Math.pow(2, -10 * t); // schnell los, weich aus
-        render(el, t >= 1 ? end : end * eased);
-        if (t < 1) {
-          window.requestAnimationFrame(step);
-        }
-      };
-      window.requestAnimationFrame(step);
-    };
-    var countObserver = new IntersectionObserver(function (entries) {
+    var revealObserver = new IntersectionObserver(function (entries) {
       entries.forEach(function (entry) {
         if (entry.isIntersecting) {
-          countObserver.unobserve(entry.target);
-          runCounter(entry.target);
+          entry.target.classList.add("in", "is-in");
+          revealObserver.unobserve(entry.target);
         }
       });
-    }, { threshold: 0.6 });
-    counters.forEach(function (el) {
-      // Breite festhalten, damit beim Zählen nichts springt
-      el.style.minWidth = el.offsetWidth + "px";
-      render(el, 0);
-      countObserver.observe(el);
+    }, { threshold: 0.15, rootMargin: "0px 0px -6% 0px" });
+    Array.prototype.forEach.call(revealTargets, function (el) {
+      revealObserver.observe(el);
     });
   }
 
-  // --- Reiter (Plattform-Einblick auf der SmartParts-Seite) ---------------
-  document.querySelectorAll("[data-tabs]").forEach(function (group) {
+  // --- Reiter ([data-tabs]) ------------------------------------------------
+  each("[data-tabs]", function (group) {
     var tabs = Array.prototype.slice.call(group.querySelectorAll('[role="tab"]'));
     if (!tabs.length) {
       return;
     }
-
-    function select(tab, moveFocus) {
+    var motif = document.getElementById(group.getAttribute("data-shape-target") || "");
+    var select = function (tab, focus) {
       tabs.forEach(function (other) {
         var active = other === tab;
         var panel = document.getElementById(other.getAttribute("aria-controls"));
@@ -225,30 +174,22 @@ document.addEventListener("DOMContentLoaded", function () {
           panel.hidden = !active;
         }
       });
-      if (moveFocus) {
+      if (focus) {
         tab.focus();
       }
-      // Partikel-Motiv passend zum Reiter (data-shape-target → Platzhalter)
-      var motif = document.getElementById(group.getAttribute("data-shape-target") || "");
       if (motif && tab.getAttribute("data-shape")) {
         motif.setAttribute("data-shape", tab.getAttribute("data-shape"));
       }
-      var strip = tab.parentNode;
-      if (strip.scrollWidth > strip.clientWidth) {
-        strip.scrollTo({ left: tab.offsetLeft - 8, behavior: reduceMotion ? "auto" : "smooth" });
-      }
-    }
-
+    };
     tabs.forEach(function (tab, index) {
       tab.addEventListener("click", function () {
         select(tab, false);
       });
       tab.addEventListener("keydown", function (event) {
+        var step = { ArrowRight: 1, ArrowDown: 1, ArrowLeft: -1, ArrowUp: -1 }[event.key];
         var next = null;
-        if (event.key === "ArrowRight" || event.key === "ArrowDown") {
-          next = tabs[(index + 1) % tabs.length];
-        } else if (event.key === "ArrowLeft" || event.key === "ArrowUp") {
-          next = tabs[(index - 1 + tabs.length) % tabs.length];
+        if (step) {
+          next = tabs[(index + step + tabs.length) % tabs.length];
         } else if (event.key === "Home") {
           next = tabs[0];
         } else if (event.key === "End") {
@@ -260,147 +201,84 @@ document.addEventListener("DOMContentLoaded", function () {
         }
       });
     });
-
-    var initial = tabs.filter(function (tab) {
-      return tab.getAttribute("aria-selected") === "true";
-    })[0] || tabs[0];
-    select(initial, false);
+    select(tabs.filter(function (t) {
+      return t.getAttribute("aria-selected") === "true";
+    })[0] || tabs[0], false);
   });
 
-  // --- Leistungsbereiche: Reiter mit seitlich gleitenden Bereichen ---------
-  document.querySelectorAll("[data-svc]").forEach(function (root) {
-    var tabs = Array.prototype.slice.call(root.querySelectorAll('[role="tab"]'));
-    var panels = tabs.map(function (tab) {
-      return document.getElementById(tab.getAttribute("aria-controls"));
-    });
-    var viewport = root.querySelector(".svc-viewport");
-    var track = root.querySelector(".svc-track");
-    var bars = root.querySelectorAll(".svc-progress i");
+  // --- App-Showcase ([data-showcase]) --------------------------------------
+  // Geneigtes Produktfenster; Bildschirme wechseln, passende Detailkarten
+  // (.callout[data-for="n"]) schweben heraus, die Maus neigt die Bühne leicht.
+  each("[data-showcase]", function (box) {
+    var screens = Array.prototype.slice.call(box.querySelectorAll(".showcase-app__screen img"));
+    var callouts = Array.prototype.slice.call(box.querySelectorAll(".callout"));
+    var stage = box.querySelector(".showcase-app__stage");
+    var dotsBox = box.querySelector(".showcase-app__dots");
     var current = 0;
-    if (!tabs.length || !viewport || !track) {
-      return;
-    }
-
-    var fitHeight = function () {
-      viewport.style.height = panels[current].offsetHeight + "px";
+    var timer = null;
+    var dots = [];
+    var show = function (n) {
+      current = (n + screens.length) % screens.length;
+      screens.forEach(function (img, i) {
+        img.classList.toggle("is-active", i === current);
+      });
+      callouts.forEach(function (c) {
+        c.classList.toggle("is-shown", Number(c.getAttribute("data-for") || 0) === current);
+      });
+      dots.forEach(function (d, i) {
+        d.setAttribute("aria-pressed", i === current ? "true" : "false");
+      });
     };
-
-    var show = function (index, moveFocus) {
-      current = (index + panels.length) % panels.length;
-      track.style.transform = "translateX(" + current * -100 + "%)";
-      tabs.forEach(function (tab, i) {
-        var active = i === current;
-        tab.setAttribute("aria-selected", active ? "true" : "false");
-        tab.setAttribute("tabindex", active ? "0" : "-1");
-        panels[i].classList.toggle("is-active", active);
-        // Nicht sichtbare Bereiche sind weder fokussierbar noch vorlesbar
-        panels[i].inert = !active;
-        panels[i].setAttribute("aria-hidden", active ? "false" : "true");
-        if (bars[i]) {
-          bars[i].classList.toggle("is-active", active);
-        }
-      });
-      fitHeight();
-      if (moveFocus) {
-        tabs[current].focus();
-        tabs[current].scrollIntoView({ block: "nearest", inline: "nearest" });
-      }
-    };
-
-    tabs.forEach(function (tab, i) {
-      tab.addEventListener("click", function () {
-        show(i, false);
-      });
-      tab.addEventListener("keydown", function (event) {
-        var step = { ArrowRight: 1, ArrowLeft: -1 }[event.key];
-        if (step) {
-          event.preventDefault();
-          show(current + step, true);
-        } else if (event.key === "Home" || event.key === "End") {
-          event.preventDefault();
-          show(event.key === "Home" ? 0 : panels.length - 1, true);
-        }
-      });
-    });
-    root.querySelector(".svc-prev").addEventListener("click", function () {
-      show(current - 1, false);
-    });
-    root.querySelector(".svc-next").addEventListener("click", function () {
-      show(current + 1, false);
-    });
-
-    // Wischen auf Touch-Geräten
-    var startX = null;
-    var startY = null;
-    viewport.addEventListener("touchstart", function (event) {
-      startX = event.touches[0].clientX;
-      startY = event.touches[0].clientY;
-    }, { passive: true });
-    viewport.addEventListener("touchend", function (event) {
-      if (startX === null) {
-        return;
-      }
-      var dx = event.changedTouches[0].clientX - startX;
-      var dy = event.changedTouches[0].clientY - startY;
-      if (Math.abs(dx) > 50 && Math.abs(dx) > Math.abs(dy)) {
-        show(current + (dx < 0 ? 1 : -1), false);
-      }
-      startX = null;
-    }, { passive: true });
-
-    window.addEventListener("resize", fitHeight);
-    window.addEventListener("load", fitHeight);
-    // Bilder in den Bereichen laden verzögert – danach Höhe neu anpassen
-    track.querySelectorAll("img").forEach(function (img) {
-      if (!img.complete) {
-        img.addEventListener("load", fitHeight);
-      }
-    });
-
-    // Direktlink auf einen Bereich (z. B. leistungen.html#projekt)
-    var fromHash = panels.map(function (panel) {
-      return "#" + panel.id;
-    }).indexOf(window.location.hash);
-    show(fromHash > -1 ? fromHash : 0, false);
-    if (fromHash > -1) {
-      root.scrollIntoView();
-    }
-  });
-
-  // --- Bildwechsel auf der dunklen Bühne (SmartParts-Kopf) ----------------
-  document.querySelectorAll("[data-thumbs]").forEach(function (group) {
-    var target = document.getElementById(group.getAttribute("data-thumbs"));
-    var caption = document.getElementById(group.getAttribute("data-thumbs") + "-titel");
-    if (!target) {
-      return;
-    }
-    group.querySelectorAll(".thumb").forEach(function (thumb) {
-      thumb.addEventListener("click", function () {
-        group.querySelectorAll(".thumb").forEach(function (other) {
-          other.setAttribute("aria-pressed", other === thumb ? "true" : "false");
+    if (dotsBox && screens.length > 1) {
+      screens.forEach(function (img, i) {
+        var b = document.createElement("button");
+        b.type = "button";
+        b.setAttribute("aria-label", "Ansicht " + (i + 1) + ": " + (img.getAttribute("alt") || ""));
+        b.addEventListener("click", function () {
+          stop();
+          show(i);
         });
-        var swap = function () {
-          target.src = thumb.getAttribute("data-src");
-          target.alt = thumb.getAttribute("data-alt");
-          if (caption) {
-            caption.textContent = thumb.getAttribute("data-titel");
-          }
-          target.classList.remove("is-swapping");
-        };
-        if (reduceMotion) {
-          swap();
-        } else {
-          target.classList.add("is-swapping");
-          window.setTimeout(swap, 250);
-        }
+        dotsBox.appendChild(b);
+        dots.push(b);
       });
-    });
+    }
+    var stop = function () {
+      window.clearInterval(timer);
+      timer = null;
+    };
+    var start = function () {
+      if (!timer && !reduceMotion && screens.length > 1) {
+        timer = window.setInterval(function () {
+          show(current + 1);
+        }, 5200);
+      }
+    };
+    show(0);
+    if ("IntersectionObserver" in window) {
+      new IntersectionObserver(function (entries) {
+        if (entries[0].isIntersecting) {
+          start();
+        } else {
+          stop();
+        }
+      }, { threshold: 0.3 }).observe(box);
+    }
+    var fine = window.matchMedia && window.matchMedia("(pointer: fine)").matches;
+    if (stage && fine && !reduceMotion) {
+      box.addEventListener("pointermove", function (event) {
+        var r = box.getBoundingClientRect();
+        var x = (event.clientX - r.left) / r.width - 0.5;
+        var y = (event.clientY - r.top) / r.height - 0.5;
+        stage.style.transform = "rotateY(" + (-9 + x * 8).toFixed(2) + "deg) rotateX(" + (4 - y * 6).toFixed(2) + "deg)";
+      });
+      box.addEventListener("pointerleave", function () {
+        stage.style.transform = "";
+      });
+    }
   });
 
-  // --- Ablauf: Motive wechseln mit den Schritten ([data-shape-cycle]) -----
-  // Der hervorgehobene Schritt und das Partikel-Motiv laufen gemeinsam durch;
-  // Zeigen auf einen Schritt wählt ihn direkt.
-  document.querySelectorAll("[data-shape-cycle]").forEach(function (slot) {
+  // --- Motivwechsel im Takt einer Schrittliste ([data-shape-cycle]) ---------
+  each("[data-shape-cycle]", function (slot) {
     var shapes = slot.getAttribute("data-shape-cycle").split(/\s+/);
     var list = document.getElementById(slot.getAttribute("data-cycle-steps") || "");
     var steps = list ? Array.prototype.slice.call(list.children) : [];
@@ -419,15 +297,17 @@ document.addEventListener("DOMContentLoaded", function () {
       timer = null;
     };
     var start = function () {
-      if (timer || reduceMotion || !inView) {
-        return;
+      if (!timer && !reduceMotion && inView) {
+        timer = window.setInterval(function () {
+          setStep(index + 1);
+        }, 4200);
       }
-      timer = window.setInterval(function () {
-        setStep(index + 1);
-      }, 4200);
     };
     setStep(0);
     steps.forEach(function (step, n) {
+      if (n >= shapes.length) {
+        return;
+      }
       step.addEventListener("mouseenter", function () {
         stop();
         setStep(n);
@@ -442,21 +322,56 @@ document.addEventListener("DOMContentLoaded", function () {
         } else {
           stop();
         }
-      }, { threshold: 0.35 }).observe(list || slot);
+      }, { threshold: 0.3 }).observe(list || slot);
     }
   });
 
-  // --- Rechenbeispiel: freiwerdendes Kapital ---------------------------------
+  // --- Kennzahlen zählen hoch ([data-count]) -------------------------------
+  var counters = document.querySelectorAll("[data-count]");
+  if (counters.length && !reduceMotion && "IntersectionObserver" in window) {
+    var render = function (el, value) {
+      var decimals = Number(el.getAttribute("data-decimals") || 0);
+      el.textContent = (el.getAttribute("data-prefix") || "") +
+        value.toLocaleString("de-DE", { minimumFractionDigits: decimals, maximumFractionDigits: decimals }) +
+        (el.getAttribute("data-suffix") || "");
+    };
+    var countObserver = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (!entry.isIntersecting) {
+          return;
+        }
+        countObserver.unobserve(entry.target);
+        var el = entry.target;
+        var end = parseFloat(el.getAttribute("data-count")) || 0;
+        var t0 = null;
+        var step = function (now) {
+          t0 = t0 === null ? now : t0;
+          var t = Math.min(1, (now - t0) / 1600);
+          render(el, t >= 1 ? end : end * (1 - Math.pow(2, -10 * t)));
+          if (t < 1) {
+            window.requestAnimationFrame(step);
+          }
+        };
+        window.requestAnimationFrame(step);
+      });
+    }, { threshold: 0.6 });
+    Array.prototype.forEach.call(counters, function (el) {
+      el.style.minWidth = el.offsetWidth + "px";
+      render(el, 0);
+      countObserver.observe(el);
+    });
+  }
+
+  // --- Rechenbeispiel: freiwerdendes Kapital (#kapitalrechner) --------------
   var calc = document.getElementById("kapitalrechner");
   if (calc) {
     var euro = function (value) {
       return Math.round(value).toLocaleString("de-DE") + " €";
     };
-    var field = function (id) {
+    var $ = function (id) {
       return document.getElementById(id);
     };
-    var lager = field("calc-lager");
-    // Lagerwert logarithmisch: 100.000 € … 20 Mio. €, gerundet auf schöne Werte
+    var lager = $("calc-lager");
     var lagerValue = function () {
       var min = parseFloat(lager.getAttribute("data-log-min"));
       var max = parseFloat(lager.getAttribute("data-log-max"));
@@ -466,20 +381,20 @@ document.addEventListener("DOMContentLoaded", function () {
     };
     var update = function () {
       var value = lagerValue();
-      var ruhend = field("calc-ruhend").value / 100;
-      var abbau = field("calc-abbau").value / 100;
-      var kosten = field("calc-kosten").value / 100;
+      var ruhend = $("calc-ruhend").value / 100;
+      var abbau = $("calc-abbau").value / 100;
+      var kosten = $("calc-kosten").value / 100;
       var frei = value * ruhend * abbau;
-      field("calc-lager-out").textContent = euro(value);
+      $("calc-lager-out").textContent = euro(value);
       lager.setAttribute("aria-valuetext", euro(value));
       [["calc-ruhend", ruhend], ["calc-abbau", abbau], ["calc-kosten", kosten]].forEach(function (pair) {
         var text = Math.round(pair[1] * 100) + " %";
-        field(pair[0] + "-out").textContent = text;
-        field(pair[0]).setAttribute("aria-valuetext", text);
+        $(pair[0] + "-out").textContent = text;
+        $(pair[0]).setAttribute("aria-valuetext", text);
       });
-      field("calc-frei").textContent = euro(frei);
-      field("calc-jahr").textContent = euro(frei * kosten);
-      field("calc-bar-after").style.setProperty("--w", (1 - ruhend * abbau).toFixed(3));
+      $("calc-frei").textContent = euro(frei);
+      $("calc-jahr").textContent = euro(frei * kosten);
+      $("calc-bar-after").style.setProperty("--w", (1 - ruhend * abbau).toFixed(3));
     };
     calc.addEventListener("input", update);
     calc.addEventListener("submit", function (event) {
@@ -488,51 +403,35 @@ document.addEventListener("DOMContentLoaded", function () {
     update();
   }
 
-  // --- Lesefortschritt als feine Linie unter der Kopfzeile ------------------
-  if (header) {
-    var progress = document.createElement("span");
-    progress.className = "scroll-progress";
-    progress.setAttribute("aria-hidden", "true");
-    header.appendChild(progress);
-    var progressQueued = false;
-    var setProgress = function () {
-      progressQueued = false;
-      var max = document.documentElement.scrollHeight - window.innerHeight;
-      progress.style.transform = "scaleX(" + (max > 0 ? Math.min(1, window.scrollY / max) : 0) + ")";
-    };
-    window.addEventListener("scroll", function () {
-      if (!progressQueued) {
-        progressQueued = true;
-        window.requestAnimationFrame(setProgress);
-      }
-    }, { passive: true });
-    window.addEventListener("resize", setProgress);
-    setProgress();
-  }
-
-  // Kontaktformular: sendet an FormPost und leitet auf danke.html weiter.
-  // FormPost liefert keine CORS-Antwort, daher "no-cors": nur Netzwerkfehler sind erkennbar.
-  // Setzt voraus, dass das Captcha bei FormPost aus ist; ohne JavaScript greift das normale POST.
+  // --- Kontaktformular (#contact-form) --------------------------------------
+  // Sendet an den Formulardienst und leitet auf danke.html weiter. Der Dienst
+  // liefert keine CORS-Antwort ("no-cors"): nur Netzwerkfehler sind erkennbar.
+  // Ohne JavaScript greift das normale POST des Formulars.
   var form = document.getElementById("contact-form");
   if (form && window.fetch) {
     var status = document.getElementById("form-status");
     var button = form.querySelector('button[type="submit"]');
-    var show = function (text, kind) {
+    var say = function (text, kind) {
       status.textContent = text;
       status.className = "form-status is-visible " + kind;
     };
     form.addEventListener("submit", function (event) {
       event.preventDefault();
-      var email = form.elements.email;
-      if (!form.elements.name.value.trim() || !email.value.trim() || !email.checkValidity()) {
-        show("Bitte Name und eine gültige E-Mail-Adresse angeben.", "error");
+      var missing = Array.prototype.filter.call(form.querySelectorAll("[required]"), function (field) {
+        return !field.value.trim() || !field.checkValidity();
+      });
+      if (missing.length) {
+        say("Bitte füllen Sie die markierten Pflichtfelder aus (" + missing.map(function (f) {
+          var label = form.querySelector('label[for="' + f.id + '"]');
+          return label ? label.textContent.replace("*", "").trim() : f.name;
+        }).join(", ") + ").", "error");
+        missing[0].focus();
         return;
       }
       button.disabled = true;
-      show("Ihre Anfrage wird gesendet …", "pending");
+      say("Ihre Anfrage wird gesendet …", "pending");
       fetch(form.action, { method: "POST", body: new FormData(form), mode: "no-cors" })
         .then(function () {
-          // Kurzer Signalimpuls der Partikelwelle, dann weiter zur Dankeseite
           window.dispatchEvent(new CustomEvent("wave:burst"));
           window.setTimeout(function () {
             window.location.href = "danke.html";
@@ -540,70 +439,8 @@ document.addEventListener("DOMContentLoaded", function () {
         })
         .catch(function () {
           button.disabled = false;
-          show("Die Anfrage konnte gerade nicht gesendet werden. Bitte versuchen Sie es erneut oder schreiben Sie an service@werringloer.de (+49 160 277 65 12).", "error");
+          say("Die Anfrage konnte gerade nicht gesendet werden. Bitte versuchen Sie es erneut oder schreiben Sie an service@werringloer.de (+49 160 277 65 12).", "error");
         });
     });
   }
-
-  // Baustellen-Hinweis (Pop-up): einmal pro Browser-Sitzung
-  (function () {
-    try {
-      if (window.sessionStorage.getItem("wk-notice-seen")) return;
-      window.sessionStorage.setItem("wk-notice-seen", "1");
-    } catch (error) {}
-    var overlay = document.createElement("div");
-    overlay.className = "site-notice-overlay";
-    overlay.setAttribute("role", "dialog");
-    overlay.setAttribute("aria-modal", "true");
-    overlay.setAttribute("aria-labelledby", "site-notice-title");
-    overlay.innerHTML =
-      '<div class="site-notice">' +
-      '<button type="button" class="site-notice-close" aria-label="Hinweis schließen">&times;</button>' +
-      '<div class="site-notice-icon" aria-hidden="true">🚧</div>' +
-      '<h2 id="site-notice-title">Diese Website befindet sich im Aufbau</h2>' +
-      "<p>Einzelne Inhalte, Texte und Funktionen werden aktuell noch ergänzt und können sich in nächster Zeit ändern. Vielen Dank für Ihr Verständnis.</p>" +
-      '<div class="site-notice-actions"><button type="button" class="btn btn-primary site-notice-ok">Verstanden</button></div>' +
-      "</div>";
-    document.body.appendChild(overlay);
-
-    function closeNotice() {
-      overlay.classList.remove("is-visible");
-      window.setTimeout(function () {
-        if (overlay.parentNode) {
-          overlay.parentNode.removeChild(overlay);
-        }
-      }, 260);
-    }
-
-    overlay.querySelector(".site-notice-close").addEventListener("click", closeNotice);
-    overlay.querySelector(".site-notice-ok").addEventListener("click", closeNotice);
-    overlay.addEventListener("click", function (event) {
-      if (event.target === overlay) {
-        closeNotice();
-      }
-    });
-    document.addEventListener("keydown", function (event) {
-      if (event.key === "Escape" && overlay.classList.contains("is-visible")) {
-        closeNotice();
-      }
-    });
-
-    window.requestAnimationFrame(function () {
-      overlay.classList.add("is-visible");
-    });
-  })();
-
-  // Ablauf: Zeitstrahl lädt sich auf, sobald er sichtbar wird
-  document.querySelectorAll(".flow-steps").forEach(function (steps) {
-    if (!("IntersectionObserver" in window)) { steps.classList.add("is-charged"); return; }
-    var chargeObserver = new IntersectionObserver(function (entries) {
-      entries.forEach(function (entry) {
-        if (!entry.isIntersecting) return;
-        entry.target.classList.add("is-charged");
-        chargeObserver.unobserve(entry.target);
-      });
-    }, { threshold: 0.5 });
-    chargeObserver.observe(steps);
-  });
-
 });

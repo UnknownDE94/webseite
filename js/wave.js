@@ -10,6 +10,8 @@
 //    neue bildet sich. data-shapes="a b c" lädt Motive vorab, data-scatter (0…1)
 //    bestimmt, wie stark die Maus die Punkte auseinandertreibt.
 // 3) Ereignis "wave:burst" auf window: einmaliger kräftiger Signalimpuls.
+// 4) Raumformen: Zustände orbit (Kugel), vortex (Wirbel), ribbon (Band),
+//    tunnel und dunes legen das Punktraster auf eine Fläche im Raum.
 //
 // Kein Framework, keine Abhängigkeiten. Ohne WebGL bleibt der CSS-Hintergrund.
 
@@ -31,14 +33,23 @@
     grid:  { amp: 0.14, freq: 0.55, speed: 0.22, pitch: 0.95, lift: -0.10, alpha: 0.40, spread: 0.85, glow: 0.30, shift: 0.00, ripple: 0.0 },
     pulse: { amp: 0.18, freq: 0.60, speed: 0.70, pitch: 0.60, lift: -0.30, alpha: 0.70, spread: 1.00, glow: 0.90, shift: 0.30, ripple: 1.0 },
     surge: { amp: 1.30, freq: 1.00, speed: 0.95, pitch: 0.38, lift: -0.40, alpha: 0.95, spread: 1.05, glow: 1.15, shift: 0.35, ripple: 0.0 },
-    flat:  { amp: 0.20, freq: 0.60, speed: 0.20, pitch: 0.20, lift: -0.80, alpha: 0.40, spread: 1.00, glow: 0.30, shift: 0.00, ripple: 0.0 }
+    flat:  { amp: 0.20, freq: 0.60, speed: 0.20, pitch: 0.20, lift: -0.80, alpha: 0.40, spread: 1.00, glow: 0.30, shift: 0.00, ripple: 0.0 },
+    // Raumformen: das Punktraster legt sich auf eine Fläche im Raum (form)
+    orbit:  { amp: 0.25, freq: 0.80, speed: 0.35, pitch: 0.30, lift: -0.05, alpha: 0.70, spread: 1.00, glow: 0.80, shift: 0.32, ripple: 0.0, form: "sphere" },
+    vortex: { amp: 0.40, freq: 0.90, speed: 0.45, pitch: 0.75, lift: -0.15, alpha: 0.75, spread: 1.00, glow: 0.90, shift: 0.30, ripple: 0.0, form: "vortex" },
+    ribbon: { amp: 0.30, freq: 0.80, speed: 0.50, pitch: 0.25, lift: -0.30, alpha: 0.80, spread: 1.00, glow: 0.95, shift: 0.00, ripple: 0.0, form: "ribbon" },
+    tunnel: { amp: 0.20, freq: 0.70, speed: 0.60, pitch: 0.00, lift: 0.00, alpha: 0.55, spread: 1.00, glow: 0.70, shift: 0.00, ripple: 0.0, form: "tunnel" },
+    dunes:  { amp: 1.10, freq: 0.45, speed: 0.25, pitch: 0.55, lift: -0.35, alpha: 0.65, spread: 1.15, glow: 0.60, shift: 0.00, ripple: 0.0, form: "dunes" }
   };
+  // Index der Raumformen im Shader (0 = Ebene)
+  var FORMS = { plane: 0, sphere: 1, vortex: 2, ribbon: 3, tunnel: 4, dunes: 5 };
   var KEYS = ["amp", "freq", "speed", "pitch", "lift", "alpha", "spread", "glow", "shift", "ripple"];
 
   // silver: Farbe der hellen Formanteile (Logo-Silber, Linien)
+  // green: Markengrün des Logos (nicht Limette)
   var THEMES = {
-    dark:  { base: [0.11, 0.42, 0.26], crest: [0.83, 0.93, 0.37], silver: [0.88, 0.90, 0.88], strength: 1.0 },
-    light: { base: [0.05, 0.23, 0.14], crest: [0.36, 0.52, 0.10], silver: [0.30, 0.34, 0.32], strength: 0.75 }
+    dark:  { base: [0.11, 0.42, 0.26], crest: [0.83, 0.93, 0.37], silver: [0.90, 0.92, 0.91], green: [0.17, 0.55, 0.33], strength: 1.0 },
+    light: { base: [0.05, 0.23, 0.14], crest: [0.36, 0.52, 0.10], silver: [0.22, 0.25, 0.24], green: [0.06, 0.34, 0.19], strength: 0.75 }
   };
 
   // Anteil der Punkte, die eine Form bilden (der Rest bleibt als leise Welle)
@@ -46,11 +57,12 @@
 
   var VERT = [
     "attribute vec2 aGrid;",
-    "attribute vec4 aShape;", // x, y (−0.5…0.5), Gewicht (0/1), Ton (0 Limette … 1 Silber)
+    "attribute vec4 aShape;", // x, y (−0.5…0.5), Gewicht (0/1), Ton (0 Limette, 1.x Silber, 2.x Grün; x = Helligkeit)
     "uniform float uTime, uAmp, uFreq, uPitch, uLift, uShift, uSpread, uAspect, uSize, uScroll, uRipple, uMorph;",
     "uniform vec3 uMouse;",
     "uniform vec4 uBox;", // Mitte (NDC) und Größe (NDC) der aktuellen Form
     "uniform float uScatter;",
+    "uniform float uForm, uFormMix;",
     "varying float vH;",
     "varying float vFade;",
     "varying float vMorph;",
@@ -66,6 +78,34 @@
     "float ripple(vec2 p, float t) {",
     "  float r = length(p - vec2(3.0, 0.5));",
     "  return sin(r * 1.5 - t * 2.6) * 0.75 * exp(-r * 0.09);",
+    "}",
+    // Raumform für einen Rasterpunkt (u, v in −1…1)
+    "vec3 formPos(vec2 g, float t, float h) {",
+    "  float PI = 3.14159265;",
+    "  if (uForm < 1.5) {", // Kugel: Punkteglobus, dreht sich langsam
+    "    float th = g.x * PI + t * 0.25;",
+    "    float ph = (g.y * 0.5 + 0.5) * PI;",
+    "    float rr = 3.3 + h * 0.18;",
+    "    return vec3(rr * sin(ph) * cos(th), rr * cos(ph), rr * sin(ph) * sin(th));",
+    "  } else if (uForm < 2.5) {", // Wirbel: Spirale, die nach innen zieht
+    "    float rad = (g.y * 0.5 + 0.5) * 7.0 + 0.4;",
+    "    float an = g.x * PI + rad * 0.55 - t * 0.35;",
+    "    return vec3(rad * cos(an), sin(rad * 1.1 - t * 1.4) * 0.35 * uAmp + h * 0.1, rad * sin(an));",
+    "  } else if (uForm < 3.5) {", // Band: verdrilltes Datenband
+    "    float x = g.x * 10.0;",
+    "    float tw = x * 0.42 + t * 0.6;",
+    "    float w = g.y * 1.4;",
+    "    return vec3(x, w * cos(tw) + sin(x * 0.5 + t) * 0.6, w * sin(tw) - 1.0);",
+    "  } else if (uForm < 4.5) {", // Tunnel: Blick in einen Datenkanal
+    "    float an = g.x * PI;",
+    "    float z = mod(g.y * 10.0 + t * 1.6, 20.0) - 16.0;",
+    "    float rr = 3.6 + sin(an * 6.0 + z * 0.5 + t) * 0.12 * uAmp;",
+    "    return vec3(rr * cos(an), rr * sin(an), z + 9.0);",
+    "  }",
+    // Dünen: weite, ruhige Landschaft mit mehreren Wellenlagen
+    "  vec2 q = vec2(g.x * 15.0, g.y * 9.0);",
+    "  float d = sin(q.x * 0.35 + t * 0.3) * 0.9 + sin(q.y * 0.5 - t * 0.2) * 0.6 + sin((q.x - q.y) * 0.8 + t * 0.4) * 0.25;",
+    "  return vec3(q.x, d * uAmp * 0.9, q.y);",
     "}",
     "vec4 project(vec3 p) {",
     "  float c = cos(uPitch), s = sin(uPitch);",
@@ -83,10 +123,12 @@
     "  vec4 c0 = project(vec3(p.x, h, p.y));",
     "  vec2 dm = (c0.xy / c0.w - uMouse.xy) * vec2(uAspect, 1.0);",
     "  h += uMouse.z * exp(-dot(dm, dm) * 6.0) * 0.9;",
-    "  vec4 clip = project(vec3(p.x, h, p.y));",
-    "  float depth = clip.w;",
-    "  float edge = smoothstep(1.0, 0.72, abs(aGrid.x)) * smoothstep(1.0, 0.55, abs(aGrid.y));",
-    "  float waveFade = edge * smoothstep(19.0, 8.0, depth);",
+    "  vec3 world = vec3(p.x, h, p.y);",
+    "  if (uFormMix > 0.001) { world = mix(world, formPos(aGrid, t, h), uFormMix); }",
+    "  vec4 clip = project(world);",
+    "  float depth = max(clip.w, 0.001);",
+    "  float edge = mix(smoothstep(1.0, 0.72, abs(aGrid.x)) * smoothstep(1.0, 0.55, abs(aGrid.y)), 1.0, uFormMix * step(uForm, 4.5) * 0.85);",
+    "  float waveFade = edge * smoothstep(19.0, 8.0, depth) * step(0.2, clip.w);",
     // Form: jeder Punkt startet leicht versetzt, damit sich das Motiv aufbaut
     "  float r = fract(sin(dot(aGrid, vec2(12.9898, 78.233))) * 43758.5453);",
     "  float m = clamp(uMorph * 1.7 - r * 0.7, 0.0, 1.0) * aShape.z;",
@@ -97,7 +139,7 @@
     "  vec2 dv = (target - uMouse.xy) * vec2(uAspect, 1.0);",
     "  float dd = length(dv) + 0.0001;",
     "  target += (dv / dd) / vec2(uAspect, 1.0) * uScatter * uMouse.z * 0.09 * exp(-dd * dd * 45.0);",
-    "  vec2 ndc = mix(clip.xy / clip.w, target, m);",
+    "  vec2 ndc = mix(clip.xy / depth, target, m);",
     "  gl_Position = vec4(ndc, 0.0, 1.0);",
     "  gl_PointSize = mix(clamp(uSize * 9.0 / depth, 1.0, 6.0 * uSize), uSize * 1.05, m);",
     "  vH = clamp(h / max(uAmp + uRipple * 0.75, 0.2) * 0.5 + 0.5, 0.0, 1.0);",
@@ -110,7 +152,7 @@
 
   var FRAG = [
     "precision mediump float;",
-    "uniform vec3 uBase, uCrest, uSilver;",
+    "uniform vec3 uBase, uCrest, uSilver, uGreen;",
     "uniform float uAlpha, uGlow, uShapeAlpha;",
     "varying float vH;",
     "varying float vFade;",
@@ -121,7 +163,9 @@
     "  float a = smoothstep(0.5, 0.12, d);",
     "  float k = smoothstep(0.35, 1.0, vH) * uGlow;",
     "  vec3 waveCol = mix(uBase, uCrest, clamp(k, 0.0, 1.0));",
-    "  vec3 shapeCol = mix(uCrest, uSilver, vTone);",
+    "  float kind = floor(vTone + 0.001);",
+    "  float lum = fract(vTone);",
+    "  vec3 shapeCol = kind < 0.5 ? uCrest : (kind < 1.5 ? uSilver * (0.4 + 0.75 * lum) : uGreen * (0.75 + 1.1 * lum));",
     "  vec3 col = mix(waveCol, shapeCol, vMorph);",
     "  float alpha = a * vFade * mix(uAlpha * (0.35 + 0.65 * vH), uShapeAlpha, vMorph);",
     "  gl_FragColor = vec4(col * alpha, alpha);",
@@ -415,6 +459,173 @@
     g.stroke();
   });
   SHAPES["404"] = textShape("404", 800);
+  // Masterplan: Mobile, Offline, Lokale KI, Migration, CAD, Lieferantennetz
+  SHAPES.mobile = icon(function (g) {
+    roundRect(g, 85, 20, 130, 260, 26);
+    g.stroke();
+    g.strokeStyle = "#ffffff";
+    g.lineWidth = 10;
+    [[110, 70, 190, 70], [110, 105, 170, 105], [110, 140, 185, 140]].forEach(function (l) {
+      g.beginPath();
+      g.moveTo(l[0], l[1]);
+      g.lineTo(l[2], l[3]);
+      g.stroke();
+    });
+    g.lineWidth = 12;
+    roundRect(g, 110, 175, 80, 55, 8);
+    g.stroke();
+    g.fillStyle = "#00ff00";
+    g.beginPath();
+    g.arc(150, 258, 8, 0, Math.PI * 2);
+    g.fill();
+  });
+  SHAPES.offline = icon(function (g) {
+    roundRect(g, 30, 60, 120, 200, 22);
+    g.stroke();
+    g.strokeStyle = "#ffffff";
+    g.lineWidth = 12;
+    g.setLineDash([18, 16]);
+    g.beginPath();
+    g.moveTo(165, 160);
+    g.lineTo(225, 160);
+    g.stroke();
+    g.setLineDash([]);
+    g.strokeStyle = "#00ff00";
+    g.lineWidth = 14;
+    g.beginPath();
+    g.arc(255, 160, 30, 0, Math.PI * 2);
+    g.stroke();
+    g.strokeStyle = "#ffffff";
+    g.beginPath();
+    g.moveTo(205, 95);
+    g.lineTo(285, 225);
+    g.stroke();
+  });
+  SHAPES["local-ai"] = icon(function (g) {
+    roundRect(g, 80, 80, 140, 140, 18);
+    g.stroke();
+    g.strokeStyle = "#ffffff";
+    g.lineWidth = 10;
+    for (var i = 0; i < 4; i++) {
+      var p = 105 + i * 30;
+      [[p, 80, p, 40], [p, 220, p, 260], [80, p, 40, p], [220, p, 260, p]].forEach(function (l) {
+        g.beginPath();
+        g.moveTo(l[0], l[1]);
+        g.lineTo(l[2], l[3]);
+        g.stroke();
+      });
+    }
+    g.fillStyle = "#00ff00";
+    [[125, 125], [175, 125], [150, 170]].forEach(function (n) {
+      g.beginPath();
+      g.arc(n[0], n[1], 12, 0, Math.PI * 2);
+      g.fill();
+    });
+    g.strokeStyle = "#00ff00";
+    g.lineWidth = 6;
+    g.beginPath();
+    g.moveTo(125, 125);
+    g.lineTo(175, 125);
+    g.lineTo(150, 170);
+    g.closePath();
+    g.stroke();
+  });
+  SHAPES.migrate = icon(function (g) {
+    g.strokeStyle = "#ffffff";
+    roundRect(g, 20, 70, 95, 160, 14);
+    g.stroke();
+    g.strokeStyle = "#00ff00";
+    roundRect(g, 185, 70, 95, 160, 14);
+    g.stroke();
+    g.lineWidth = 9;
+    [110, 150, 190].forEach(function (y) {
+      g.strokeStyle = "#ffffff";
+      g.beginPath();
+      g.moveTo(42, y);
+      g.lineTo(93, y);
+      g.stroke();
+      g.strokeStyle = "#00ff00";
+      g.beginPath();
+      g.moveTo(207, y);
+      g.lineTo(258, y);
+      g.stroke();
+    });
+    g.lineWidth = 14;
+    g.beginPath();
+    g.moveTo(128, 150);
+    g.lineTo(170, 150);
+    g.moveTo(152, 128);
+    g.lineTo(172, 150);
+    g.lineTo(152, 172);
+    g.stroke();
+  });
+  SHAPES.cad = icon(function (g) {
+    // Winkelbauteil als Drahtgitter (isometrisch)
+    g.lineWidth = 8;
+    var P = function (x, y, z) {
+      return [150 + (x - z) * 0.87, 165 + (x + z) * 0.5 - y];
+    };
+    var line = function (a, b) {
+      var p = P.apply(null, a), q = P.apply(null, b);
+      g.beginPath();
+      g.moveTo(p[0], p[1]);
+      g.lineTo(q[0], q[1]);
+      g.stroke();
+    };
+    var box = function (x0, y0, z0, x1, y1, z1) {
+      var c = [[x0, y0, z0], [x1, y0, z0], [x1, y0, z1], [x0, y0, z1], [x0, y1, z0], [x1, y1, z0], [x1, y1, z1], [x0, y1, z1]];
+      [[0, 1], [1, 2], [2, 3], [3, 0], [4, 5], [5, 6], [6, 7], [7, 4], [0, 4], [1, 5], [2, 6], [3, 7]].forEach(function (e) {
+        line(c[e[0]], c[e[1]]);
+      });
+    };
+    box(-90, 0, -50, 90, 30, 50);
+    g.strokeStyle = "#ffffff";
+    box(-90, 30, -50, -60, 130, 50);
+    g.strokeStyle = "#00ff00";
+    g.lineWidth = 6;
+    [-40, 0, 40].forEach(function (x) {
+      line([x, 30, -50], [x, 30, 50]);
+    });
+    g.beginPath();
+    var c = P(40, 30, 0);
+    g.ellipse(c[0], c[1], 18, 10, 0, 0, Math.PI * 2);
+    g.stroke();
+  });
+  SHAPES.network = icon(function (g) {
+    var nodes = [[150, 150], [55, 70], [245, 65], [40, 210], [260, 225], [150, 40], [150, 270]];
+    g.strokeStyle = "#ffffff";
+    g.lineWidth = 6;
+    nodes.slice(1).forEach(function (n) {
+      g.beginPath();
+      g.moveTo(150, 150);
+      g.lineTo(n[0], n[1]);
+      g.stroke();
+    });
+    g.beginPath();
+    g.moveTo(55, 70);
+    g.lineTo(150, 40);
+    g.lineTo(245, 65);
+    g.moveTo(40, 210);
+    g.lineTo(150, 270);
+    g.lineTo(260, 225);
+    g.stroke();
+    nodes.forEach(function (n, i) {
+      g.beginPath();
+      g.arc(n[0], n[1], i ? 18 : 30, 0, Math.PI * 2);
+      if (i) {
+        g.fillStyle = "#000";
+        g.globalCompositeOperation = "destination-out";
+        g.fill();
+        g.globalCompositeOperation = "source-over";
+        g.strokeStyle = "#00ff00";
+        g.lineWidth = 9;
+        g.stroke();
+      } else {
+        g.fillStyle = "#ffffff";
+        g.fill();
+      }
+    });
+  });
 
   function canvas2d(w, h) {
     var c = document.createElement("canvas");
@@ -441,12 +652,17 @@
         }
         var tone;
         if (fromImage) {
-          // Silber: hell und kaum gesättigt; sonst Grün
-          var mx = Math.max(data[i], data[i + 1], data[i + 2]);
-          var mn = Math.min(data[i], data[i + 1], data[i + 2]);
-          tone = mx > 110 && mx - mn < 40 ? 1 : 0;
+          // Logo: Grünanteile (G deutlich über R und B) bleiben Markengrün,
+          // alles Graue wird Silber; die Helligkeit bleibt als Abstufung erhalten.
+          var rr = data[i], gg = data[i + 1], bb = data[i + 2];
+          var mx = Math.max(rr, gg, bb);
+          if (mx < 22) {
+            continue; // Schatten/Kontur nicht als Punkte setzen
+          }
+          var lum = Math.min(0.99, mx / 255);
+          tone = gg - Math.max(rr, bb) > 10 ? 2 + lum : 1 + lum;
         } else {
-          tone = data[i] > 128 ? 1 : 0;
+          tone = data[i] > 128 ? 1.95 : 0;
         }
         pts.push(x / w - 0.5, 0.5 - y / h, tone);
       }
@@ -528,7 +744,7 @@
     bindShape(emptyBuffer);
 
     var u = {};
-    ["uTime", "uAmp", "uFreq", "uPitch", "uLift", "uShift", "uSpread", "uAspect", "uSize", "uScroll", "uRipple", "uMorph", "uScatter",
+    ["uTime", "uAmp", "uFreq", "uPitch", "uLift", "uShift", "uSpread", "uAspect", "uSize", "uScroll", "uRipple", "uMorph", "uScatter", "uForm", "uFormMix", "uGreen",
       "uMouse", "uBox", "uBase", "uCrest", "uSilver", "uAlpha", "uGlow", "uShapeAlpha"].forEach(function (name) {
       u[name] = gl.getUniformLocation(program, name);
     });
@@ -742,6 +958,7 @@
       gl.uniform3fv(u.uBase, theme.base);
       gl.uniform3fv(u.uCrest, theme.crest);
       gl.uniform3fv(u.uSilver, theme.silver);
+      gl.uniform3fv(u.uGreen, theme.green);
       strength = theme.strength;
       requestDraw();
     }
@@ -769,6 +986,8 @@
     var last = 0;
     var running = false;
     var visible = true;
+    var form = 0;
+    var formMix = 0;
 
     function draw(now) {
       var dt = last ? Math.min((now - last) / 1000, 0.05) : 0.016;
@@ -783,6 +1002,21 @@
         current[key] += diff * k;
       });
       mouse.z += (mouse.tz - mouse.z) * Math.min(1, dt * 3);
+
+      // Raumform: Wechsel läuft über die Ebene (formMix → 0), dann neue Form
+      var wantedForm = FORMS[target.form || "plane"] || 0;
+      var formTarget = 0;
+      if (wantedForm === form) {
+        formTarget = form ? 1 : 0;
+      } else if (formMix < 0.02) {
+        formMix = 0;
+        form = wantedForm;
+      }
+      var fk = reduceMotion ? 1 : Math.min(1, dt * 1.3);
+      if (Math.abs(formTarget - formMix) > 0.002) {
+        settled = false;
+      }
+      formMix += (formTarget - formMix) * fk;
 
       // Form: erst zurück in die Welle, dann das neue Motiv laden
       var near = nearestSlot();
@@ -829,6 +1063,8 @@
       gl.uniform1f(u.uShapeAlpha, 0.9 * strength);
       gl.uniform1f(u.uGlow, current.glow);
       gl.uniform1f(u.uMorph, morph);
+      gl.uniform1f(u.uForm, form);
+      gl.uniform1f(u.uFormMix, formMix * formMix * (3 - 2 * formMix));
       gl.uniform1f(u.uScroll, reduceMotion ? 0 : window.scrollY * -0.0025);
       gl.uniform3f(u.uMouse, mouse.x, mouse.y, mouse.z);
 
