@@ -1268,7 +1268,8 @@
     function draw(now) {
       var dt = last ? Math.min((now - last) / 1000, 0.05) : 0.016;
       last = now;
-      var k = reduceMotion ? 1 : Math.min(1, dt * 2.2);
+      // Zustandswechsel zwischen Abschnitten bewusst langsam und weich
+      var k = reduceMotion ? 1 : Math.min(1, dt * 1.1);
       var settled = true;
       KEYS.forEach(function (key) {
         var diff = target[key] - current[key];
