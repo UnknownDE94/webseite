@@ -89,5 +89,5 @@ Fehlt ein Wert, zeigt die Website „Geplant“ bzw. „noch festzulegen“ – 
 - FAQ Kontakt: Erstgespräch nur „unverbindlich“ – „kostenlos“ nur wieder aufnehmen, wenn so gewollt
 - SmartParts Web-Status: echte Screenshots vorhanden – Status bitte in der Produkttabelle eintragen
 - Impressum/Datenschutz: sichtbare Platzhalter [Firmierung], [Registergericht/-nummer], [USt-IdNr.], [Hoster], [Formularanbieter], [Analytics] – vor Go-live füllen und juristisch prüfen
-- SmartParts-Screenshots (assets/platform, eingebettet in assets/apps/smartparts-*.webp) zeigen echte Herstellernamen (Danfoss, Grundfos, EagleBurgmann, SKF, SICK, VLT AutomationDrive, SINAMICS G120C) und Lieferantennamen (Antriebstechnik Weber GmbH, Automation & Sensorik Kramer KG) – anonymisieren ja/nein? [OFFEN]
+- SmartParts-Screenshots: Hersteller- und Lieferantennamen sowie markenbezogene Typbezeichnungen unkenntlich gemacht (Hersteller A–E, Lieferant A/B) – vom Inhaber entschieden, 2026-11-01; Werkzeug: tools/anon/anonymize.py
 - SmartParts-Navigation in den Vollfenster-Ansichten ist nachgestellt – echte Vollfenster-Screenshots nachliefern, sobald verfügbar
