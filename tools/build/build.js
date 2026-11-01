@@ -29,7 +29,7 @@ const ROOT = path.resolve(__dirname, "../..");
 const SRC = path.join(ROOT, "src");
 const BASE = "https://werringloer.de/";
 // Cache-Version für CSS/JS: bei Änderungen erhöhen
-const VERSION = "2026-43";
+const VERSION = "2026-44";
 
 const read = (p) => fs.readFileSync(path.join(SRC, p), "utf8");
 const partials = {

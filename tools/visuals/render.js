@@ -54,7 +54,7 @@ async function shots(browser, list, withShape) {
   return files;
 }
 
-function board(title, intro, items, files, cols) {
+function board(title, intro, items, files, cols, fit) {
   const cards = items
     .map((it, i) => `<figure><img src="file://${files[i]}" alt=""><figcaption><b>${it[1]}</b>${it[3] ? `<em class="${it[3] === "Neu" ? "new" : ""}">${it[3]}</em>` : ""}<span>${it[2]}</span></figcaption></figure>`)
     .join("");
@@ -64,12 +64,13 @@ function board(title, intro, items, files, cols) {
     h1{font-size:44px;margin:0 0 10px} p.i{color:#b4bdb8;max-width:900px;margin:0 0 36px;font-size:17px}
     .g{display:grid;grid-template-columns:repeat(${cols},440px);gap:20px}
     figure{margin:0;border:1px solid rgba(255,255,255,.1);border-radius:14px;overflow:hidden;background:#0c1310}
-    img{width:440px;height:274px;object-fit:cover;display:block;background:#070b09}
+    img{width:440px;height:274px;object-fit:${fit || "cover"};display:block;background:#070b09}
     figcaption{padding:14px 16px 18px;margin:0;color:#b4bdb8;font-size:14px;line-height:1.45}
     figcaption b{color:#f2f5f3;font-size:16px;margin-right:8px} figcaption span{display:block;margin-top:4px}
     em{font-style:normal;font:500 11px "JetBrains Mono";letter-spacing:.08em;text-transform:uppercase;border:1px solid rgba(255,255,255,.2);border-radius:99px;padding:2px 8px;color:#b4bdb8}
     em.new{color:#0b130e;background:#d4ec5f;border-color:#d4ec5f}
     .eyebrow{display:block}
+    ${fit ? ".g{grid-template-columns:repeat(" + cols + ",760px)} img{width:760px !important;height:300px !important} body{width:" + (cols * 780 + 128) + "px}" : ""}
   </style></head><body><span class="eyebrow">Werringloer · Visuelle Empfehlung</span><h1>${title}</h1><p class="i">${intro}</p><div class="g">${cards}</div></body></html>`;
 }
 
@@ -157,7 +158,7 @@ async function renderBoard(browser, html, out) {
       ["index", ".tiles", "Leistungswelten", "Startseite – fünf Kacheln als eine Fläche"],
       ["index", ".trio", "Drei Kernaussagen", "Startseite – Lokale KI / Offline / Datenhoheit"],
       ["quick-check", ".traffic", "Ampel", "Quick-Check – Status als farbige Oberkante"],
-      ["3d-technik", ".grid-3", "Leistungskarten", "3D-Technik – Karten-Raster"],
+      ["handwerk", ".grid-3", "Karten-Raster", "Handwerk – Problemkarten als eine Fläche"],
       ["smartparts", ".kpis", "Kennzahlen", "SmartParts – Kennzahlen (Beispieldaten)"],
       ["index", ".audience", "Zielgruppen", "Startseite – Einstiege Handwerk / Industrie"],
     ];
@@ -166,15 +167,19 @@ async function renderBoard(browser, html, out) {
     for (const [name, sel] of KACHELN) {
       await page.goto("http://localhost:8765/" + name + ".html", { waitUntil: "networkidle" });
       await page.waitForTimeout(600);
+      await page.evaluate((s) => {
+        const el = document.querySelector(s);
+        if (el) el.scrollIntoView({ block: "center" });
+        document.querySelectorAll("[data-anim]").forEach((e) => e.classList.add("in"));
+      }, sel);
+      await page.waitForTimeout(2200);
       const box = await page.evaluate((s) => {
         const el = document.querySelector(s);
         if (!el) return null;
-        el.scrollIntoView({ block: "center" });
-        document.querySelectorAll("[data-anim]").forEach((e) => e.classList.add("in"));
         const r = el.getBoundingClientRect();
-        return { x: Math.max(0, r.left - 24), y: Math.max(0, r.top - 24), width: Math.min(r.width + 48, 1440), height: Math.min(r.height + 48, 900) };
+        const y = Math.max(0, r.top - 24);
+        return { x: Math.max(0, r.left - 24), y: y, width: Math.min(r.width + 48, 1440), height: Math.min(r.height + 48, 900 - y) };
       }, sel);
-      await page.waitForTimeout(1800);
       const f = path.join(TMP, "k-" + name + "-" + files.length + ".png");
       await page.screenshot(box ? { path: f, clip: box } : { path: f });
       files.push(f);
@@ -182,7 +187,7 @@ async function renderBoard(browser, html, out) {
     await page.close();
     await renderBoard(browser, board("Kacheln stilgerecht integriert",
       "Zusammengehörige Kacheln bilden eine gemeinsame, deckende Fläche mit feinen Trennlinien – wie ein technisches Datenblatt. Kein Schweben, kein Durchscheinen der Welle; verlinkte Kacheln zeigen beim Überfahren eine Limette-Oberkante.",
-      KACHELN.map((k) => [k[0], k[2], k[3], ""]), files, 3), path.join(OUT, "05-kachel-integration.jpg"));
+      KACHELN.map((k) => [k[0], k[2], k[3], ""]), files, 2, "contain"), path.join(OUT, "05-kachel-integration.jpg"));
   }
   await browser.close();
 })();

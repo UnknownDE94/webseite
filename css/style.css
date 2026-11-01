@@ -571,7 +571,7 @@ html[data-theme="light"] .form-status.error { color: #b91c1c; }
 
 /* Prozessweg (Vorlage 5) */
 .process { position: relative; }
-.process.is-in .process__steps { position: relative; display: grid; grid-template-columns: repeat(var(--steps, 6), minmax(0, 1fr)); gap: 20px; list-style: none; counter-reset: step; }
+.process__steps { position: relative; display: grid; grid-template-columns: repeat(var(--steps, 6), minmax(0, 1fr)); gap: 20px; list-style: none; counter-reset: step; }
 .process__steps::before { content: ""; position: absolute; top: 17px; left: 18px; right: 18px; height: 1px; background: linear-gradient(90deg, var(--lime), color-mix(in srgb, var(--lime) 20%, transparent)); }
 .process__steps li { position: relative; counter-increment: step; padding-top: 54px; }
 .process__steps li::before {
@@ -1082,6 +1082,7 @@ a.eco-node:hover { border-color: var(--accent); }
   box-shadow: inset 0 2px 0 var(--accent), inset -1px -1px 0 var(--line);
   transform: none;
 }
+.traffic > div, .audience > a { border: 0; border-radius: 0; }
 .traffic > .t-ok { box-shadow: inset 0 3px 0 var(--ok), inset -1px -1px 0 var(--line); }
 .traffic > .t-warn { box-shadow: inset 0 3px 0 var(--warn), inset -1px -1px 0 var(--line); }
 .traffic > .t-crit { box-shadow: inset 0 3px 0 var(--crit), inset -1px -1px 0 var(--line); }
@@ -1105,3 +1106,14 @@ html[data-a11y="on"] :is(.hero__grid, .page-hero__grid, .split, .closing__grid, 
   grid-template-columns: minmax(0, 1fr);
 }
 html[data-a11y="on"] body { background: var(--bg); }
+
+/* Kopfzeile auf schmalen Bildschirmen: drei Schalter + Marke passen in 360 px */
+@media (max-width: 720px) {
+  .nav { gap: 10px; }
+  .nav-actions { gap: 6px; margin-left: auto; }
+  .icon-btn { width: 38px; height: 38px; }
+  .brand { gap: 8px; }
+  .brand-mark { height: 26px; }
+  .brand-name { font-size: 0.82rem; }
+  .brand-sub { font-size: 0.48rem; }
+}
