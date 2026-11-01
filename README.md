@@ -16,6 +16,7 @@ datenschutz.html                    Datenschutzerklärung (Entwurf – vor Verö
 css/style.css                       Gemeinsames Stylesheet (Design 2026: Creme, Waldgrün, Limette; Hell/Dunkel)
 js/main.js                          Theme, mobiles Menü, Einblend-Animationen, Reiter, Bildwechsel, Kontaktformular
 js/wave.js                          Seitenweite 3D-Partikelwelle (WebGL, ohne Bibliothek); Zustand je Abschnitt über data-wave
+tools/og/                           Vorlage und Skript für das Vorschaubild (assets/og-image.jpg)
 assets/logo.png                     Logo (freigestellt, transparent)
 assets/logo-mark.webp               Bildmarke für Header/Footer
 assets/logo-mark-lg.webp            Große Bildmarke für die dunklen Aktionsflächen
@@ -47,6 +48,21 @@ oder `"logo"` (Bildmarke) ist ein Platzhalter. Steht es mittig im Bild, löst
 sich ein Teil der Punkte aus der Welle und formt das Motiv an dieser Stelle.
 Neue Motive werden in `SHAPES` in `js/wave.js` auf ein 2D-Canvas gezeichnet
 (Grün = Limette, Weiß = Silber).
+
+Weitere Motive: `talk`, `scan`, `fork`, `gear` (Ablauf), `database`, `euro`,
+`truck`, `shield` (SmartParts-Säulen), `check` (Dankeseite), `404`.
+`data-shape-cycle="talk scan fork gear"` mit `data-cycle-steps="<id der Liste>"`
+lässt Motiv und hervorgehobenen Schritt gemeinsam durchlaufen; Reiter mit
+`data-shape` setzen über `data-shape-target` das Motiv eines Platzhalters.
+`data-scatter="0…1"` regelt, wie stark die Maus die Punkte auseinanderdrückt.
+Das Ereignis `wave:burst` (z. B. nach dem Absenden des Kontaktformulars) löst
+einen kräftigen Signalimpuls aus.
+
+**Rechenbeispiel (Startseite):** Lagerwert × Anteil ohne Bewegung × abbaubarer
+Anteil; die Startwerte (20 %, 40 %, 20 % Kostensatz) sind Beispielwerte.
+
+**Vorschaubild:** `node tools/og/render.js` erzeugt `assets/og-image.jpg` aus
+`tools/og/og.html` mit der echten Partikelwelle.
 
 **Kennzahlen:** `<span data-count="1250" data-prefix="ab " data-suffix=" €">ab 1.250 €</span>`
 zählt beim Hineinscrollen hoch (js/main.js); ohne JavaScript steht der Endwert da.

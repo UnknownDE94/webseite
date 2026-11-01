@@ -13,19 +13,19 @@
   <meta property="og:title" content="Werringloer Komponentenmanagement – Beratung für Ersatzteil- &amp; Materialwirtschaft" />
   <meta property="og:description" content="Werringloer Komponentenmanagement: B2B-Beratung, Analyse und Umsetzung für Instandhaltung, Ersatzteilmanagement, Materialwirtschaft, Disposition, Stammdatenmanagement und Digitalisierung." />
   <meta property="og:url" content="https://werringloer.de/" />
-  <meta property="og:image" content="https://werringloer.de/assets/og-image.jpg" />
+  <meta property="og:image" content="https://werringloer.de/assets/og-image.jpg?v=2" />
   <meta property="og:image:width" content="1200" />
   <meta property="og:image:height" content="630" />
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="Werringloer Komponentenmanagement – Beratung für Ersatzteil- &amp; Materialwirtschaft" />
   <meta name="twitter:description" content="Werringloer Komponentenmanagement: B2B-Beratung, Analyse und Umsetzung für Instandhaltung, Ersatzteilmanagement, Materialwirtschaft, Disposition, Stammdatenmanagement und Digitalisierung." />
-  <meta name="twitter:image" content="https://werringloer.de/assets/og-image.jpg" />
+  <meta name="twitter:image" content="https://werringloer.de/assets/og-image.jpg?v=2" />
   <link rel="icon" type="image/png" href="assets/favicon.png" />
   <link rel="apple-touch-icon" href="assets/apple-touch-icon.png" />
   <link rel="preload" href="assets/fonts/archivo-wdth.woff2" as="font" type="font/woff2" crossorigin />
   <link rel="preload" href="assets/fonts/inter-wght.woff2" as="font" type="font/woff2" crossorigin />
   <script>(function(d){d.classList.add("js");try{var t=localStorage.getItem("theme");if(t==="dark"||(!t&&window.matchMedia&&matchMedia("(prefers-color-scheme: dark)").matches))d.setAttribute("data-theme","dark")}catch(e){}})(document.documentElement);</script>
-  <link rel="stylesheet" href="css/style.css?v=2026-29" />
+  <link rel="stylesheet" href="css/style.css?v=2026-30" />
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -35,7 +35,7 @@
     "logo": "https://werringloer.de/assets/logo.png",
     "email": "service@werringloer.de",
     "telephone": "+49 160 2776512",
-    "image": "https://werringloer.de/assets/og-image.jpg",
+    "image": "https://werringloer.de/assets/og-image.jpg?v=2",
     "address": {
       "@type": "PostalAddress",
       "streetAddress": "Peetzweg 46",
@@ -180,14 +180,17 @@
     <!-- Ablauf -->
     <section id="ablauf" class="section-alt" data-wave="flow">
       <div class="container">
-        <div data-eyebrow="Ablauf" class="section-head section-head--center" data-stagger="up">
-          <h2>So läuft die Zusammenarbeit ab</h2>
-          <p>
-            Erstgespräch, Quick-Check, Entscheidung und anschließend Umsetzung
-            oder eigenständige Weiterarbeit – transparent und ohne Folgeverpflichtung.
-          </p>
+        <div class="lab-split">
+          <div data-eyebrow="Ablauf" class="section-head" data-stagger="up">
+            <h2>So läuft die Zusammenarbeit ab</h2>
+            <p>
+              Erstgespräch, Quick-Check, Entscheidung und anschließend Umsetzung
+              oder eigenständige Weiterarbeit – transparent und ohne Folgeverpflichtung.
+            </p>
+          </div>
+          <div class="wave-slot wave-slot--icon" data-shape="talk" data-shape-cycle="talk scan fork gear" data-cycle-steps="ablauf-schritte" aria-hidden="true"></div>
         </div>
-        <ol class="flow-steps" data-stagger="up">
+        <ol class="flow-steps" id="ablauf-schritte" data-stagger="up">
           <li>
             <h3>Erstgespräch</h3>
             <p>Kostenlos und unverbindlich. Wir klären, ob Ihr Fall zu uns passt.</p>
@@ -205,6 +208,52 @@
             <p>Bestandslogik, Stammdaten, Dashboards oder WK SmartParts – je nach Priorität.</p>
           </li>
         </ol>
+      </div>
+    </section>
+
+    <!-- Rechenbeispiel -->
+    <section id="rechenbeispiel" data-wave="grid">
+      <div class="container calc">
+        <div data-eyebrow="Rechenbeispiel" class="section-head" data-stagger="up">
+          <h2>Wie viel Kapital könnte in Ihrem Lager frei werden?</h2>
+          <p>Ein grobes Rechenbeispiel mit Ihren eigenen Schätzwerten – kein Angebot und keine Zusage. Belastbare Zahlen liefert der Quick-Check.</p>
+        </div>
+        <div class="calc-body" data-anim="up">
+          <form class="calc-form" id="kapitalrechner">
+            <div class="calc-field">
+              <label for="calc-lager">Lagerwert Ersatzteile</label>
+              <output for="calc-lager" id="calc-lager-out">2.000.000 €</output>
+              <input type="range" id="calc-lager" min="0" max="100" step="1" value="50" data-log-min="100000" data-log-max="20000000" />
+            </div>
+            <div class="calc-field">
+              <label for="calc-ruhend">Anteil ohne Bewegung seit 24 Monaten</label>
+              <output for="calc-ruhend" id="calc-ruhend-out">20 %</output>
+              <input type="range" id="calc-ruhend" min="5" max="50" step="1" value="20" />
+            </div>
+            <div class="calc-field">
+              <label for="calc-abbau">Davon realistisch abbaubar</label>
+              <output for="calc-abbau" id="calc-abbau-out">40 %</output>
+              <input type="range" id="calc-abbau" min="10" max="80" step="5" value="40" />
+            </div>
+            <div class="calc-field">
+              <label for="calc-kosten">Lagerhaltungskostensatz pro Jahr</label>
+              <output for="calc-kosten" id="calc-kosten-out">20 %</output>
+              <input type="range" id="calc-kosten" min="10" max="30" step="1" value="20" />
+            </div>
+          </form>
+          <div class="calc-result">
+            <div class="calc-bars" aria-hidden="true">
+              <div class="calc-bar"><span>Heute</span><i style="--w: 1"></i></div>
+              <div class="calc-bar calc-bar--after"><span>Nach Abbau</span><i id="calc-bar-after" style="--w: 0.92"></i></div>
+            </div>
+            <dl class="calc-figures" aria-live="polite">
+              <div><dt>Kapital, das frei werden könnte</dt><dd id="calc-frei">160.000 €</dd></div>
+              <div><dt>Lagerkosten, die jährlich entfallen könnten</dt><dd id="calc-jahr">32.000 €</dd></div>
+            </dl>
+            <p class="calc-note">Rechnung: Lagerwert × Anteil ohne Bewegung × abbaubarer Anteil; Kosten mit dem gewählten Kostensatz.</p>
+            <a class="btn btn-lime" href="kontakt.html">Quick-Check anfragen</a>
+          </div>
+        </div>
       </div>
     </section>
 
@@ -268,8 +317,8 @@
     </div>
   </footer>
 
-  <script src="js/main.js?v=2026-16"></script>
-  <script src="js/wave.js?v=2" defer></script>
+  <script src="js/main.js?v=2026-17"></script>
+  <script src="js/wave.js?v=3" defer></script>
   <script data-goatcounter="https://unknownde.goatcounter.com/count"
           async src="//gc.zgo.at/count.js"></script>
 </body>

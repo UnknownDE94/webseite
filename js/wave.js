@@ -6,6 +6,10 @@
 // 2) Formen: Ein leeres Element mit data-shape="bars|modules|logo" ist ein Platzhalter.
 //    Steht es mittig im Bild, löst sich ein Teil der Punkte aus der Welle und formt
 //    das Motiv genau an dieser Stelle; beim Weiterscrollen fließen sie zurück.
+//    Wird data-shape geändert (z. B. von js/main.js), zerfällt das Motiv und das
+//    neue bildet sich. data-shapes="a b c" lädt Motive vorab, data-scatter (0…1)
+//    bestimmt, wie stark die Maus die Punkte auseinandertreibt.
+// 3) Ereignis "wave:burst" auf window: einmaliger kräftiger Signalimpuls.
 //
 // Kein Framework, keine Abhängigkeiten. Ohne WebGL bleibt der CSS-Hintergrund.
 
@@ -46,6 +50,7 @@
     "uniform float uTime, uAmp, uFreq, uPitch, uLift, uShift, uSpread, uAspect, uSize, uScroll, uRipple, uMorph;",
     "uniform vec3 uMouse;",
     "uniform vec4 uBox;", // Mitte (NDC) und Größe (NDC) der aktuellen Form
+    "uniform float uScatter;",
     "varying float vH;",
     "varying float vFade;",
     "varying float vMorph;",
@@ -88,6 +93,10 @@
     "  m = m * m * (3.0 - 2.0 * m);",
     "  vec2 wob = vec2(sin(t * 1.3 + r * 6.283), cos(t * 1.1 + r * 6.283)) * 0.0035;",
     "  vec2 target = uBox.xy + aShape.xy * uBox.zw + wob;",
+    // Maus treibt die Punkte der Form auseinander
+    "  vec2 dv = (target - uMouse.xy) * vec2(uAspect, 1.0);",
+    "  float dd = length(dv) + 0.0001;",
+    "  target += (dv / dd) / vec2(uAspect, 1.0) * uScatter * uMouse.z * 0.09 * exp(-dd * dd * 45.0);",
     "  vec2 ndc = mix(clip.xy / clip.w, target, m);",
     "  gl_Position = vec4(ndc, 0.0, 1.0);",
     "  gl_PointSize = mix(clamp(uSize * 9.0 / depth, 1.0, 6.0 * uSize), uSize * 1.05, m);",
@@ -211,6 +220,202 @@
     }
   };
 
+  // Strichsymbole (300 × 300): Grün = Limette, Weiß = Silber
+  function icon(drawFn) {
+    return function (done) {
+      var c = canvas2d(300, 300);
+      var g = c.getContext("2d");
+      g.lineCap = "round";
+      g.lineJoin = "round";
+      g.lineWidth = 16;
+      g.strokeStyle = "#00ff00";
+      g.fillStyle = "#ffffff";
+      drawFn(g);
+      done(sample(g, 300, 300));
+    };
+  }
+  function roundRect(g, x, y, w, h, r) {
+    g.beginPath();
+    g.moveTo(x + r, y);
+    g.arcTo(x + w, y, x + w, y + h, r);
+    g.arcTo(x + w, y + h, x, y + h, r);
+    g.arcTo(x, y + h, x, y, r);
+    g.arcTo(x, y, x + w, y, r);
+    g.closePath();
+  }
+  function textShape(text, weight) {
+    return function (done) {
+      var draw = function () {
+        var w = 600, h = 260;
+        var c = canvas2d(w, h);
+        var g = c.getContext("2d");
+        g.fillStyle = "#00ff00";
+        g.textAlign = "center";
+        g.textBaseline = "middle";
+        g.font = weight + " 230px Archivo, Inter, system-ui, sans-serif";
+        g.fillText(text, w / 2, h / 2 + 10);
+        done(sample(g, w, h));
+      };
+      if (document.fonts && document.fonts.load) {
+        document.fonts.load(weight + " 230px Archivo").then(draw, draw);
+      } else {
+        draw();
+      }
+    };
+  }
+
+  // Ablauf: Gespräch, Analyse, Entscheidung, Umsetzung
+  SHAPES.talk = icon(function (g) {
+    roundRect(g, 30, 40, 240, 170, 40);
+    g.stroke();
+    g.beginPath();
+    g.moveTo(90, 210);
+    g.lineTo(70, 265);
+    g.lineTo(140, 210);
+    g.stroke();
+    [100, 150, 200].forEach(function (x) {
+      g.beginPath();
+      g.arc(x, 125, 14, 0, Math.PI * 2);
+      g.fill();
+    });
+  });
+  SHAPES.scan = icon(function (g) {
+    g.beginPath();
+    g.arc(125, 125, 85, 0, Math.PI * 2);
+    g.stroke();
+    g.strokeStyle = "#ffffff";
+    g.lineWidth = 26;
+    g.beginPath();
+    g.moveTo(190, 190);
+    g.lineTo(262, 262);
+    g.stroke();
+    g.lineWidth = 10;
+    g.beginPath();
+    g.moveTo(80, 150);
+    g.lineTo(108, 118);
+    g.lineTo(132, 138);
+    g.lineTo(170, 96);
+    g.stroke();
+  });
+  SHAPES.fork = icon(function (g) {
+    g.strokeStyle = "#ffffff";
+    g.beginPath();
+    g.moveTo(150, 275);
+    g.lineTo(150, 165);
+    g.stroke();
+    g.strokeStyle = "#00ff00";
+    g.beginPath();
+    g.moveTo(150, 170);
+    g.quadraticCurveTo(150, 120, 75, 75);
+    g.moveTo(150, 170);
+    g.quadraticCurveTo(150, 120, 225, 75);
+    g.stroke();
+    // Pfeilspitzen
+    g.beginPath();
+    g.moveTo(60, 125);
+    g.lineTo(60, 60);
+    g.lineTo(125, 60);
+    g.moveTo(175, 60);
+    g.lineTo(240, 60);
+    g.lineTo(240, 125);
+    g.stroke();
+  });
+  SHAPES.gear = icon(function (g) {
+    var teeth = 9;
+    g.beginPath();
+    for (var i = 0; i < teeth * 2; i++) {
+      var a = (i / (teeth * 2)) * Math.PI * 2;
+      var r1 = i % 2 ? 108 : 135;
+      var a2 = a + Math.PI / (teeth * 2);
+      g.lineTo(150 + Math.cos(a) * r1, 150 + Math.sin(a) * r1);
+      g.lineTo(150 + Math.cos(a2) * r1, 150 + Math.sin(a2) * r1);
+    }
+    g.closePath();
+    g.lineWidth = 12;
+    g.stroke();
+    g.strokeStyle = "#ffffff";
+    g.beginPath();
+    g.arc(150, 150, 45, 0, Math.PI * 2);
+    g.stroke();
+  });
+  // SmartParts-Säulen
+  SHAPES.database = icon(function (g) {
+    g.strokeStyle = "#ffffff";
+    g.beginPath();
+    g.ellipse(150, 65, 100, 32, 0, 0, Math.PI * 2);
+    g.stroke();
+    g.strokeStyle = "#00ff00";
+    g.beginPath();
+    g.moveTo(50, 65);
+    g.lineTo(50, 235);
+    g.ellipse(150, 235, 100, 32, 0, Math.PI, 0, true);
+    g.lineTo(250, 65);
+    g.stroke();
+    [122, 179].forEach(function (y) {
+      g.beginPath();
+      g.ellipse(150, y, 100, 32, 0, 0, Math.PI);
+      g.stroke();
+    });
+  });
+  SHAPES.euro = icon(function (g) {
+    g.beginPath();
+    g.arc(170, 150, 100, Math.PI * 0.25, Math.PI * 1.75);
+    g.stroke();
+    g.strokeStyle = "#ffffff";
+    g.beginPath();
+    g.moveTo(40, 125);
+    g.lineTo(185, 125);
+    g.moveTo(40, 175);
+    g.lineTo(170, 175);
+    g.stroke();
+  });
+  SHAPES.truck = icon(function (g) {
+    roundRect(g, 20, 70, 160, 130, 12);
+    g.stroke();
+    g.beginPath();
+    g.moveTo(180, 110);
+    g.lineTo(235, 110);
+    g.lineTo(280, 160);
+    g.lineTo(280, 200);
+    g.lineTo(180, 200);
+    g.stroke();
+    g.strokeStyle = "#ffffff";
+    [75, 230].forEach(function (x) {
+      g.beginPath();
+      g.arc(x, 222, 26, 0, Math.PI * 2);
+      g.stroke();
+    });
+  });
+  SHAPES.shield = icon(function (g) {
+    g.beginPath();
+    g.moveTo(150, 25);
+    g.lineTo(255, 65);
+    g.bezierCurveTo(255, 170, 215, 240, 150, 278);
+    g.bezierCurveTo(85, 240, 45, 170, 45, 65);
+    g.closePath();
+    g.stroke();
+    g.strokeStyle = "#ffffff";
+    g.beginPath();
+    g.moveTo(100, 150);
+    g.lineTo(138, 188);
+    g.lineTo(205, 115);
+    g.stroke();
+  });
+  // Danke- und Fehlerseite
+  SHAPES.check = icon(function (g) {
+    g.beginPath();
+    g.arc(150, 150, 120, 0, Math.PI * 2);
+    g.stroke();
+    g.strokeStyle = "#ffffff";
+    g.lineWidth = 22;
+    g.beginPath();
+    g.moveTo(92, 155);
+    g.lineTo(133, 196);
+    g.lineTo(212, 112);
+    g.stroke();
+  });
+  SHAPES["404"] = textShape("404", 800);
+
   function canvas2d(w, h) {
     var c = document.createElement("canvas");
     c.width = w;
@@ -323,7 +528,7 @@
     bindShape(emptyBuffer);
 
     var u = {};
-    ["uTime", "uAmp", "uFreq", "uPitch", "uLift", "uShift", "uSpread", "uAspect", "uSize", "uScroll", "uRipple", "uMorph",
+    ["uTime", "uAmp", "uFreq", "uPitch", "uLift", "uShift", "uSpread", "uAspect", "uSize", "uScroll", "uRipple", "uMorph", "uScatter",
       "uMouse", "uBox", "uBase", "uCrest", "uSilver", "uAlpha", "uGlow", "uShapeAlpha"].forEach(function (name) {
       u[name] = gl.getUniformLocation(program, name);
     });
@@ -407,7 +612,8 @@
 
     // --- Formen --------------------------------------------------------------
     var shapeBuffers = {};
-    var slots = Array.prototype.slice.call(document.querySelectorAll("[data-shape]")).filter(function (el) {
+    // Nur Platzhalter, keine Bedienelemente mit data-shape (z. B. Reiter)
+    var slots = Array.prototype.slice.call(document.querySelectorAll(".wave-slot[data-shape], .cta-visual[data-shape]")).filter(function (el) {
       return SHAPES[el.getAttribute("data-shape")];
     });
     var activeShape = null;
@@ -461,7 +667,30 @@
       });
     }
     slots.forEach(function (slot) {
-      buildShape(slot.getAttribute("data-shape"));
+      var names = [slot.getAttribute("data-shape")]
+        .concat((slot.getAttribute("data-shapes") || "").split(/\s+/))
+        .concat((slot.getAttribute("data-shape-cycle") || "").split(/\s+/));
+      names.forEach(function (name) {
+        if (name && SHAPES[name]) {
+          buildShape(name);
+        }
+      });
+    });
+    // Motivwechsel von außen: neu zeichnen (wichtig bei reduzierter Bewegung)
+    if ("MutationObserver" in window && slots.length) {
+      var shapeObserver = new MutationObserver(function () {
+        requestDraw();
+      });
+      slots.forEach(function (slot) {
+        shapeObserver.observe(slot, { attributes: true, attributeFilter: ["data-shape"] });
+      });
+    }
+
+    // Signalimpuls, z. B. beim Absenden des Kontaktformulars
+    var burst = 0;
+    window.addEventListener("wave:burst", function () {
+      burst = 1;
+      requestDraw();
     });
 
     // Welcher Platzhalter steht am nächsten an der Bildmitte – und wie stark?
@@ -570,7 +799,9 @@
           bindShape(wanted && shapeBuffers[wanted] ? shapeBuffers[wanted].buffer : emptyBuffer);
         }
       }
-      var mk = reduceMotion ? 1 : Math.min(1, dt * 1.6);
+      // Beim Motivwechsel schneller zerfallen als beim Wegscrollen
+      var switching = wanted && wanted !== activeShape;
+      var mk = reduceMotion ? 1 : Math.min(1, dt * (switching ? 4.5 : 1.6));
       if (Math.abs(morphTarget - morph) > 0.002) {
         settled = false;
       }
@@ -587,7 +818,13 @@
       gl.uniform1f(u.uLift, current.lift);
       gl.uniform1f(u.uShift, current.shift * shiftScale);
       gl.uniform1f(u.uSpread, current.spread);
-      gl.uniform1f(u.uRipple, current.ripple);
+      burst = reduceMotion ? 0 : burst * Math.exp(-dt * 0.9);
+      if (burst > 0.01) {
+        settled = false;
+      }
+      gl.uniform1f(u.uRipple, current.ripple + burst * 1.8);
+      var scatter = activeSlot ? parseFloat(activeSlot.getAttribute("data-scatter")) : NaN;
+      gl.uniform1f(u.uScatter, isNaN(scatter) ? 0.3 : scatter);
       gl.uniform1f(u.uAlpha, current.alpha * strength);
       gl.uniform1f(u.uShapeAlpha, 0.9 * strength);
       gl.uniform1f(u.uGlow, current.glow);
