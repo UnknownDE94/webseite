@@ -24,8 +24,8 @@
   <link rel="apple-touch-icon" href="assets/apple-touch-icon.png" />
   <link rel="preload" href="assets/fonts/archivo-wdth.woff2" as="font" type="font/woff2" crossorigin />
   <link rel="preload" href="assets/fonts/inter-wght.woff2" as="font" type="font/woff2" crossorigin />
-  <script>(function(d){d.classList.add("js");d.setAttribute("data-theme","dark");try{var t=localStorage.getItem("theme");if(t==="light")d.setAttribute("data-theme","light")}catch(e){}})(document.documentElement);</script>
-  <link rel="stylesheet" href="css/style.css?v=2026-42" />
+  <script>(function(d){d.classList.add("js");d.setAttribute("data-theme","dark");try{var t=localStorage.getItem("theme");if(t==="light")d.setAttribute("data-theme","light");if(localStorage.getItem("a11y")==="on")d.setAttribute("data-a11y","on")}catch(e){}})(document.documentElement);</script>
+  <link rel="stylesheet" href="css/style.css?v=2026-44" />
 </head>
 <body>
   <a class="skip-link" href="#main">Zum Inhalt springen</a>
@@ -71,6 +71,7 @@
       </nav>
       <div class="nav-actions">
         <a class="btn btn--primary btn--sm" href="kontakt.html">Projekt besprechen</a>
+        <button class="icon-btn a11y-toggle" type="button" aria-pressed="false" aria-label="Barrierefreie Ansicht einschalten: Wellen, Partikel-Grafiken und Animationen ausblenden" title="Barrierefreie Ansicht"><svg class="icon" aria-hidden="true"><use href="assets/icons.svg#waves-off"/></svg></button>
         <button class="icon-btn theme-toggle" type="button" aria-label="Hellen Modus aktivieren" aria-pressed="false"><svg class="icon" aria-hidden="true"><use href="assets/icons.svg#sun"/></svg></button>
         <button class="icon-btn nav-toggle" type="button" aria-label="Menü öffnen" aria-expanded="false" aria-controls="hauptmenue"><span></span></button>
       </div>
@@ -194,8 +195,8 @@
     </div>
   </footer>
 
-  <script src="js/main.js?v=2026-42"></script>
-  <script src="js/wave.js?v=2026-42" defer></script>
+  <script src="js/main.js?v=2026-44"></script>
+  <script src="js/wave.js?v=2026-44" defer></script>
   <script data-goatcounter="https://unknownde.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
 </body>
 </html>

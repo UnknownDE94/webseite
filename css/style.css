@@ -42,7 +42,6 @@
   --glass-blur: 14px;
   --shadow: 0 24px 60px rgba(0, 0, 0, 0.45);
   --glow: 0 0 0 1px rgba(212, 236, 95, 0.25), 0 0 28px rgba(212, 236, 95, 0.18);
-  --grid-line: rgba(255, 255, 255, 0.035);
 
   --radius-sm: 8px;
   --radius: 14px;
@@ -76,7 +75,6 @@ html[data-theme="light"] {
   --glass-line: rgba(12, 58, 36, 0.12);
   --shadow: 0 24px 60px rgba(12, 40, 24, 0.12);
   --glow: 0 0 0 1px rgba(26, 94, 58, 0.25), 0 0 24px rgba(26, 94, 58, 0.12);
-  --grid-line: rgba(12, 58, 36, 0.05);
   color-scheme: light;
 }
 
@@ -184,20 +182,7 @@ h4 { font-size: 1rem; }
 .mt-lg { margin-top: 48px; }
 .hide-mobile { display: initial; }
 
-/* Feines Spaltenraster im Hintergrund */
-body::before {
-  content: "";
-  position: fixed;
-  inset: 0 auto 0 50%;
-  z-index: -2;
-  width: min(var(--max), 100%);
-  transform: translateX(-50%);
-  pointer-events: none;
-  border-right: 1px solid var(--grid-line);
-  background: repeating-linear-gradient(90deg, var(--grid-line) 0 1px, transparent 1px 25%);
-  -webkit-mask-image: linear-gradient(180deg, transparent, #000 12%, #000 88%, transparent);
-  mask-image: linear-gradient(180deg, transparent, #000 12%, #000 88%, transparent);
-}
+
 
 /* 6 ─ Header / Navigation ─────────────────────────────────────────────── */
 .skip-link { position: absolute; left: -9999px; top: 8px; z-index: 1000; padding: 10px 16px; border-radius: var(--radius-sm); background: var(--lime); color: var(--accent-ink); font-weight: 600; }
@@ -586,9 +571,6 @@ html[data-theme="light"] .form-status.error { color: #b91c1c; }
 
 /* Prozessweg (Vorlage 5) */
 .process { position: relative; }
-.process__curve { position: absolute; left: 0; right: 0; top: -84px; height: 130px; width: 100%; pointer-events: none; overflow: visible; }
-.process__curve path { fill: none; stroke: url(#process-gradient); stroke-width: 2.5; stroke-linecap: round; filter: drop-shadow(0 0 8px rgba(212, 236, 95, 0.55)); stroke-dasharray: var(--len, 2000); stroke-dashoffset: var(--len, 2000); transition: stroke-dashoffset 2.2s var(--ease-out); }
-.process.is-in .process__curve path { stroke-dashoffset: 0; }
 .process__steps { position: relative; display: grid; grid-template-columns: repeat(var(--steps, 6), minmax(0, 1fr)); gap: 20px; list-style: none; counter-reset: step; }
 .process__steps::before { content: ""; position: absolute; top: 17px; left: 18px; right: 18px; height: 1px; background: linear-gradient(90deg, var(--lime), color-mix(in srgb, var(--lime) 20%, transparent)); }
 .process__steps li { position: relative; counter-increment: step; padding-top: 54px; }
@@ -755,8 +737,7 @@ html[data-theme="light"] :focus-visible { outline-color: var(--green-2); }
   .js [data-anim] { opacity: 1; transform: none; }
   .showcase-app__stage, .showcase-app.is-in .showcase-app__stage { transform: none; }
   .callout.is-shown, .showcase-app.is-in .callout.is-shown { opacity: 1; transform: none; }
-  .process__curve path { stroke-dashoffset: 0; }
-}
+  }
 
 /* 15 ─ Responsive ─────────────────────────────────────────────────────── */
 @media (max-width: 1180px) {
@@ -803,8 +784,7 @@ html[data-theme="light"] :focus-visible { outline-color: var(--green-2); }
   .grid-4 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .grid-3, .trio, .info-cards { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .process__steps { grid-template-columns: repeat(3, minmax(0, 1fr)); row-gap: 40px; }
-  .process__steps::before, .process__curve { display: none; }
-  .region__map { margin: 0 auto; }
+  .process__steps::before,   .region__map { margin: 0 auto; }
   .showcase-app__stage, .showcase-app.is-in .showcase-app__stage { transform: none; }
   /* Detailkarten bleiben auf Tablets innerhalb der Bühne */
   .showcase-app { padding-left: 9%; padding-right: 9%; overflow-x: clip; }
@@ -1072,3 +1052,68 @@ a.eco-node:hover { border-color: var(--accent); }
 .section--legal { padding-top: 32px; }
 .legal-note { padding: 14px 16px; border: 1px solid var(--line); border-radius: 10px; font-size: 0.9rem; color: var(--ink-2); }
 .placeholder { padding: 1px 6px; border: 1px dashed var(--warn); border-radius: 6px; font-family: var(--font-mono); font-size: 0.82em; color: var(--ink); background: color-mix(in srgb, var(--warn) 12%, transparent); }
+
+/* 12c ─ Integrierte Kachelflächen ─────────────────────────────────────────
+   Karten stehen nicht mehr als einzeln schwebende Boxen, sondern bilden eine
+   gemeinsame Fläche mit feinen Trennlinien – wie ein technisches Datenblatt.
+   Die Fläche ist deckend, damit Welle und Motive nie hinter Text laufen. */
+:root { --panel: color-mix(in srgb, var(--surface) 86%, var(--bg)); --panel-hover: color-mix(in srgb, var(--surface-2) 92%, var(--bg)); }
+.tiles, .trio, .traffic, .info-cards, .kpis, .audience,
+.grid-2:has(> .card), .grid-3:has(> .card), .grid-4:has(> .card) {
+  gap: 0;
+  border-top: 1px solid var(--line);
+  border-left: 1px solid var(--line);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+}
+:is(.tiles, .trio, .traffic, .info-cards, .kpis, .audience) > *,
+:is(.grid-2, .grid-3, .grid-4):has(> .card) > * {
+  border: 0;
+  border-radius: 0;
+  background: var(--panel);
+  -webkit-backdrop-filter: none;
+  backdrop-filter: none;
+  box-shadow: inset -1px -1px 0 var(--line);
+  transform: none;
+}
+:is(.tiles, .trio, .traffic, .info-cards, .kpis, .audience) > a:hover,
+:is(.grid-2, .grid-3, .grid-4):has(> .card) > a:hover {
+  background: var(--panel-hover);
+  box-shadow: inset 0 2px 0 var(--accent), inset -1px -1px 0 var(--line);
+  transform: none;
+}
+.traffic > div, .audience > a { border: 0; border-radius: 0; }
+.traffic > .t-ok { box-shadow: inset 0 3px 0 var(--ok), inset -1px -1px 0 var(--line); }
+.traffic > .t-warn { box-shadow: inset 0 3px 0 var(--warn), inset -1px -1px 0 var(--line); }
+.traffic > .t-crit { box-shadow: inset 0 3px 0 var(--crit), inset -1px -1px 0 var(--line); }
+.tile { min-height: 0; padding: 30px 24px 28px; }
+.tile .icon { margin-bottom: 22px; }
+.info-card .icon { border: 0; padding: 0; }
+.kpi::before { inset: 18px auto 18px 0; }
+
+/* Barrierefreie Ansicht (Schalter im Header): keine Wellen, Motive, Animationen */
+.a11y-toggle[aria-pressed="true"] { border-color: var(--lime); background: var(--lime); color: var(--accent-ink); }
+html[data-a11y="on"] .wave-canvas,
+html[data-a11y="on"] .wave-slot { display: none !important; }
+html[data-a11y="on"] *,
+html[data-a11y="on"] *::before,
+html[data-a11y="on"] *::after { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
+html[data-a11y="on"] [data-anim] { opacity: 1; transform: none; }
+html[data-a11y="on"] .showcase-app__stage { transform: none !important; }
+html[data-a11y="on"] .callout.is-shown { opacity: 1; transform: none; }
+html[data-a11y="on"] .hero__grid { min-height: 0; }
+html[data-a11y="on"] :is(.hero__grid, .page-hero__grid, .split, .closing__grid, .region, .lab-split):has(> .wave-slot, > .hero__visual > .wave-slot) {
+  grid-template-columns: minmax(0, 1fr);
+}
+html[data-a11y="on"] body { background: var(--bg); }
+
+/* Kopfzeile auf schmalen Bildschirmen: drei Schalter + Marke passen in 360 px */
+@media (max-width: 720px) {
+  .nav { gap: 10px; }
+  .nav-actions { gap: 6px; margin-left: auto; }
+  .icon-btn { width: 38px; height: 38px; }
+  .brand { gap: 8px; }
+  .brand-mark { height: 26px; }
+  .brand-name { font-size: 0.82rem; }
+  .brand-sub { font-size: 0.48rem; }
+}

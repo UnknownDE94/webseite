@@ -38,11 +38,10 @@ archive/                Alte Entwürfe, Film/Video (nicht veröffentlicht)
 
 ## Partikelwelle
 
-`data-wave` am Abschnitt wählt den Zustand: `hero`, `calm`, `flow`, `grid`, `pulse`,
-`surge`, `flat` sowie die Raumformen `orbit` (Kugel), `vortex` (Wirbel), `ribbon`
-(Datenband), `tunnel` und `dunes`. Leere Platzhalter mit `data-shape` lassen Punkte
+`data-wave` am Abschnitt wählt den Zustand der Welle: `hero`, `calm`, `flow`, `grid`, `surge`, `flat` (immer dieselbe Wellenfläche). Leere Platzhalter mit `data-shape` lassen Punkte
 ein Motiv formen (z. B. `logo`, `mobile`, `offline`, `local-ai`, `migrate`, `cad`,
-`network`, `bars`, `check`, `404`). Vorschau: `tools/visuals/wave-preview.html?state=orbit&shape=cad`.
+`network`, `bars`, `check`, `404`). Vorschau: `tools/visuals/wave-preview.html?state=calm&shape=bearing`.
+Der Schalter im Header (barrierefreie Ansicht) blendet Welle, Motive und Animationen aus.
 Bei `prefers-reduced-motion` steht alles still; ohne WebGL bleibt der CSS-Hintergrund.
 
 ## Offene Punkte

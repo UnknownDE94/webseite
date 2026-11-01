@@ -24,8 +24,8 @@
   <link rel="apple-touch-icon" href="assets/apple-touch-icon.png" />
   <link rel="preload" href="assets/fonts/archivo-wdth.woff2" as="font" type="font/woff2" crossorigin />
   <link rel="preload" href="assets/fonts/inter-wght.woff2" as="font" type="font/woff2" crossorigin />
-  <script>(function(d){d.classList.add("js");d.setAttribute("data-theme","dark");try{var t=localStorage.getItem("theme");if(t==="light")d.setAttribute("data-theme","light")}catch(e){}})(document.documentElement);</script>
-  <link rel="stylesheet" href="css/style.css?v=2026-42" />
+  <script>(function(d){d.classList.add("js");d.setAttribute("data-theme","dark");try{var t=localStorage.getItem("theme");if(t==="light")d.setAttribute("data-theme","light");if(localStorage.getItem("a11y")==="on")d.setAttribute("data-a11y","on")}catch(e){}})(document.documentElement);</script>
+  <link rel="stylesheet" href="css/style.css?v=2026-44" />
 </head>
 <body>
   <a class="skip-link" href="#main">Zum Inhalt springen</a>
@@ -71,6 +71,7 @@
       </nav>
       <div class="nav-actions">
         <a class="btn btn--primary btn--sm" href="kontakt.html">Projekt besprechen</a>
+        <button class="icon-btn a11y-toggle" type="button" aria-pressed="false" aria-label="Barrierefreie Ansicht einschalten: Wellen, Partikel-Grafiken und Animationen ausblenden" title="Barrierefreie Ansicht"><svg class="icon" aria-hidden="true"><use href="assets/icons.svg#waves-off"/></svg></button>
         <button class="icon-btn theme-toggle" type="button" aria-label="Hellen Modus aktivieren" aria-pressed="false"><svg class="icon" aria-hidden="true"><use href="assets/icons.svg#sun"/></svg></button>
         <button class="icon-btn nav-toggle" type="button" aria-label="Menü öffnen" aria-expanded="false" aria-controls="hauptmenue"><span></span></button>
       </div>
@@ -87,7 +88,7 @@
             <nav class="breadcrumb" aria-label="Brotkrumen"><a href="index.html">Start</a> / <a href="leistungen.html">Leistungen</a> / <span aria-current="page">Obsoleszenz</span></nav>
             <p class="eyebrow">Obsoleszenzmanagement</p>
             <h1>Kritische Komponenten erkennen, bevor sie zum Problem werden.</h1>
-            <p class="lead">Anlagen laufen oft länger, als ihre Bauteile lieferbar sind. Wir bewerten das Risiko frühzeitig und zeigen, wie die Versorgung gesichert werden kann.</p>
+            <p class="lead">Anlagen laufen oft länger, als ihre Bauteile lieferbar sind. Wir bewerten das Risiko frühzeitig.</p>
             <div class="actions">
               <a class="btn btn--primary" href="kontakt.html">Projekt besprechen</a>
               <a class="btn btn--secondary" href="#loesungsweg">Zum Lösungsweg</a>
@@ -104,27 +105,27 @@
         <div class="section-head" data-stagger>
           <p class="eyebrow">Risikoquellen</p>
           <h2>Wo Obsoleszenz entsteht.</h2>
-          <p class="lead">Ein einzelnes Merkmal ist selten das Problem. Kritisch wird es, wenn mehrere zusammenkommen – etwa ein abgekündigtes Teil ohne Alternative an einer wichtigen Anlage.</p>
+          <p class="lead">Kritisch wird es meist erst, wenn mehrere Merkmale zusammenkommen.</p>
         </div>
         <div class="grid-3" data-stagger>
-          <div class="card"><svg class="icon icon--lg" aria-hidden="true"><use href="assets/icons.svg#alert"/></svg><h3>Herstellerabkündigung</h3><p>Das Teil wird nicht mehr produziert. Restbestände am Markt werden knapp und teuer.</p></div>
-          <div class="card"><svg class="icon icon--lg" aria-hidden="true"><use href="assets/icons.svg#truck"/></svg><h3>Single Source</h3><p>Nur ein Lieferant kann liefern. Fällt er aus, gibt es keinen zweiten Weg.</p></div>
-          <div class="card"><svg class="icon icon--lg" aria-hidden="true"><use href="assets/icons.svg#clock"/></svg><h3>Lange Lieferzeit</h3><p>Wochen oder Monate bis zur Lieferung. Im Störfall ist das zu lang.</p></div>
-          <div class="card"><svg class="icon icon--lg" aria-hidden="true"><use href="assets/icons.svg#layers"/></svg><h3>Fehlende Alternative</h3><p>Kein geprüftes Ersatzteil, kein Plan B. Die Suche beginnt erst im Notfall.</p></div>
-          <div class="card"><svg class="icon icon--lg" aria-hidden="true"><use href="assets/icons.svg#file"/></svg><h3>Fehlende Dokumentation</h3><p>Ohne Zeichnung, Datenblatt oder Typenangabe lässt sich kaum eine Alternative finden.</p></div>
-          <div class="card"><svg class="icon icon--lg" aria-hidden="true"><use href="assets/icons.svg#cpu-local"/></svg><h3>Veraltete Steuerungs- und Softwarekomponenten</h3><p>Alte Steuerungen, Bedienpanels oder Programme, für die es keinen Support mehr gibt.</p></div>
+          <div class="card"><svg class="icon icon--lg" aria-hidden="true"><use href="assets/icons.svg#alert"/></svg><h3>Herstellerabkündigung</h3><p>Nicht mehr produziert – Restbestände werden knapp und teuer.</p></div>
+          <div class="card"><svg class="icon icon--lg" aria-hidden="true"><use href="assets/icons.svg#truck"/></svg><h3>Single Source</h3><p>Nur ein Lieferant – fällt er aus, gibt es keinen zweiten Weg.</p></div>
+          <div class="card"><svg class="icon icon--lg" aria-hidden="true"><use href="assets/icons.svg#clock"/></svg><h3>Lange Lieferzeit</h3><p>Wochen oder Monate – im Störfall zu lang.</p></div>
+          <div class="card"><svg class="icon icon--lg" aria-hidden="true"><use href="assets/icons.svg#layers"/></svg><h3>Fehlende Alternative</h3><p>Kein geprüftes Ersatzteil – die Suche beginnt erst im Notfall.</p></div>
+          <div class="card"><svg class="icon icon--lg" aria-hidden="true"><use href="assets/icons.svg#file"/></svg><h3>Fehlende Dokumentation</h3><p>Ohne Zeichnung, Datenblatt oder Typenangabe kaum eine Alternative auffindbar.</p></div>
+          <div class="card"><svg class="icon icon--lg" aria-hidden="true"><use href="assets/icons.svg#cpu-local"/></svg><h3>Veraltete Steuerungs- und Softwarekomponenten</h3><p>Alte Steuerungen, Bedienpanels oder Programme ohne Support.</p></div>
         </div>
       </div>
     </section>
 
     <!-- 3 · Bewertung -->
-    <section class="section section--alt" data-wave="pulse">
+    <section class="section section--alt" data-wave="calm">
       <div class="container">
         <div class="split split--top">
           <div data-stagger>
             <p class="eyebrow">Bewertung</p>
             <h2>Risiko sichtbar machen.</h2>
-            <p class="lead" style="margin-top:18px">Wir bewerten Ihre Komponenten nach einheitlichen Merkmalen. So entsteht eine Liste, die zeigt, wo zuerst gehandelt werden sollte.</p>
+            <p class="lead" style="margin-top:18px">Einheitliche Merkmale ergeben eine Liste, wo zuerst gehandelt werden sollte.</p>
             <ul class="dotlist dotlist--cols mt-lg">
               <li>Alter</li>
               <li>Verfügbarkeit</li>
@@ -146,13 +147,13 @@
     </section>
 
     <!-- 4 · Lösungsweg -->
-    <section class="section" data-wave="tunnel" id="loesungsweg">
+    <section class="section" data-wave="flow" id="loesungsweg">
       <div class="container">
         <div class="split split--text-wide">
           <div class="section-head mt-0" data-stagger>
             <p class="eyebrow">Lösungsweg</p>
             <h2>Vom Risiko zur gesicherten Versorgung.</h2>
-            <p class="lead">Wir gehen Schritt für Schritt vor – vom einfachsten zum aufwendigsten Weg. Die Rekonstruktion steht bewusst am Ende.</p>
+            <p class="lead">Vom einfachsten zum aufwendigsten Weg – die Rekonstruktion steht bewusst am Ende.</p>
           </div>
           <div class="wave-slot wave-slot--icon" data-shape="motor" data-shape-cycle="motor exchange network migrate scan3d" data-cycle-steps="obs-weg" aria-hidden="true"></div>
         </div>
@@ -187,7 +188,7 @@
             <div data-stagger>
               <p class="eyebrow">Vorsorgen statt reagieren</p>
               <h2>Welche Komponente macht Ihnen Sorgen?</h2>
-              <p class="lead">Nennen Sie uns die Anlage oder das Bauteil. Wir prüfen das Risiko und zeigen mögliche Wege.</p>
+              <p class="lead">Nennen Sie Anlage oder Bauteil. Wir prüfen das Risiko und zeigen mögliche Wege.</p>
               <div class="actions">
                 <a class="btn btn--primary" href="kontakt.html">Projekt unverbindlich besprechen</a>
                 <a class="btn btn--secondary" href="quick-check.html">Quick-Check anfragen</a>
@@ -268,8 +269,8 @@
     </div>
   </footer>
 
-  <script src="js/main.js?v=2026-42"></script>
-  <script src="js/wave.js?v=2026-42" defer></script>
+  <script src="js/main.js?v=2026-44"></script>
+  <script src="js/wave.js?v=2026-44" defer></script>
   <script data-goatcounter="https://unknownde.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
 </body>
 </html>

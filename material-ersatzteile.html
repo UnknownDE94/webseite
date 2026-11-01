@@ -24,8 +24,8 @@
   <link rel="apple-touch-icon" href="assets/apple-touch-icon.png" />
   <link rel="preload" href="assets/fonts/archivo-wdth.woff2" as="font" type="font/woff2" crossorigin />
   <link rel="preload" href="assets/fonts/inter-wght.woff2" as="font" type="font/woff2" crossorigin />
-  <script>(function(d){d.classList.add("js");d.setAttribute("data-theme","dark");try{var t=localStorage.getItem("theme");if(t==="light")d.setAttribute("data-theme","light")}catch(e){}})(document.documentElement);</script>
-  <link rel="stylesheet" href="css/style.css?v=2026-42" />
+  <script>(function(d){d.classList.add("js");d.setAttribute("data-theme","dark");try{var t=localStorage.getItem("theme");if(t==="light")d.setAttribute("data-theme","light");if(localStorage.getItem("a11y")==="on")d.setAttribute("data-a11y","on")}catch(e){}})(document.documentElement);</script>
+  <link rel="stylesheet" href="css/style.css?v=2026-44" />
 </head>
 <body>
   <a class="skip-link" href="#main">Zum Inhalt springen</a>
@@ -71,6 +71,7 @@
       </nav>
       <div class="nav-actions">
         <a class="btn btn--primary btn--sm" href="kontakt.html">Projekt besprechen</a>
+        <button class="icon-btn a11y-toggle" type="button" aria-pressed="false" aria-label="Barrierefreie Ansicht einschalten: Wellen, Partikel-Grafiken und Animationen ausblenden" title="Barrierefreie Ansicht"><svg class="icon" aria-hidden="true"><use href="assets/icons.svg#waves-off"/></svg></button>
         <button class="icon-btn theme-toggle" type="button" aria-label="Hellen Modus aktivieren" aria-pressed="false"><svg class="icon" aria-hidden="true"><use href="assets/icons.svg#sun"/></svg></button>
         <button class="icon-btn nav-toggle" type="button" aria-label="Menü öffnen" aria-expanded="false" aria-controls="hauptmenue"><span></span></button>
       </div>
@@ -87,7 +88,7 @@
             <nav class="breadcrumb" aria-label="Brotkrumen"><a href="index.html">Start</a> / <a href="leistungen.html">Leistungen</a> / <span aria-current="page">Material &amp; Ersatzteile</span></nav>
             <p class="eyebrow">Material &amp; Ersatzteile</p>
             <h1>Weniger Kapitalbindung. Mehr Versorgungs&shy;sicherheit.</h1>
-            <p class="lead">Zu viel Material bindet Geld. Zu wenig gefährdet den Betrieb. Wir bewerten Bestände, Daten und Beschaffung gemeinsam – und finden den wirtschaftlich sinnvollen Weg dazwischen.</p>
+            <p class="lead">Zu viel Material bindet Geld, zu wenig gefährdet den Betrieb. Wir bewerten Bestände, Daten und Beschaffung gemeinsam.</p>
             <div class="actions">
               <a class="btn btn--primary" href="quick-check.html">Quick-Check anfragen</a>
               <a class="btn btn--secondary" href="#rechenbeispiel">Zum Rechenbeispiel</a>
@@ -104,7 +105,7 @@
         <div class="section-head section-head--center" data-stagger>
           <p class="eyebrow">Das Spannungsfeld</p>
           <h2>Zwei Risiken. Ein Ziel.</h2>
-          <p class="lead">Überbestand und Fehlbestand entstehen oft im selben Lager. Beide kosten Geld – nur an unterschiedlichen Stellen.</p>
+          <p class="lead">Überbestand und Fehlbestand entstehen oft im selben Lager – beide kosten Geld.</p>
         </div>
         <div class="versus" data-stagger>
           <div class="card">
@@ -133,12 +134,12 @@
     </section>
 
     <!-- 3 · Was wir betrachten (Screenshots) -->
-    <section class="section section--alt" data-wave="ribbon" id="bewertung">
+    <section class="section section--alt" data-wave="flow" id="bewertung">
       <div class="container">
         <div class="section-head" data-stagger>
           <p class="eyebrow">Was wir betrachten</p>
           <h2>Bestände bewerten statt nur zählen.</h2>
-          <p class="lead">Mit WK SmartParts machen wir sichtbar, wo Risiken liegen und wo Kapital frei werden kann. Die Ansichten zeigen Beispieldaten.</p>
+          <p class="lead">Mit WK SmartParts wird sichtbar, wo Risiken liegen und Kapital frei werden kann.</p>
         </div>
         <div data-tabs>
           <div class="tabs-bar" role="tablist" aria-label="Analyseansichten">
@@ -155,7 +156,7 @@
             </figure>
             <div>
               <h3>Bestandsrisiko</h3>
-              <p class="muted" style="margin-top:10px">Eine Ampel zeigt, welche Teile sicher versorgt sind, wo ein Risiko besteht und wo ein Stillstand möglich ist. Die Liste darunter ordnet den Handlungsbedarf.</p>
+              <p class="muted" style="margin-top:10px">Ampel: sicher versorgt, Risiko, Stillstand möglich – darunter der Handlungsbedarf als Liste.</p>
             </div>
           </div>
           <div class="tab-panel" role="tabpanel" id="me-abc" aria-labelledby="me-tab-abc" hidden>
@@ -166,7 +167,7 @@
             </figure>
             <div>
               <h3>ABC/XYZ</h3>
-              <p class="muted" style="margin-top:10px">Wertanteil und Verbrauchsverlauf zeigen, welche Teile eng gesteuert werden sollten und wo eine einfache Disposition genügt.</p>
+              <p class="muted" style="margin-top:10px">Wertanteil und Verbrauchsverlauf: Welche Teile eng steuern, wo genügt einfache Disposition?</p>
             </div>
           </div>
           <div class="tab-panel" role="tabpanel" id="me-daten" aria-labelledby="me-tab-daten" hidden>
@@ -177,7 +178,7 @@
             </figure>
             <div>
               <h3>Datenqualität</h3>
-              <p class="muted" style="margin-top:10px">Fehlende Pflichtfelder, Hersteller, Preise und Lieferzeiten sowie Dubletten werden sichtbar. Ohne saubere Daten bleibt jede Planung ungenau.</p>
+              <p class="muted" style="margin-top:10px">Fehlende Pflichtfelder, Hersteller, Preise, Lieferzeiten und Dubletten auf einen Blick.</p>
             </div>
           </div>
           <div class="tab-panel" role="tabpanel" id="me-dispo" aria-labelledby="me-tab-dispo" hidden>
@@ -188,7 +189,7 @@
             </figure>
             <div>
               <h3>Bestellvorschläge</h3>
-              <p class="muted" style="margin-top:10px">Unterbestände werden nach Lieferant gebündelt. So entsteht ein nachvollziehbarer Vorschlag statt einer Bestellung aus dem Bauchgefühl.</p>
+              <p class="muted" style="margin-top:10px">Unterbestände nach Lieferant gebündelt – nachvollziehbar statt aus dem Bauchgefühl.</p>
             </div>
           </div>
         </div>
@@ -197,20 +198,20 @@
     </section>
 
     <!-- 4 · Kritikalität, Lieferzeiten, Alternativen -->
-    <section class="section" data-wave="dunes">
+    <section class="section" data-wave="calm">
       <div class="container">
         <div class="split split--text-wide">
           <div class="section-head mt-0" data-stagger>
             <p class="eyebrow">Versorgung sichern</p>
             <h2>Nicht jedes Teil ist gleich wichtig.</h2>
-            <p class="lead">Entscheidend ist, was ein fehlendes Teil im Betrieb auslöst. Deshalb verbinden wir Bestandsdaten mit Kritikalität, Lieferzeiten und möglichen Alternativen.</p>
+            <p class="lead">Entscheidend ist, was ein fehlendes Teil im Betrieb auslöst.</p>
           </div>
           <div class="wave-slot wave-slot--icon" data-shape="truck" aria-hidden="true"></div>
         </div>
         <div class="grid-3" data-stagger>
-          <div class="card"><svg class="icon icon--lg" aria-hidden="true"><use href="assets/icons.svg#target"/></svg><h3>Kritikalität</h3><p>Welche Anlage steht, wenn das Teil fehlt? Die Bewertung richtet sich nach der Auswirkung im Betrieb, nicht nach dem Preis.</p></div>
-          <div class="card"><svg class="icon icon--lg" aria-hidden="true"><use href="assets/icons.svg#clock"/></svg><h3>Lieferzeiten</h3><p>Lange Wiederbeschaffungszeiten und Single Source werden erkannt, bevor sie zum Engpass werden.</p></div>
-          <div class="card"><svg class="icon icon--lg" aria-hidden="true"><use href="assets/icons.svg#layers"/></svg><h3>Alternativen</h3><p>Wo das Original knapp ist, prüfen wir Alternativteile und zusätzliche Lieferanten.</p><a class="link-arrow" href="alternativteile.html">Alternativteile &amp; Lieferanten</a></div>
+          <div class="card"><svg class="icon icon--lg" aria-hidden="true"><use href="assets/icons.svg#target"/></svg><h3>Kritikalität</h3><p>Bewertet nach Auswirkung im Betrieb, nicht nach Preis.</p></div>
+          <div class="card"><svg class="icon icon--lg" aria-hidden="true"><use href="assets/icons.svg#clock"/></svg><h3>Lieferzeiten</h3><p>Lange Wiederbeschaffung und Single Source erkennen, bevor sie zum Engpass werden.</p></div>
+          <div class="card"><svg class="icon icon--lg" aria-hidden="true"><use href="assets/icons.svg#layers"/></svg><h3>Alternativen</h3><p>Alternativteile und zusätzliche Lieferanten, wo das Original knapp ist.</p><a class="link-arrow" href="alternativteile.html">Alternativteile &amp; Lieferanten</a></div>
         </div>
         <div class="split mt-lg" style="margin-top:56px">
           <div data-anim>
@@ -225,7 +226,7 @@
           </div>
           <div data-anim>
             <h3>Fachkontexte</h3>
-            <p class="muted" style="margin-top:10px">Wir arbeiten mit Daten aus Ihren bestehenden Systemen, etwa aus SAP PM/MM, Maximo, Infor oder IFS. Der Schwerpunkt liegt auf Material- und Ersatzteildaten und den Abläufen dahinter.</p>
+            <p class="muted" style="margin-top:10px">Daten aus bestehenden Systemen wie SAP PM/MM, Maximo, Infor oder IFS – mit Fokus auf Material- und Ersatzteildaten und die Abläufe dahinter.</p>
             <div class="actions"><a class="link-arrow" href="obsoleszenz.html">Obsoleszenz im Blick behalten</a></div>
           </div>
         </div>
@@ -239,7 +240,7 @@
           <div class="section-head mt-0" data-stagger>
             <p class="eyebrow">Rechenbeispiel</p>
             <h2>Wie viel Kapital könnte in Ihrem Lager frei werden?</h2>
-            <p class="lead">Ein grobes Rechenbeispiel mit Ihren eigenen Schätzwerten – kein Angebot und keine Zusage. Belastbare Zahlen liefert erst die Analyse Ihrer Daten.</p>
+            <p class="lead">Grobes Rechenbeispiel mit Ihren Schätzwerten – kein Angebot, keine Zusage. Belastbare Zahlen liefert erst die Analyse Ihrer Daten.</p>
           </div>
           <div class="wave-slot wave-slot--icon" data-shape="euro" aria-hidden="true"></div>
         </div>
@@ -289,8 +290,8 @@
           <div class="closing__grid">
             <div data-stagger>
               <p class="eyebrow">Lassen Sie uns ins Gespräch kommen</p>
-              <h2>Wissen Sie, wie viel Kapital in Ihrem Lager gebunden ist?</h2>
-              <p class="lead">Der Quick-Check mit Schwerpunkt Material &amp; Ersatzteile zeigt, wo Bestände zu hoch sind und wo Versorgungslücken drohen.</p>
+              <h2>Klarheit über Ihr Lager.</h2>
+              <p class="lead">Der Quick-Check mit Schwerpunkt Material &amp; Ersatzteile zeigt, wo Bestände zu hoch sind und Versorgungslücken drohen.</p>
               <div class="actions">
                 <a class="btn btn--primary" href="quick-check.html">Quick-Check anfragen</a>
                 <a class="btn btn--secondary" href="kontakt.html">Projekt besprechen</a>
@@ -371,8 +372,8 @@
     </div>
   </footer>
 
-  <script src="js/main.js?v=2026-42"></script>
-  <script src="js/wave.js?v=2026-42" defer></script>
+  <script src="js/main.js?v=2026-44"></script>
+  <script src="js/wave.js?v=2026-44" defer></script>
   <script data-goatcounter="https://unknownde.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
 </body>
 </html>
