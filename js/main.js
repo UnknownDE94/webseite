@@ -422,6 +422,9 @@ document.addEventListener("DOMContentLoaded", function () {
       });
       if (missing.length) {
         say("Bitte füllen Sie die markierten Pflichtfelder aus (" + missing.map(function (f) {
+          if (f.getAttribute("data-label")) {
+            return f.getAttribute("data-label");
+          }
           var label = form.querySelector('label[for="' + f.id + '"]');
           return label ? label.textContent.replace("*", "").trim() : f.name;
         }).join(", ") + ").", "error");

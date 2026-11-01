@@ -28,7 +28,10 @@ hero · calm · flow · grid · pulse · surge · flat · **orbit** (Kugel) · *
 
 ## Partikel-Motive (`<div class="wave-slot wave-slot--icon" data-shape="…" aria-hidden="true"></div>`)
 logo · bars · modules · talk · scan · fork · gear · database · euro · truck · shield ·
-check · 404 · mobile · offline · local-ai · migrate · cad · network.
+check · 404 · mobile · offline · local-ai · migrate · cad · network ·
+**Fachmotive:** bearing (Kugellager) · gears (Zahnradpaar) · nameplate (Typenschild) · shelf (Lagerregal) ·
+motor · server (vor Ort) · scan3d · printer (3D-Druck) · explode (Explosionszeichnung) · document (Datenblatt) ·
+maintenance (Wartungsplan) · invoice (Beleg) · plant (Fertigungsanlage) · toolbox · exchange (Alternativteil).
 Größen: `wave-slot--logo` (16:10), `wave-slot--icon` (1:1), `wave-slot--wide` (2:1).
 Wechsel im Takt einer Liste: `data-shape-cycle="a b c" data-cycle-steps="<id der ol>"`.
 Reiter mit `data-shape` + Container `data-shape-target="<slot-id>"`.

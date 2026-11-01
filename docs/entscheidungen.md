@@ -75,9 +75,9 @@ Fehlt ein Wert, zeigt die Website „Geplant“ bzw. „noch festzulegen“ – 
 - Managed: optional, nur für tatsächlich betriebene Lösungen; Details offen
 
 ## 3D-Technik
-- Scanleistung eigen/Partner: [OFFEN]
-- CAD intern/Partner: [OFFEN]
-- Druck eigen/Fertigungspartner: [OFFEN]
+- 3D-Scan: intern (vom Inhaber bestätigt, 2026-11-01)
+- CAD-Aufbereitung: intern (vom Inhaber bestätigt)
+- 3D-Druck: intern (vom Inhaber bestätigt)
 - Werkstoffe/Verfahren: [OFFEN]
 
 ## Rechenbeispiel (Material & Ersatzteile)
@@ -86,7 +86,6 @@ Fehlt ein Wert, zeigt die Website „Geplant“ bzw. „noch festzulegen“ – 
 ## Vom Inhaber zu prüfen (aus dem Umbau)
 - Rechenbeispiel (material-ersatzteile): Startwerte 20 % / 40 % / 20 % – als Beispielwerte gekennzeichnet
 - 3D-Eignungsampel (3d-technik): Beispiel-Teilearten (Abdeckungen/Halterungen eher geeignet; tragende, druck- oder zertifizierungspflichtige Teile nicht pauschal)
-- Kontaktformular: keine Datenschutz-Checkbox (wie bisher), Hinweis mit Link unter dem Formular
 - FAQ Kontakt: Erstgespräch nur „unverbindlich“ – „kostenlos“ nur wieder aufnehmen, wenn so gewollt
 - SmartParts Web-Status: echte Screenshots vorhanden – Status bitte in der Produkttabelle eintragen
 - Impressum/Datenschutz: sichtbare Platzhalter [Firmierung], [Registergericht/-nummer], [USt-IdNr.], [Hoster], [Formularanbieter], [Analytics] – vor Go-live füllen und juristisch prüfen

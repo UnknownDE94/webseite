@@ -25,7 +25,7 @@
   <link rel="preload" href="assets/fonts/archivo-wdth.woff2" as="font" type="font/woff2" crossorigin />
   <link rel="preload" href="assets/fonts/inter-wght.woff2" as="font" type="font/woff2" crossorigin />
   <script>(function(d){d.classList.add("js");d.setAttribute("data-theme","dark");try{var t=localStorage.getItem("theme");if(t==="light")d.setAttribute("data-theme","light")}catch(e){}})(document.documentElement);</script>
-  <link rel="stylesheet" href="css/style.css?v=2026-41" />
+  <link rel="stylesheet" href="css/style.css?v=2026-42" />
 </head>
 <body>
   <a class="skip-link" href="#main">Zum Inhalt springen</a>
@@ -173,6 +173,10 @@
                 <textarea id="message" name="message" rows="6" required placeholder="Was ist das Problem, wo tritt es auf und was haben Sie bereits versucht?"></textarea>
               </div>
               <p class="form-hint">Felder mit * sind Pflichtfelder. Bilder, Materiallisten oder Screenshots können nach der ersten Rückmeldung über einen abgestimmten Weg übermittelt werden.</p>
+              <div class="field-check">
+                <input type="checkbox" id="privacy" name="datenschutz" value="zugestimmt" required data-label="Zustimmung zur Datenschutzerklärung" />
+                <label for="privacy">Ich habe die <a href="datenschutz.html#kontakt">Datenschutzerklärung</a> gelesen und bin einverstanden, dass meine Angaben zur Bearbeitung meiner Anfrage verarbeitet werden. *</label>
+              </div>
               <button type="submit" class="btn btn--primary btn--block">Anfrage senden</button>
               <div id="form-status" class="form-status" role="status" aria-live="polite"></div>
               <p class="form-hint">Ihre Angaben werden über den Formulardienst FormPost an service@werringloer.de weitergeleitet und nur zur Bearbeitung Ihrer Anfrage verwendet. Details in der <a href="datenschutz.html#kontakt">Datenschutzerklärung</a>.</p>
@@ -289,8 +293,8 @@
     </div>
   </footer>
 
-  <script src="js/main.js?v=2026-41"></script>
-  <script src="js/wave.js?v=2026-41" defer></script>
+  <script src="js/main.js?v=2026-42"></script>
+  <script src="js/wave.js?v=2026-42" defer></script>
   <script data-goatcounter="https://unknownde.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
 </body>
 </html>

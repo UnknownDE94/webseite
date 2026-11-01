@@ -25,7 +25,7 @@
   <link rel="preload" href="assets/fonts/archivo-wdth.woff2" as="font" type="font/woff2" crossorigin />
   <link rel="preload" href="assets/fonts/inter-wght.woff2" as="font" type="font/woff2" crossorigin />
   <script>(function(d){d.classList.add("js");d.setAttribute("data-theme","dark");try{var t=localStorage.getItem("theme");if(t==="light")d.setAttribute("data-theme","light")}catch(e){}})(document.documentElement);</script>
-  <link rel="stylesheet" href="css/style.css?v=2026-41" />
+  <link rel="stylesheet" href="css/style.css?v=2026-42" />
 </head>
 <body>
   <a class="skip-link" href="#main">Zum Inhalt springen</a>
@@ -87,13 +87,18 @@
             <nav class="breadcrumb" aria-label="Brotkrumen"><a href="index.html">Start</a> / <a href="leistungen.html">Leistungen</a> / <span aria-current="page">3D-Technik</span></nav>
             <p class="eyebrow">3D-Technik</p>
             <h1>Scannen. Rekonstruieren. Fertigungsweg prüfen.</h1>
-            <p class="lead">Wenn ein Bauteil verschlissen oder nicht mehr lieferbar ist, prüfen wir den Weg vom Originalteil zum digitalen Modell – und ob eine Fertigung technisch sinnvoll ist.</p>
+            <p class="lead">Wenn ein Bauteil verschlissen oder nicht mehr lieferbar ist, prüfen wir den Weg vom Originalteil zum digitalen Modell – und ob eine Fertigung technisch sinnvoll ist. 3D-Scan, CAD-Aufbereitung und 3D-Druck erledigen wir intern.</p>
             <div class="actions">
               <a class="btn btn--primary" href="kontakt.html">Bauteil besprechen</a>
               <a class="btn btn--secondary" href="alternativteile.html">Alternativteile &amp; Lieferanten</a>
             </div>
+            <ul class="chips mt-lg" aria-label="Intern im eigenen Haus">
+              <li>Scan intern</li>
+              <li>CAD intern</li>
+              <li>Druck intern</li>
+            </ul>
           </div>
-          <div class="wave-slot wave-slot--icon" data-shape="cad" aria-hidden="true"></div>
+          <div class="wave-slot wave-slot--icon" data-shape="scan3d" data-shape-cycle="scan3d cad printer" aria-hidden="true"></div>
         </div>
       </div>
     </section>
@@ -136,9 +141,9 @@
 </defs></svg>
           <ol class="sequence" style="--n:4">
             <li><svg viewBox="0 0 200 160" role="img" aria-label="Stilisiertes Originalbauteil"><polygon points="20,108 118,136 118,150 20,122" fill="#5f5141" stroke="none" stroke-width="0"/><polygon points="118,136 182,100 182,114 118,150" fill="#4c4034" stroke="none" stroke-width="0"/><polygon points="20,108 118,136 182,100 84,72" fill="url(#seq-metal)" stroke="none" stroke-width="0"/><polygon points="84,72 182,100 182,40 84,12" fill="#857356" stroke="none" stroke-width="0"/><polygon points="182,40 190,36 190,96 182,100" fill="#4c4034" stroke="none" stroke-width="0"/><polygon points="84,12 182,40 190,36 92,8" fill="#ab9b7e" stroke="none" stroke-width="0"/><g fill="#0a0f0c" stroke="none" stroke-width="0"><ellipse cx="133" cy="56" rx="13" ry="17" transform="rotate(16 133 56)"/><ellipse cx="88" cy="106" rx="15" ry="8" transform="rotate(16 88 106)"/></g><path d="M40 112l22 6M130 70l24 7M100 30l18 6M150 118l14-7" stroke="#2b241d" stroke-width="1.2" stroke-linecap="round" opacity=".7"/></svg><strong>Originalteil</strong><span>Verschlissen oder nicht mehr lieferbar</span></li>
-            <li><svg viewBox="0 0 200 160" role="img" aria-label="Bauteil als Punktwolke aus dem 3D-Scan"><polygon points="20,108 118,136 118,150 20,122" fill="url(#seq-dots2)" stroke="none" stroke-width="0"/><polygon points="118,136 182,100 182,114 118,150" fill="url(#seq-dots2)" stroke="none" stroke-width="0"/><polygon points="20,108 118,136 182,100 84,72" fill="url(#seq-dots)" stroke="none" stroke-width="0"/><polygon points="84,72 182,100 182,40 84,12" fill="url(#seq-dots)" stroke="none" stroke-width="0"/><polygon points="182,40 190,36 190,96 182,100" fill="url(#seq-dots2)" stroke="none" stroke-width="0"/><polygon points="84,12 182,40 190,36 92,8" fill="url(#seq-dots)" stroke="none" stroke-width="0"/><g fill="transparent" stroke="none" stroke-width="0"><ellipse cx="133" cy="56" rx="13" ry="17" transform="rotate(16 133 56)"/><ellipse cx="88" cy="106" rx="15" ry="8" transform="rotate(16 88 106)"/></g></svg><strong>3D-Scan</strong><span>Geometrie als Punktwolke erfassen</span></li>
-            <li><svg viewBox="0 0 200 160" role="img" aria-label="Bauteil als CAD-Drahtgitter"><polygon points="20,108 118,136 118,150 20,122" fill="url(#seq-mesh)" stroke="#d4ec5f" stroke-width="1.2"/><polygon points="118,136 182,100 182,114 118,150" fill="url(#seq-mesh)" stroke="#d4ec5f" stroke-width="1.2"/><polygon points="20,108 118,136 182,100 84,72" fill="url(#seq-mesh)" stroke="#d4ec5f" stroke-width="1.2"/><polygon points="84,72 182,100 182,40 84,12" fill="url(#seq-mesh)" stroke="#d4ec5f" stroke-width="1.2"/><polygon points="182,40 190,36 190,96 182,100" fill="url(#seq-mesh)" stroke="#d4ec5f" stroke-width="1.2"/><polygon points="84,12 182,40 190,36 92,8" fill="url(#seq-mesh)" stroke="#d4ec5f" stroke-width="1.2"/><g fill="transparent" stroke="#d4ec5f" stroke-width="1.2"><ellipse cx="133" cy="56" rx="13" ry="17" transform="rotate(16 133 56)"/><ellipse cx="88" cy="106" rx="15" ry="8" transform="rotate(16 88 106)"/></g></svg><strong>CAD-Modell</strong><span>Aufbereiten, bemaßen, prüfen</span></li>
-            <li><svg viewBox="0 0 200 160" role="img" aria-label="Bauteil im Schichtaufbau der additiven Fertigung"><polygon points="20,108 118,136 118,150 20,122" fill="url(#seq-layers)" stroke="none" stroke-width="0"/><polygon points="118,136 182,100 182,114 118,150" fill="url(#seq-layers)" stroke="none" stroke-width="0"/><polygon points="20,108 118,136 182,100 84,72" fill="url(#seq-layers2)" stroke="none" stroke-width="0"/><polygon points="84,72 182,100 182,40 84,12" fill="url(#seq-layers2)" stroke="none" stroke-width="0"/><polygon points="182,40 190,36 190,96 182,100" fill="url(#seq-layers)" stroke="none" stroke-width="0"/><polygon points="84,12 182,40 190,36 92,8" fill="#8a9590" stroke="none" stroke-width="0"/><g fill="#0a0f0c" stroke="none" stroke-width="0"><ellipse cx="133" cy="56" rx="13" ry="17" transform="rotate(16 133 56)"/><ellipse cx="88" cy="106" rx="15" ry="8" transform="rotate(16 88 106)"/></g></svg><strong>Fertigung</strong><span>Sofern technisch geeignet und freigegeben</span></li>
+            <li><svg viewBox="0 0 200 160" role="img" aria-label="Bauteil als Punktwolke aus dem 3D-Scan"><polygon points="20,108 118,136 118,150 20,122" fill="url(#seq-dots2)" stroke="none" stroke-width="0"/><polygon points="118,136 182,100 182,114 118,150" fill="url(#seq-dots2)" stroke="none" stroke-width="0"/><polygon points="20,108 118,136 182,100 84,72" fill="url(#seq-dots)" stroke="none" stroke-width="0"/><polygon points="84,72 182,100 182,40 84,12" fill="url(#seq-dots)" stroke="none" stroke-width="0"/><polygon points="182,40 190,36 190,96 182,100" fill="url(#seq-dots2)" stroke="none" stroke-width="0"/><polygon points="84,12 182,40 190,36 92,8" fill="url(#seq-dots)" stroke="none" stroke-width="0"/><g fill="transparent" stroke="none" stroke-width="0"><ellipse cx="133" cy="56" rx="13" ry="17" transform="rotate(16 133 56)"/><ellipse cx="88" cy="106" rx="15" ry="8" transform="rotate(16 88 106)"/></g></svg><strong>3D-Scan</strong><span>Intern als Punktwolke erfassen</span></li>
+            <li><svg viewBox="0 0 200 160" role="img" aria-label="Bauteil als CAD-Drahtgitter"><polygon points="20,108 118,136 118,150 20,122" fill="url(#seq-mesh)" stroke="#d4ec5f" stroke-width="1.2"/><polygon points="118,136 182,100 182,114 118,150" fill="url(#seq-mesh)" stroke="#d4ec5f" stroke-width="1.2"/><polygon points="20,108 118,136 182,100 84,72" fill="url(#seq-mesh)" stroke="#d4ec5f" stroke-width="1.2"/><polygon points="84,72 182,100 182,40 84,12" fill="url(#seq-mesh)" stroke="#d4ec5f" stroke-width="1.2"/><polygon points="182,40 190,36 190,96 182,100" fill="url(#seq-mesh)" stroke="#d4ec5f" stroke-width="1.2"/><polygon points="84,12 182,40 190,36 92,8" fill="url(#seq-mesh)" stroke="#d4ec5f" stroke-width="1.2"/><g fill="transparent" stroke="#d4ec5f" stroke-width="1.2"><ellipse cx="133" cy="56" rx="13" ry="17" transform="rotate(16 133 56)"/><ellipse cx="88" cy="106" rx="15" ry="8" transform="rotate(16 88 106)"/></g></svg><strong>CAD-Modell</strong><span>Intern aufbereiten, bemaßen, prüfen</span></li>
+            <li><svg viewBox="0 0 200 160" role="img" aria-label="Bauteil im Schichtaufbau der additiven Fertigung"><polygon points="20,108 118,136 118,150 20,122" fill="url(#seq-layers)" stroke="none" stroke-width="0"/><polygon points="118,136 182,100 182,114 118,150" fill="url(#seq-layers)" stroke="none" stroke-width="0"/><polygon points="20,108 118,136 182,100 84,72" fill="url(#seq-layers2)" stroke="none" stroke-width="0"/><polygon points="84,72 182,100 182,40 84,12" fill="url(#seq-layers2)" stroke="none" stroke-width="0"/><polygon points="182,40 190,36 190,96 182,100" fill="url(#seq-layers)" stroke="none" stroke-width="0"/><polygon points="84,12 182,40 190,36 92,8" fill="#8a9590" stroke="none" stroke-width="0"/><g fill="#0a0f0c" stroke="none" stroke-width="0"><ellipse cx="133" cy="56" rx="13" ry="17" transform="rotate(16 133 56)"/><ellipse cx="88" cy="106" rx="15" ry="8" transform="rotate(16 88 106)"/></g></svg><strong>3D-Druck</strong><span>Intern, sofern technisch geeignet und freigegeben</span></li>
           </ol>
         </div>
       </div>
@@ -150,14 +155,14 @@
         <div class="section-head" data-stagger>
           <p class="eyebrow">Unsere Leistungen</p>
           <h2>3D-Technik als Teil Ihrer Ersatzteilstrategie.</h2>
-          <p class="lead">3D ist eine Option neben Originalteil, Alternativteil und neuem Lieferanten. Verfahren, Werkstoff und Fertigungsweg legen wir je Bauteil fest.</p>
+          <p class="lead">3D ist eine Option neben Originalteil, Alternativteil und neuem Lieferanten. Scan, CAD und Druck laufen intern – ohne Übergabe an externe Dienstleister, mit kurzen Wegen vom Bauteil zum Ergebnis. Verfahren und Werkstoff legen wir je Bauteil fest.</p>
         </div>
         <div class="grid-3" data-stagger>
-          <div class="card"><svg class="icon icon--lg" aria-hidden="true"><use href="assets/icons.svg#scan"/></svg><h3>3D-Scan</h3><p>Die Geometrie vorhandener Bauteile digital erfassen.</p></div>
-          <div class="card"><svg class="icon icon--lg" aria-hidden="true"><use href="assets/icons.svg#ruler"/></svg><h3>CAD-Aufbereitung</h3><p>Scandaten zu einem bemaßten, weiterverwendbaren Modell aufbereiten.</p></div>
+          <div class="card"><svg class="icon icon--lg" aria-hidden="true"><use href="assets/icons.svg#scan"/></svg><h3>3D-Scan</h3><p>Die Geometrie vorhandener Bauteile intern digital erfassen.</p></div>
+          <div class="card"><svg class="icon icon--lg" aria-hidden="true"><use href="assets/icons.svg#ruler"/></svg><h3>CAD-Aufbereitung</h3><p>Scandaten intern zu einem bemaßten, weiterverwendbaren Modell aufbereiten.</p></div>
           <div class="card"><svg class="icon icon--lg" aria-hidden="true"><use href="assets/icons.svg#cube"/></svg><h3>Rekonstruktion</h3><p>Verschlissene oder fehlende Bereiche technisch nachvollziehbar ergänzen.</p></div>
           <div class="card"><svg class="icon icon--lg" aria-hidden="true"><use href="assets/icons.svg#target"/></svg><h3>Prototyp</h3><p>Passform und Funktion am Muster prüfen, bevor entschieden wird.</p></div>
-          <div class="card"><svg class="icon icon--lg" aria-hidden="true"><use href="assets/icons.svg#printer3d"/></svg><h3>Additive Fertigung</h3><p>Für technisch geeignete Teile prüfen, ob eine additive Fertigung sinnvoll ist.</p></div>
+          <div class="card"><svg class="icon icon--lg" aria-hidden="true"><use href="assets/icons.svg#printer3d"/></svg><h3>3D-Druck</h3><p>Technisch geeignete und freigegebene Teile drucken wir im eigenen Haus.</p></div>
           <a class="card" href="alternativteile.html"><svg class="icon icon--lg" aria-hidden="true"><use href="assets/icons.svg#network"/></svg><h3>Ersatzteilstrategie</h3><p>3D mit Alternativteilfindung, Lieferantensuche und Obsoleszenzmanagement verbinden.</p><span class="link-arrow">Alternativteile &amp; Lieferanten</span></a>
         </div>
       </div>
@@ -193,11 +198,11 @@
             <svg class="icon icon--lg" aria-hidden="true"><use href="assets/icons.svg#scan"/></svg>
             <h3>3D-Technik – Dienstleistung</h3>
             <ul class="checklist" style="margin-top:18px">
-              <li>3D-Scan</li>
-              <li>CAD-Aufbereitung</li>
+              <li>3D-Scan – intern</li>
+              <li>CAD-Aufbereitung – intern</li>
               <li>Rekonstruktion</li>
               <li>Prototyp</li>
-              <li>Fertigungsprüfung</li>
+              <li>Fertigungsprüfung und 3D-Druck – intern</li>
             </ul>
           </div>
           <a class="card" href="wk-3d.html">
@@ -310,8 +315,8 @@
     </div>
   </footer>
 
-  <script src="js/main.js?v=2026-41"></script>
-  <script src="js/wave.js?v=2026-41" defer></script>
+  <script src="js/main.js?v=2026-42"></script>
+  <script src="js/wave.js?v=2026-42" defer></script>
   <script data-goatcounter="https://unknownde.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
 </body>
 </html>

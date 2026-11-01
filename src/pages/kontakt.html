@@ -101,6 +101,10 @@ og_description: Anfrage schildern, Rückmeldung erhalten, passenden Einstieg fes
                 <textarea id="message" name="message" rows="6" required placeholder="Was ist das Problem, wo tritt es auf und was haben Sie bereits versucht?"></textarea>
               </div>
               <p class="form-hint">Felder mit * sind Pflichtfelder. Bilder, Materiallisten oder Screenshots können nach der ersten Rückmeldung über einen abgestimmten Weg übermittelt werden.</p>
+              <div class="field-check">
+                <input type="checkbox" id="privacy" name="datenschutz" value="zugestimmt" required data-label="Zustimmung zur Datenschutzerklärung" />
+                <label for="privacy">Ich habe die <a href="datenschutz.html#kontakt">Datenschutzerklärung</a> gelesen und bin einverstanden, dass meine Angaben zur Bearbeitung meiner Anfrage verarbeitet werden. *</label>
+              </div>
               <button type="submit" class="btn btn--primary btn--block">Anfrage senden</button>
               <div id="form-status" class="form-status" role="status" aria-live="polite"></div>
               <p class="form-hint">Ihre Angaben werden über den Formulardienst FormPost an service@werringloer.de weitergeleitet und nur zur Bearbeitung Ihrer Anfrage verwendet. Details in der <a href="datenschutz.html#kontakt">Datenschutzerklärung</a>.</p>

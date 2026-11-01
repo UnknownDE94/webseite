@@ -25,15 +25,21 @@ const WELLEN = [
   ["surge", "Surge – Wellenberg", "Abschluss und Handlungsaufforderung. Kräftig, hinter dem CTA.", "Im Einsatz"],
 ];
 const MOTIVE = [
-  ["mobile", "Smartphone", "Mobile & Offline, mobile App-Abschnitte"],
-  ["offline", "Offline", "Gerät mit unterbrochener Verbindung"],
-  ["local-ai", "Lokale KI", "Chip mit Knoten – KI-Werkstatt"],
-  ["migrate", "Migration", "Zwei Datenblöcke mit Pfeil"],
-  ["cad", "CAD-Bauteil", "Drahtgitter – 3D-Technik, WK 3D"],
-  ["network", "Lieferantennetz", "Alternativteile & Lieferanten"],
-  ["bars", "Balkendiagramm + Ampel", "SmartParts, Kennzahlen"],
-  ["modules", "Leistungsbereiche", "Leistungen-Übersicht"],
-  ["shield", "Schild", "Sicherheit & Betriebsmodelle"],
+  ["bearing", "Kugellager", "Material & Ersatzteile – das klassische Ersatzteil"],
+  ["gears", "Zahnradpaar", "Instandhaltung, Über uns – Mechanik, die ineinandergreift"],
+  ["nameplate", "Typenschild", "Teileaufnahme, KI-Werkstatt (Typenschild-/OCR-Erkennung)"],
+  ["shelf", "Lagerregal", "WK Material, Lageraudit – ein Fach ist markiert"],
+  ["motor", "Elektromotor", "Obsoleszenz – abgekündigte Antriebe und Komponenten"],
+  ["server", "Server vor Ort", "Lokale KI, On-Premises, Sicherheit & Betriebsmodelle"],
+  ["scan3d", "3D-Scan", "Bauteil mit Laserlinie und Messpunkten – intern gescannt"],
+  ["printer", "3D-Druck", "Schichtaufbau im eigenen Drucker – intern gefertigt"],
+  ["explode", "Explosionszeichnung", "WK 3D – Baugruppe in Einzelteilen"],
+  ["document", "Datenblatt", "Handwerk, Document AI – Zeichnung mit Bemaßung"],
+  ["maintenance", "Wartungsplan", "WK Instandhaltung – Termine und Aufträge"],
+  ["invoice", "Beleg", "WK Finance, Handwerk – Rechnungen und Belege"],
+  ["plant", "Fertigungsanlage", "Industrie – Maschine, Förderband, Werkstücke"],
+  ["toolbox", "Werkzeugkoffer", "Handwerk – Werkzeuge statt IT-Jargon"],
+  ["exchange", "Alternativteil", "Original gegen geprüfte Alternative tauschen"],
 ];
 
 async function shots(browser, list, withShape) {
@@ -42,7 +48,7 @@ async function shots(browser, list, withShape) {
   for (const [key] of list) {
     const q = withShape ? "state=calm&shape=" + key : "state=" + key;
     await page.goto("file://" + path.join(__dirname, "wave-preview.html") + "?" + q);
-    await page.waitForTimeout(withShape ? 4200 : 3600);
+    await page.waitForTimeout(withShape ? 3800 : 3600);
     const f = path.join(TMP, (withShape ? "m-" : "w-") + key + ".png");
     await page.screenshot({ path: f });
     files.push(f);
@@ -93,8 +99,8 @@ async function renderBoard(browser, html, out) {
   if (what === "motive" || what === "alle") {
     const files = await shots(browser, MOTIVE, true);
     await renderBoard(browser, board("Partikel-Motive",
-      "Ein Teil der Punkte löst sich aus der Welle und formt an einer freien Stelle des Layouts ein Motiv. Neu laut Masterplan: Smartphone, Offline, Lokale KI, Migration, CAD-Bauteil und Lieferantennetz.",
-      MOTIVE.map((m) => [m[0], m[1], m[2], ["mobile", "offline", "local-ai", "migrate", "cad", "network"].includes(m[0]) ? "Neu" : "Im Einsatz"]), files, 3), path.join(OUT, "02-partikel-motive.jpg"));
+      "Fachlich konkrete Motive statt allgemeiner Symbole: Ein Teil der Punkte löst sich aus der Welle und formt Bauteile, Werkzeuge und Arbeitsmittel aus Instandhaltung, Lager, 3D-Technik und Verwaltung. Silberne und limettengrüne Anteile trennen Bauteil und Hervorhebung.",
+      MOTIVE.map((m) => [m[0], m[1], m[2], "Neu"]), files, 3), path.join(OUT, "02-partikel-motive.jpg"));
   }
   if (what === "seiten" || what === "alle") {
     // Erwartet einen lokalen Server: python3 -m http.server 8765 (im Repo)

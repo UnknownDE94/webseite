@@ -459,6 +459,316 @@
     g.stroke();
   });
   SHAPES["404"] = textShape("404", 800);
+  // --- Fachmotive (technisch konkreter als Symbole) -------------------------
+  var G = "#00ff00", W = "#ffffff";
+  function circle(g, x, y, r, fill) {
+    g.beginPath();
+    g.arc(x, y, r, 0, Math.PI * 2);
+    if (fill) { g.fill(); } else { g.stroke(); }
+  }
+  function lines(g, list) {
+    g.beginPath();
+    list.forEach(function (l) {
+      g.moveTo(l[0], l[1]);
+      g.lineTo(l[2], l[3]);
+    });
+    g.stroke();
+  }
+  function gearPath(g, cx, cy, rOut, rIn, teeth, rot) {
+    g.beginPath();
+    for (var i = 0; i < teeth * 2; i++) {
+      var a0 = rot + (i / (teeth * 2)) * Math.PI * 2;
+      var a1 = rot + ((i + 1) / (teeth * 2)) * Math.PI * 2;
+      var r = i % 2 ? rIn : rOut;
+      g.lineTo(cx + Math.cos(a0) * r, cy + Math.sin(a0) * r);
+      g.lineTo(cx + Math.cos(a1) * r, cy + Math.sin(a1) * r);
+    }
+    g.closePath();
+    g.stroke();
+  }
+  // Kugellager: Außen- und Innenring, Kugeln im Käfig
+  SHAPES.bearing = icon(function (g) {
+    g.strokeStyle = W;
+    g.lineWidth = 14;
+    circle(g, 150, 150, 125);
+    circle(g, 150, 150, 58);
+    g.lineWidth = 6;
+    circle(g, 150, 150, 108);
+    circle(g, 150, 150, 74);
+    g.fillStyle = G;
+    for (var i = 0; i < 10; i++) {
+      var a = (i / 10) * Math.PI * 2;
+      circle(g, 150 + Math.cos(a) * 91, 150 + Math.sin(a) * 91, 14, true);
+    }
+    g.strokeStyle = G;
+    g.lineWidth = 8;
+    circle(g, 150, 150, 26);
+  });
+  // Zwei kämmende Zahnräder
+  SHAPES.gears = icon(function (g) {
+    g.lineWidth = 11;
+    gearPath(g, 118, 165, 100, 80, 12, 0);
+    circle(g, 118, 165, 30);
+    g.strokeStyle = W;
+    gearPath(g, 228, 78, 62, 47, 8, 0.2);
+    circle(g, 228, 78, 18);
+  });
+  // Typenschild mit Textzeilen und QR-Feld
+  SHAPES.nameplate = icon(function (g) {
+    g.lineWidth = 10;
+    roundRect(g, 18, 70, 264, 160, 14);
+    g.stroke();
+    g.fillStyle = W;
+    [[36, 88], [264, 88], [36, 212], [264, 212]].forEach(function (p) { circle(g, p[0], p[1], 6, true); });
+    g.strokeStyle = W;
+    g.lineWidth = 8;
+    lines(g, [[50, 110, 150, 110], [50, 138, 130, 138], [50, 166, 158, 166], [50, 194, 118, 194]]);
+    g.fillStyle = G;
+    var q = [[1,1,1,0,1],[1,0,1,1,0],[1,1,1,0,1],[0,1,0,1,1],[1,0,1,1,1]];
+    q.forEach(function (row, y) {
+      row.forEach(function (v, x) { if (v) { g.fillRect(178 + x * 16, 104 + y * 16, 13, 13); } });
+    });
+  });
+  // Lagerregal mit Behältern, ein Fach markiert
+  SHAPES.shelf = icon(function (g) {
+    g.strokeStyle = W;
+    g.lineWidth = 10;
+    lines(g, [[30, 20, 30, 285], [270, 20, 270, 285], [30, 105, 270, 105], [30, 190, 270, 190], [30, 280, 270, 280]]);
+    g.strokeStyle = G;
+    g.lineWidth = 8;
+    [[45, 45, 60, 52], [118, 55, 70, 42], [200, 40, 55, 57], [45, 130, 80, 52], [140, 138, 52, 44], [205, 128, 50, 54], [52, 222, 64, 50], [130, 212, 60, 60], [205, 226, 50, 46]].forEach(function (b, i) {
+      if (i === 5) {
+        g.fillStyle = G;
+        g.fillRect(b[0], b[1], b[2], b[3]);
+      } else {
+        g.strokeRect(b[0], b[1], b[2], b[3]);
+      }
+    });
+  });
+  // Elektromotor mit Kühlrippen, Welle und Fuß
+  SHAPES.motor = icon(function (g) {
+    g.lineWidth = 10;
+    roundRect(g, 55, 90, 160, 120, 16);
+    g.stroke();
+    g.strokeStyle = W;
+    g.lineWidth = 6;
+    for (var x = 78; x <= 192; x += 19) { lines(g, [[x, 90, x, 210]]); }
+    g.lineWidth = 10;
+    roundRect(g, 215, 112, 26, 76, 6);
+    g.stroke();
+    lines(g, [[241, 150, 290, 150]]);
+    g.strokeStyle = G;
+    roundRect(g, 20, 108, 35, 84, 8);
+    g.stroke();
+    lines(g, [[70, 210, 55, 250], [200, 210, 215, 250], [35, 250, 235, 250]]);
+    roundRect(g, 110, 60, 50, 30, 6);
+    g.stroke();
+  });
+  // Server-Rack vor Ort mit Schloss
+  SHAPES.server = icon(function (g) {
+    g.strokeStyle = W;
+    g.lineWidth = 10;
+    roundRect(g, 60, 20, 180, 265, 14);
+    g.stroke();
+    g.lineWidth = 7;
+    [50, 105, 160].forEach(function (y) {
+      roundRect(g, 80, y, 140, 42, 6);
+      g.stroke();
+    });
+    g.fillStyle = G;
+    [71, 126, 181].forEach(function (y) { circle(g, 100, y, 6, true); circle(g, 120, y, 6, true); });
+    g.strokeStyle = G;
+    g.lineWidth = 9;
+    roundRect(g, 120, 220, 60, 46, 8);
+    g.stroke();
+    g.beginPath();
+    g.arc(150, 220, 18, Math.PI, 0);
+    g.stroke();
+  });
+  // Bauteil mit Laser-Scanlinie und Messpunkten
+  SHAPES.scan3d = icon(function (g) {
+    g.strokeStyle = W;
+    g.lineWidth = 9;
+    g.beginPath();
+    g.moveTo(40, 230); g.lineTo(180, 270); g.lineTo(265, 220); g.lineTo(265, 160); g.lineTo(180, 205); g.lineTo(130, 190);
+    g.lineTo(130, 90); g.lineTo(80, 76); g.lineTo(40, 100); g.closePath();
+    g.stroke();
+    lines(g, [[40, 100, 90, 115], [90, 115, 90, 215], [90, 115, 130, 90]]);
+    g.strokeStyle = G;
+    g.lineWidth = 6;
+    lines(g, [[10, 150, 290, 150]]);
+    g.fillStyle = G;
+    for (var i = 0; i < 26; i++) {
+      var x = 45 + i * 9;
+      var y = 150 + Math.sin(i * 0.9) * 3;
+      circle(g, x, y - 18 - (i % 3) * 7, 3, true);
+    }
+    g.lineWidth = 4;
+    lines(g, [[150, 10, 30, 150], [150, 10, 270, 150]]);
+    circle(g, 150, 14, 10, true);
+  });
+  // 3D-Drucker im Schichtaufbau
+  SHAPES.printer = icon(function (g) {
+    g.strokeStyle = W;
+    g.lineWidth = 10;
+    lines(g, [[40, 280, 40, 25], [260, 280, 260, 25], [40, 25, 260, 25], [40, 280, 260, 280], [40, 85, 260, 85]]);
+    g.lineWidth = 8;
+    roundRect(g, 128, 70, 44, 34, 6);
+    g.stroke();
+    lines(g, [[150, 104, 150, 122]]);
+    g.strokeStyle = G;
+    g.lineWidth = 7;
+    for (var i = 0; i < 9; i++) {
+      var y = 262 - i * 15;
+      var half = 70 - Math.abs(i - 3) * 6;
+      lines(g, [[150 - half, y, 150 + half, y]]);
+    }
+    g.lineWidth = 9;
+    lines(g, [[70, 272, 230, 272]]);
+  });
+  // Explosionszeichnung: Welle, Lager, Gehäuse auseinandergezogen
+  SHAPES.explode = icon(function (g) {
+    g.strokeStyle = W;
+    g.lineWidth = 4;
+    g.setLineDash([10, 9]);
+    lines(g, [[10, 150, 290, 150]]);
+    g.setLineDash([]);
+    g.lineWidth = 10;
+    roundRect(g, 18, 132, 70, 36, 8);
+    g.stroke();
+    g.strokeStyle = G;
+    g.lineWidth = 9;
+    [[118, 58], [150, 40]].forEach(function (p) {
+      g.beginPath();
+      g.ellipse(p[0], 150, 14, p[1], 0, 0, Math.PI * 2);
+      g.stroke();
+    });
+    g.strokeStyle = W;
+    g.lineWidth = 10;
+    roundRect(g, 190, 70, 50, 160, 10);
+    g.stroke();
+    g.strokeStyle = G;
+    g.beginPath();
+    g.ellipse(272, 150, 12, 64, 0, 0, Math.PI * 2);
+    g.stroke();
+  });
+  // Datenblatt mit technischer Zeichnung
+  SHAPES.document = icon(function (g) {
+    g.strokeStyle = W;
+    g.lineWidth = 10;
+    g.beginPath();
+    g.moveTo(60, 20); g.lineTo(195, 20); g.lineTo(245, 70); g.lineTo(245, 285); g.lineTo(60, 285); g.closePath();
+    g.stroke();
+    lines(g, [[195, 20, 195, 70], [195, 70, 245, 70]]);
+    g.lineWidth = 7;
+    lines(g, [[85, 225, 220, 225], [85, 252, 180, 252]]);
+    g.strokeStyle = G;
+    g.lineWidth = 8;
+    roundRect(g, 95, 95, 90, 70, 8);
+    g.stroke();
+    circle(g, 140, 130, 16);
+    g.lineWidth = 4;
+    lines(g, [[95, 185, 185, 185], [95, 178, 95, 192], [185, 178, 185, 192], [205, 95, 205, 165], [198, 95, 212, 95], [198, 165, 212, 165]]);
+  });
+  // Wartungsplan: Kalender mit Schraubenschlüssel
+  SHAPES.maintenance = icon(function (g) {
+    g.strokeStyle = W;
+    g.lineWidth = 10;
+    roundRect(g, 25, 45, 220, 215, 16);
+    g.stroke();
+    lines(g, [[25, 100, 245, 100], [80, 25, 80, 65], [190, 25, 190, 65]]);
+    g.fillStyle = W;
+    for (var r = 0; r < 3; r++) {
+      for (var c = 0; c < 4; c++) { g.fillRect(50 + c * 46, 122 + r * 42, 22, 20); }
+    }
+    g.fillStyle = G;
+    g.fillRect(142, 164, 22, 20);
+    g.strokeStyle = G;
+    g.lineWidth = 16;
+    lines(g, [[175, 270, 262, 183]]);
+    g.lineWidth = 12;
+    circle(g, 270, 175, 22);
+  });
+  // Beleg mit Euro-Zeichen
+  SHAPES.invoice = icon(function (g) {
+    g.strokeStyle = W;
+    g.lineWidth = 10;
+    g.beginPath();
+    g.moveTo(60, 20); g.lineTo(240, 20); g.lineTo(240, 270);
+    for (var i = 0; i < 6; i++) { g.lineTo(225 - i * 30, i % 2 ? 270 : 252); }
+    g.lineTo(60, 270); g.closePath();
+    g.stroke();
+    g.lineWidth = 7;
+    lines(g, [[85, 60, 215, 60], [85, 88, 170, 88], [85, 116, 190, 116]]);
+    g.strokeStyle = G;
+    g.lineWidth = 11;
+    g.beginPath();
+    g.arc(160, 190, 42, Math.PI * 0.3, Math.PI * 1.7);
+    g.stroke();
+    lines(g, [[100, 178, 165, 178], [100, 202, 160, 202]]);
+  });
+  // Fertigungsanlage: Maschine, Förderband, Werkstücke
+  SHAPES.plant = icon(function (g) {
+    g.strokeStyle = W;
+    g.lineWidth = 10;
+    roundRect(g, 20, 60, 110, 150, 12);
+    g.stroke();
+    g.lineWidth = 7;
+    roundRect(g, 40, 82, 70, 46, 6);
+    g.stroke();
+    lines(g, [[20, 230, 290, 230], [20, 262, 290, 262]]);
+    [45, 95, 145, 195, 245].forEach(function (x) { circle(g, x, 246, 9); });
+    g.strokeStyle = G;
+    g.lineWidth = 9;
+    [[150, 192], [210, 192], [262, 192]].forEach(function (p) { g.strokeRect(p[0], p[1], 34, 34); });
+    lines(g, [[190, 60, 190, 120], [190, 60, 250, 40], [250, 40, 265, 95], [255, 95, 275, 95]]);
+    circle(g, 190, 60, 9, false);
+  });
+  // Werkzeugkoffer mit Werkzeug
+  SHAPES.toolbox = icon(function (g) {
+    g.strokeStyle = W;
+    g.lineWidth = 10;
+    roundRect(g, 25, 120, 250, 150, 16);
+    g.stroke();
+    lines(g, [[25, 170, 275, 170]]);
+    roundRect(g, 115, 92, 70, 28, 10);
+    g.stroke();
+    g.fillStyle = W;
+    g.fillRect(138, 160, 24, 22);
+    g.strokeStyle = G;
+    // Schraubenschlüssel liegend über dem Koffer
+    g.lineWidth = 12;
+    lines(g, [[45, 60, 175, 60]]);
+    g.beginPath();
+    g.arc(32, 60, 18, Math.PI * 0.25, Math.PI * 1.75);
+    g.stroke();
+    // Schraubendreher senkrecht rechts daneben
+    g.lineWidth = 8;
+    lines(g, [[240, 20, 240, 62]]);
+    roundRect(g, 226, 62, 28, 44, 8);
+    g.stroke();
+  });
+  // Alternativteil: Original und Alternative mit Tauschpfeilen
+  SHAPES.exchange = icon(function (g) {
+    g.strokeStyle = W;
+    g.lineWidth = 9;
+    circle(g, 85, 150, 55);
+    circle(g, 85, 150, 22);
+    g.strokeStyle = G;
+    gearPath(g, 215, 150, 60, 46, 9, 0.1);
+    circle(g, 215, 150, 20);
+    g.lineWidth = 9;
+    g.beginPath();
+    g.arc(150, 150, 118, Math.PI * 1.22, Math.PI * 1.78);
+    g.stroke();
+    lines(g, [[212, 57, 222, 85], [212, 57, 186, 70]]);
+    g.strokeStyle = W;
+    g.beginPath();
+    g.arc(150, 150, 118, Math.PI * 0.22, Math.PI * 0.78);
+    g.stroke();
+    lines(g, [[88, 243, 78, 215], [88, 243, 114, 230]]);
+  });
+
   // Masterplan: Mobile, Offline, Lokale KI, Migration, CAD, Lieferantennetz
   SHAPES.mobile = icon(function (g) {
     roundRect(g, 85, 20, 130, 260, 26);

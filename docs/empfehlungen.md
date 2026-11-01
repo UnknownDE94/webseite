@@ -5,7 +5,7 @@ Begleitend zu den JPEG-Tafeln in `docs/empfehlungen/`:
 | Datei | Inhalt |
 |---|---|
 | `01-wellen-varianten.jpg` | Neun Wellenzustände, davon fünf neue Raumformen |
-| `02-partikel-motive.jpg` | Partikel-Motive, davon sechs neue laut Masterplan |
+| `02-partikel-motive.jpg` | 15 fachlich konkrete Partikel-Motive (Bauteile, Werkzeuge, Arbeitsmittel) |
 | `03-layout-uebersicht.jpg` | Die neuen Seiten im einheitlichen Layout (Vorlagen 1, 4–10) |
 | `04-app-animationen.jpg` | App-Showcase je WK-App (Screens + schwebende Detailkarten) |
 
