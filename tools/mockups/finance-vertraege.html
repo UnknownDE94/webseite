@@ -6,7 +6,7 @@
   .run b { position:absolute; top:-3px; width:2px; height:12px; background:var(--crit); }
   .run b.w { background: var(--warn); }
 </style></head>
-<body>
+<body data-app="finance" data-nav="vertraege">
   <header class="appbar"><span class="mark">WK</span><span class="app">WK Finance</span><span class="crumb">Verträge · <b>Laufzeiten &amp; Kündigungsfristen</b></span><span class="spacer"></span><span class="demo">Beispieldaten</span></header>
   <main class="page">
     <div class="title-row">
@@ -28,8 +28,12 @@
           <tr class="bar-warn"><td>Betriebshaftpflicht</td><td>Versicherung</td><td>01.04.</td><td>3 Monate</td><td>01.01.</td><td><div class="run"><i style="width:60%"></i><b class="w" style="left:75%"></b></div></td><td class="r">86,25</td><td><span class="chip warn">Verlängert autom.</span></td></tr>
           <tr class="bar-ok"><td>Miete Lagerfläche</td><td>Betrieb</td><td>31.12.2027</td><td>6 Monate</td><td>30.06.2027</td><td><div class="run"><i style="width:35%"></i><b class="w" style="left:75%"></b></div></td><td class="r">950,00</td><td><span class="chip ok">Läuft</span></td></tr>
           <tr class="bar-ok"><td>Software Zeiterfassung</td><td>Software</td><td>monatlich</td><td>1 Monat</td><td class="muted">jederzeit</td><td><div class="run"><i style="width:100%;background:#cfe3d6"></i></div></td><td class="r">39,00</td><td><span class="chip ok">Läuft</span></td></tr>
+          <tr class="bar-ok"><td>Wartung Hebebühne</td><td>Service</td><td>30.09.</td><td>3 Monate</td><td>30.06.</td><td><div class="run"><i style="width:45%"></i><b class="w" style="left:70%"></b></div></td><td class="r">62,00</td><td><span class="chip ok">Läuft</span></td></tr>
+          <tr class="bar-ok"><td>Internet &amp; Telefon</td><td>Kommunikation</td><td>31.08.</td><td>3 Monate</td><td>31.05.</td><td><div class="run"><i style="width:40%"></i><b class="w" style="left:66%"></b></div></td><td class="r">54,90</td><td><span class="chip ok">Läuft</span></td></tr>
+          <tr class="bar-ok"><td>Reinigung Büro</td><td>Betrieb</td><td>monatlich</td><td>1 Monat</td><td class="muted">jederzeit</td><td><div class="run"><i style="width:100%;background:#cfe3d6"></i></div></td><td class="r">180,00</td><td><span class="chip ok">Läuft</span></td></tr>
         </tbody>
       </table>
     </div>
   </main>
+  <script src="shell.js"></script>
 </body></html>

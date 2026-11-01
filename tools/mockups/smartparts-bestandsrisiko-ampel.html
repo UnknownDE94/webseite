@@ -1,0 +1,20 @@
+<!doctype html>
+<html lang="de"><head><meta charset="utf-8" /><title>WK SmartParts – Bestandsrisiko</title><link rel="stylesheet" href="mockup.css" />
+<style>
+  /* Echter Screenshot (assets/platform/bestandsrisiko-ampel.webp) im Inhaltsbereich:
+     render.js setzt ihn unverändert, nur verkleinert, an die Stelle von .shot. */
+  body.shell .page { padding: 0; }
+  body.shell .title-row { margin: 0; padding: 16px 5% 0; }
+  .shot { margin-top: -50px; }
+</style></head>
+<body data-app="smartparts" data-nav="bestand">
+  <header class="appbar"><span class="mark">WK</span><span class="app">WK SmartParts</span><span class="crumb">Bestand &amp; Risiko · <b>Risikoampel</b></span><span class="spacer"></span><span class="demo">Beispieldaten</span></header>
+  <main class="page">
+    <div class="title-row">
+      <div><h1>Bestandsrisiko</h1><p>Kritikalität und Bestand je Material · Stand heute 07:00</p></div>
+      <div class="btns"><span class="btn btn--ghost">Filter</span><span class="btn">Maßnahmen planen</span></div>
+    </div>
+    <div class="shot" data-shot="assets/platform/bestandsrisiko-ampel.webp"></div>
+  </main>
+  <script src="shell.js"></script>
+</body></html>

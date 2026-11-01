@@ -11,7 +11,7 @@
   .count span { display: grid; place-items: center; height: 56px; border-radius: 12px; border: 1px solid var(--line-2); font-size: 26px; color: var(--green-d); background: #fff; }
   .count strong { display: grid; place-items: center; height: 56px; border-radius: 12px; background: #f3f8f4; border: 1.5px solid var(--green); font-size: 28px; font-weight: 600; }
 </style></head>
-<body class="mobile">
+<body class="mobile" data-app="material">
   <div class="status-bar"><span>9:41</span><span class="sig"><i></i><i></i></span></div>
   <div class="m-head"><span class="back">‹</span><div style="flex:1"><h1>Inventur zählen</h1><small>Halle 2 · Regalzone B</small></div><span class="demo">Beispieldaten</span></div>
   <div class="scan"><div class="code"></div><div class="frame"></div><div class="line"></div><div class="hint">Barcode oder QR-Code erfassen</div></div>
@@ -33,4 +33,5 @@
     </div>
   </div>
   <nav class="tabbar"><span class="on"><i></i>Inventur</span><span><i></i>Eingang</span><span><i></i>Entnahme</span><span><i></i>Suche</span></nav>
+  <script src="shell.js"></script>
 </body></html>

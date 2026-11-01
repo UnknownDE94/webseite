@@ -7,7 +7,7 @@
   .weeks i.w { background: var(--warn); } .weeks i.c { background: var(--crit); opacity:.85 }
   .weeks span { font-size:7.5px; color:var(--ink-3); }
 </style></head>
-<body>
+<body data-app="finance" data-nav="zahlungen">
   <header class="appbar"><span class="mark">WK</span><span class="app">WK Finance</span><span class="crumb">Zahlungen · <b>Zahlungsziele &amp; Status</b></span><span class="spacer"></span><span class="demo">Beispieldaten</span></header>
   <main class="page">
     <div class="title-row">
@@ -30,7 +30,10 @@
             <tr class="bar-warn"><td>04.11.</td><td>Baustoffhandel A</td><td class="mono">RE-2410-031</td><td class="r">1.284,60 €</td><td>2 % bis 04.11.</td><td><span class="chip warn">Fällig bald</span></td></tr>
             <tr class="bar-warn"><td>06.11.</td><td>Werkzeughandel B</td><td class="mono">RE-2410-030</td><td class="r">349,90 €</td><td class="muted">–</td><td><span class="chip warn">Fällig bald</span></td></tr>
             <tr><td>15.11.</td><td>Elektrogroßhandel C</td><td class="mono">RE-2410-027</td><td class="r">2.017,35 €</td><td>3 % bis 03.11.</td><td><span class="chip">Offen</span></td></tr>
+            <tr><td>18.11.</td><td>Reinigungsdienst F</td><td class="mono">RE-2410-033</td><td class="r">420,00 €</td><td class="muted">–</td><td><span class="chip">Offen</span></td></tr>
+            <tr><td>22.11.</td><td>Druckerei G</td><td class="mono">RE-2410-035</td><td class="r">168,50 €</td><td>2 % bis 08.11.</td><td><span class="chip">Offen</span></td></tr>
             <tr class="bar-ok"><td>20.10.</td><td>Energieversorger</td><td class="mono">RE-2410-028</td><td class="r">212,00 €</td><td class="muted">–</td><td><span class="chip ok">Bezahlt</span></td></tr>
+            <tr class="bar-ok"><td>19.10.</td><td>Tankstelle</td><td class="mono">RE-2410-029</td><td class="r">96,42 €</td><td class="muted">–</td><td><span class="chip ok">Bezahlt</span></td></tr>
           </tbody>
         </table>
       </div>
@@ -53,4 +56,5 @@
       </div>
     </div>
   </main>
+  <script src="shell.js"></script>
 </body></html>

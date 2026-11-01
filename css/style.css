@@ -1117,3 +1117,24 @@ html[data-a11y="on"] body { background: var(--bg); }
   .brand-name { font-size: 0.82rem; }
   .brand-sub { font-size: 0.48rem; }
 }
+
+/* 12d ─ Weiche Übergänge zwischen Abschnitten ─────────────────────────────
+   Abgesetzte Abschnitte laufen oben und unten weich aus (keine harten Kanten
+   und Linien mehr); gleichfarbige Nachbarn teilen sich den Abstand. */
+.section--alt {
+  border: 0;
+  background: linear-gradient(180deg,
+    transparent 0,
+    color-mix(in srgb, var(--bg-2) 55%, transparent) 96px,
+    color-mix(in srgb, var(--bg-2) 55%, transparent) calc(100% - 96px),
+    transparent 100%);
+}
+.section:not(.section--alt) + .section:not(.section--alt) { padding-top: 0; }
+.page-hero + .section:not(.section--alt) { padding-top: 48px; }
+main > .section:last-child { padding-bottom: 88px; }
+.site-footer { margin-top: 0; border-top: 0; background: linear-gradient(180deg, transparent, color-mix(in srgb, var(--bg) 90%, transparent) 120px); }
+.footer-grid { padding-top: 24px; border-top: 1px solid var(--line); }
+.hero::before, .page-hero::before {
+  -webkit-mask-image: linear-gradient(180deg, #000 70%, transparent);
+  mask-image: linear-gradient(180deg, #000 70%, transparent);
+}
