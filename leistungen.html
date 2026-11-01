@@ -25,7 +25,7 @@
   <link rel="preload" href="assets/fonts/archivo-wdth.woff2" as="font" type="font/woff2" crossorigin />
   <link rel="preload" href="assets/fonts/inter-wght.woff2" as="font" type="font/woff2" crossorigin />
   <script>(function(d){d.classList.add("js");try{var t=localStorage.getItem("theme");if(t==="dark"||(!t&&window.matchMedia&&matchMedia("(prefers-color-scheme: dark)").matches))d.setAttribute("data-theme","dark")}catch(e){}})(document.documentElement);</script>
-  <link rel="stylesheet" href="css/style.css?v=2026-27" />
+  <link rel="stylesheet" href="css/style.css?v=2026-28" />
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -88,12 +88,6 @@
 
   <main id="main">
     <div class="page-header stage">
-      <div class="stage-media" aria-hidden="true">
-        <video class="stage-video" autoplay muted loop playsinline preload="metadata" poster="assets/media/erklaerfilm-poster.jpg?v=2">
-          <source src="assets/media/erklaerfilm.webm?v=2" type="video/webm" />
-          <source src="assets/media/erklaerfilm.mp4?v=2" type="video/mp4" />
-        </video>
-      </div>
       <div class="container stage-grid">
         <div class="page-header-copy" data-stagger="up">
           <p class="breadcrumb"><a href="index.html">Start</a> / Leistungen</p>
@@ -111,9 +105,9 @@
     </div>
 
     <!-- Service Grid Übersicht -->
-    <section id="services-overview">
+    <section id="services-overview" data-wave="flow">
       <div class="container">
-        <div class="section-head section-head--center" data-stagger="up">
+        <div data-eyebrow="Überblick" class="section-head section-head--center" data-stagger="up">
           <h2>Die sechs Leistungsbereiche</h2>
           <p>Spezialisiert, modular und nach Ihrem Bedarf skalierbar</p>
         </div>
@@ -150,7 +144,7 @@
     <!-- Service 1: Quick-Check -->
     <section class="section-alt" id="service-quick-check">
       <div class="container">
-        <div class="section-head" data-stagger="up">
+        <div data-eyebrow="Quick-Check" class="section-head" data-stagger="up">
           <h2>1. Quick-Check &amp; Schnelldiagnose</h2>
           <p>Risikoarmer Einstieg für Unternehmen, die ihre Materialstammdaten, Ersatzteile, Bestände oder Prozesse transparenter machen möchten – ohne großen Vorlauf.</p>
         </div>
@@ -177,7 +171,7 @@
     <!-- Service 2: Projektumsetzung -->
     <section id="service-projekt" class="section-alt">
       <div class="container">
-        <div class="section-head" data-stagger="up">
+        <div data-eyebrow="Umsetzung" class="section-head" data-stagger="up">
           <h2>2. Projektumsetzung</h2>
           <p>Die Umsetzung der Ergebnisse aus dem Quick-Check – als eine Leistung, ohne Aufstufung in Pakete. Umfang und Festpreis ergeben sich aus dem Quick-Check.</p>
         </div>
@@ -197,9 +191,9 @@
     </section>
 
     <!-- Service 3: SmartParts -->
-    <section class="section-alt" id="service-smartparts">
+    <section class="section-alt" id="service-smartparts" data-wave="grid">
       <div class="container">
-        <div class="section-head" data-stagger="up">
+        <div data-eyebrow="Plattform" class="section-head" data-stagger="up">
           <h2>3. SmartParts – Material Intelligence Platform</h2>
           <p>Die spezialisierte Analyseplattform für Materialstammdaten, Ersatzteile, Bestände, Lieferanten und Preise – modular skalierbar.</p>
         </div>
@@ -258,7 +252,7 @@
     <!-- Service 4: Retainer -->
     <section id="service-retainer">
       <div class="container">
-        <div class="section-head" data-stagger="up">
+        <div data-eyebrow="Betreuung" class="section-head" data-stagger="up">
           <h2>4. Retainer-Betreuung</h2>
           <p>Laufende Betreuung nur nach Vereinbarung.</p>
         </div>
@@ -274,7 +268,7 @@
     <!-- Services 5-6: WK-Familie -->
     <section class="section-alt" id="services-additional">
       <div class="container">
-        <div class="section-head" data-stagger="up">
+        <div data-eyebrow="Buchhaltung" class="section-head" data-stagger="up">
           <h2>5. WK Buchhaltung – Digitale Rechnungsverwaltung</h2>
           <p>Vollständige Bearbeitung Ihrer Lieferantenrechnungen – von der Vereinnahmung bis zur SAP-Buchung. Teil der SmartParts-Familie.</p>
         </div>
@@ -290,7 +284,7 @@
           <p class="service-note"><strong>39–99 EUR/Monat</strong></p>
         </div>
 
-        <div class="section-head" style="margin-top: 80px;" data-stagger="up">
+        <div data-eyebrow="KI Werkstatt" class="section-head" style="margin-top: 80px;" data-stagger="up">
           <h2>6. WK KI Werkstatt – KI-gestützte Workflows</h2>
           <p>Maßgeschneiderte KI-Assistenten für Ihre täglichen Aufgaben. Teil der SmartParts-Familie.</p>
         </div>
@@ -362,7 +356,8 @@
     </div>
   </footer>
 
-  <script src="js/main.js?v=2026-14"></script>
+  <script src="js/main.js?v=2026-15"></script>
+  <script src="js/wave.js?v=1" defer></script>
   <script data-goatcounter="https://unknownde.goatcounter.com/count"
           async src="//gc.zgo.at/count.js"></script>
 </body>

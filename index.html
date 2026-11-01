@@ -25,7 +25,7 @@
   <link rel="preload" href="assets/fonts/archivo-wdth.woff2" as="font" type="font/woff2" crossorigin />
   <link rel="preload" href="assets/fonts/inter-wght.woff2" as="font" type="font/woff2" crossorigin />
   <script>(function(d){d.classList.add("js");try{var t=localStorage.getItem("theme");if(t==="dark"||(!t&&window.matchMedia&&matchMedia("(prefers-color-scheme: dark)").matches))d.setAttribute("data-theme","dark")}catch(e){}})(document.documentElement);</script>
-  <link rel="stylesheet" href="css/style.css?v=2026-27" />
+  <link rel="stylesheet" href="css/style.css?v=2026-28" />
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -89,14 +89,9 @@
   <main id="main">
     <!-- Hero -->
     <section class="hero">
-      <div class="hero-media" aria-hidden="true">
-        <video class="hero-video" autoplay muted loop playsinline preload="metadata" poster="assets/media/erklaerfilm-poster.jpg?v=2">
-          <source src="assets/media/erklaerfilm.webm?v=2" type="video/webm" />
-          <source src="assets/media/erklaerfilm.mp4?v=2" type="video/mp4" />
-        </video>
-      </div>
       <div class="container hero-grid">
         <div class="hero-copy" data-stagger="up">
+          <p class="lab-pill"><span class="lab-dot" aria-hidden="true"></span>Ersatzteilmanagement · Salzgitter, DE</p>
           <h1 data-split><span class="accent">Ersatzteil&shy;management</span> für produzierende Unternehmen</h1>
           <p class="hero-subtitle">Mehr Versorgungssicherheit. Weniger Kapitalbindung.</p>
           <p class="hero-lead">
@@ -110,14 +105,21 @@
           </div>
           <p class="hero-note">Individuell entwickelt · Umsetzung in Tagen, nicht Monaten</p>
         </div>
-
+      </div>
+      <div class="container hero-meta">
+        <ul class="hero-meta-list">
+          <li><span>01</span>Versorgungssicherheit</li>
+          <li><span>02</span>Kapitalbindung</li>
+          <li><span>03</span>Stammdaten</li>
+        </ul>
+        <a class="hero-scroll" href="#ausgangslage">Weiter scrollen</a>
       </div>
     </section>
 
     <!-- Ausgangslage -->
     <section id="ausgangslage" class="section-alt">
       <div class="container issues-layout">
-        <div class="section-head" data-stagger="up">
+        <div data-eyebrow="Ausgangslage" class="section-head" data-stagger="up">
           <h2>Warum Ersatzteillager unnötig Geld kosten – und trotzdem Produktionsrisiken verursachen</h2>
           <p>Hohe Bestände bedeuten nicht automatisch hohe Versorgungssicherheit. Erst Transparenz über Kritikalität, Bedarfe und Materialstammdaten macht ein Ersatzteillager wirtschaftlich und zuverlässig.</p>
         </div>
@@ -143,11 +145,11 @@
     </section>
 
     <!-- Warum wir -->
-    <section class="why">
+    <section class="why" data-wave="grid">
       <div class="container">
         <div class="split why-top">
         <div>
-          <div class="section-head" data-stagger="up">
+          <div data-eyebrow="Warum wir" class="section-head" data-stagger="up">
             <h2>Aus der Instandhaltung, nicht aus der Unternehmensberatung</h2>
             <p>Jahrelange Erfahrung in operativer Instandhaltung, Disposition und Lagerlogistik – kombiniert mit eigener Software, die wir in Deutschland entwickeln und betreiben.</p>
           </div>
@@ -175,9 +177,9 @@
     </section>
 
     <!-- Ablauf -->
-    <section id="ablauf" class="section-alt">
+    <section id="ablauf" class="section-alt" data-wave="flow">
       <div class="container">
-        <div class="section-head section-head--center" data-stagger="up">
+        <div data-eyebrow="Ablauf" class="section-head section-head--center" data-stagger="up">
           <h2>So läuft die Zusammenarbeit ab</h2>
           <p>
             Erstgespräch, Quick-Check, Entscheidung und anschließend Umsetzung
@@ -265,7 +267,8 @@
     </div>
   </footer>
 
-  <script src="js/main.js?v=2026-14"></script>
+  <script src="js/main.js?v=2026-15"></script>
+  <script src="js/wave.js?v=1" defer></script>
   <script data-goatcounter="https://unknownde.goatcounter.com/count"
           async src="//gc.zgo.at/count.js"></script>
 </body>
