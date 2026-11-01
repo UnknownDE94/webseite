@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="de" data-theme="dark" class="js">
+<head>
+  <meta charset="UTF-8" />
+  <title>Vorschaubild</title>
+  <!-- Vorlage für assets/og-image.jpg (1200 × 630). Rendern mit tools/og/render.js -->
+  <link rel="stylesheet" href="../../css/style.css" />
+  <style>
+    html, body { width: 1200px; height: 630px; overflow: hidden; }
+    body::before { display: none; }
+    .og {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      height: 630px;
+      padding: 64px 72px 56px;
+    }
+    .og::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(60% 80% at 20% 45%, rgba(10, 10, 10, 0.9), transparent 75%);
+    }
+    .og > * { position: relative; }
+    .og .brand-mark { height: 46px; }
+    .og .brand-name { font-size: 1.3rem; }
+    .og .brand-sub { font-size: 0.74rem; }
+    .og h1 {
+      max-width: 860px;
+      font-size: 74px;
+      line-height: 0.98;
+      letter-spacing: -0.035em;
+    }
+    .og h1 span {
+      background: linear-gradient(100deg, #d4ec5f 0%, #b9e48a 45%, #f5f5f5 100%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+    .og-foot {
+      display: flex;
+      justify-content: space-between;
+      font-family: var(--font-mono);
+      font-size: 17px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--ink-2);
+    }
+    .og-foot b { color: var(--accent); font-weight: 500; }
+  </style>
+</head>
+<body>
+  <main>
+    <section class="og" data-wave="hero">
+      <div class="brand">
+        <span class="brand-plate"><img src="../../assets/logo-mark.webp" alt="" class="brand-mark" /></span>
+        <span class="brand-text"><span class="brand-name">Werringloer</span><span class="brand-sub">Komponenten</span></span>
+      </div>
+      <h1><span>Ersatzteilmanagement</span> für produzierende Unternehmen</h1>
+      <div class="og-foot"><span>Beratung · Analyse · WK SmartParts</span><b>werringloer.de</b></div>
+    </section>
+  </main>
+  <script src="../../js/wave.js"></script>
+</body>
+</html>

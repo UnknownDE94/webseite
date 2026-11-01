@@ -228,6 +228,11 @@ document.addEventListener("DOMContentLoaded", function () {
       if (moveFocus) {
         tab.focus();
       }
+      // Partikel-Motiv passend zum Reiter (data-shape-target → Platzhalter)
+      var motif = document.getElementById(group.getAttribute("data-shape-target") || "");
+      if (motif && tab.getAttribute("data-shape")) {
+        motif.setAttribute("data-shape", tab.getAttribute("data-shape"));
+      }
       var strip = tab.parentNode;
       if (strip.scrollWidth > strip.clientWidth) {
         strip.scrollTo({ left: tab.offsetLeft - 8, behavior: reduceMotion ? "auto" : "smooth" });
@@ -392,6 +397,119 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   });
 
+  // --- Ablauf: Motive wechseln mit den Schritten ([data-shape-cycle]) -----
+  // Der hervorgehobene Schritt und das Partikel-Motiv laufen gemeinsam durch;
+  // Zeigen auf einen Schritt wählt ihn direkt.
+  document.querySelectorAll("[data-shape-cycle]").forEach(function (slot) {
+    var shapes = slot.getAttribute("data-shape-cycle").split(/\s+/);
+    var list = document.getElementById(slot.getAttribute("data-cycle-steps") || "");
+    var steps = list ? Array.prototype.slice.call(list.children) : [];
+    var index = 0;
+    var timer = null;
+    var inView = false;
+    var setStep = function (i) {
+      index = (i + shapes.length) % shapes.length;
+      slot.setAttribute("data-shape", shapes[index]);
+      steps.forEach(function (step, n) {
+        step.classList.toggle("is-active", n === index);
+      });
+    };
+    var stop = function () {
+      window.clearInterval(timer);
+      timer = null;
+    };
+    var start = function () {
+      if (timer || reduceMotion || !inView) {
+        return;
+      }
+      timer = window.setInterval(function () {
+        setStep(index + 1);
+      }, 4200);
+    };
+    setStep(0);
+    steps.forEach(function (step, n) {
+      step.addEventListener("mouseenter", function () {
+        stop();
+        setStep(n);
+      });
+      step.addEventListener("mouseleave", start);
+    });
+    if ("IntersectionObserver" in window) {
+      new IntersectionObserver(function (entries) {
+        inView = entries[0].isIntersecting;
+        if (inView) {
+          start();
+        } else {
+          stop();
+        }
+      }, { threshold: 0.35 }).observe(list || slot);
+    }
+  });
+
+  // --- Rechenbeispiel: freiwerdendes Kapital ---------------------------------
+  var calc = document.getElementById("kapitalrechner");
+  if (calc) {
+    var euro = function (value) {
+      return Math.round(value).toLocaleString("de-DE") + " €";
+    };
+    var field = function (id) {
+      return document.getElementById(id);
+    };
+    var lager = field("calc-lager");
+    // Lagerwert logarithmisch: 100.000 € … 20 Mio. €, gerundet auf schöne Werte
+    var lagerValue = function () {
+      var min = parseFloat(lager.getAttribute("data-log-min"));
+      var max = parseFloat(lager.getAttribute("data-log-max"));
+      var raw = min * Math.pow(max / min, lager.value / 100);
+      var unit = raw >= 1000000 ? 100000 : raw >= 100000 ? 10000 : 1000;
+      return Math.round(raw / unit) * unit;
+    };
+    var update = function () {
+      var value = lagerValue();
+      var ruhend = field("calc-ruhend").value / 100;
+      var abbau = field("calc-abbau").value / 100;
+      var kosten = field("calc-kosten").value / 100;
+      var frei = value * ruhend * abbau;
+      field("calc-lager-out").textContent = euro(value);
+      lager.setAttribute("aria-valuetext", euro(value));
+      [["calc-ruhend", ruhend], ["calc-abbau", abbau], ["calc-kosten", kosten]].forEach(function (pair) {
+        var text = Math.round(pair[1] * 100) + " %";
+        field(pair[0] + "-out").textContent = text;
+        field(pair[0]).setAttribute("aria-valuetext", text);
+      });
+      field("calc-frei").textContent = euro(frei);
+      field("calc-jahr").textContent = euro(frei * kosten);
+      field("calc-bar-after").style.setProperty("--w", (1 - ruhend * abbau).toFixed(3));
+    };
+    calc.addEventListener("input", update);
+    calc.addEventListener("submit", function (event) {
+      event.preventDefault();
+    });
+    update();
+  }
+
+  // --- Lesefortschritt als feine Linie unter der Kopfzeile ------------------
+  if (header) {
+    var progress = document.createElement("span");
+    progress.className = "scroll-progress";
+    progress.setAttribute("aria-hidden", "true");
+    header.appendChild(progress);
+    var progressQueued = false;
+    var setProgress = function () {
+      progressQueued = false;
+      var max = document.documentElement.scrollHeight - window.innerHeight;
+      progress.style.transform = "scaleX(" + (max > 0 ? Math.min(1, window.scrollY / max) : 0) + ")";
+    };
+    window.addEventListener("scroll", function () {
+      if (!progressQueued) {
+        progressQueued = true;
+        window.requestAnimationFrame(setProgress);
+      }
+    }, { passive: true });
+    window.addEventListener("resize", setProgress);
+    setProgress();
+  }
+
   // Kontaktformular: sendet an FormPost und leitet auf danke.html weiter.
   // FormPost liefert keine CORS-Antwort, daher "no-cors": nur Netzwerkfehler sind erkennbar.
   // Setzt voraus, dass das Captcha bei FormPost aus ist; ohne JavaScript greift das normale POST.
@@ -414,7 +532,11 @@ document.addEventListener("DOMContentLoaded", function () {
       show("Ihre Anfrage wird gesendet …", "pending");
       fetch(form.action, { method: "POST", body: new FormData(form), mode: "no-cors" })
         .then(function () {
-          window.location.href = "danke.html";
+          // Kurzer Signalimpuls der Partikelwelle, dann weiter zur Dankeseite
+          window.dispatchEvent(new CustomEvent("wave:burst"));
+          window.setTimeout(function () {
+            window.location.href = "danke.html";
+          }, reduceMotion ? 0 : 900);
         })
         .catch(function () {
           button.disabled = false;
