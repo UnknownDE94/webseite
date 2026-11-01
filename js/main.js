@@ -165,6 +165,49 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   }
 
+  // --- Kennzahlen zählen hoch ([data-count]) -------------------------------
+  // Ohne JavaScript oder bei reduzierter Bewegung steht der Endwert sofort da.
+  var counters = document.querySelectorAll("[data-count]");
+  if (counters.length && !reduceMotion && "IntersectionObserver" in window) {
+    var formatNumber = function (value) {
+      return Math.round(value).toLocaleString("de-DE");
+    };
+    var render = function (el, value) {
+      el.textContent = (el.getAttribute("data-prefix") || "") + formatNumber(value) + (el.getAttribute("data-suffix") || "");
+    };
+    var runCounter = function (el) {
+      var end = parseFloat(el.getAttribute("data-count")) || 0;
+      var duration = 1600;
+      var start = null;
+      var step = function (now) {
+        if (start === null) {
+          start = now;
+        }
+        var t = Math.min(1, (now - start) / duration);
+        var eased = 1 - Math.pow(2, -10 * t); // schnell los, weich aus
+        render(el, t >= 1 ? end : end * eased);
+        if (t < 1) {
+          window.requestAnimationFrame(step);
+        }
+      };
+      window.requestAnimationFrame(step);
+    };
+    var countObserver = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) {
+          countObserver.unobserve(entry.target);
+          runCounter(entry.target);
+        }
+      });
+    }, { threshold: 0.6 });
+    counters.forEach(function (el) {
+      // Breite festhalten, damit beim Zählen nichts springt
+      el.style.minWidth = el.offsetWidth + "px";
+      render(el, 0);
+      countObserver.observe(el);
+    });
+  }
+
   // --- Reiter (Plattform-Einblick auf der SmartParts-Seite) ---------------
   document.querySelectorAll("[data-tabs]").forEach(function (group) {
     var tabs = Array.prototype.slice.call(group.querySelectorAll('[role="tab"]'));

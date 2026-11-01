@@ -37,8 +37,19 @@ Abschnitt in `<main>` kann den Zustand der Welle wählen:
 | `calm`      | flach und dezent am unteren Rand (Lesetext)        | alle übrigen Abschnitte  |
 | `flow`      | dichter, schneller – für Abläufe und Schritte      | –                        |
 | `grid`      | Draufsicht, fast ruhendes Punktraster – für Daten  | –                        |
+| `pulse`     | Ringe wie ein Signal – für Kontakt und Quick-Check | –                        |
 | `surge`     | kräftiger Wellenberg hinter Handlungsaufforderung  | Abschnitte mit `.cta-band` |
 | `flat`      | ruhiger Ausklang                                   | Footer                   |
+
+**Formen aus Partikeln:** Ein leeres Element mit `data-shape="bars"`
+(Balkendiagramm mit Ampel), `"modules"` (sechs Leistungsbereiche um einen Kern)
+oder `"logo"` (Bildmarke) ist ein Platzhalter. Steht es mittig im Bild, löst
+sich ein Teil der Punkte aus der Welle und formt das Motiv an dieser Stelle.
+Neue Motive werden in `SHAPES` in `js/wave.js` auf ein 2D-Canvas gezeichnet
+(Grün = Limette, Weiß = Silber).
+
+**Kennzahlen:** `<span data-count="1250" data-prefix="ab " data-suffix=" €">ab 1.250 €</span>`
+zählt beim Hineinscrollen hoch (js/main.js); ohne JavaScript steht der Endwert da.
 
 Bei `prefers-reduced-motion` steht die Welle still, ohne WebGL bleibt der
 CSS-Verlauf. Überschriften-Labels wie `[01] Ausgangslage` entstehen über
