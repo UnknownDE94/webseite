@@ -616,8 +616,8 @@ html[data-theme="light"] .form-status.error { color: #b91c1c; }
 
 /* Produktbühne (Vorlage 6) */
 .product-stage { display: grid; grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr); gap: 56px; align-items: center; }
-.feature-strip { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 12px; margin-top: 40px; list-style: none; }
-.feature-strip li { display: flex; align-items: center; gap: 12px; padding: 14px 16px; border: 1px solid var(--line); border-radius: 12px; font-size: 0.86rem; color: var(--ink-2); }
+.feature-strip { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(170px, 100%), 1fr)); gap: 12px; margin-top: 40px; list-style: none; }
+.feature-strip li { min-width: 0; hyphens: auto; overflow-wrap: anywhere; display: flex; align-items: center; gap: 12px; padding: 14px 16px; border: 1px solid var(--line); border-radius: 12px; font-size: 0.86rem; color: var(--ink-2); }
 .feature-strip .icon { color: var(--accent); width: 20px; height: 20px; }
 
 /* Bauteil-Sequenz (Vorlage 7) */
@@ -813,6 +813,7 @@ html[data-theme="light"] :focus-visible { outline-color: var(--green-2); }
 }
 @media (max-width: 720px) {
   :root { --section: 72px; --gutter: 18px; }
+  h1, h2, h3, .tile, .card, .chain li span, .kpi, .info-card { hyphens: auto; overflow-wrap: break-word; }
   h1 { font-size: clamp(2.1rem, 9vw, 2.8rem); }
   .display { font-size: clamp(2.6rem, 13vw, 3.6rem); }
   .hero { padding-top: 48px; }

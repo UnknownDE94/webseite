@@ -30,16 +30,16 @@
     hero:  { amp: 1.00, freq: 0.85, speed: 0.55, pitch: 0.34, lift: -0.36, alpha: 1.00, spread: 1.00, glow: 1.00, shift: 0.30, ripple: 0.0 },
     calm:  { amp: 0.42, freq: 0.70, speed: 0.30, pitch: 0.26, lift: -0.62, alpha: 0.65, spread: 1.00, glow: 0.45, shift: 0.00, ripple: 0.0 },
     flow:  { amp: 0.70, freq: 1.25, speed: 0.80, pitch: 0.30, lift: -0.55, alpha: 0.70, spread: 1.00, glow: 0.70, shift: 0.00, ripple: 0.0 },
-    grid:  { amp: 0.14, freq: 0.55, speed: 0.22, pitch: 0.95, lift: -0.10, alpha: 0.40, spread: 0.85, glow: 0.30, shift: 0.00, ripple: 0.0 },
-    pulse: { amp: 0.18, freq: 0.60, speed: 0.70, pitch: 0.60, lift: -0.30, alpha: 0.70, spread: 1.00, glow: 0.90, shift: 0.30, ripple: 1.0 },
+    grid:  { amp: 0.16, freq: 0.55, speed: 0.22, pitch: 0.95, lift: -0.10, alpha: 0.55, spread: 0.85, glow: 0.40, shift: 0.00, ripple: 0.0 },
+    pulse: { amp: 0.18, freq: 0.60, speed: 0.70, pitch: 0.60, lift: -0.30, alpha: 0.85, spread: 1.00, glow: 1.00, shift: 0.30, ripple: 1.2 },
     surge: { amp: 1.30, freq: 1.00, speed: 0.95, pitch: 0.38, lift: -0.40, alpha: 0.95, spread: 1.05, glow: 1.15, shift: 0.35, ripple: 0.0 },
     flat:  { amp: 0.20, freq: 0.60, speed: 0.20, pitch: 0.20, lift: -0.80, alpha: 0.40, spread: 1.00, glow: 0.30, shift: 0.00, ripple: 0.0 },
     // Raumformen: das Punktraster legt sich auf eine Fläche im Raum (form)
     orbit:  { amp: 0.25, freq: 0.80, speed: 0.35, pitch: 0.30, lift: -0.05, alpha: 0.70, spread: 1.00, glow: 0.80, shift: 0.32, ripple: 0.0, form: "sphere" },
-    vortex: { amp: 0.40, freq: 0.90, speed: 0.45, pitch: 0.75, lift: -0.15, alpha: 0.75, spread: 1.00, glow: 0.90, shift: 0.30, ripple: 0.0, form: "vortex" },
+    vortex: { amp: 0.55, freq: 0.90, speed: 0.45, pitch: 0.70, lift: -0.12, alpha: 0.90, spread: 1.00, glow: 1.00, shift: 0.30, ripple: 0.0, form: "vortex" },
     ribbon: { amp: 0.30, freq: 0.80, speed: 0.50, pitch: 0.25, lift: -0.30, alpha: 0.80, spread: 1.00, glow: 0.95, shift: 0.00, ripple: 0.0, form: "ribbon" },
-    tunnel: { amp: 0.20, freq: 0.70, speed: 0.60, pitch: 0.00, lift: 0.00, alpha: 0.55, spread: 1.00, glow: 0.70, shift: 0.00, ripple: 0.0, form: "tunnel" },
-    dunes:  { amp: 1.10, freq: 0.45, speed: 0.25, pitch: 0.55, lift: -0.35, alpha: 0.65, spread: 1.15, glow: 0.60, shift: 0.00, ripple: 0.0, form: "dunes" }
+    tunnel: { amp: 0.35, freq: 0.70, speed: 0.60, pitch: 0.00, lift: 0.00, alpha: 0.95, spread: 1.00, glow: 1.00, shift: 0.18, ripple: 0.0, form: "tunnel" },
+    dunes:  { amp: 1.30, freq: 0.45, speed: 0.25, pitch: 0.42, lift: -0.22, alpha: 0.90, spread: 1.15, glow: 0.85, shift: 0.00, ripple: 0.0, form: "dunes" }
   };
   // Index der Raumformen im Shader (0 = Ebene)
   var FORMS = { plane: 0, sphere: 1, vortex: 2, ribbon: 3, tunnel: 4, dunes: 5 };
@@ -98,8 +98,8 @@
     "    return vec3(x, w * cos(tw) + sin(x * 0.5 + t) * 0.6, w * sin(tw) - 1.0);",
     "  } else if (uForm < 4.5) {", // Tunnel: Blick in einen Datenkanal
     "    float an = g.x * PI;",
-    "    float z = mod(g.y * 10.0 + t * 1.6, 20.0) - 16.0;",
-    "    float rr = 3.6 + sin(an * 6.0 + z * 0.5 + t) * 0.12 * uAmp;",
+    "    float z = mod(g.y * 8.0 + t * 1.6, 16.0) - 12.0;",
+    "    float rr = 2.7 + sin(an * 6.0 + z * 0.5 + t) * 0.18 * uAmp;",
     "    return vec3(rr * cos(an), rr * sin(an), z + 9.0);",
     "  }",
     // Dünen: weite, ruhige Landschaft mit mehreren Wellenlagen
@@ -141,7 +141,7 @@
     "  target += (dv / dd) / vec2(uAspect, 1.0) * uScatter * uMouse.z * 0.09 * exp(-dd * dd * 45.0);",
     "  vec2 ndc = mix(clip.xy / depth, target, m);",
     "  gl_Position = vec4(ndc, 0.0, 1.0);",
-    "  gl_PointSize = mix(clamp(uSize * 9.0 / depth, 1.0, 6.0 * uSize), uSize * 1.05, m);",
+    "  gl_PointSize = mix(clamp(uSize * 9.0 / depth, 1.0, 6.0 * uSize), uSize * 1.25, m);",
     "  vH = clamp(h / max(uAmp + uRipple * 0.75, 0.2) * 0.5 + 0.5, 0.0, 1.0);",
     // Punkte ohne Formaufgabe treten zurück, solange eine Form steht
     "  vFade = mix(waveFade, 1.0, m) * mix(1.0, 0.3, uMorph * (1.0 - aShape.z));",
