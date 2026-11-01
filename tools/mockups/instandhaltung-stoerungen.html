@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="de"><head><meta charset="utf-8" /><title>WK Instandhaltung – Störmeldungen</title><link rel="stylesheet" href="mockup.css" />
 <style>.prio { display:inline-grid; place-items:center; width:18px; height:18px; border-radius:5px; color:#fff; font-weight:700; font-size:9px; } .p1{background:var(--crit)} .p2{background:var(--warn)} .p3{background:var(--ok)}</style></head>
-<body>
+<body data-app="instandhaltung" data-nav="meldungen">
   <header class="appbar"><span class="mark">WK</span><span class="app">WK Instandhaltung</span><span class="crumb">Meldungen · <b>Störungen nach Priorität</b></span><span class="spacer"></span><span class="demo">Beispieldaten</span></header>
   <main class="page">
     <div class="title-row">
@@ -29,4 +29,5 @@
       </table>
     </div>
   </main>
+  <script src="shell.js"></script>
 </body></html>

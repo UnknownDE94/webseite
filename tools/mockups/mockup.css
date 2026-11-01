@@ -1,13 +1,14 @@
 /* Konzeptansichten der WK-Apps (Beispieldaten).
-   Gerendert von tools/mockups/render.js: Desktop 800×500 CSS-px @2x = 1600×1000,
-   Mobil 390×844 @1x. Stil angelehnt an die echten SmartParts-Screenshots
+   Gerendert von tools/mockups/render.js: Desktop 920×575 CSS-px @1600/920 = 1600×1000,
+   Mobil 390×844 @1x. App-Hülle (Seitennavigation, obere Leiste, mobile
+   Kopf- und Tab-Leiste) baut shell.js. Stil angelehnt an die echten SmartParts-Screenshots
    (assets/platform/*.webp): helles UI, weiße Karten, Farbleiste links,
    dunkelgrüner Tabellenkopf. Ampelfarben nur in Daten. */
 
 @font-face { font-family: "Inter"; src: url("../../assets/fonts/inter-wght.woff2") format("woff2"); font-weight: 100 900; }
 
 :root {
-  --bg: #f0f2f0;
+  --bg: #f1f3f2;
   --card: #ffffff;
   --line: #e3e7e4;
   --line-2: #d4dad6;
@@ -29,9 +30,10 @@
   --shadow: 0 1px 2px rgba(20, 40, 30, 0.06), 0 4px 14px rgba(20, 40, 30, 0.05);
 }
 * { box-sizing: border-box; margin: 0; padding: 0; }
-html, body { width: 800px; height: 500px; overflow: hidden; }
+html, body { width: 920px; height: 575px; overflow: hidden; }
 body { font-family: "Inter", system-ui, sans-serif; font-size: 10px; line-height: 1.35; color: var(--ink); background: var(--bg); -webkit-font-smoothing: antialiased; }
-body.mobile { width: 390px; height: 844px; font-size: 14px; }
+html:has(body.mobile), body.mobile { width: 390px; height: 844px; }
+body.mobile { font-size: 14px; }
 
 /* App-Leiste */
 .appbar { display: flex; align-items: center; gap: 10px; height: 38px; padding: 0 40px; }
@@ -50,6 +52,35 @@ body.mobile { width: 390px; height: 844px; font-size: 14px; }
 .btn { display: inline-flex; align-items: center; gap: 5px; height: 24px; padding: 0 11px; border-radius: 6px; background: var(--head); color: #fff; font-size: 9px; font-weight: 600; }
 .btn--ghost { background: #fff; color: var(--green-d); border: 1px solid var(--line-2); }
 .btns { display: flex; gap: 6px; }
+
+/* App-Hülle (shell.js) */
+body.shell { display: grid; grid-template-columns: 172px minmax(0, 1fr); grid-template-rows: 44px minmax(0, 1fr); }
+.side { grid-row: 1 / 3; display: flex; flex-direction: column; padding: 0 10px 12px; border-right: 1px solid var(--line); background: #fff; }
+.brand { display: flex; align-items: center; gap: 8px; height: 44px; padding: 0 6px; margin-bottom: 8px; border-bottom: 1px solid var(--line); margin-left: -10px; margin-right: -10px; padding-left: 16px; }
+.brand img { width: 27px; height: auto; }
+.brand span { font-weight: 700; font-size: 11px; letter-spacing: -0.005em; color: var(--green-d); white-space: nowrap; }
+.nav-label { padding: 6px 8px 5px; font-size: 7.5px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-3); }
+.nav { display: grid; gap: 2px; }
+.nav-item { position: relative; display: flex; align-items: center; gap: 9px; height: 28px; padding: 0 8px; border-radius: 7px; color: var(--ink-2); font-size: 9.5px; font-weight: 500; white-space: nowrap; }
+.nav-item .ico { width: 14px; height: 14px; flex: none; color: #6f7a75; }
+.nav-item.on { background: #e5f0e9; color: var(--green-d); font-weight: 650; }
+.nav-item.on .ico { color: var(--green); }
+.nav-item.on::before { content: ""; position: absolute; left: -10px; top: 6px; bottom: 6px; width: 3px; border-radius: 0 3px 3px 0; background: var(--green); }
+.side-foot { margin-top: auto; padding-top: 8px; border-top: 1px solid var(--line); display: grid; gap: 2px; }
+.side-foot .version { padding: 6px 8px 0; font-size: 7.5px; color: var(--ink-3); }
+.topbar { display: flex; align-items: center; gap: 10px; padding: 0 20px 0 22px; border-bottom: 1px solid var(--line); background: rgba(255, 255, 255, 0.7); }
+.topbar .crumb { color: var(--ink-3); font-size: 9.5px; white-space: nowrap; }
+.topbar .crumb b { color: var(--ink); font-weight: 600; }
+.topbar .spacer { flex: 1; }
+.topbar .search { display: flex; align-items: center; gap: 6px; width: 210px; height: 26px; padding: 0 6px 0 9px; border: 1px solid var(--line-2); border-radius: 7px; background: #fff; color: var(--ink-3); font-size: 8.5px; white-space: nowrap; }
+.topbar .search .ico { width: 12px; height: 12px; flex: none; }
+.topbar .search span { flex: 1; overflow: hidden; }
+.topbar .search kbd { padding: 1px 4px; border: 1px solid var(--line-2); border-radius: 4px; font: 600 7px "Inter", sans-serif; color: var(--ink-3); background: #f7f8f7; }
+.topbar .tb-icon { display: grid; place-items: center; width: 26px; height: 26px; border-radius: 7px; color: var(--ink-2); }
+.topbar .tb-icon .ico { width: 14px; height: 14px; }
+body.shell .page { padding: 16px 22px 0; overflow: hidden; }
+body.shell .title-row { margin-bottom: 11px; }
+.shot { width: 100%; aspect-ratio: 16 / 10; background: var(--bg); }
 
 /* Kennzahlkarten */
 .kpis { display: grid; grid-template-columns: repeat(var(--n, 4), 1fr); gap: 8px; margin-bottom: 10px; }
@@ -139,3 +170,13 @@ dl.fields dd { font-size: 9px; font-weight: 500; }
 .mobile .tabbar span i { width: 22px; height: 22px; border-radius: 7px; border: 2px solid currentColor; }
 .mobile .tabbar span.on { color: var(--green); }
 .mobile .tabbar span.on i { background: var(--green); border-color: var(--green); }
+.mobile .tabbar span { position: relative; }
+.mobile .tabbar .tab-ico { width: 23px; height: 23px; stroke-width: 1.8; }
+.mobile .tabbar span.on::before { content: ""; position: absolute; top: -11px; width: 28px; height: 3px; border-radius: 0 0 3px 3px; background: var(--green); }
+.mobile .m-appbar { display: flex; align-items: center; gap: 9px; height: 44px; padding: 0 20px; margin-bottom: 6px; border-bottom: 1px solid var(--line); background: rgba(255, 255, 255, 0.7); }
+.mobile .m-appbar img { width: 30px; height: auto; }
+.mobile .m-appbar b { font-size: 15px; font-weight: 700; color: var(--green-d); }
+.mobile .m-appbar .spacer { flex: 1; }
+.mobile .m-appbar .ico { width: 21px; height: 21px; color: var(--ink-2); }
+.mobile .m-appbar .bell { position: relative; display: grid; margin-left: 10px; }
+.mobile .m-appbar .bell::after { content: ""; position: absolute; top: 1px; right: 1px; width: 7px; height: 7px; border: 1.5px solid #fff; border-radius: 50%; background: var(--crit); }
