@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="de"><head><meta charset="utf-8" /><title>WK Material – mobil</title><link rel="stylesheet" href="mockup.css" />
+<style>
+  .scan { position: relative; height: 170px; margin: 0 20px 14px; border-radius: 16px; background: linear-gradient(160deg, #3b4641, #232b27); overflow: hidden; }
+  .scan::before { content: ""; position: absolute; inset: 0; background: repeating-linear-gradient(90deg, rgba(255,255,255,.05) 0 2px, transparent 2px 9px); }
+  .scan .frame { position: absolute; left: 50%; top: 50%; width: 190px; height: 92px; transform: translate(-50%, -50%); border: 2.5px solid #9fe0b4; border-radius: 12px; }
+  .scan .code { position: absolute; left: 50%; top: 50%; width: 150px; height: 52px; transform: translate(-50%, -50%); background: repeating-linear-gradient(90deg, #f4f4f4 0 3px, transparent 3px 5px, #f4f4f4 5px 6px, transparent 6px 10px); opacity: .85; }
+  .scan .line { position: absolute; left: 22%; right: 22%; top: 50%; height: 2px; background: #6be29a; box-shadow: 0 0 12px #6be29a; }
+  .scan .hint { position: absolute; left: 0; right: 0; bottom: 10px; text-align: center; color: #dfe7e2; font-size: 12px; }
+  .count { display: grid; grid-template-columns: 56px 1fr 56px; gap: 10px; align-items: center; margin-top: 12px; }
+  .count span { display: grid; place-items: center; height: 56px; border-radius: 12px; border: 1px solid var(--line-2); font-size: 26px; color: var(--green-d); background: #fff; }
+  .count strong { display: grid; place-items: center; height: 56px; border-radius: 12px; background: #f3f8f4; border: 1.5px solid var(--green); font-size: 28px; font-weight: 600; }
+</style></head>
+<body class="mobile">
+  <div class="status-bar"><span>9:41</span><span class="sig"><i></i><i></i></span></div>
+  <div class="m-head"><span class="back">‹</span><div style="flex:1"><h1>Inventur zählen</h1><small>Halle 2 · Regalzone B</small></div><span class="demo">Beispieldaten</span></div>
+  <div class="scan"><div class="code"></div><div class="frame"></div><div class="line"></div><div class="hint">Barcode oder QR-Code erfassen</div></div>
+  <div class="m-body">
+    <div class="m-card">
+      <div style="display:flex;justify-content:space-between;align-items:center"><span class="label" style="font-size:12px">Lagerplatz H2-B-04-03</span><span class="chip ok">Erkannt</span></div>
+      <div style="margin-top:6px;font-size:17px;font-weight:650">Zahnriemen HTD 8M 30 mm</div>
+      <div class="muted" style="font-size:13px">ET-100356 · Soll 4 Stk</div>
+      <div class="count"><span>−</span><strong>4</strong><span>+</span></div>
+    </div>
+    <div class="m-btn" style="margin-top:14px">Zählung speichern</div>
+    <div style="display:flex;justify-content:space-between;margin-top:16px;font-size:13px"><span class="muted">Fortschritt</span><b>187 / 248</b></div>
+    <div class="progress" style="margin-top:6px;height:7px"><i style="width:75%"></i></div>
+    <div class="m-card" style="margin-top:16px;padding:6px 16px">
+      <ul class="list" style="font-size:13px">
+        <li style="font-size:13px;padding:9px 0"><span style="flex:1">H2-B-04-02 · Schütz 24 V DC</span><span class="chip warn">+1</span></li>
+        <li style="font-size:13px;padding:9px 0"><span style="flex:1">H2-B-04-01 · Hydraulikschlauch</span><span class="chip ok">i. O.</span></li>
+      </ul>
+    </div>
+  </div>
+  <nav class="tabbar"><span class="on"><i></i>Inventur</span><span><i></i>Eingang</span><span><i></i>Entnahme</span><span><i></i>Suche</span></nav>
+</body></html>

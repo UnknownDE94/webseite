@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="de"><head><meta charset="utf-8" /><title>WK 3D – Bauteil</title><link rel="stylesheet" href="mockup.css" />
+<style>
+  .grid { display:grid; grid-template-columns: 1.25fr 1fr; gap:10px; }
+  .vp { position:relative; height:356px; border-radius:9px; background: radial-gradient(70% 60% at 50% 55%, #ffffff, #eef2ef); box-shadow:var(--shadow); overflow:hidden; }
+  .vp .floor { position:absolute; inset:auto 0 0 0; height:52%; background: repeating-linear-gradient(90deg, rgba(26,94,58,.07) 0 1px, transparent 1px 26px), repeating-linear-gradient(0deg, rgba(26,94,58,.07) 0 1px, transparent 1px 13px); transform-origin: bottom; -webkit-mask-image: linear-gradient(0deg, #000, transparent); }
+  .vp svg.main { position:absolute; left:50%; top:52%; width:360px; height:250px; transform:translate(-50%,-50%); }
+  .vp .bar { position:absolute; left:10px; top:10px; display:flex; gap:4px; }
+  .vp .bar span { padding:4px 9px; border-radius:6px; background:#fff; border:1px solid var(--line-2); font-size:8.5px; font-weight:600; color:var(--ink-2); }
+  .vp .bar span.on { background:var(--head); border-color:var(--head); color:#fff; }
+  .vp .meas { position:absolute; right:10px; bottom:10px; padding:7px 9px; border-radius:7px; background:rgba(255,255,255,.9); border:1px solid var(--line); font-size:8.5px; }
+  .vp .dim { position:absolute; font-size:8px; color:var(--green-d); font-weight:600; }
+  .files li { gap:7px; }
+  .ext { display:inline-grid; place-items:center; width:28px; height:18px; border-radius:4px; background:#eef4f0; color:var(--green-d); font-size:7px; font-weight:700; }
+</style></head>
+<body>
+  <header class="appbar"><span class="mark">WK</span><span class="app">WK 3D</span><span class="crumb">Teilebibliothek · <b>ET-100744 Antriebsflansch</b></span><span class="spacer"></span><span class="demo">Beispieldaten</span></header>
+  <main class="page">
+    <div class="title-row">
+      <div><h1>Antriebsflansch FB-Serie</h1><p>ET-100744 · Version 3 · freigegeben</p></div>
+      <div class="btns"><span class="btn btn--ghost">Neue Version</span><span class="btn">In SmartParts öffnen</span></div>
+    </div>
+    <div class="grid">
+      <div class="vp">
+        <div class="floor"></div>
+        <div class="bar"><span>Scan</span><span class="on">CAD</span><span>Vergleich</span></div>
+        <svg class="main" data-part="flansch" data-sw="0.45" data-vb="-60 -48 120 82"></svg>
+        <span class="dim" style="left:24px;top:248px">Ø 100</span>
+        <span class="dim" style="left:230px;top:70px">Ø 48</span>
+        <div class="meas"><div class="label">Abweichung Scan ↔ CAD</div><b>max. 0,12 mm</b></div>
+      </div>
+      <div style="display:grid;gap:10px;align-content:start">
+        <div class="card">
+          <div class="card-head"><h2>Zuordnung</h2><span class="chip ok">Freigegeben</span></div>
+          <div class="card-body">
+            <dl class="fields">
+              <dt>Materialnummer</dt><dd>ET-100744</dd>
+              <dt>Verwendung</dt><dd>FB-03, FB-05 · Antriebsseite</dd>
+              <dt>Lagerplatz</dt><dd>H2-B-05-02 · Bestand 1</dd>
+              <dt>Kritikalität</dt><dd><span class="chip crit">A · hoch</span></dd>
+            </dl>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-head"><h2>Dateien</h2><span class="meta">Version 3</span></div>
+          <div class="card-body" style="padding-bottom:6px">
+            <ul class="list files">
+              <li><span class="ext">STL</span><span style="flex:1">Scan Originalteil</span><span class="muted">V1 · 24 MB</span></li>
+              <li><span class="ext">STEP</span><span style="flex:1">CAD-Modell</span><span class="muted">V3 · 2,1 MB</span></li>
+              <li><span class="ext">PDF</span><span style="flex:1">Technische Zeichnung</span><span class="muted">V3 · 0,4 MB</span></li>
+            </ul>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-head"><h2>Fertigungsinformationen</h2></div>
+          <div class="card-body">
+            <dl class="fields">
+              <dt>Werkstoff Original</dt><dd>Stahl, vergütet</dd>
+              <dt>Fertigungsweg</dt><dd>spanend · Eignung geprüft</dd>
+              <dt>Toleranzen</dt><dd>Passung Bohrung H7</dd>
+            </dl>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+  <script src="parts.js"></script>
+</body></html>

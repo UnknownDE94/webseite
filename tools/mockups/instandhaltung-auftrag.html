@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="de"><head><meta charset="utf-8" /><title>WK Instandhaltung – Auftrag</title><link rel="stylesheet" href="mockup.css" />
+<style>
+  .grid { display:grid; grid-template-columns: 0.9fr 1.25fr; gap:10px; }
+  .check li { gap:9px; }
+  .check li.done span:last-child { color: var(--ink-3); text-decoration: line-through; }
+  .steps { display:flex; gap:4px; padding:0 12px 10px; }
+  .steps span { flex:1; padding:4px 0; border-radius:5px; background:var(--gray-bg); color:var(--ink-3); font-size:7.5px; font-weight:600; text-align:center; }
+  .steps span.on { background:var(--head); color:#fff; } .steps span.done { background:#d7ebde; color:var(--green-d); }
+</style></head>
+<body>
+  <header class="appbar"><span class="mark">WK</span><span class="app">WK Instandhaltung</span><span class="crumb">Aufträge · <b>IH-24-0187</b></span><span class="spacer"></span><span class="demo">Beispieldaten</span></header>
+  <main class="page">
+    <div class="title-row">
+      <div><h1>IH-24-0187 · Antrieb Förderband FB-03 instand setzen</h1><p>Aus Meldung M-24-0412 · Priorität 1 · Halle 2 Verpackung</p></div>
+      <div class="btns"><span class="btn btn--ghost">Dokumente (4)</span><span class="btn">Rückmelden</span></div>
+    </div>
+    <div class="grid">
+      <div class="card">
+        <div class="card-head"><h2>Ablauf</h2><span class="chip crit">Priorität 1</span></div>
+        <div class="steps"><span class="done">Meldung</span><span class="done">Priorisierung</span><span class="on">Durchführung</span><span>Rückmeldung</span></div>
+        <div class="card-head" style="padding-top:2px"><h2>Checkliste</h2><span class="meta">4 von 7 erledigt</span></div>
+        <div class="card-body">
+          <ul class="list check">
+            <li class="done"><span class="cb on"></span><span>Anlage freischalten und sichern</span></li>
+            <li class="done"><span class="cb on"></span><span>Fehlerspeicher auslesen</span></li>
+            <li class="done"><span class="cb on"></span><span>Motoranschluss und Kabel prüfen</span></li>
+            <li class="done"><span class="cb on"></span><span>Frequenzumrichter tauschen</span></li>
+            <li><span class="cb"></span><span>Parameter laden und Drehrichtung prüfen</span></li>
+            <li><span class="cb"></span><span>Probelauf 15 min unter Last</span></li>
+            <li><span class="cb"></span><span>Anlage freigeben, Foto der Einbausituation</span></li>
+          </ul>
+        </div>
+      </div>
+      <div style="display:grid;gap:10px;align-content:start">
+        <div class="card">
+          <div class="card-head"><h2>Materialbedarf</h2><span class="meta">aus WK Material</span></div>
+          <table>
+            <thead><tr><th>Material</th><th>Bezeichnung</th><th class="r">Menge</th><th>Lagerplatz</th><th>Status</th></tr></thead>
+            <tbody>
+              <tr class="bar-ok"><td class="mono">ET-100790</td><td>Frequenzumrichter 5,5 kW</td><td class="r">1</td><td class="mono">H2-B-03-04</td><td><span class="chip ok">Entnommen</span></td></tr>
+              <tr class="bar-ok"><td class="mono">ET-100518</td><td>Näherungsschalter M12</td><td class="r">1</td><td class="mono">H2-B-03-03</td><td><span class="chip ok">Reserviert</span></td></tr>
+              <tr class="bar-warn"><td class="mono">ET-100637</td><td>Keilriemen SPZ 1250</td><td class="r">2</td><td class="mono">H2-B-03-02</td><td><span class="chip warn">Knapp</span></td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="card">
+          <div class="card-head"><h2>Zeiten &amp; Rückmeldung</h2><span class="meta">Schicht Früh</span></div>
+          <div class="card-body">
+            <dl class="fields">
+              <dt>Beginn</dt><dd>heute 07:05</dd>
+              <dt>Arbeitszeit bisher</dt><dd>1,5 h · 2 Techniker</dd>
+              <dt>Stillstand seit</dt><dd>06:52 · 1 h 48 min</dd>
+              <dt>Ursache</dt><dd>Leistungsteil Frequenzumrichter defekt</dd>
+            </dl>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+</body></html>

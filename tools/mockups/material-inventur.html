@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="de"><head><meta charset="utf-8" /><title>WK Material – Inventur</title><link rel="stylesheet" href="mockup.css" /></head>
+<body>
+  <header class="appbar"><span class="mark">WK</span><span class="app">WK Material</span><span class="crumb">Inventur · <b>Halle 2 · Regalzone B</b></span><span class="spacer"></span><span class="demo">Beispieldaten</span></header>
+  <main class="page">
+    <div class="title-row">
+      <div><h1>Inventur Halle 2 · Zählliste</h1><p>Stichtag 30.09. · 248 Positionen · Zählung per Scan</p></div>
+      <div class="btns"><span class="btn btn--ghost">Differenzen prüfen</span><span class="btn">Zählung abschließen</span></div>
+    </div>
+    <div class="kpis">
+      <div class="kpi green"><small>Gezählt</small><strong>186 / 248</strong><div class="progress" style="margin-top:6px"><i style="width:75%"></i></div></div>
+      <div class="kpi ok"><small>Ohne Differenz</small><strong>172</strong><span>92,5 % der gezählten Positionen</span></div>
+      <div class="kpi warn"><small>Mengendifferenzen</small><strong>11</strong><span>Nachzählung empfohlen</span></div>
+      <div class="kpi crit"><small>Nicht gefunden</small><strong>3</strong><span>Lagerplatz prüfen</span></div>
+    </div>
+    <div class="card">
+      <table>
+        <thead><tr><th>Lagerplatz</th><th>Material</th><th>Bezeichnung</th><th class="r">Soll</th><th class="r">Ist</th><th class="r">Differenz</th><th>Scanstatus</th><th>Zeit</th></tr></thead>
+        <tbody>
+          <tr class="bar-ok"><td class="mono">H2-B-03-01</td><td class="mono">ET-100412</td><td>Rillenkugellager 6205-2RS</td><td class="r">24</td><td class="r">24</td><td class="r muted">0</td><td><span class="chip ok">Gescannt</span></td><td class="muted">09:41</td></tr>
+          <tr class="bar-warn"><td class="mono">H2-B-03-02</td><td class="mono">ET-100637</td><td>Keilriemen SPZ 1250</td><td class="r">12</td><td class="r">9</td><td class="r" style="color:#a46b12;font-weight:600">−3</td><td><span class="chip warn">Differenz</span></td><td class="muted">09:43</td></tr>
+          <tr class="bar-ok"><td class="mono">H2-B-03-03</td><td class="mono">ET-100518</td><td>Näherungsschalter M12 PNP</td><td class="r">8</td><td class="r">8</td><td class="r muted">0</td><td><span class="chip ok">Gescannt</span></td><td class="muted">09:44</td></tr>
+          <tr class="bar-crit"><td class="mono">H2-B-03-04</td><td class="mono">ET-100790</td><td>Frequenzumrichter 5,5 kW</td><td class="r">1</td><td class="r">–</td><td class="r muted">–</td><td><span class="chip crit">Nicht gefunden</span></td><td class="muted">09:46</td></tr>
+          <tr class="bar-ok"><td class="mono">H2-B-04-01</td><td class="mono">ET-100221</td><td>Hydraulikschlauch DN10 1,5 m</td><td class="r">6</td><td class="r">6</td><td class="r muted">0</td><td><span class="chip ok">Gescannt</span></td><td class="muted">09:48</td></tr>
+          <tr class="bar-warn"><td class="mono">H2-B-04-02</td><td class="mono">ET-100884</td><td>Schütz 3-polig 24 V DC</td><td class="r">5</td><td class="r">6</td><td class="r" style="color:#a46b12;font-weight:600">+1</td><td><span class="chip warn">Differenz</span></td><td class="muted">09:50</td></tr>
+          <tr><td class="mono">H2-B-04-03</td><td class="mono">ET-100356</td><td>Zahnriemen HTD 8M 30 mm</td><td class="r">4</td><td class="r muted">–</td><td class="r muted">–</td><td><span class="chip">Offen</span></td><td class="muted">–</td></tr>
+          <tr><td class="mono">H2-B-04-04</td><td class="mono">ET-100912</td><td>Sicherheitsrelais 24 V</td><td class="r">2</td><td class="r muted">–</td><td class="r muted">–</td><td><span class="chip">Offen</span></td><td class="muted">–</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </main>
+</body></html>

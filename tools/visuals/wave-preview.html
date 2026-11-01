@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="de" class="js">
+<head>
+  <meta charset="utf-8" />
+  <title>Wellen-Vorschau</title>
+  <!-- Vorschau einzelner Wellen-Zustände und Motive: wave-preview.html?state=orbit&shape=cad&theme=dark -->
+  <link rel="stylesheet" href="../../css/style.css" />
+  <style>
+    body::before { display: none; }
+    html, body { height: 100%; overflow: hidden; }
+    main section { position: relative; height: 100vh; display: grid; place-items: center; }
+    .wave-slot { width: 46% !important; max-width: none !important; }
+  </style>
+  <script>
+    (function () {
+      var q = new URLSearchParams(location.search);
+      document.documentElement.setAttribute("data-theme", q.get("theme") || "dark");
+      document.addEventListener("DOMContentLoaded", function () {
+        var sec = document.querySelector("main section");
+        sec.setAttribute("data-wave", q.get("state") || "hero");
+        if (q.get("shape")) {
+          var slot = document.createElement("div");
+          slot.className = "wave-slot wave-slot--icon";
+          slot.setAttribute("data-shape", q.get("shape"));
+          sec.appendChild(slot);
+        }
+      });
+    })();
+  </script>
+</head>
+<body>
+  <main><section></section></main>
+  <script src="../../js/wave.js"></script>
+</body>
+</html>

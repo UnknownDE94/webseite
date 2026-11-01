@@ -38,6 +38,7 @@
       background-clip: text;
       color: transparent;
     }
+    .og-sub { margin-top: 22px; font-family: var(--font-display); font-size: 30px; font-weight: 600; line-height: 1.25; color: var(--ink); }
     .og-foot {
       display: flex;
       justify-content: space-between;
@@ -52,13 +53,16 @@
 </head>
 <body>
   <main>
-    <section class="og" data-wave="hero">
+    <section class="og" data-wave="hero" style="display:flex">
       <div class="brand">
-        <span class="brand-plate"><img src="../../assets/logo-mark.webp" alt="" class="brand-mark" /></span>
+        <img src="../../assets/logo-mark.webp" alt="" class="brand-mark" />
         <span class="brand-text"><span class="brand-name">Werringloer</span><span class="brand-sub">Komponenten</span></span>
       </div>
-      <h1><span>Ersatzteilmanagement</span> für produzierende Unternehmen</h1>
-      <div class="og-foot"><span>Beratung · Analyse · WK SmartParts</span><b>werringloer.de</b></div>
+      <div>
+        <h1><span>Smart. Effizient. Sicher.</span></h1>
+        <p class="og-sub">Technische und digitale Lösungen<br />für Handwerk und Industrie</p>
+      </div>
+      <div class="og-foot"><span>Analyse · Umsetzung · Mobile · Local AI</span><b>werringloer.de</b></div>
     </section>
   </main>
   <script src="../../js/wave.js"></script>

@@ -1,0 +1,48 @@
+<a class="skip-link" href="#main">Zum Inhalt springen</a>
+  <header class="site-header">
+    <div class="container nav">
+      <a class="brand" href="index.html" aria-label="Werringloer Komponentenmanagement – zur Startseite">
+        <img src="assets/logo-mark.webp" alt="" class="brand-mark" width="272" height="155" />
+        <span class="brand-text" aria-hidden="true"><span class="brand-name">Werringloer</span><span class="brand-sub">Komponenten</span></span>
+      </a>
+      <nav aria-label="Hauptnavigation" class="nav-main">
+        <ul class="nav-menu" id="hauptmenue">
+          <li class="nav-cta-mobile"><a class="btn btn--primary btn--block" href="kontakt.html">Projekt besprechen</a></li>
+          <li><a class="nav-link" href="index.html"{{nav:start}}>Start</a></li>
+          <li class="has-panel{{cur:leistungen}}">
+            <button class="nav-link" type="button" aria-expanded="false" aria-controls="menu-leistungen">Leistungen <svg class="icon chev" aria-hidden="true"><use href="assets/icons.svg#chev-down"/></svg></button>
+            <ul class="nav-panel" id="menu-leistungen">
+              <li><a href="quick-check.html"{{nav:quick-check}}><strong>Analyse &amp; Quick-Check</strong><small>Erst analysieren. Dann investieren.</small></a></li>
+              <li><a href="material-ersatzteile.html"{{nav:material-ersatzteile}}><strong>Material &amp; Ersatzteile</strong><small>Bestände optimieren, Versorgung sichern</small></a></li>
+              <li><a href="instandhaltung.html"{{nav:instandhaltung}}><strong>Instandhaltung</strong><small>Anlagen, Aufgaben und Material verbinden</small></a></li>
+              <li><a href="digitalisierung-software.html"{{nav:digitalisierung-software}}><strong>Digitalisierung &amp; Software</strong><small>Bestehendes verstehen, sinnvoll modernisieren</small></a></li>
+              <li><a href="3d-technik.html"{{nav:3d-technik}}><strong>3D-Technik</strong><small>Scannen, rekonstruieren, Fertigungsweg prüfen</small></a></li>
+              <li><a href="alternativteile.html"{{nav:alternativteile}}><strong>Alternativteile &amp; Lieferanten</strong><small>Wenn das Original fehlt</small></a></li>
+              <li><a href="obsoleszenz.html"{{nav:obsoleszenz}}><strong>Obsoleszenz</strong><small>Risiken erkennen, bevor sie stören</small></a></li>
+              <li><a href="ki-werkstatt.html"{{nav:ki-werkstatt}}><strong>KI-Werkstatt</strong><small>Ihre Daten. Ihre KI.</small></a></li>
+              <li class="nav-all"><a href="leistungen.html"{{nav:leistungen}}>Alle Leistungen</a></li>
+            </ul>
+          </li>
+          <li class="has-panel{{cur:loesungen}}">
+            <button class="nav-link" type="button" aria-expanded="false" aria-controls="menu-loesungen">Lösungen <svg class="icon chev" aria-hidden="true"><use href="assets/icons.svg#chev-down"/></svg></button>
+            <ul class="nav-panel" id="menu-loesungen">
+              <li><a href="smartparts.html"{{nav:smartparts}}><strong>WK SmartParts</strong><small>Material- und Ersatzteilintelligenz</small></a></li>
+              <li><a href="wk-material.html"{{nav:wk-material}}><strong>WK Material</strong><small>Lager, Inventur und Disposition</small></a></li>
+              <li><a href="wk-instandhaltung.html"{{nav:wk-instandhaltung}}><strong>WK Instandhaltung</strong><small>Wartung, Störung, Rückmeldung</small></a></li>
+              <li><a href="wk-finance.html"{{nav:wk-finance}}><strong>WK Finance</strong><small>Belege und Verträge für Handwerk</small></a></li>
+              <li><a href="wk-3d.html"{{nav:wk-3d}}><strong>WK 3D</strong><small>Digitale Teilebibliothek</small></a></li>
+              <li class="nav-all"><a href="loesungen.html"{{nav:loesungen}}>Die Produktfamilie</a></li>
+            </ul>
+          </li>
+          <li><a class="nav-link" href="mobile-offline.html"{{nav:mobile-offline}}>Mobile &amp; Offline</a></li>
+          <li><a class="nav-link" href="ueber-uns.html"{{nav:ueber-uns}}>Über uns</a></li>
+          <li><a class="nav-link" href="kontakt.html"{{nav:kontakt}}>Kontakt</a></li>
+        </ul>
+      </nav>
+      <div class="nav-actions">
+        <a class="btn btn--primary btn--sm" href="kontakt.html">Projekt besprechen</a>
+        <button class="icon-btn theme-toggle" type="button" aria-label="Hellen Modus aktivieren" aria-pressed="false"><svg class="icon" aria-hidden="true"><use href="assets/icons.svg#sun"/></svg></button>
+        <button class="icon-btn nav-toggle" type="button" aria-label="Menü öffnen" aria-expanded="false" aria-controls="hauptmenue"><span></span></button>
+      </div>
+    </div>
+  </header>

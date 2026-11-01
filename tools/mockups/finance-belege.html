@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="de"><head><meta charset="utf-8" /><title>WK Finance – Belegeingang</title><link rel="stylesheet" href="mockup.css" />
+<style>
+  .grid { display:grid; grid-template-columns: 1.8fr 1fr; gap:10px; }
+  .doc { margin: 0 12px 10px; padding: 12px 14px; border: 1px solid var(--line); border-radius: 7px; background: #fcfcfb; }
+  .doc .ln { height: 4px; border-radius: 3px; background: #e5e9e6; margin-top: 5px; }
+  .doc .hl { outline: 1.5px solid #8cc7a2; outline-offset: 2px; border-radius: 3px; }
+  .doc .row2 { display:flex; justify-content:space-between; font-size:8px; color:var(--ink-2); margin-top:5px; }
+</style></head>
+<body>
+  <header class="appbar"><span class="mark">WK</span><span class="app">WK Finance</span><span class="crumb">Belege · <b>Eingang</b></span><span class="spacer"></span><span class="demo">Beispieldaten</span></header>
+  <main class="page">
+    <div class="title-row">
+      <div><h1>Belegeingang</h1><p>Oktober · 23 Belege · davon 6 zu prüfen</p></div>
+      <div class="btns"><span class="btn btn--ghost">Beleg hochladen</span><span class="btn">Geprüft markieren</span></div>
+    </div>
+    <div class="grid">
+      <div class="card">
+        <table>
+          <thead><tr><th>Beleg</th><th>Absender</th><th>Datum</th><th>Kategorie</th><th class="r">Betrag</th><th>Status</th></tr></thead>
+          <tbody>
+            <tr class="sel bar-warn"><td class="mono">RE-2410-031</td><td>Baustoffhandel A</td><td class="muted">28.10.</td><td>Material</td><td class="r">1.284,60 €</td><td><span class="chip warn">Zu prüfen</span></td></tr>
+            <tr class="bar-warn"><td class="mono">RE-2410-030</td><td>Werkzeughandel B</td><td class="muted">27.10.</td><td>Werkzeug</td><td class="r">349,90 €</td><td><span class="chip warn">Zu prüfen</span></td></tr>
+            <tr class="bar-ok"><td class="mono">RE-2410-029</td><td>Tankstelle</td><td class="muted">26.10.</td><td>Fahrzeug</td><td class="r">96,42 €</td><td><span class="chip ok">Geprüft</span></td></tr>
+            <tr class="bar-ok"><td class="mono">RE-2410-028</td><td>Energieversorger</td><td class="muted">25.10.</td><td>Betrieb</td><td class="r">212,00 €</td><td><span class="chip ok">Geprüft</span></td></tr>
+            <tr class="bar-ok"><td class="mono">RE-2410-027</td><td>Elektrogroßhandel C</td><td class="muted">24.10.</td><td>Material</td><td class="r">2.017,35 €</td><td><span class="chip info">Zugeordnet</span></td></tr>
+            <tr class="bar-crit"><td class="mono">RE-2410-026</td><td>Kfz-Werkstatt D</td><td class="muted">22.10.</td><td>Fahrzeug</td><td class="r">638,10 €</td><td><span class="chip crit">Unvollständig</span></td></tr>
+            <tr class="bar-ok"><td class="mono">RE-2410-025</td><td>Mobilfunkanbieter</td><td class="muted">21.10.</td><td>Telefon</td><td class="r">74,97 €</td><td><span class="chip ok">Geprüft</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="card">
+        <div class="card-head"><h2>RE-2410-031</h2><span class="meta">PDF · 1 Seite</span></div>
+        <div class="doc">
+          <div style="display:flex;justify-content:space-between"><b style="font-size:9px">Baustoffhandel A</b><span class="muted" style="font-size:8px">Rechnung</span></div>
+          <div class="ln" style="width:55%"></div><div class="ln" style="width:40%"></div>
+          <div class="row2" style="margin-top:9px"><span>Pos. 1–6 Material Baustelle 14</span><span>1.079,50 €</span></div>
+          <div class="row2"><span>USt. 19 %</span><span>205,10 €</span></div>
+          <div class="row2 hl" style="font-weight:700;color:var(--ink)"><span>Gesamt</span><span>1.284,60 €</span></div>
+          <div class="ln" style="width:70%;margin-top:9px"></div>
+        </div>
+        <div class="card-body">
+          <dl class="fields">
+            <dt>Rechnungsdatum</dt><dd>28.10.</dd>
+            <dt>Zahlungsziel</dt><dd>14 Tage · fällig 11.11.</dd>
+            <dt>Skonto</dt><dd>2 % bis 04.11.</dd>
+            <dt>Projekt</dt><dd><span class="tag g">Baustelle 14</span></dd>
+          </dl>
+        </div>
+      </div>
+    </div>
+  </main>
+</body></html>

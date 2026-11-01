@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="de"><head><meta charset="utf-8" /><title>WK Material – Meldebestand</title><link rel="stylesheet" href="mockup.css" />
+<style>
+  .lvl { display: flex; align-items: center; gap: 6px; }
+  .lvl .progress { width: 70px; position: relative; overflow: visible; }
+  .lvl .progress b { position: absolute; top: -2px; width: 1.5px; height: 9px; background: var(--ink); left: var(--m); }
+</style></head>
+<body>
+  <header class="appbar"><span class="mark">WK</span><span class="app">WK Material</span><span class="crumb">Disposition · <b>Meldebestand &amp; Bestellvorschläge</b></span><span class="spacer"></span><span class="demo">Beispieldaten</span></header>
+  <main class="page">
+    <div class="title-row">
+      <div><h1>Meldebestand &amp; Bestellvorschläge</h1><p>Lager Halle 1 + 2 · Stand heute 07:00</p></div>
+      <div class="btns"><span class="btn btn--ghost">Nach Lieferant bündeln</span><span class="btn">4 Vorschläge freigeben</span></div>
+    </div>
+    <div class="kpis" style="--n:3">
+      <div class="kpi crit"><small>Unter Meldebestand</small><strong>6</strong><span>davon 2 ohne Bestand</span></div>
+      <div class="kpi warn"><small>Nahe Meldebestand</small><strong>9</strong><span>Reichweite unter 3 Wochen</span></div>
+      <div class="kpi green"><small>Offene Bestellvorschläge</small><strong>4</strong><span>Wert 7.865,40 €</span></div>
+    </div>
+    <div class="card">
+      <table>
+        <thead><tr><th class="c"><span class="cb" style="border-color:#fff"></span></th><th>Material</th><th>Bezeichnung</th><th class="r">Bestand</th><th>Meldebestand</th><th class="r">Vorschlag</th><th class="r">Lieferzeit</th><th>Lieferant</th><th>Status</th></tr></thead>
+        <tbody>
+          <tr class="sel"><td class="c"><span class="cb on"></span></td><td class="mono">ET-100637</td><td>Keilriemen SPZ 1250</td><td class="r">2</td><td><div class="lvl"><div class="progress crit" style="--m:66%"><i style="width:22%"></i><b></b></div><span class="muted">6</span></div></td><td class="r">10 Stk</td><td class="r">5 AT</td><td>Lieferant A</td><td><span class="chip crit">Unterschritten</span></td></tr>
+          <tr class="sel"><td class="c"><span class="cb on"></span></td><td class="mono">ET-100412</td><td>Rillenkugellager 6205-2RS</td><td class="r">4</td><td><div class="lvl"><div class="progress crit" style="--m:66%"><i style="width:44%"></i><b></b></div><span class="muted">6</span></div></td><td class="r">20 Stk</td><td class="r">3 AT</td><td>Lieferant D</td><td><span class="chip crit">Unterschritten</span></td></tr>
+          <tr class="sel"><td class="c"><span class="cb on"></span></td><td class="mono">ET-101136</td><td>Frequenzumrichter 0,75 kW</td><td class="r">0</td><td><div class="lvl"><div class="progress crit" style="--m:66%"><i style="width:0%"></i><b></b></div><span class="muted">1</span></div></td><td class="r">2 Stk</td><td class="r">15 AT</td><td>Lieferant A</td><td><span class="chip crit">Ohne Bestand</span></td></tr>
+          <tr class="sel"><td class="c"><span class="cb on"></span></td><td class="mono">ET-100221</td><td>Hydraulikschlauch DN10 1,5 m</td><td class="r">3</td><td><div class="lvl"><div class="progress crit" style="--m:66%"><i style="width:50%"></i><b></b></div><span class="muted">4</span></div></td><td class="r">6 Stk</td><td class="r">4 AT</td><td>Lieferant B</td><td><span class="chip crit">Unterschritten</span></td></tr>
+          <tr><td class="c"><span class="cb"></span></td><td class="mono">ET-100518</td><td>Näherungsschalter M12 PNP</td><td class="r">8</td><td><div class="lvl"><div class="progress warn" style="--m:66%"><i style="width:72%"></i><b></b></div><span class="muted">7</span></div></td><td class="r muted">–</td><td class="r">2 AT</td><td>Lieferant C</td><td><span class="chip warn">Beobachten</span></td></tr>
+          <tr><td class="c"><span class="cb"></span></td><td class="mono">ET-100884</td><td>Schütz 3-polig 24 V DC</td><td class="r">6</td><td><div class="lvl"><div class="progress warn" style="--m:66%"><i style="width:76%"></i><b></b></div><span class="muted">5</span></div></td><td class="r muted">–</td><td class="r">6 AT</td><td>Lieferant C</td><td><span class="chip warn">Beobachten</span></td></tr>
+          <tr><td class="c"><span class="cb"></span></td><td class="mono">ET-100356</td><td>Zahnriemen HTD 8M 30 mm</td><td class="r">4</td><td><div class="lvl"><div class="progress" style="--m:40%"><i style="width:90%"></i><b></b></div><span class="muted">2</span></div></td><td class="r muted">–</td><td class="r">8 AT</td><td>Lieferant A</td><td><span class="chip ok">Ausreichend</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </main>
+</body></html>
