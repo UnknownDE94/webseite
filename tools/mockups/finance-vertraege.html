@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="de"><head><meta charset="utf-8" /><title>WK Finance – Verträge</title><link rel="stylesheet" href="mockup.css" />
+<style>
+  .run { position:relative; width:110px; height:6px; border-radius:4px; background:#e4e8e5; }
+  .run i { position:absolute; inset:0 auto 0 0; border-radius:4px; background:#9fcbb0; }
+  .run b { position:absolute; top:-3px; width:2px; height:12px; background:var(--crit); }
+  .run b.w { background: var(--warn); }
+</style></head>
+<body>
+  <header class="appbar"><span class="mark">WK</span><span class="app">WK Finance</span><span class="crumb">Verträge · <b>Laufzeiten &amp; Kündigungsfristen</b></span><span class="spacer"></span><span class="demo">Beispieldaten</span></header>
+  <main class="page">
+    <div class="title-row">
+      <div><h1>Verträge</h1><p>12 laufende Verträge · Erinnerung 30 Tage vor Kündigungsfrist</p></div>
+      <div class="btns"><span class="btn btn--ghost">Vertrag hinzufügen</span><span class="btn">Erinnerungen</span></div>
+    </div>
+    <div class="kpis" style="--n:3">
+      <div class="kpi crit"><small>Kündigungsfrist in 30 Tagen</small><strong>2</strong><span>Entscheidung erforderlich</span></div>
+      <div class="kpi warn"><small>Verlängert sich automatisch</small><strong>7</strong><span>innerhalb von 12 Monaten</span></div>
+      <div class="kpi green"><small>Laufende Kosten / Monat</small><strong>2.146,80 €</strong><span>über alle Verträge</span></div>
+    </div>
+    <div class="card">
+      <table>
+        <thead><tr><th>Vertrag</th><th>Kategorie</th><th>Laufzeit bis</th><th>Kündigungsfrist</th><th>Kündigen bis</th><th>Laufzeit</th><th class="r">€ / Monat</th><th>Status</th></tr></thead>
+        <tbody>
+          <tr class="bar-crit"><td>Mobilfunk · 4 Geräte</td><td>Kommunikation</td><td>31.12.</td><td>1 Monat</td><td><b>30.11.</b></td><td><div class="run"><i style="width:92%"></i><b style="left:88%"></b></div></td><td class="r">119,80</td><td><span class="chip crit">Jetzt prüfen</span></td></tr>
+          <tr class="bar-crit"><td>Wartung Kopiersystem</td><td>Büro</td><td>31.01.</td><td>2 Monate</td><td><b>30.11.</b></td><td><div class="run"><i style="width:88%"></i><b style="left:80%"></b></div></td><td class="r">48,00</td><td><span class="chip crit">Jetzt prüfen</span></td></tr>
+          <tr class="bar-warn"><td>Leasing Transporter</td><td>Fahrzeug</td><td>30.06.</td><td>3 Monate</td><td>31.03.</td><td><div class="run"><i style="width:70%"></i><b class="w" style="left:84%"></b></div></td><td class="r">489,00</td><td><span class="chip warn">Verlängert autom.</span></td></tr>
+          <tr class="bar-warn"><td>Betriebshaftpflicht</td><td>Versicherung</td><td>01.04.</td><td>3 Monate</td><td>01.01.</td><td><div class="run"><i style="width:60%"></i><b class="w" style="left:75%"></b></div></td><td class="r">86,25</td><td><span class="chip warn">Verlängert autom.</span></td></tr>
+          <tr class="bar-ok"><td>Miete Lagerfläche</td><td>Betrieb</td><td>31.12.2027</td><td>6 Monate</td><td>30.06.2027</td><td><div class="run"><i style="width:35%"></i><b class="w" style="left:75%"></b></div></td><td class="r">950,00</td><td><span class="chip ok">Läuft</span></td></tr>
+          <tr class="bar-ok"><td>Software Zeiterfassung</td><td>Software</td><td>monatlich</td><td>1 Monat</td><td class="muted">jederzeit</td><td><div class="run"><i style="width:100%;background:#cfe3d6"></i></div></td><td class="r">39,00</td><td><span class="chip ok">Läuft</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </main>
+</body></html>

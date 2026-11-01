@@ -1,0 +1,141 @@
+/* Konzeptansichten der WK-Apps (Beispieldaten).
+   Gerendert von tools/mockups/render.js: Desktop 800×500 CSS-px @2x = 1600×1000,
+   Mobil 390×844 @1x. Stil angelehnt an die echten SmartParts-Screenshots
+   (assets/platform/*.webp): helles UI, weiße Karten, Farbleiste links,
+   dunkelgrüner Tabellenkopf. Ampelfarben nur in Daten. */
+
+@font-face { font-family: "Inter"; src: url("../../assets/fonts/inter-wght.woff2") format("woff2"); font-weight: 100 900; }
+
+:root {
+  --bg: #f0f2f0;
+  --card: #ffffff;
+  --line: #e3e7e4;
+  --line-2: #d4dad6;
+  --ink: #1c2420;
+  --ink-2: #4a544f;
+  --ink-3: #7c8681;
+  --green: #1a5e3a;
+  --green-d: #0c3a24;
+  --head: #1f4a33;
+  --ok: #2f9e5b;
+  --ok-bg: #e5f4ea;
+  --warn: #dfa13a;
+  --warn-bg: #fbf1dc;
+  --crit: #d64545;
+  --crit-bg: #fbe5e3;
+  --info: #5b8fc9;
+  --gray: #9aa3a0;
+  --gray-bg: #eceeec;
+  --shadow: 0 1px 2px rgba(20, 40, 30, 0.06), 0 4px 14px rgba(20, 40, 30, 0.05);
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html, body { width: 800px; height: 500px; overflow: hidden; }
+body { font-family: "Inter", system-ui, sans-serif; font-size: 10px; line-height: 1.35; color: var(--ink); background: var(--bg); -webkit-font-smoothing: antialiased; }
+body.mobile { width: 390px; height: 844px; font-size: 14px; }
+
+/* App-Leiste */
+.appbar { display: flex; align-items: center; gap: 10px; height: 38px; padding: 0 40px; }
+.appbar .mark { display: grid; place-items: center; width: 20px; height: 20px; border-radius: 5px; background: var(--green); color: #fff; font-weight: 700; font-size: 7.5px; letter-spacing: 0.02em; }
+.appbar .app { font-weight: 650; font-size: 10.5px; color: var(--green-d); }
+.appbar .crumb { color: var(--ink-3); font-size: 10px; }
+.appbar .crumb b { color: var(--ink); font-weight: 600; }
+.appbar .spacer { flex: 1; }
+.demo { display: inline-flex; align-items: center; gap: 5px; padding: 3px 8px; border: 1px dashed #b9c2bd; border-radius: 999px; font-size: 8px; font-weight: 600; letter-spacing: 0.04em; text-transform: uppercase; color: var(--ink-3); background: rgba(255, 255, 255, 0.6); }
+.demo::before { content: ""; width: 5px; height: 5px; border-radius: 50%; background: var(--gray); }
+
+.page { padding: 4px 40px 0; }
+.title-row { display: flex; align-items: flex-end; justify-content: space-between; margin-bottom: 12px; }
+.title-row h1 { font-size: 15px; font-weight: 650; letter-spacing: -0.01em; }
+.title-row p { margin-top: 2px; color: var(--ink-3); font-size: 9.5px; }
+.btn { display: inline-flex; align-items: center; gap: 5px; height: 24px; padding: 0 11px; border-radius: 6px; background: var(--head); color: #fff; font-size: 9px; font-weight: 600; }
+.btn--ghost { background: #fff; color: var(--green-d); border: 1px solid var(--line-2); }
+.btns { display: flex; gap: 6px; }
+
+/* Kennzahlkarten */
+.kpis { display: grid; grid-template-columns: repeat(var(--n, 4), 1fr); gap: 8px; margin-bottom: 10px; }
+.kpi { position: relative; padding: 10px 12px 10px 14px; border-radius: 9px; background: var(--card); box-shadow: var(--shadow); overflow: hidden; }
+.kpi::before { content: ""; position: absolute; inset: 0 auto 0 0; width: 3px; background: var(--gray); }
+.kpi.ok::before { background: var(--ok); }
+.kpi.warn::before { background: var(--warn); }
+.kpi.crit::before { background: var(--crit); }
+.kpi.green::before { background: var(--green); }
+.kpi small { display: block; color: var(--ink-2); font-size: 9px; }
+.kpi strong { display: block; margin-top: 2px; font-size: 19px; font-weight: 500; letter-spacing: -0.01em; }
+.kpi span { display: block; margin-top: 1px; color: var(--ink-3); font-size: 8.5px; }
+
+/* Karte / Tabelle */
+.card { border-radius: 9px; background: var(--card); box-shadow: var(--shadow); overflow: hidden; }
+.card-head { display: flex; align-items: center; justify-content: space-between; padding: 10px 12px 9px; }
+.card-head h2 { font-size: 11px; font-weight: 650; }
+.card-head .meta { color: var(--ink-3); font-size: 8.5px; }
+.card-body { padding: 0 12px 12px; }
+table { width: 100%; border-collapse: collapse; }
+thead th { padding: 7px 8px; background: var(--head); color: #fff; font-size: 8.5px; font-weight: 600; text-align: left; white-space: nowrap; }
+thead th.r, td.r { text-align: right; }
+thead th.c, td.c { text-align: center; }
+tbody td { padding: 6.5px 8px; border-bottom: 1px solid var(--line); font-size: 9px; white-space: nowrap; }
+tbody tr:last-child td { border-bottom: 0; }
+td.r, .kpi strong { font-variant-numeric: tabular-nums; }
+td.mono, .mono { letter-spacing: 0.01em; }
+td.muted, .muted { color: var(--ink-3); }
+tr.sel td { background: #f3f8f4; }
+tr.bar-crit td:first-child { box-shadow: inset 3px 0 0 var(--crit); }
+tr.bar-warn td:first-child { box-shadow: inset 3px 0 0 var(--warn); }
+tr.bar-ok td:first-child { box-shadow: inset 3px 0 0 var(--ok); }
+.cb { display: inline-block; width: 10px; height: 10px; border: 1.3px solid #7c8681; border-radius: 2px; vertical-align: middle; }
+.cb.on { border-color: var(--green); background: var(--green) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='4' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m5 12 5 5 9-10'/%3E%3C/svg%3E") center / 8px no-repeat; }
+
+/* Statuschips (Daten) */
+.chip { display: inline-flex; align-items: center; gap: 4px; padding: 2px 7px; border-radius: 999px; font-size: 8px; font-weight: 600; background: var(--gray-bg); color: var(--ink-2); }
+.chip::before { content: ""; width: 5px; height: 5px; border-radius: 50%; background: var(--gray); }
+.chip.ok { background: var(--ok-bg); color: #1f6f40; }
+.chip.ok::before { background: var(--ok); }
+.chip.warn { background: var(--warn-bg); color: #8a5a10; }
+.chip.warn::before { background: var(--warn); }
+.chip.crit { background: var(--crit-bg); color: #a42d2d; }
+.chip.crit::before { background: var(--crit); }
+.chip.info { background: #e6eef8; color: #2f5f93; }
+.chip.info::before { background: var(--info); }
+.chip.plain::before { display: none; }
+.tag { display: inline-block; padding: 1.5px 5px; border: 1px solid var(--line-2); border-radius: 4px; font-size: 7.5px; font-weight: 600; color: var(--ink-2); background: #fafbfa; }
+.tag.g { border-color: #b7d6c3; color: var(--green); background: #f1f8f3; }
+
+/* Fortschritt */
+.progress { height: 5px; border-radius: 5px; background: #e4e8e5; overflow: hidden; }
+.progress i { display: block; height: 100%; border-radius: 5px; background: var(--ok); }
+.progress.warn i { background: var(--warn); }
+.progress.crit i { background: var(--crit); }
+
+/* Raster */
+.row { display: grid; gap: 10px; }
+.label { color: var(--ink-3); font-size: 8.5px; }
+.val { font-size: 9.5px; font-weight: 500; }
+dl.fields { display: grid; grid-template-columns: auto 1fr; gap: 5px 12px; }
+dl.fields dt { color: var(--ink-3); font-size: 8.5px; }
+dl.fields dd { font-size: 9px; font-weight: 500; }
+.list { list-style: none; }
+.list li { display: flex; align-items: center; gap: 8px; padding: 6px 0; border-bottom: 1px solid var(--line); font-size: 9px; }
+.list li:last-child { border-bottom: 0; }
+
+/* Mobil */
+.mobile .status-bar { display: flex; justify-content: space-between; align-items: center; height: 54px; padding: 18px 30px 0; font-size: 14px; font-weight: 600; }
+.mobile .status-bar .sig { display: flex; gap: 5px; align-items: center; }
+.mobile .status-bar .sig i { display: block; width: 16px; height: 9px; border-radius: 2px; background: var(--ink); }
+.mobile .status-bar .sig i:first-child { width: 14px; clip-path: polygon(0 100%, 100% 0, 100% 100%); border-radius: 0; }
+.mobile .m-head { display: flex; align-items: center; gap: 10px; padding: 8px 20px 12px; }
+.mobile .m-head .back { width: 30px; height: 30px; border-radius: 9px; background: #fff; box-shadow: var(--shadow); display: grid; place-items: center; color: var(--green-d); font-size: 16px; }
+.mobile .m-head h1 { font-size: 18px; font-weight: 650; }
+.mobile .m-head small { display: block; color: var(--ink-3); font-size: 12px; }
+.mobile .m-body { padding: 0 20px; }
+.mobile .m-card { padding: 14px 16px; border-radius: 14px; background: #fff; box-shadow: var(--shadow); }
+.mobile .m-card + .m-card { margin-top: 12px; }
+.mobile .m-btn { display: flex; justify-content: center; align-items: center; height: 50px; border-radius: 12px; background: var(--head); color: #fff; font-size: 15px; font-weight: 600; }
+.mobile .m-btn.ghost { background: #fff; color: var(--green-d); border: 1px solid var(--line-2); }
+.mobile .demo { font-size: 10px; padding: 4px 10px; }
+.mobile .chip { font-size: 11px; padding: 3px 9px; }
+.mobile .chip::before { width: 6px; height: 6px; }
+.mobile .tabbar { position: absolute; left: 0; right: 0; bottom: 0; display: grid; grid-template-columns: repeat(4, 1fr); padding: 10px 12px 26px; border-top: 1px solid var(--line); background: #fff; }
+.mobile .tabbar span { display: flex; flex-direction: column; align-items: center; gap: 4px; color: var(--ink-3); font-size: 10.5px; font-weight: 500; }
+.mobile .tabbar span i { width: 22px; height: 22px; border-radius: 7px; border: 2px solid currentColor; }
+.mobile .tabbar span.on { color: var(--green); }
+.mobile .tabbar span.on i { background: var(--green); border-color: var(--green); }

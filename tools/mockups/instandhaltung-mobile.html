@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="de"><head><meta charset="utf-8" /><title>WK Instandhaltung – mobil</title><link rel="stylesheet" href="mockup.css" />
+<style>
+  .chk li { display:flex; gap:12px; align-items:center; padding:12px 0; border-bottom:1px solid var(--line); font-size:14px; }
+  .chk li:last-child { border-bottom:0; }
+  .chk .cb { width:20px; height:20px; border-radius:5px; } .chk .cb.on { background-size: 14px; }
+  .chk li.done span:last-child { color: var(--ink-3); text-decoration: line-through; }
+  .ph { display:grid; grid-template-columns: 1fr 1fr 1fr; gap:8px; margin-top:12px; }
+  .ph span { height:58px; border-radius:10px; border:1.5px dashed var(--line-2); display:grid; place-items:center; color:var(--ink-3); font-size:12px; background:#fafbfa; }
+</style></head>
+<body class="mobile">
+  <div class="status-bar"><span>9:41</span><span class="sig"><i></i><i></i></span></div>
+  <div class="m-head"><span class="back">‹</span><div style="flex:1"><h1>IH-24-0187</h1><small>Förderband FB-03 · Halle 2</small></div><span class="demo">Beispieldaten</span></div>
+  <div class="m-body">
+    <div class="m-card">
+      <div style="display:flex;justify-content:space-between;align-items:center"><span class="chip crit">Priorität 1 · Stillstand</span><span class="muted" style="font-size:12px">seit 06:52</span></div>
+      <div style="margin-top:8px;font-size:16px;font-weight:650">Antrieb ohne Freigabe</div>
+      <div class="muted" style="font-size:13px;margin-top:2px">Frequenzumrichter tauschen, Parameter laden</div>
+    </div>
+    <div class="m-card">
+      <div style="display:flex;justify-content:space-between;font-size:13px"><b>Checkliste</b><span class="muted">4 / 7</span></div>
+      <ul class="list chk">
+        <li class="done"><span class="cb on"></span><span>Frequenzumrichter tauschen</span></li>
+        <li><span class="cb"></span><span>Parameter laden, Drehrichtung prüfen</span></li>
+        <li><span class="cb"></span><span>Probelauf 15 min unter Last</span></li>
+      </ul>
+    </div>
+    <div class="m-card">
+      <div style="display:flex;justify-content:space-between;font-size:13px"><b>Material</b><span class="chip ok">entnommen</span></div>
+      <div style="font-size:13px;margin-top:6px">ET-100790 · Frequenzumrichter 5,5 kW · 1 Stk</div>
+      <div class="ph"><span>+ Foto</span><span>+ Notiz</span><span>+ Zeit</span></div>
+    </div>
+    <div class="m-btn" style="margin-top:14px">Rückmelden</div>
+  </div>
+  <nav class="tabbar"><span><i></i>Meldungen</span><span class="on"><i></i>Aufträge</span><span><i></i>Anlagen</span><span><i></i>Scan</span></nav>
+</body></html>

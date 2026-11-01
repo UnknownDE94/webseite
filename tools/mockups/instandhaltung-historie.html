@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="de"><head><meta charset="utf-8" /><title>WK Instandhaltung – Anlagenhistorie</title><link rel="stylesheet" href="mockup.css" />
+<style>
+  .grid { display:grid; grid-template-columns: 210px 1fr; gap:10px; }
+  .tl { list-style:none; padding:0 12px 6px; }
+  .tl li { position:relative; display:grid; grid-template-columns: 62px 14px 1fr auto; gap:8px; align-items:start; padding:7px 0; border-bottom:1px solid var(--line); }
+  .tl li:last-child { border-bottom:0; }
+  .tl .d { color:var(--ink-3); font-size:8.5px; padding-top:1px; }
+  .tl .dot { width:9px; height:9px; margin-top:2px; border-radius:50%; background:var(--gray); box-shadow:0 0 0 3px #fff, 0 0 0 4px var(--line-2); }
+  .tl .dot.crit{background:var(--crit)} .tl .dot.ok{background:var(--ok)} .tl .dot.warn{background:var(--warn)} .tl .dot.g{background:var(--green)}
+  .tl b { display:block; font-size:9.5px; font-weight:600; }
+  .tl small { display:block; margin-top:1px; color:var(--ink-3); font-size:8.5px; }
+  .eq { padding: 0 12px 12px; }
+  .eq .pic { height: 92px; margin-bottom: 10px; border-radius: 7px; background: #f4f6f4; border: 1px solid var(--line); display:grid; place-items:center; }
+  .bars { display:flex; align-items:flex-end; gap:5px; height:46px; margin-top:6px; }
+  .bars i { flex:1; background:#cfe3d6; border-radius:2px 2px 0 0; } .bars i.c { background: var(--crit); opacity:.8 }
+</style></head>
+<body>
+  <header class="appbar"><span class="mark">WK</span><span class="app">WK Instandhaltung</span><span class="crumb">Anlagen · Halle 2 · <b>Förderband FB-03</b></span><span class="spacer"></span><span class="demo">Beispieldaten</span></header>
+  <main class="page">
+    <div class="title-row">
+      <div><h1>Förderband FB-03 · Anlagenhistorie</h1><p>Technischer Platz W1-H2-VP-FB03 · in Betrieb seit 2017</p></div>
+      <div class="btns"><span class="btn btn--ghost">Wartungsplan</span><span class="btn">Meldung erfassen</span></div>
+    </div>
+    <div class="kpis">
+      <div class="kpi green"><small>Aufträge · 12 Monate</small><strong>18</strong><span>11 Wartung · 7 Störung</span></div>
+      <div class="kpi crit"><small>Stillstand · 12 Monate</small><strong>14,5 h</strong><span>davon 9 h Antrieb</span></div>
+      <div class="kpi ok"><small>Nächste Wartung</small><strong>14.11.</strong><span>Inspektion quartalsweise</span></div>
+      <div class="kpi warn"><small>Wiederholte Ursache</small><strong>3×</strong><span>Antrieb / Umrichter</span></div>
+    </div>
+    <div class="grid">
+      <div class="card">
+        <div class="card-head"><h2>Anlage</h2></div>
+        <div class="eq">
+          <div class="pic"><svg width="150" height="62" viewBox="0 0 150 62" fill="none" stroke="#1a5e3a" stroke-width="1.6" stroke-linecap="round"><rect x="8" y="18" width="134" height="14" rx="7"/><circle cx="15" cy="25" r="5"/><circle cx="135" cy="25" r="5"/><path d="M28 32v18M122 32v18M22 50h12M116 50h12"/><rect x="58" y="4" width="22" height="14" rx="2" fill="#e5f4ea"/><path d="M40 25h70" stroke-dasharray="3 4" opacity=".5"/></svg></div>
+          <dl class="fields">
+            <dt>Typ</dt><dd>Gurtförderer 6 m</dd>
+            <dt>Antrieb</dt><dd>5,5 kW · FU-geregelt</dd>
+            <dt>Kritikalität</dt><dd><span class="chip crit">A · hoch</span></dd>
+            <dt>Dokumente</dt><dd>Schaltplan, Handbuch</dd>
+          </dl>
+          <div class="label" style="margin-top:10px">Störstunden je Monat</div>
+          <div class="bars"><i style="height:20%"></i><i style="height:10%"></i><i class="c" style="height:70%"></i><i style="height:15%"></i><i style="height:8%"></i><i style="height:30%"></i><i style="height:12%"></i><i class="c" style="height:95%"></i><i style="height:10%"></i><i style="height:18%"></i><i style="height:6%"></i><i class="c" style="height:60%"></i></div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-head"><h2>Historie</h2><span class="meta">neueste zuerst</span></div>
+        <ul class="tl">
+          <li><span class="d">heute</span><span class="dot crit"></span><div><b>Störung · Antrieb ohne Freigabe</b><small>IH-24-0187 · Frequenzumrichter getauscht · ET-100790</small></div><span class="chip warn">In Arbeit</span></li>
+          <li><span class="d">02.10.</span><span class="dot g"></span><div><b>Wartung · Inspektion Q3</b><small>Gurtspannung nachgestellt, Lager geschmiert · 1,2 h</small></div><span class="chip ok">Erledigt</span></li>
+          <li><span class="d">18.08.</span><span class="dot crit"></span><div><b>Störung · Umrichter Überstrom</b><small>Reset, Lüfter gereinigt · Stillstand 4,5 h</small></div><span class="chip ok">Erledigt</span></li>
+          <li><span class="d">03.07.</span><span class="dot g"></span><div><b>Wartung · Inspektion Q2</b><small>Umlenkrolle geprüft, Keilriemen ET-100637 ersetzt</small></div><span class="chip ok">Erledigt</span></li>
+          <li><span class="d">21.03.</span><span class="dot crit"></span><div><b>Störung · Antrieb fällt aus</b><small>Steckverbinder erneuert · Stillstand 3 h</small></div><span class="chip ok">Erledigt</span></li>
+        </ul>
+      </div>
+    </div>
+  </main>
+</body></html>

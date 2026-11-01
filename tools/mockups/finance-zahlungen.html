@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="de"><head><meta charset="utf-8" /><title>WK Finance – Zahlungsziele</title><link rel="stylesheet" href="mockup.css" />
+<style>
+  .weeks { display:grid; grid-template-columns: repeat(6, 1fr); gap:6px; align-items:end; height:72px; padding: 0 12px; }
+  .weeks div { display:flex; flex-direction:column; align-items:center; gap:3px; }
+  .weeks i { display:block; width:100%; border-radius:3px 3px 0 0; background:#cfe3d6; }
+  .weeks i.w { background: var(--warn); } .weeks i.c { background: var(--crit); opacity:.85 }
+  .weeks span { font-size:7.5px; color:var(--ink-3); }
+</style></head>
+<body>
+  <header class="appbar"><span class="mark">WK</span><span class="app">WK Finance</span><span class="crumb">Zahlungen · <b>Zahlungsziele &amp; Status</b></span><span class="spacer"></span><span class="demo">Beispieldaten</span></header>
+  <main class="page">
+    <div class="title-row">
+      <div><h1>Zahlungsziele &amp; Status</h1><p>Eingangsrechnungen · offen und kürzlich bezahlt</p></div>
+      <div class="btns"><span class="btn btn--ghost">Nach Fälligkeit</span><span class="btn">Zahlungsliste erstellen</span></div>
+    </div>
+    <div class="kpis">
+      <div class="kpi crit"><small>Überfällig</small><strong>2</strong><span>1.022,40 €</span></div>
+      <div class="kpi warn"><small>Fällig in 7 Tagen</small><strong>5</strong><span>3.918,75 €</span></div>
+      <div class="kpi green"><small>Offen gesamt</small><strong>14</strong><span>9.640,12 €</span></div>
+      <div class="kpi ok"><small>Skonto nutzbar</small><strong>3</strong><span>bis zu 71,20 €</span></div>
+    </div>
+    <div class="row" style="grid-template-columns: 1.7fr 1fr">
+      <div class="card">
+        <table>
+          <thead><tr><th>Fällig</th><th>Absender</th><th>Beleg</th><th class="r">Betrag</th><th>Skonto</th><th>Status</th></tr></thead>
+          <tbody>
+            <tr class="bar-crit"><td>24.10.</td><td>Kfz-Werkstatt D</td><td class="mono">RE-2410-026</td><td class="r">638,10 €</td><td class="muted">–</td><td><span class="chip crit">Überfällig</span></td></tr>
+            <tr class="bar-crit"><td>29.10.</td><td>Gerüstverleih E</td><td class="mono">RE-2410-014</td><td class="r">384,30 €</td><td class="muted">–</td><td><span class="chip crit">Überfällig</span></td></tr>
+            <tr class="bar-warn"><td>04.11.</td><td>Baustoffhandel A</td><td class="mono">RE-2410-031</td><td class="r">1.284,60 €</td><td>2 % bis 04.11.</td><td><span class="chip warn">Fällig bald</span></td></tr>
+            <tr class="bar-warn"><td>06.11.</td><td>Werkzeughandel B</td><td class="mono">RE-2410-030</td><td class="r">349,90 €</td><td class="muted">–</td><td><span class="chip warn">Fällig bald</span></td></tr>
+            <tr><td>15.11.</td><td>Elektrogroßhandel C</td><td class="mono">RE-2410-027</td><td class="r">2.017,35 €</td><td>3 % bis 03.11.</td><td><span class="chip">Offen</span></td></tr>
+            <tr class="bar-ok"><td>20.10.</td><td>Energieversorger</td><td class="mono">RE-2410-028</td><td class="r">212,00 €</td><td class="muted">–</td><td><span class="chip ok">Bezahlt</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="card">
+        <div class="card-head"><h2>Fälligkeiten je Woche</h2><span class="meta">in €</span></div>
+        <div class="weeks">
+          <div><i class="c" style="height:30px"></i><span>KW 43</span></div>
+          <div><i class="c" style="height:18px"></i><span>KW 44</span></div>
+          <div><i class="w" style="height:52px"></i><span>KW 45</span></div>
+          <div><i style="height:40px"></i><span>KW 46</span></div>
+          <div><i style="height:22px"></i><span>KW 47</span></div>
+          <div><i style="height:12px"></i><span>KW 48</span></div>
+        </div>
+        <div class="card-body" style="margin-top:10px">
+          <ul class="list">
+            <li><span style="flex:1">Nächste Zahlung</span><b>04.11. · 1.284,60 €</b></li>
+            <li><span style="flex:1">Bezahlt im Oktober</span><b>11 Belege</b></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </main>
+</body></html>

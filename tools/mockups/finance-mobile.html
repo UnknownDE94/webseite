@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="de"><head><meta charset="utf-8" /><title>WK Finance – mobil</title><link rel="stylesheet" href="mockup.css" />
+<style>
+  .cam { position:relative; height:250px; margin: 0 20px 14px; border-radius:16px; background: linear-gradient(160deg, #47504c, #262d2a); overflow:hidden; }
+  .paper { position:absolute; left:50%; top:50%; width:150px; height:205px; transform: translate(-50%,-50%) rotate(-3deg); border-radius:4px; background:#f7f7f4; box-shadow: 0 10px 30px rgba(0,0,0,.4); padding:14px 14px; }
+  .paper i { display:block; height:5px; border-radius:3px; background:#d9ddda; margin-top:7px; }
+  .corner { position:absolute; width:22px; height:22px; border:3px solid #9fe0b4; }
+  .c1{left:96px;top:14px;border-right:0;border-bottom:0;border-radius:6px 0 0 0} .c2{right:96px;top:14px;border-left:0;border-bottom:0;border-radius:0 6px 0 0}
+  .c3{left:96px;bottom:14px;border-right:0;border-top:0;border-radius:0 0 0 6px} .c4{right:96px;bottom:14px;border-left:0;border-top:0;border-radius:0 0 6px 0}
+  .f { display:flex; justify-content:space-between; align-items:center; padding:11px 0; border-bottom:1px solid var(--line); font-size:14px; }
+  .f:last-child { border-bottom:0; } .f span { color: var(--ink-3); font-size:13px; } .f b { font-weight:600; }
+</style></head>
+<body class="mobile">
+  <div class="status-bar"><span>9:41</span><span class="sig"><i></i><i></i></span></div>
+  <div class="m-head"><span class="back">‹</span><div style="flex:1"><h1>Beleg erfassen</h1><small>Foto aufnehmen und zuordnen</small></div><span class="demo">Beispieldaten</span></div>
+  <div class="cam"><div class="paper"><b style="font-size:10px;color:#333">Baustoffhandel A</b><i style="width:60%"></i><i style="width:40%"></i><i style="width:85%;margin-top:16px"></i><i style="width:75%"></i><i style="width:80%"></i><i style="width:50%;margin-top:16px;background:#bcc4bf"></i></div><span class="corner c1"></span><span class="corner c2"></span><span class="corner c3"></span><span class="corner c4"></span></div>
+  <div class="m-body">
+    <div class="m-card" style="padding:4px 16px">
+      <div class="f"><span>Betrag</span><b>1.284,60 €</b></div>
+      <div class="f"><span>Datum</span><b>28.10.</b></div>
+      <div class="f"><span>Kategorie</span><b>Material</b></div>
+      <div class="f"><span>Projekt</span><span class="chip ok">Baustelle 14</span></div>
+    </div>
+    <div class="m-btn" style="margin-top:14px">Beleg speichern</div>
+  </div>
+  <nav class="tabbar"><span class="on"><i></i>Erfassen</span><span><i></i>Belege</span><span><i></i>Fällig</span><span><i></i>Verträge</span></nav>
+</body></html>

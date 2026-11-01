@@ -1,0 +1,45 @@
+/* Zusatzbausteine für instandhaltung, digitalisierung-software, 3d-technik,
+   ki-werkstatt, mobile-offline, sicherheit-betriebsmodelle.
+   Nur Ergänzungen – Grundlagen liegen in css/style.css. */
+
+/* Nummerierte Karte (z. B. Abschnitte 01–09) */
+.card__num { display: block; margin-bottom: 14px; font-family: var(--font-mono); font-size: 0.74rem; letter-spacing: 0.12em; color: var(--accent); }
+
+/* Vier Info-Karten in einer Reihe */
+.info-cards--4 { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+
+/* Prozessweg mit acht Schritten: etwas kompaktere Schrift */
+.process--8 .process__steps { gap: 16px; }
+.process--8 .process__steps h3 { font-size: 0.96rem; hyphens: manual; }
+.process--8 .process__steps p { font-size: 0.84rem; }
+
+/* Entscheidungsgrafik: ein Ausgangspunkt, vier Optionen */
+.decision__root { display: flex; justify-content: center; }
+.decision__root span { position: relative; padding: 12px 22px; border: 1px solid color-mix(in srgb, var(--accent) 50%, transparent); border-radius: 999px; background: color-mix(in srgb, var(--surface) 70%, transparent); font-weight: 600; }
+.decision__root span::after { content: ""; position: absolute; left: 50%; top: 100%; width: 1px; height: 28px; background: var(--line-2); }
+.decision__options { position: relative; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 20px; margin-top: 28px; padding-top: 36px; list-style: none; }
+.decision__options::before { content: ""; position: absolute; top: 0; left: calc(12.5% - 8px); right: calc(12.5% - 8px); height: 1px; background: var(--line-2); }
+.decision__options > li::before { content: ""; position: absolute; left: 50%; top: -37px; width: 1px; height: 36px; background: var(--line-2); }
+.decision__options > li::after { content: ""; position: absolute; left: calc(50% - 4px); top: -5px; width: 9px; height: 9px; border-radius: 50%; background: var(--lime); }
+.decision__options .card { display: flex; flex-direction: column; }
+.decision__options .card > .icon { color: var(--accent); }
+.decision__when { margin-top: 12px; font-size: 0.9rem; color: var(--ink-2); }
+.decision__then { margin-top: auto; padding-top: 16px; border-top: 1px solid var(--line); font-size: 0.88rem; color: var(--ink-3); }
+.decision__when + .decision__then { margin-top: 18px; }
+.decision__then strong { color: var(--ink); font-weight: 600; }
+
+/* Statustabelle: Spalten mit Chips nicht umbrechen */
+.table--status td { white-space: nowrap; vertical-align: middle; }
+.table--status td a { color: var(--ink); text-decoration: none; }
+.table--status td a:hover { color: var(--accent); }
+
+@media (max-width: 1024px) {
+  .info-cards--4 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .process--8 .process__steps { gap: 20px; }
+  .decision__options { grid-template-columns: repeat(2, minmax(0, 1fr)); padding-top: 0; }
+  .decision__options::before, .decision__options > li::before, .decision__options > li::after { display: none; }
+}
+@media (max-width: 720px) {
+  .info-cards--4 { grid-template-columns: minmax(0, 1fr); }
+  .decision__options { grid-template-columns: minmax(0, 1fr); }
+}
