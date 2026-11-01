@@ -806,6 +806,8 @@ html[data-theme="light"] :focus-visible { outline-color: var(--green-2); }
   .process__steps::before, .process__curve { display: none; }
   .region__map { margin: 0 auto; }
   .showcase-app__stage, .showcase-app.is-in .showcase-app__stage { transform: none; }
+  /* Detailkarten bleiben auf Tablets innerhalb der Bühne */
+  .showcase-app { padding-left: 9%; padding-right: 9%; overflow-x: clip; }
   .calc-body { grid-template-columns: 1fr; }
   .calc-result { padding: 24px 0 0; border-left: 0; border-top: 1px solid var(--line); }
   .versus { grid-template-columns: 1fr; }

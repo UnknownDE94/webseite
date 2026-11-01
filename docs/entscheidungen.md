@@ -82,3 +82,11 @@ Fehlt ein Wert, zeigt die Website „Geplant“ bzw. „noch festzulegen“ – 
 
 ## Rechenbeispiel (Material & Ersatzteile)
 - Startwerte 20 % / 40 % / 20 % sind Beispielwerte: [OFFEN – vom Inhaber prüfen]
+
+## Vom Inhaber zu prüfen (aus dem Umbau)
+- Rechenbeispiel (material-ersatzteile): Startwerte 20 % / 40 % / 20 % – als Beispielwerte gekennzeichnet
+- 3D-Eignungsampel (3d-technik): Beispiel-Teilearten (Abdeckungen/Halterungen eher geeignet; tragende, druck- oder zertifizierungspflichtige Teile nicht pauschal)
+- Kontaktformular: keine Datenschutz-Checkbox (wie bisher), Hinweis mit Link unter dem Formular
+- FAQ Kontakt: Erstgespräch nur „unverbindlich“ – „kostenlos“ nur wieder aufnehmen, wenn so gewollt
+- SmartParts Web-Status: echte Screenshots vorhanden – Status bitte in der Produkttabelle eintragen
+- Impressum/Datenschutz: sichtbare Platzhalter [Firmierung], [Registergericht/-nummer], [USt-IdNr.], [Hoster], [Formularanbieter], [Analytics] – vor Go-live füllen und juristisch prüfen
