@@ -24,8 +24,8 @@
   <link rel="apple-touch-icon" href="assets/apple-touch-icon.png" />
   <link rel="preload" href="assets/fonts/archivo-wdth.woff2" as="font" type="font/woff2" crossorigin />
   <link rel="preload" href="assets/fonts/inter-wght.woff2" as="font" type="font/woff2" crossorigin />
-  <script>(function(d){d.classList.add("js");d.setAttribute("data-theme","dark");try{var t=localStorage.getItem("theme");if(t==="light")d.setAttribute("data-theme","light")}catch(e){}})(document.documentElement);</script>
-  <link rel="stylesheet" href="css/style.css?v=2026-42" />
+  <script>(function(d){d.classList.add("js");d.setAttribute("data-theme","dark");try{var t=localStorage.getItem("theme");if(t==="light")d.setAttribute("data-theme","light");if(localStorage.getItem("a11y")==="on")d.setAttribute("data-a11y","on")}catch(e){}})(document.documentElement);</script>
+  <link rel="stylesheet" href="css/style.css?v=2026-43" />
 </head>
 <body>
   <a class="skip-link" href="#main">Zum Inhalt springen</a>
@@ -71,6 +71,7 @@
       </nav>
       <div class="nav-actions">
         <a class="btn btn--primary btn--sm" href="kontakt.html">Projekt besprechen</a>
+        <button class="icon-btn a11y-toggle" type="button" aria-pressed="false" aria-label="Barrierefreie Ansicht einschalten: Wellen, Partikel-Grafiken und Animationen ausblenden" title="Barrierefreie Ansicht"><svg class="icon" aria-hidden="true"><use href="assets/icons.svg#waves-off"/></svg></button>
         <button class="icon-btn theme-toggle" type="button" aria-label="Hellen Modus aktivieren" aria-pressed="false"><svg class="icon" aria-hidden="true"><use href="assets/icons.svg#sun"/></svg></button>
         <button class="icon-btn nav-toggle" type="button" aria-label="Menü öffnen" aria-expanded="false" aria-controls="hauptmenue"><span></span></button>
       </div>
@@ -87,7 +88,7 @@
             <nav class="breadcrumb" aria-label="Brotkrumen"><a href="index.html">Start</a> / <a href="loesungen.html">Lösungen</a> / <span aria-current="page">WK Finance</span></nav>
             <p class="eyebrow">WK Finance · Für Handwerk und kleine Unternehmen</p>
             <h1>Belege, Zahlungen und Verträge im Griff.</h1>
-            <p class="lead">Rechnungen sammeln sich im Fahrzeug, Zahlungsziele und Kündigungsfristen gehen im Tagesgeschäft unter. WK Finance hält das Kaufmännische übersichtlich an einem Ort – ohne Buchhaltungsballast.</p>
+            <p class="lead">Das Kaufmännische übersichtlich an einem Ort – ohne Buchhaltungsballast.</p>
             <ul class="status-row" aria-label="Plattformstatus">
               <li><span class="status-row__label">Status</span></li>
               <li><span class="status">Web: noch festzulegen</span></li>
@@ -111,7 +112,7 @@
           <div data-stagger>
             <p class="eyebrow">Kaufmännisch den Überblick behalten</p>
             <h2>Was ist offen, was ist fällig, was läuft aus?</h2>
-            <p class="lead" style="margin-top:18px">Belegeingang mit Prüfstatus, Zahlungsziele nach Fälligkeit und Verträge mit Kündigungsfristen – drei Fragen, die im Betrieb täglich auftauchen.</p>
+            <p class="lead" style="margin-top:18px">Belegeingang mit Prüfstatus, Zahlungsziele nach Fälligkeit, Verträge mit Kündigungsfristen.</p>
             <ul class="checklist mt-lg">
               <li>Belege direkt einem Projekt oder einer Baustelle zuordnen</li>
               <li>Fälligkeiten und Skontofristen rechtzeitig sehen</li>
@@ -138,13 +139,6 @@
             <p class="note">Konzeptansicht mit Beispieldaten.</p>
           </div>
         </div>
-        <ul class="feature-strip">
-          <li><svg class="icon" aria-hidden="true"><use href="assets/icons.svg#file"/></svg>Belege</li>
-          <li><svg class="icon" aria-hidden="true"><use href="assets/icons.svg#clock"/></svg>Zahlungsziele</li>
-          <li><svg class="icon" aria-hidden="true"><use href="assets/icons.svg#check"/></svg>Zahlungsstatus</li>
-          <li><svg class="icon" aria-hidden="true"><use href="assets/icons.svg#doc-search"/></svg>Verträge</li>
-          <li><svg class="icon" aria-hidden="true"><use href="assets/icons.svg#euro"/></svg>Kosten</li>
-        </ul>
       </div>
     </section>
 
@@ -154,28 +148,28 @@
         <div class="section-head" data-stagger>
           <p class="eyebrow">Funktionen</p>
           <h2>Das Kaufmännische, das im Betrieb anfällt.</h2>
-          <p class="lead">WK Finance ist für den Alltag kleiner Betriebe gedacht: schnell erfasst, klar sortiert, rechtzeitig erinnert.</p>
+          <p class="lead">Schnell erfasst, klar sortiert, rechtzeitig erinnert.</p>
         </div>
         <div class="grid-3 fn-grid" data-stagger>
-          <div class="card"><svg class="icon icon--lg" aria-hidden="true"><use href="assets/icons.svg#file"/></svg><h3>Rechnungen &amp; Belege</h3><p>Eingangsrechnungen und Belege sammeln, prüfen und Projekten, Baustellen oder Kostenarten zuordnen.</p></div>
-          <div class="card"><svg class="icon icon--lg" aria-hidden="true"><use href="assets/icons.svg#clock"/></svg><h3>Zahlungsziele</h3><p>Fälligkeiten und Skontofristen nach Datum sortiert – überfällige Posten fallen sofort auf.</p></div>
-          <div class="card"><svg class="icon icon--lg" aria-hidden="true"><use href="assets/icons.svg#check"/></svg><h3>Zahlungsstatus</h3><p>Offen, fällig, bezahlt: der Stand jeder Rechnung auf einen Blick.</p></div>
-          <div class="card"><svg class="icon icon--lg" aria-hidden="true"><use href="assets/icons.svg#doc-search"/></svg><h3>Verträge &amp; Fristen</h3><p>Laufzeiten, Kündigungsfristen und automatische Verlängerungen mit Erinnerung vor Fristablauf.</p></div>
+          <div class="card"><svg class="icon icon--lg" aria-hidden="true"><use href="assets/icons.svg#file"/></svg><h3>Rechnungen &amp; Belege</h3><p>Sammeln, prüfen, Projekten, Baustellen oder Kostenarten zuordnen.</p></div>
+          <div class="card"><svg class="icon icon--lg" aria-hidden="true"><use href="assets/icons.svg#clock"/></svg><h3>Zahlungsziele</h3><p>Fälligkeiten und Skontofristen nach Datum – Überfälliges fällt sofort auf.</p></div>
+          <div class="card"><svg class="icon icon--lg" aria-hidden="true"><use href="assets/icons.svg#check"/></svg><h3>Zahlungsstatus</h3><p>Offen, fällig, bezahlt – je Rechnung auf einen Blick.</p></div>
+          <div class="card"><svg class="icon icon--lg" aria-hidden="true"><use href="assets/icons.svg#doc-search"/></svg><h3>Verträge &amp; Fristen</h3><p>Laufzeiten, Kündigungsfristen, Verlängerungen – mit Erinnerung.</p></div>
           <div class="card"><svg class="icon icon--lg" aria-hidden="true"><use href="assets/icons.svg#bars"/></svg><h3>Kostenübersicht</h3><p>Laufende Kosten je Kategorie und Monat – als Überblick, nicht als Buchhaltung.</p></div>
-          <div class="card"><svg class="icon icon--lg" aria-hidden="true"><use href="assets/icons.svg#layers"/></svg><h3>Dokumentenablage</h3><p>Belege und Verträge geordnet abgelegt und wiederauffindbar.</p></div>
+          <div class="card"><svg class="icon icon--lg" aria-hidden="true"><use href="assets/icons.svg#layers"/></svg><h3>Dokumentenablage</h3><p>Belege und Verträge geordnet und wiederauffindbar.</p></div>
         </div>
-        <p class="note mt-lg">WK Finance ersetzt keine Steuerberatung und keine Finanzbuchhaltung. Es ergänzt beides um Ordnung und Überblick im Betrieb.</p>
+        <p class="note mt-lg">WK Finance ersetzt keine Steuerberatung und keine Finanzbuchhaltung – es ergänzt beides um Ordnung und Überblick.</p>
       </div>
     </section>
 
     <!-- 4 · Mobile -->
-    <section class="section section--alt" data-wave="dunes">
+    <section class="section section--alt" data-wave="calm">
       <div class="container">
         <div class="split split--text-wide">
           <div data-stagger>
             <p class="eyebrow">Mobile Version</p>
             <h2>Beleg fotografieren, bevor er verloren geht.</h2>
-            <p class="lead" style="margin-top:18px">Die Tankquittung, der Lieferschein vom Baustoffhandel, die Rechnung aus der Werkstatt: Unterwegs reicht ein Foto und eine Zuordnung – der Rest passiert später am Schreibtisch.</p>
+            <p class="lead" style="margin-top:18px">Tankquittung, Lieferschein, Werkstattrechnung: unterwegs Foto und Zuordnung, der Rest später am Schreibtisch.</p>
             <ul class="checklist mt-lg">
               <li>Beleg fotografieren und Betrag erfassen</li>
               <li>Projekt oder Baustelle direkt zuordnen</li>
@@ -192,12 +186,12 @@
     </section>
 
     <!-- 5 · Zusammenspiel -->
-    <section class="section" data-wave="ribbon">
+    <section class="section" data-wave="flow">
       <div class="container">
         <div class="section-head" data-stagger>
           <p class="eyebrow">Zusammenspiel</p>
           <h2>Eigenständig nutzbar. Gut kombinierbar.</h2>
-          <p class="lead">WK Finance ist der kaufmännische Teil der Produktfamilie. Es funktioniert allein – und passt zu Betrieben, die auch Material oder Aufträge digital führen.</p>
+          <p class="lead">Der kaufmännische Teil der Produktfamilie – passend, wenn auch Material oder Aufträge digital geführt werden.</p>
         </div>
         <div class="grid-3" data-stagger>
           <a class="card" href="wk-material.html" style="text-decoration:none"><svg class="icon icon--lg" aria-hidden="true"><use href="assets/icons.svg#box"/></svg><h3>WK Material</h3><p>Material, das eingekauft wurde, auch im Lager wiederfinden.</p><span class="link-arrow">WK Material</span></a>
@@ -215,10 +209,9 @@
             <div data-stagger>
               <p class="eyebrow">Lassen Sie uns ins Gespräch kommen</p>
               <h2>Wo geht in Ihrem Betrieb Papier verloren?</h2>
-              <p class="lead">Erzählen Sie uns, wie Belege, Rechnungen und Verträge heute bei Ihnen laufen. Wir prüfen, was sich mit wenig Aufwand vereinfachen lässt.</p>
+              <p class="lead">Wir prüfen, was sich mit wenig Aufwand vereinfachen lässt.</p>
               <div class="actions">
                 <a class="btn btn--primary" href="kontakt.html">Projekt unverbindlich besprechen</a>
-                <a class="btn btn--secondary" href="handwerk.html">Lösungen für Handwerk</a>
               </div>
             </div>
             <div class="wave-slot wave-slot--icon" data-shape="logo" aria-hidden="true"></div>
@@ -296,8 +289,8 @@
     </div>
   </footer>
 
-  <script src="js/main.js?v=2026-42"></script>
-  <script src="js/wave.js?v=2026-42" defer></script>
+  <script src="js/main.js?v=2026-43"></script>
+  <script src="js/wave.js?v=2026-43" defer></script>
   <script data-goatcounter="https://unknownde.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
 </body>
 </html>

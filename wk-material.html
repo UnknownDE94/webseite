@@ -24,8 +24,8 @@
   <link rel="apple-touch-icon" href="assets/apple-touch-icon.png" />
   <link rel="preload" href="assets/fonts/archivo-wdth.woff2" as="font" type="font/woff2" crossorigin />
   <link rel="preload" href="assets/fonts/inter-wght.woff2" as="font" type="font/woff2" crossorigin />
-  <script>(function(d){d.classList.add("js");d.setAttribute("data-theme","dark");try{var t=localStorage.getItem("theme");if(t==="light")d.setAttribute("data-theme","light")}catch(e){}})(document.documentElement);</script>
-  <link rel="stylesheet" href="css/style.css?v=2026-42" />
+  <script>(function(d){d.classList.add("js");d.setAttribute("data-theme","dark");try{var t=localStorage.getItem("theme");if(t==="light")d.setAttribute("data-theme","light");if(localStorage.getItem("a11y")==="on")d.setAttribute("data-a11y","on")}catch(e){}})(document.documentElement);</script>
+  <link rel="stylesheet" href="css/style.css?v=2026-43" />
 </head>
 <body>
   <a class="skip-link" href="#main">Zum Inhalt springen</a>
@@ -71,6 +71,7 @@
       </nav>
       <div class="nav-actions">
         <a class="btn btn--primary btn--sm" href="kontakt.html">Projekt besprechen</a>
+        <button class="icon-btn a11y-toggle" type="button" aria-pressed="false" aria-label="Barrierefreie Ansicht einschalten: Wellen, Partikel-Grafiken und Animationen ausblenden" title="Barrierefreie Ansicht"><svg class="icon" aria-hidden="true"><use href="assets/icons.svg#waves-off"/></svg></button>
         <button class="icon-btn theme-toggle" type="button" aria-label="Hellen Modus aktivieren" aria-pressed="false"><svg class="icon" aria-hidden="true"><use href="assets/icons.svg#sun"/></svg></button>
         <button class="icon-btn nav-toggle" type="button" aria-label="Menü öffnen" aria-expanded="false" aria-controls="hauptmenue"><span></span></button>
       </div>
@@ -87,7 +88,7 @@
             <nav class="breadcrumb" aria-label="Brotkrumen"><a href="index.html">Start</a> / <a href="loesungen.html">Lösungen</a> / <span aria-current="page">WK Material</span></nav>
             <p class="eyebrow">WK Material · Lager, Inventur und Disposition</p>
             <h1>Materialvorgänge dort erfassen, wo sie passieren.</h1>
-            <p class="lead">Inventur, Wareneingang, Entnahme und Umlagerung direkt am Lagerplatz dokumentieren – per Scan statt Zettel und Abschrift. Damit der Bestand im System mit dem Regal übereinstimmt.</p>
+            <p class="lead">Inventur, Wareneingang, Entnahme und Umlagerung direkt am Lagerplatz – per Scan statt Abschrift. Damit System und Regal übereinstimmen.</p>
             <ul class="status-row" aria-label="Plattformstatus">
               <li><span class="status-row__label">Status</span></li>
               <li><span class="status">Web: noch festzulegen</span></li>
@@ -111,7 +112,7 @@
           <div data-stagger>
             <p class="eyebrow">Operativ arbeiten</p>
             <h2>Zählen, prüfen, einlagern, nachbestellen.</h2>
-            <p class="lead" style="margin-top:18px">WK Material führt die täglichen Lagerabläufe: Zähllisten mit Scanstatus, Wareneingang gegen Bestellung und Meldebestände mit Bestellvorschlägen.</p>
+            <p class="lead" style="margin-top:18px">Die täglichen Lagerabläufe in einer Anwendung.</p>
             <ul class="checklist mt-lg">
               <li>Differenzen sofort sehen statt nach der Inventur</li>
               <li>Teillieferungen und Rückstände dokumentieren</li>
@@ -138,13 +139,6 @@
             <p class="note">Konzeptansicht mit Beispieldaten.</p>
           </div>
         </div>
-        <ul class="feature-strip">
-          <li><svg class="icon" aria-hidden="true"><use href="assets/icons.svg#qr"/></svg>Mobile Inventur</li>
-          <li><svg class="icon" aria-hidden="true"><use href="assets/icons.svg#truck"/></svg>Wareneingang</li>
-          <li><svg class="icon" aria-hidden="true"><use href="assets/icons.svg#box"/></svg>Entnahme</li>
-          <li><svg class="icon" aria-hidden="true"><use href="assets/icons.svg#pin"/></svg>Lagerplätze</li>
-          <li><svg class="icon" aria-hidden="true"><use href="assets/icons.svg#refresh"/></svg>Nachbestellung</li>
-        </ul>
       </div>
     </section>
 
@@ -154,34 +148,33 @@
         <div class="section-head" data-stagger>
           <p class="eyebrow">Funktionen</p>
           <h2>Jeder Materialvorgang, sauber dokumentiert.</h2>
-          <p class="lead">WK Material führt aus und dokumentiert. Analysen wie Kritikalität, Kapitalbindung oder Datenqualität übernimmt WK SmartParts.</p>
         </div>
         <div class="grid-3 fn-grid" data-stagger>
-          <div class="card"><svg class="icon icon--lg" aria-hidden="true"><use href="assets/icons.svg#qr"/></svg><h3>Inventur</h3><p>Zähllisten je Lagerzone, Erfassung per Barcode oder QR-Code, Differenzen und Nachzählungen direkt sichtbar.</p></div>
-          <div class="card"><svg class="icon icon--lg" aria-hidden="true"><use href="assets/icons.svg#truck"/></svg><h3>Wareneingang</h3><p>Lieferung gegen Bestellung prüfen, Teillieferungen und Rückstände festhalten, Einlagerplatz zuweisen.</p></div>
-          <div class="card"><svg class="icon icon--lg" aria-hidden="true"><use href="assets/icons.svg#box"/></svg><h3>Materialentnahme</h3><p>Entnahmen für Auftrag, Kostenstelle oder Anlage buchen – vor Ort, ohne Nacherfassung im Büro.</p></div>
+          <div class="card"><svg class="icon icon--lg" aria-hidden="true"><use href="assets/icons.svg#qr"/></svg><h3>Inventur</h3><p>Zähllisten je Lagerzone, Barcode/QR-Erfassung, Differenzen sofort sichtbar.</p></div>
+          <div class="card"><svg class="icon icon--lg" aria-hidden="true"><use href="assets/icons.svg#truck"/></svg><h3>Wareneingang</h3><p>Prüfung gegen Bestellung, Teillieferungen, Einlagerplatz.</p></div>
+          <div class="card"><svg class="icon icon--lg" aria-hidden="true"><use href="assets/icons.svg#box"/></svg><h3>Materialentnahme</h3><p>Buchung auf Auftrag, Kostenstelle oder Anlage – ohne Nacherfassung.</p></div>
           <div class="card"><svg class="icon icon--lg" aria-hidden="true"><use href="assets/icons.svg#pin"/></svg><h3>Lagerplätze &amp; Umlagerung</h3><p>Lagerplätze prüfen, Material umlagern und Bestände korrigieren – mit nachvollziehbarer Begründung.</p></div>
-          <div class="card"><svg class="icon icon--lg" aria-hidden="true"><use href="assets/icons.svg#refresh"/></svg><h3>Meldebestand &amp; Bestellvorschläge</h3><p>Unterschreitungen erkennen, Vorschläge nach Lieferant bündeln und zur Freigabe vorlegen.</p></div>
-          <div class="card"><svg class="icon icon--lg" aria-hidden="true"><use href="assets/icons.svg#clipboard"/></svg><h3>Lageraudit</h3><p>Ordnung, Kennzeichnung und Lagerbedingungen vor Ort erfassen, mit Foto und Notiz zum Lagerplatz.</p></div>
+          <div class="card"><svg class="icon icon--lg" aria-hidden="true"><use href="assets/icons.svg#refresh"/></svg><h3>Meldebestand &amp; Bestellvorschläge</h3><p>Unterschreitungen erkennen, Vorschläge je Lieferant zur Freigabe.</p></div>
+          <div class="card"><svg class="icon icon--lg" aria-hidden="true"><use href="assets/icons.svg#clipboard"/></svg><h3>Lageraudit</h3><p>Ordnung, Kennzeichnung und Lagerbedingungen mit Foto und Notiz.</p></div>
         </div>
       </div>
     </section>
 
     <!-- 4 · Mobile -->
-    <section class="section section--alt" data-wave="dunes">
+    <section class="section section--alt" data-wave="calm">
       <div class="container">
         <div class="split split--text-wide">
           <div data-stagger>
             <p class="eyebrow">Mobile Version</p>
             <h2>Im Lager zählt jeder Handgriff.</h2>
-            <p class="lead" style="margin-top:18px">Die mobile Oberfläche ist auf das reduziert, was am Regal gebraucht wird: scannen, Menge bestätigen, weiter zum nächsten Platz. Keine Desktopansicht im Kleinformat.</p>
+            <p class="lead" style="margin-top:18px">Reduziert auf das, was am Regal gebraucht wird – keine Desktopansicht im Kleinformat.</p>
             <ul class="checklist mt-lg">
               <li>Barcode oder QR-Code am Lagerplatz erfassen</li>
               <li>Menge mit wenigen Tipps bestätigen</li>
               <li>Fortschritt der Zählung immer im Blick</li>
             </ul>
             <p class="mt-lg"><span class="status status--geplant">Mobile Version: Geplant</span></p>
-            <p class="note mt-lg">Offline-Erfassung ist vorgesehen, sofern technisch umgesetzt. Den Stand je Produkt finden Sie unter <a href="mobile-offline.html">Mobile &amp; Offline</a>.</p>
+            <p class="note mt-lg">Offline-Erfassung ist vorgesehen, sofern technisch umgesetzt. Stand je Produkt: <a href="mobile-offline.html">Mobile &amp; Offline</a>.</p>
           </div>
           <figure class="phone-wrap">
             <div class="phone"><img src="assets/apps/material-mobile.webp" width="390" height="844" alt="Konzeptansicht: Inventur zählen mit Scanfeld, erkanntem Material und Mengeneingabe" loading="lazy" /></div>
@@ -192,12 +185,12 @@
     </section>
 
     <!-- 5 · Abgrenzung & Zusammenspiel -->
-    <section class="section" data-wave="ribbon">
+    <section class="section" data-wave="flow">
       <div class="container">
         <div class="section-head" data-stagger>
           <p class="eyebrow">Zusammenspiel</p>
           <h2>Material bucht. SmartParts bewertet.</h2>
-          <p class="lead">Die Grenze ist einfach: Führt eine Funktion einen Materialvorgang aus oder dokumentiert ihn, gehört sie zu WK Material. Analysiert oder priorisiert sie, gehört sie zu WK SmartParts.</p>
+          <p class="lead">Ausführen und dokumentieren: WK Material. Analysieren und priorisieren: WK SmartParts.</p>
         </div>
         <ol class="chain" aria-label="Beispielablauf über mehrere Anwendungen">
           <li><span>Risiko erkannt · SmartParts</span></li>
@@ -206,7 +199,7 @@
           <li><span>Entnahme für Auftrag · Instandhaltung</span></li>
         </ol>
         <div class="grid-3 mt-lg" data-stagger>
-          <a class="card" href="smartparts.html" style="text-decoration:none"><svg class="icon icon--lg" aria-hidden="true"><use href="assets/icons.svg#chart"/></svg><h3>WK SmartParts</h3><p>Bewertet Kritikalität, Kapitalbindung und Datenqualität der Materialien, die WK Material bewegt.</p><span class="link-arrow">WK SmartParts</span></a>
+          <a class="card" href="smartparts.html" style="text-decoration:none"><svg class="icon icon--lg" aria-hidden="true"><use href="assets/icons.svg#chart"/></svg><h3>WK SmartParts</h3><p>Bewertet Kritikalität, Kapitalbindung und Datenqualität.</p><span class="link-arrow">WK SmartParts</span></a>
           <a class="card" href="wk-instandhaltung.html" style="text-decoration:none"><svg class="icon icon--lg" aria-hidden="true"><use href="assets/icons.svg#wrench"/></svg><h3>WK Instandhaltung</h3><p>Fordert Material für Aufträge an; WK Material reserviert und bucht die Entnahme.</p><span class="link-arrow">WK Instandhaltung</span></a>
           <a class="card" href="material-ersatzteile.html" style="text-decoration:none"><svg class="icon icon--lg" aria-hidden="true"><use href="assets/icons.svg#gear"/></svg><h3>Material &amp; Ersatzteile</h3><p>Lageraudit, Bestandsoptimierung und Datenbereinigung als Dienstleistung.</p><span class="link-arrow">Zur Leistung</span></a>
         </div>
@@ -221,7 +214,7 @@
             <div data-stagger>
               <p class="eyebrow">Lassen Sie uns ins Gespräch kommen</p>
               <h2>Stimmt Ihr Bestand im System mit dem Regal überein?</h2>
-              <p class="lead">Schildern Sie uns Ihre Lagerabläufe. Wir prüfen, ob WK Material, eine Anpassung bestehender Systeme oder ein Lageraudit der richtige erste Schritt ist.</p>
+              <p class="lead">Wir prüfen den richtigen ersten Schritt: WK Material, Anpassung bestehender Systeme oder Lageraudit.</p>
               <div class="actions">
                 <a class="btn btn--primary" href="kontakt.html">Projekt unverbindlich besprechen</a>
                 <a class="btn btn--secondary" href="quick-check.html">Quick-Check anfragen</a>
@@ -302,8 +295,8 @@
     </div>
   </footer>
 
-  <script src="js/main.js?v=2026-42"></script>
-  <script src="js/wave.js?v=2026-42" defer></script>
+  <script src="js/main.js?v=2026-43"></script>
+  <script src="js/wave.js?v=2026-43" defer></script>
   <script data-goatcounter="https://unknownde.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
 </body>
 </html>

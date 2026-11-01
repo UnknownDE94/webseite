@@ -24,8 +24,8 @@
   <link rel="apple-touch-icon" href="assets/apple-touch-icon.png" />
   <link rel="preload" href="assets/fonts/archivo-wdth.woff2" as="font" type="font/woff2" crossorigin />
   <link rel="preload" href="assets/fonts/inter-wght.woff2" as="font" type="font/woff2" crossorigin />
-  <script>(function(d){d.classList.add("js");d.setAttribute("data-theme","dark");try{var t=localStorage.getItem("theme");if(t==="light")d.setAttribute("data-theme","light")}catch(e){}})(document.documentElement);</script>
-  <link rel="stylesheet" href="css/style.css?v=2026-42" />
+  <script>(function(d){d.classList.add("js");d.setAttribute("data-theme","dark");try{var t=localStorage.getItem("theme");if(t==="light")d.setAttribute("data-theme","light");if(localStorage.getItem("a11y")==="on")d.setAttribute("data-a11y","on")}catch(e){}})(document.documentElement);</script>
+  <link rel="stylesheet" href="css/style.css?v=2026-43" />
 </head>
 <body>
   <a class="skip-link" href="#main">Zum Inhalt springen</a>
@@ -71,6 +71,7 @@
       </nav>
       <div class="nav-actions">
         <a class="btn btn--primary btn--sm" href="kontakt.html">Projekt besprechen</a>
+        <button class="icon-btn a11y-toggle" type="button" aria-pressed="false" aria-label="Barrierefreie Ansicht einschalten: Wellen, Partikel-Grafiken und Animationen ausblenden" title="Barrierefreie Ansicht"><svg class="icon" aria-hidden="true"><use href="assets/icons.svg#waves-off"/></svg></button>
         <button class="icon-btn theme-toggle" type="button" aria-label="Hellen Modus aktivieren" aria-pressed="false"><svg class="icon" aria-hidden="true"><use href="assets/icons.svg#sun"/></svg></button>
         <button class="icon-btn nav-toggle" type="button" aria-label="Menü öffnen" aria-expanded="false" aria-controls="hauptmenue"><span></span></button>
       </div>
@@ -87,7 +88,7 @@
             <nav class="breadcrumb" aria-label="Brotkrumen"><a href="index.html">Start</a> / <a href="leistungen.html">Leistungen</a> / <span aria-current="page">Analyse bis Umsetzung</span></nav>
             <p class="eyebrow">Vom Problem zur Lösung. Aus einer Hand.</p>
             <h1>Ein Ansprechpartner. Ein Lösungsweg.</h1>
-            <p class="lead">Von der ersten Analyse über die technische Umsetzung bis zur Migration und Weiterentwicklung bleibt das eigentliche Betriebsproblem im Mittelpunkt.</p>
+            <p class="lead">Von der Analyse bis zur Weiterentwicklung – das Betriebsproblem bleibt im Mittelpunkt.</p>
             <div class="actions">
               <a class="btn btn--primary" href="kontakt.html">Projekt besprechen</a>
               <a class="btn btn--secondary" href="#loesungsweg">Den Weg ansehen</a>
@@ -102,14 +103,14 @@
     <section class="section" data-wave="calm">
       <div class="container">
         <div class="section-head" data-stagger>
-          <p class="eyebrow">Klarer Prozess. Klare Verantwortung.</p>
+          <p class="eyebrow">Warum aus einer Hand</p>
           <h2>Weniger Übergaben. Weniger Reibungsverluste.</h2>
-          <p class="lead">Wenn Analyse, Umsetzung und Betrieb bei verschiedenen Stellen liegen, geht Wissen verloren. Wir begleiten den gesamten Weg und behalten das Ziel im Blick.</p>
+          <p class="lead">Liegen Analyse, Umsetzung und Betrieb bei verschiedenen Stellen, geht Wissen verloren.</p>
         </div>
         <div class="trio" data-stagger>
-          <div class="card"><svg class="icon icon--lg" aria-hidden="true"><use href="assets/icons.svg#target"/></svg><h3>Problem im Mittelpunkt</h3><p>Ausgangspunkt ist die Frage im Betrieb, nicht ein Produkt. Software ist ein möglicher Weg, kein Selbstzweck.</p></div>
-          <div class="card"><svg class="icon icon--lg" aria-hidden="true"><use href="assets/icons.svg#shield"/></svg><h3>Klare Verantwortung</h3><p>Ein Ansprechpartner von der Analyse bis zur Übergabe. Entscheidungen bleiben nachvollziehbar.</p></div>
-          <div class="card"><svg class="icon icon--lg" aria-hidden="true"><use href="assets/icons.svg#wrench"/></svg><h3>Aus der Praxis</h3><p>Erfahrung aus Instandhaltung, Disposition und Materialwirtschaft. Wir kennen die Abläufe hinter den Daten.</p></div>
+          <div class="card"><svg class="icon icon--lg" aria-hidden="true"><use href="assets/icons.svg#target"/></svg><h3>Ehrliche Einschätzung</h3><p>Auch wenn sich ein Vorhaben nicht lohnt.</p></div>
+          <div class="card"><svg class="icon icon--lg" aria-hidden="true"><use href="assets/icons.svg#shield"/></svg><h3>Klare Verantwortung</h3><p>Eine Zuständigkeit bis zur Übergabe – Entscheidungen bleiben nachvollziehbar.</p></div>
+          <div class="card"><svg class="icon icon--lg" aria-hidden="true"><use href="assets/icons.svg#wrench"/></svg><h3>Aus der Praxis</h3><p>Erfahrung aus Instandhaltung, Disposition und Materialwirtschaft.</p></div>
         </div>
       </div>
     </section>
@@ -120,7 +121,7 @@
         <div class="section-head" data-stagger>
           <p class="eyebrow">Der Lösungsweg</p>
           <h2>Sechs Schritte. Ein durchgehender Faden.</h2>
-          <p class="lead">Nicht jedes Projekt durchläuft alle Schritte. Die Reihenfolge bleibt aber gleich – und jeder Schritt baut auf dem vorherigen auf.</p>
+          <p class="lead">Nicht jedes Projekt braucht alle Schritte – die Reihenfolge bleibt gleich.</p>
         </div>
         <div class="phases-wrap">
           <ol class="phases" id="phasen">
@@ -191,12 +192,12 @@
     </section>
 
     <!-- 4 · Entscheidungsbaum -->
-    <section class="section" data-wave="vortex" id="entscheidungsbaum">
+    <section class="section" data-wave="flow" id="entscheidungsbaum">
       <div class="container">
         <div class="section-head section-head--center" data-stagger>
           <p class="eyebrow">Unser Grundsatz</p>
           <h2>Nicht das Produkt bestimmt die Lösung. Das Problem bestimmt den Weg.</h2>
-          <p class="lead">Je nach Ursache führt der Weg zu Daten, Beschaffung, Software oder Technik. Oft ist es eine Kombination.</p>
+          <p class="lead">Je nach Ursache: Daten, Beschaffung, Software oder Technik – oft kombiniert.</p>
         </div>
         <div class="tree" data-anim>
           <span class="tree__root">Problem im Betrieb</span>
@@ -240,20 +241,18 @@
     </section>
 
     <!-- 5 · Was Sie erwarten können -->
-    <section class="section section--alt" data-wave="ribbon">
+    <section class="section section--alt" data-wave="flow">
       <div class="container">
         <div class="split">
           <div data-stagger>
             <p class="eyebrow">Zusammenarbeit</p>
             <h2>Was Sie erwarten können.</h2>
-            <p class="lead" style="margin-top:18px">Jeder Schritt endet mit einem greifbaren Ergebnis. Sie entscheiden, wie weit wir gemeinsam gehen – nach der Analyse, nach der Umsetzung oder darüber hinaus.</p>
+            <p class="lead" style="margin-top:18px">Sie entscheiden, wie weit wir gemeinsam gehen: nach der Analyse, nach der Umsetzung oder darüber hinaus.</p>
             <div class="actions"><a class="link-arrow" href="leistungen.html#betreuung">Betreuungsarten ansehen</a></div>
           </div>
           <ul class="checklist" data-stagger>
-            <li><strong>Ein Ansprechpartner</strong> für den gesamten Lösungsweg</li>
             <li><strong>Dokumentierte Ergebnisse</strong> nach jedem Schritt</li>
             <li><strong>Entscheidungen auf Datenbasis</strong> statt Bauchgefühl</li>
-            <li><strong>Ehrliche Einschätzung</strong>, auch wenn sich ein Vorhaben nicht lohnt</li>
             <li><strong>Übergabe</strong>, mit der Sie selbst weiterarbeiten können</li>
           </ul>
         </div>
@@ -268,12 +267,7 @@
             <div data-stagger>
               <p class="eyebrow">Lassen Sie uns ins Gespräch kommen</p>
               <h2>Welches Problem soll zuerst gelöst werden?</h2>
-              <p class="lead">Schildern Sie uns die Ausgangslage. Wir schlagen den passenden ersten Schritt vor.</p>
-              <ul class="checklist mt-lg">
-                <li>Erstgespräch vereinbaren</li>
-                <li>Quick-Check durchführen</li>
-                <li>Passende Lösung umsetzen</li>
-              </ul>
+              <p class="lead">Schildern Sie die Ausgangslage. Wir schlagen den ersten Schritt vor.</p>
               <div class="actions">
                 <a class="btn btn--primary" href="kontakt.html">Projekt unverbindlich besprechen</a>
                 <a class="btn btn--secondary" href="quick-check.html">Quick-Check anfragen</a>
@@ -354,8 +348,8 @@
     </div>
   </footer>
 
-  <script src="js/main.js?v=2026-42"></script>
-  <script src="js/wave.js?v=2026-42" defer></script>
+  <script src="js/main.js?v=2026-43"></script>
+  <script src="js/wave.js?v=2026-43" defer></script>
   <script data-goatcounter="https://unknownde.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
 </body>
 </html>
