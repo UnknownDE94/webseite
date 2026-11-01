@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="de"><head><meta charset="utf-8" /><title>WK 3D – Teilebibliothek</title><link rel="stylesheet" href="mockup.css" />
+<style>
+  .lib { display:grid; grid-template-columns: 140px 1fr; gap:10px; }
+  .filters { padding: 10px 12px; }
+  .filters h3 { font-size:8.5px; font-weight:600; text-transform:uppercase; letter-spacing:.06em; color:var(--ink-3); margin: 8px 0 5px; }
+  .filters h3:first-child { margin-top:0; }
+  .filters label { display:flex; align-items:center; gap:6px; padding:2.5px 0; font-size:9px; }
+  .filters label em { margin-left:auto; font-style:normal; color:var(--ink-3); font-size:8px; }
+  .search { display:flex; align-items:center; height:22px; padding:0 8px; border:1px solid var(--line-2); border-radius:6px; background:#fff; color:var(--ink-3); font-size:8.5px; margin-bottom:6px; }
+  .tiles { display:grid; grid-template-columns: repeat(4, 1fr); gap:8px; }
+  .part { padding: 8px 9px 9px; border-radius:9px; background:#fff; box-shadow:var(--shadow); }
+  .part.sel { box-shadow: 0 0 0 1.5px var(--green), var(--shadow); }
+  .part .th { height:66px; border-radius:6px; background:#f5f7f5; display:grid; place-items:center; }
+  .part svg { width:80px; height:66px; }
+  .part b { display:block; margin-top:6px; font-size:9px; font-weight:600; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+  .part .n { display:flex; justify-content:space-between; align-items:center; margin-top:2px; color:var(--ink-3); font-size:8px; }
+  .part .t { display:flex; gap:3px; margin-top:5px; }
+</style></head>
+<body>
+  <header class="appbar"><span class="mark">WK</span><span class="app">WK 3D</span><span class="crumb">Teilebibliothek · <b>Alle Bauteile</b></span><span class="spacer"></span><span class="demo">Beispieldaten</span></header>
+  <main class="page">
+    <div class="title-row">
+      <div><h1>Teilebibliothek</h1><p>142 Bauteile · Scan-, CAD- und Fertigungsdaten je Materialnummer</p></div>
+      <div class="btns"><span class="btn btn--ghost">Dateien importieren</span><span class="btn">Bauteil anlegen</span></div>
+    </div>
+    <div class="lib">
+      <div class="card filters">
+        <div class="search">Suchen …</div>
+        <h3>Datenstand</h3>
+        <label><span class="cb on"></span>Scan<em>58</em></label>
+        <label><span class="cb on"></span>CAD<em>97</em></label>
+        <label><span class="cb"></span>Zeichnung<em>81</em></label>
+        <h3>Status</h3>
+        <label><span class="cb on"></span>Freigegeben<em>104</em></label>
+        <label><span class="cb on"></span>In Prüfung<em>23</em></label>
+        <label><span class="cb"></span>Entwurf<em>15</em></label>
+        <h3>Anlage</h3>
+        <label><span class="cb"></span>Förderbänder<em>31</em></label>
+        <label><span class="cb"></span>Pressen<em>18</em></label>
+      </div>
+      <div class="tiles">
+        <div class="part sel"><div class="th"><svg data-part="flansch"></svg></div><b>Antriebsflansch FB-Serie</b><div class="n"><span>ET-100744</span><span class="tag g">V3</span></div><div class="t"><span class="tag">Scan</span><span class="tag">CAD</span><span class="chip ok" style="margin-left:auto">Frei</span></div></div>
+        <div class="part"><div class="th"><svg data-part="zahnrad"></svg></div><b>Stirnrad z = 18, m 2</b><div class="n"><span>ET-100265</span><span class="tag g">V2</span></div><div class="t"><span class="tag">CAD</span><span class="tag">PDF</span><span class="chip ok" style="margin-left:auto">Frei</span></div></div>
+        <div class="part"><div class="th"><svg data-part="winkel"></svg></div><b>Sensorhalter Winkel 90°</b><div class="n"><span>ET-100931</span><span class="tag g">V1</span></div><div class="t"><span class="tag">Scan</span><span class="chip warn" style="margin-left:auto">Prüfung</span></div></div>
+        <div class="part"><div class="th"><svg data-part="buchse"></svg></div><b>Gleitlagerbuchse Ø 36</b><div class="n"><span>ET-100488</span><span class="tag g">V4</span></div><div class="t"><span class="tag">CAD</span><span class="tag">PDF</span><span class="chip ok" style="margin-left:auto">Frei</span></div></div>
+        <div class="part"><div class="th"><svg data-part="deckel"></svg></div><b>Lagerdeckel Umlenkrolle</b><div class="n"><span>ET-100512</span><span class="tag g">V2</span></div><div class="t"><span class="tag">Scan</span><span class="tag">CAD</span><span class="chip ok" style="margin-left:auto">Frei</span></div></div>
+        <div class="part"><div class="th"><svg data-part="hebel"></svg></div><b>Spannhebel Gurtspanner</b><div class="n"><span>ET-100877</span><span class="tag g">V1</span></div><div class="t"><span class="tag">Scan</span><span class="chip" style="margin-left:auto">Entwurf</span></div></div>
+        <div class="part"><div class="th"><svg data-part="kettenrad"></svg></div><b>Kettenrad z = 24</b><div class="n"><span>ET-100359</span><span class="tag g">V2</span></div><div class="t"><span class="tag">CAD</span><span class="tag">PDF</span><span class="chip ok" style="margin-left:auto">Frei</span></div></div>
+        <div class="part"><div class="th"><svg data-part="gehaeuse"></svg></div><b>Klemmengehäuse Deckel</b><div class="n"><span>ET-100602</span><span class="tag g">V1</span></div><div class="t"><span class="tag">Scan</span><span class="tag">CAD</span><span class="chip warn" style="margin-left:auto">Prüfung</span></div></div>
+      </div>
+    </div>
+  </main>
+  <script src="parts.js"></script>
+</body></html>

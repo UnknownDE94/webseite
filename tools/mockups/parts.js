@@ -99,13 +99,13 @@
 
   var parts = {
     flansch: function () {
-      return extrude(circle(50, 72), 0, 12) + extrude(circle(24, 48), 12, 16) + ring(6, 38, 4, 12) + hole(0, 0, 12, 28);
+      return extrude(circle(50, 72), 0, 12) + ring(6, 38, 4, 12) + extrude(circle(24, 48), 12, 16) + hole(0, 0, 12, 28);
     },
     zahnrad: function () {
       return extrude(gearPts(18, 50, 43), 0, 14, false) + extrude(circle(18, 40), 14, 6) + hole(0, 0, 9, 20);
     },
     kettenrad: function () {
-      return extrude(gearPts(24, 50, 45), 0, 8, false) + extrude(circle(20, 40), 8, 12) + ring(4, 31, 4, 8) + hole(0, 0, 10, 20);
+      return extrude(gearPts(24, 50, 45), 0, 8, false) + ring(4, 31, 4, 8) + extrude(circle(20, 40), 8, 12) + hole(0, 0, 10, 20);
     },
     winkel: function () {
       var r = -0.5;
@@ -115,7 +115,7 @@
       return extrude(circle(40, 64), 0, 8) + extrude(circle(28, 64), 8, 44) + hole(0, 0, 18, 52);
     },
     deckel: function () {
-      return extrude(circle(50, 72), 0, 8) + extrude(circle(32, 60), 8, 7) + ring(4, 42, 3.5, 8) + hole(0, 0, 14, 15);
+      return extrude(circle(50, 72), 0, 8) + ring(4, 42, 3.5, 8) + extrude(circle(32, 60), 8, 7) + hole(0, 0, 14, 15);
     },
     hebel: function () {
       var L = circle(22, 32).filter(function (p) { return p[0] <= 0; }).map(function (p) { return [p[0] - 30, p[1]]; });

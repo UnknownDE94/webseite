@@ -9,6 +9,7 @@
 .worlds h3 .icon { flex: none; width: 34px; height: 34px; color: var(--accent); stroke-width: 1.3; }
 .worlds p { margin-top: 12px; color: var(--ink-2); max-width: 48ch; }
 .worlds .actions { margin-top: 18px; gap: 20px; }
+.worlds .dotlist { align-content: start; padding-top: 6px; }
 
 /* Sechs große Prozessabschnitte mit mitlaufendem Motiv (analyse-bis-umsetzung.html) */
 .phases-wrap { display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(0, 0.8fr); gap: 56px; align-items: start; }

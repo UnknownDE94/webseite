@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="de"><head><meta charset="utf-8" /><title>WK 3D – Versionen</title><link rel="stylesheet" href="mockup.css" />
+<style>
+  .grid { display:grid; grid-template-columns: 1.5fr 1fr; gap:10px; }
+  .cmp { display:grid; grid-template-columns: 1fr 1fr; gap:8px; padding:0 12px 12px; }
+  .cmp div { border-radius:7px; background:#f5f7f5; padding:6px; text-align:center; }
+  .cmp svg { width:100%; height:110px; }
+  .cmp small { display:block; font-size:8.5px; color:var(--ink-2); font-weight:600; }
+</style></head>
+<body>
+  <header class="appbar"><span class="mark">WK</span><span class="app">WK 3D</span><span class="crumb">ET-100512 Lagerdeckel · <b>Versionen</b></span><span class="spacer"></span><span class="demo">Beispieldaten</span></header>
+  <main class="page">
+    <div class="title-row">
+      <div><h1>Lagerdeckel Umlenkrolle · Versionen</h1><p>ET-100512 · 4 Versionen · aktuelle Version freigegeben</p></div>
+      <div class="btns"><span class="btn btn--ghost">Versionen vergleichen</span><span class="btn">Version freigeben</span></div>
+    </div>
+    <div class="grid">
+      <div class="card">
+        <table>
+          <thead><tr><th>Version</th><th>Datum</th><th>Änderung</th><th>Dateien</th><th>Status</th></tr></thead>
+          <tbody>
+            <tr class="bar-warn sel"><td><b>V4</b></td><td class="muted">heute</td><td>Bohrbild an Lagergehäuse angepasst</td><td><span class="tag">STEP</span> <span class="tag">PDF</span></td><td><span class="chip warn">In Prüfung</span></td></tr>
+            <tr class="bar-ok"><td><b>V3</b></td><td class="muted">14.08.</td><td>Zentrierung Ø 62 H7 ergänzt</td><td><span class="tag">STEP</span> <span class="tag">PDF</span></td><td><span class="chip ok">Freigegeben</span></td></tr>
+            <tr><td><b>V2</b></td><td class="muted">02.05.</td><td>CAD aus Scan rekonstruiert</td><td><span class="tag">STEP</span></td><td><span class="chip">Archiviert</span></td></tr>
+            <tr><td><b>V1</b></td><td class="muted">18.04.</td><td>3D-Scan des Originalteils</td><td><span class="tag">STL</span> <span class="tag">Fotos</span></td><td><span class="chip">Archiviert</span></td></tr>
+          </tbody>
+        </table>
+        <div class="card-body" style="padding-top:12px">
+          <div class="label" style="margin-bottom:6px">Prüfschritte V4</div>
+          <ul class="list">
+            <li><span class="cb on"></span><span style="flex:1">Maße gegen Einbausituation geprüft</span><span class="muted">Konstruktion</span></li>
+            <li><span class="cb on"></span><span style="flex:1">Zeichnung aktualisiert</span><span class="muted">Konstruktion</span></li>
+            <li><span class="cb"></span><span style="flex:1">Freigabe Instandhaltung</span><span class="muted">offen</span></li>
+          </ul>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-head"><h2>Vergleich V3 ↔ V4</h2><span class="meta">CAD</span></div>
+        <div class="cmp">
+          <div><svg data-part="deckel"></svg><small>V3 · freigegeben</small></div>
+          <div><svg data-part="deckel"></svg><small>V4 · in Prüfung</small></div>
+        </div>
+        <div class="card-body">
+          <dl class="fields">
+            <dt>Geändert</dt><dd>Lochkreis Ø 84 → Ø 86</dd>
+            <dt>Unverändert</dt><dd>Außen-Ø, Dicke, Zentrierung</dd>
+            <dt>Verknüpft</dt><dd>ET-100512 · 2 Anlagen</dd>
+          </dl>
+        </div>
+      </div>
+    </div>
+  </main>
+  <script src="parts.js"></script>
+</body></html>

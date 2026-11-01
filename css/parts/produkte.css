@@ -1,0 +1,74 @@
+/* Produktseiten (loesungen, smartparts, wk-material, wk-instandhaltung,
+   wk-finance, wk-3d). Ergänzt css/style.css, nutzt nur dessen Tokens. */
+
+/* Statuszeile im Seitenkopf */
+.status-row { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin-top: 26px; list-style: none; }
+.status-row > li { display: contents; }
+.status-row__label { margin-right: 4px; font-family: var(--font-mono); font-size: 0.7rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-3); }
+
+/* Hinweis unter App-Animationen und Screenshots */
+.showcase-app .note, .shot-note { justify-content: center; }
+.shot-note { margin-top: 18px; }
+
+/* Smartphone mittig */
+.phone-wrap { display: grid; place-items: center; padding: 8px 0; }
+.phone-wrap figcaption { margin-top: 18px; text-align: center; }
+
+/* Produktfamilie (loesungen) */
+.family { list-style: none; border-top: 1px solid var(--line); }
+.family > li { display: grid; grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.2fr) minmax(0, 0.9fr); gap: 40px; align-items: center; padding: 44px 0; border-bottom: 1px solid var(--line); }
+.family__shot { position: relative; display: block; text-decoration: none; }
+.family__shot .window { transition: transform 0.4s var(--ease-out), border-color 0.3s var(--ease); }
+.family__shot img { aspect-ratio: 16 / 10; object-fit: cover; object-position: top left; }
+.family__shot:hover .window { transform: translateY(-4px); border-color: color-mix(in srgb, var(--accent) 45%, transparent); }
+.family__shot--phone .window img { aspect-ratio: 16 / 10; }
+.family__name { display: flex; flex-wrap: wrap; align-items: baseline; gap: 6px 12px; }
+.family__name h3 { font-size: 1.45rem; }
+.family__name small { font-family: var(--font-mono); font-size: 0.72rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--accent); }
+.family__ps { display: grid; gap: 8px; margin-top: 14px; }
+.family__ps p { color: var(--ink-2); }
+.family__ps strong { color: var(--ink); font-weight: 600; }
+.family__side { display: grid; gap: 20px; align-content: center; }
+.family__side .dotlist { font-size: 0.94rem; }
+.family__status { display: flex; flex-wrap: wrap; gap: 6px; }
+
+/* Zusammenspiel der Produktfamilie */
+.ecosystem { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 18px 28px; }
+.eco-node { position: relative; display: block; padding: 22px 22px 20px; border: 1px solid var(--line-2); border-radius: var(--radius); background: color-mix(in srgb, var(--surface) 75%, transparent); text-decoration: none; transition: border-color 0.2s var(--ease); }
+a.eco-node:hover { border-color: var(--accent); }
+.eco-node strong { display: block; font-family: var(--font-display); font-size: 1.1rem; }
+.eco-node span { display: block; margin-top: 4px; font-size: 0.88rem; color: var(--ink-3); }
+.eco-node small { display: block; margin-bottom: 8px; font-family: var(--font-mono); font-size: 0.68rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent); }
+.eco-core { grid-column: 1 / -1; display: grid; grid-template-columns: minmax(0, 1fr) 44px minmax(0, 1fr) 44px minmax(0, 1fr); align-items: stretch; }
+.eco-link { display: grid; place-items: center; color: var(--accent); font-size: 1.3rem; }
+.eco-link::before { content: "↔"; }
+.eco-branch { position: relative; }
+.eco-branch::before { content: ""; position: absolute; left: 50%; top: -18px; height: 18px; border-left: 1px dashed var(--line-2); }
+.eco-node--muted { border-style: dashed; }
+.eco-band { grid-column: 1 / -1; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px 24px; padding: 20px 24px; border: 1px dashed color-mix(in srgb, var(--accent) 45%, transparent); border-radius: var(--radius); }
+.eco-band p { color: var(--ink-2); max-width: 70ch; }
+.eco-band strong { color: var(--ink); }
+
+/* Funktionsliste in Karten kompakt */
+.fn-grid .card { padding: 24px; }
+.fn-grid .card h3 { font-size: 1.05rem; }
+.fn-grid .card p { font-size: 0.94rem; }
+
+/* Reiter-Bilder (SmartParts) */
+.tab-panel .window img { aspect-ratio: 16 / 10; }
+.tab-panel h3 { font-size: 1.4rem; margin-bottom: 12px; }
+.tab-panel p { color: var(--ink-2); }
+.tab-panel .checklist { margin-top: 20px; }
+
+@media (max-width: 1024px) {
+  .family > li { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 28px; }
+  .family__shot { grid-column: 1 / -1; max-width: 560px; }
+}
+@media (max-width: 720px) {
+  .family > li { grid-template-columns: minmax(0, 1fr); padding: 36px 0; }
+  .ecosystem { grid-template-columns: minmax(0, 1fr); }
+  .eco-core { grid-template-columns: minmax(0, 1fr); }
+  .eco-link { height: 32px; }
+  .eco-link::before { content: "↕"; }
+  .eco-branch::before { display: none; }
+}

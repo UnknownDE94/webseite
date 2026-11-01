@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="de"><head><meta charset="utf-8" /><title>WK SmartParts – mobil</title><link rel="stylesheet" href="mockup.css" />
+<style>
+  .sbox { display:flex; align-items:center; gap:10px; height:46px; margin:0 20px 12px; padding:0 14px; border-radius:12px; background:#fff; box-shadow:var(--shadow); color:var(--ink-3); font-size:14px; }
+  .sbox b { margin-left:auto; display:grid; place-items:center; width:30px; height:30px; border-radius:8px; background:var(--head); color:#fff; font-size:11px; }
+  .f { display:flex; justify-content:space-between; align-items:center; padding:9px 0; border-bottom:1px solid var(--line); font-size:14px; }
+  .f:last-child { border-bottom:0; } .f span { color:var(--ink-3); font-size:13px; }
+  .alt { display:flex; justify-content:space-between; align-items:center; padding:8px 0; font-size:13px; border-bottom:1px solid var(--line); }
+  .alt:last-child { border-bottom:0; }
+</style></head>
+<body class="mobile">
+  <div class="status-bar"><span>9:41</span><span class="sig"><i></i><i></i></span></div>
+  <div class="m-head"><div style="flex:1"><h1>Material suchen</h1><small>Lager Halle 2</small></div><span class="demo">Beispieldaten</span></div>
+  <div class="sbox">Frequenzumrichter 5,5 <b>QR</b></div>
+  <div class="m-body">
+    <div class="m-card">
+      <div style="display:flex;justify-content:space-between;align-items:center"><span class="muted" style="font-size:12px">ET-100790</span><span class="chip crit">Stillstand möglich</span></div>
+      <div style="margin-top:6px;font-size:16px;font-weight:650">Frequenzumrichter 5,5 kW</div>
+      <div class="f" style="margin-top:4px"><span>Bestand</span><b>0 Stk · H2-B-03-04</b></div>
+      <div class="f"><span>Kritikalität</span><b>A · Score 100</b></div>
+      <div class="f"><span>Lieferzeit</span><b>15 Arbeitstage</b></div>
+    </div>
+    <div class="m-card">
+      <div style="font-size:13px;font-weight:600;margin-bottom:2px">Alternativteile</div>
+      <div class="alt"><span>ET-101285 · 5,5 kW, anderer Typ</span><span class="chip warn">prüfen</span></div>
+      <div class="alt"><span>ET-101302 · Nachfolgemodell</span><span class="chip ok">geprüft</span></div>
+    </div>
+    <div class="m-btn ghost" style="margin-top:12px">Auffälligkeit melden</div>
+  </div>
+  <nav class="tabbar"><span class="on"><i></i>Suche</span><span><i></i>Scan</span><span><i></i>Meldungen</span><span><i></i>Merkliste</span></nav>
+</body></html>
