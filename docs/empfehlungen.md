@@ -4,10 +4,11 @@ Begleitend zu den JPEG-Tafeln in `docs/empfehlungen/`:
 
 | Datei | Inhalt |
 |---|---|
-| `01-wellen-varianten.jpg` | Neun Wellenzustände, davon fünf neue Raumformen |
+| `01-wellen-varianten.jpg` | Sechs Zustände derselben Welle (keine Sonderformen mehr) |
 | `02-partikel-motive.jpg` | 15 fachlich konkrete Partikel-Motive (Bauteile, Werkzeuge, Arbeitsmittel) |
 | `03-layout-uebersicht.jpg` | Die neuen Seiten im einheitlichen Layout (Vorlagen 1, 4–10) |
 | `04-app-animationen.jpg` | App-Showcase je WK-App (Screens + schwebende Detailkarten) |
+| `05-kachel-integration.jpg` | Kacheln als gemeinsame Fläche mit Trennlinien |
 
 ## 1. Einheitlicher Layoutstil
 
@@ -47,28 +48,36 @@ Hover nur `translateY(-2px)`, keine Skalierung.
 - **Icons**: ein einheitliches Linien-Set (`assets/icons.svg`), 1,6 px Strich,
   in Kacheln 1,2 px; keine Personen-Symbole.
 
-## 4. Mehr Varianz bei den Wellen (siehe `01-wellen-varianten.jpg`)
+## 4. Welle und Motive – ruhig und einheitlich
 
-| Form | Wirkung | Empfohlener Einsatz |
-|---|---|---|
-| Orbit (Punkteglobus) | geschlossen, „alles bei Ihnen“ | Lokale KI, Datenhoheit, Sicherheit |
-| Vortex (Wirbel) | verdichtet zum Kern | Analyse, Quick-Check |
-| Ribbon (Datenband) | Übergang, Verbindung | Migration, Sync, Zusammenspiel der Apps |
-| Tunnel (Datenkanal) | Tiefe, Blick nach vorn | Offline/Sync, Obsoleszenz |
-| Dunes (Landschaft) | weit, ruhig | Region, Über uns, Rechtstexte |
+- **Nur eine Welle**: immer dieselbe Punktfläche; je Abschnitt ändern sich nur Höhe, Tempo
+  und Helligkeit (hero, calm, flow, grid, surge, flat). Kugel, Wirbel, Band, Tunnel und
+  Dünen sind entfernt.
+- **Motive** (Kugellager, Typenschild, Lagerregal …) lösen sich langsam aus der Welle und
+  zerfallen weich wieder, wenn man weiterscrollt oder das Motiv wechselt.
+- **Barrierefreie Ansicht**: Schalter neben Hell/Dunkel blendet Welle, Motive und alle
+  Animationen aus; die Wahl bleibt seitenübergreifend gespeichert.
+- **Kein Gitterraster** und **keine Leuchtkurve** im Prozessweg mehr – weniger Linien,
+  die mit Inhalt konkurrieren.
 
-Weitere Ideen für später (noch nicht umgesetzt):
-1. **Partikel-Typenschild** – Punkte formen ein Typenschild, dessen Felder nacheinander
-   „erkannt“ aufleuchten (KI-Werkstatt / Teileaufnahme).
-2. **Explosionszeichnung** – ein Bauteil zerfällt in seine Einzelteile und setzt sich
-   wieder zusammen (3D-Technik, Alternativteile).
-3. **Inventur-Raster** – Punkte ordnen sich zu Regalfächern, einzelne Fächer werden
-   „gezählt“ (WK Material).
-4. **Synchronisations-Puls** – zwei Punktwolken (Gerät / Zentrale) tauschen Pakete aus,
-   sobald die Verbindung zurück ist (Mobile & Offline).
-5. **Wellen-Farbverlauf nach Tageszeit** – morgens kühler, abends wärmer (sehr dezent).
+## 5. Kacheln stilgerecht integrieren (siehe `05-kachel-integration.jpg`)
 
-## 5. App-Animationen (siehe `04-app-animationen.jpg`)
+Bisher standen Karten als einzelne schwebende Boxen mit Abstand und eigenem Rahmen
+im Layout – vor der Welle wirkten sie unruhig. Neue Empfehlung, jetzt umgesetzt:
+
+- **Eine Fläche statt vieler Boxen**: zusammengehörige Kacheln teilen sich einen
+  gemeinsamen Rahmen; zwischen ihnen nur 1-px-Trennlinien – wie ein technisches
+  Datenblatt oder eine Stückliste.
+- **Deckender Grund**: Die Kachelfläche ist nicht mehr durchscheinend, Welle und Motive
+  laufen nie hinter Text.
+- **Hover statt Anheben**: Verlinkte Kacheln heben sich nicht mehr an, sondern bekommen
+  eine Limette-Oberkante und eine leicht hellere Fläche.
+- **Status als Kante**: Ampelkarten (Sofort handeln / Planen / Beobachten) zeigen ihre
+  Farbe als obere Kante innerhalb der Fläche.
+- Gilt überall: Leistungskacheln, Karten-Raster, Kennzahlen, Info-Karten, Ampel,
+  Zielgruppen-Einstiege.
+
+## 6. App-Animationen (siehe `04-app-animationen.jpg`)
 
 Jede WK-App erhält dieselbe Inszenierung wie der Dribbble-Referenzentwurf
 „Claims Management“: leicht geneigtes Produktfenster, Bildschirme wechseln alle

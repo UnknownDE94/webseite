@@ -9,6 +9,13 @@ document.addEventListener("DOMContentLoaded", function () {
   "use strict";
   var doc = document.documentElement;
   var reduceMotion = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  // Barrierefreie Ansicht (Schalter im Header): keine Wellen, Motive und Animationen
+  var a11yOn = function () {
+    return doc.getAttribute("data-a11y") === "on";
+  };
+  var still = function () {
+    return reduceMotion || a11yOn();
+  };
   var each = function (selector, fn, root) {
     Array.prototype.forEach.call((root || document).querySelectorAll(selector), fn);
   };
@@ -37,6 +44,43 @@ document.addEventListener("DOMContentLoaded", function () {
         // Ohne Speicher gilt die Wahl nur für diese Seite.
       }
       applyTheme(next);
+    });
+  }
+
+  // --- Barrierefreie Ansicht -------------------------------------------------
+  var a11yToggle = document.querySelector(".a11y-toggle");
+  var applyA11y = function (on) {
+    if (on) {
+      doc.setAttribute("data-a11y", "on");
+    } else {
+      doc.removeAttribute("data-a11y");
+    }
+    if (a11yToggle) {
+      a11yToggle.setAttribute("aria-pressed", on ? "true" : "false");
+      a11yToggle.setAttribute("aria-label", on
+        ? "Barrierefreie Ansicht ausschalten: Wellen und Grafiken wieder anzeigen"
+        : "Barrierefreie Ansicht einschalten: Wellen, Partikel-Grafiken und Animationen ausblenden");
+      var icon = a11yToggle.querySelector("use");
+      if (icon) {
+        icon.setAttribute("href", "assets/icons.svg#" + (on ? "waves" : "waves-off"));
+      }
+    }
+    if (on) {
+      each("[data-anim]", function (el) {
+        el.classList.add("in");
+      });
+    }
+  };
+  applyA11y(a11yOn());
+  if (a11yToggle) {
+    a11yToggle.addEventListener("click", function () {
+      var on = !a11yOn();
+      try {
+        window.localStorage.setItem("a11y", on ? "on" : "off");
+      } catch (error) {
+        // Ohne Speicher gilt die Wahl nur für diese Seite.
+      }
+      applyA11y(on);
     });
   }
 
@@ -130,13 +174,6 @@ document.addEventListener("DOMContentLoaded", function () {
       }
       child.style.setProperty("--i", i);
     });
-  });
-  each(".process__curve path", function (path) {
-    try {
-      path.style.setProperty("--len", Math.ceil(path.getTotalLength()) + 2);
-    } catch (error) {
-      path.style.setProperty("--len", 0);
-    }
   });
   var revealTargets = document.querySelectorAll("[data-anim], .process, .showcase-app");
   if (!("IntersectionObserver" in window) || reduceMotion) {
@@ -247,7 +284,7 @@ document.addEventListener("DOMContentLoaded", function () {
       timer = null;
     };
     var start = function () {
-      if (!timer && !reduceMotion && screens.length > 1) {
+      if (!timer && !still() && screens.length > 1) {
         timer = window.setInterval(function () {
           show(current + 1);
         }, 5200);
@@ -297,7 +334,7 @@ document.addEventListener("DOMContentLoaded", function () {
       timer = null;
     };
     var start = function () {
-      if (!timer && !reduceMotion && inView) {
+      if (!timer && !still() && inView) {
         timer = window.setInterval(function () {
           setStep(index + 1);
         }, 4200);

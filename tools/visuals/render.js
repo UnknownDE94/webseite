@@ -1,5 +1,5 @@
 /* Erzeugt die visuellen Empfehlungen als JPEG (docs/empfehlungen/).
-   Aufruf: node tools/visuals/render.js [wellen|motive|seiten|apps|alle]
+   Aufruf: node tools/visuals/render.js [wellen|motive|seiten|apps|kacheln|alle]
    (seiten/apps brauchen einen lokalen Server: python3 -m http.server 8765)
    Rendert jede Wellenform/jedes Motiv mit der echten wave.js und setzt sie
    mit Beschriftung zu einer Übersichtstafel zusammen. */
@@ -14,15 +14,12 @@ fs.mkdirSync(OUT, { recursive: true });
 fs.mkdirSync(TMP, { recursive: true });
 
 const WELLEN = [
-  ["hero", "Hero-Welle", "Startseite und Seitenköpfe. Hoch, rechts versetzt, hält die Textspalte frei.", "Im Einsatz"],
-  ["orbit", "Orbit – Punkteglobus", "Lokale KI, Datenhoheit, Sicherheit. Steht für „alles in Ihrer Umgebung“.", "Neu"],
-  ["vortex", "Vortex – Wirbel", "Analyse und Quick-Check: Daten werden zum Kern hin verdichtet.", "Neu"],
-  ["ribbon", "Ribbon – Datenband", "Migration, Synchronisation, Zusammenspiel der Apps.", "Neu"],
-  ["tunnel", "Tunnel – Datenkanal", "Offline/Sync und Obsoleszenz: Blick nach vorn, was kommt.", "Neu"],
-  ["dunes", "Dunes – Landschaft", "Ruhige Abschnitte, Region, Über uns. Weit und gelassen.", "Neu"],
-  ["pulse", "Pulse – Signal", "Kontakt und Quick-Check-Anfrage: Ringe wie ein Funksignal.", "Im Einsatz"],
-  ["grid", "Grid – Datenraster", "Software-, Daten- und Produktabschnitte. Fast ruhende Draufsicht.", "Im Einsatz"],
-  ["surge", "Surge – Wellenberg", "Abschluss und Handlungsaufforderung. Kräftig, hinter dem CTA.", "Im Einsatz"],
+  ["hero", "Hero", "Startseite und Seitenköpfe. Hoch, rechts versetzt, hält die Textspalte frei.", "Im Einsatz"],
+  ["calm", "Calm", "Textabschnitte. Flach und dezent am unteren Rand.", "Im Einsatz"],
+  ["flow", "Flow", "Prozesse und Abläufe. Etwas dichter und bewegter.", "Im Einsatz"],
+  ["grid", "Grid", "Daten- und Produktabschnitte. Ruhig, gleichmäßig.", "Im Einsatz"],
+  ["surge", "Surge", "Abschluss und Handlungsaufforderung. Kräftiger Wellenberg.", "Im Einsatz"],
+  ["flat", "Flat", "Footer und Rechtstexte. Fast still.", "Im Einsatz"],
 ];
 const MOTIVE = [
   ["bearing", "Kugellager", "Material & Ersatzteile – das klassische Ersatzteil"],
@@ -67,7 +64,7 @@ function board(title, intro, items, files, cols) {
     h1{font-size:44px;margin:0 0 10px} p.i{color:#b4bdb8;max-width:900px;margin:0 0 36px;font-size:17px}
     .g{display:grid;grid-template-columns:repeat(${cols},440px);gap:20px}
     figure{margin:0;border:1px solid rgba(255,255,255,.1);border-radius:14px;overflow:hidden;background:#0c1310}
-    img{width:440px;height:274px;object-fit:cover;display:block}
+    img{width:440px;height:274px;object-fit:cover;display:block;background:#070b09}
     figcaption{padding:14px 16px 18px;margin:0;color:#b4bdb8;font-size:14px;line-height:1.45}
     figcaption b{color:#f2f5f3;font-size:16px;margin-right:8px} figcaption span{display:block;margin-top:4px}
     em{font-style:normal;font:500 11px "JetBrains Mono";letter-spacing:.08em;text-transform:uppercase;border:1px solid rgba(255,255,255,.2);border-radius:99px;padding:2px 8px;color:#b4bdb8}
@@ -93,7 +90,7 @@ async function renderBoard(browser, html, out) {
   if (what === "wellen" || what === "alle") {
     const files = await shots(browser, WELLEN, false);
     await renderBoard(browser, board("Wellen-Varianten",
-      "Mehr Varianz statt immer derselben Welle: Die Partikel legen sich je nach Thema auf eine andere Raumform. Alle Varianten laufen mit derselben wave.js und wechseln beim Scrollen weich ineinander. Empfohlen: pro Seite höchstens drei verschiedene Formen.",
+      "Eine Welle, sechs Stimmungen: Die Partikelwelle bleibt immer dieselbe Fläche und ändert je Abschnitt nur Höhe, Tempo und Helligkeit. Sonderformen wie Kugel, Wirbel oder Tunnel sind entfernt. Über den Schalter im Header lässt sich die Welle samt Motiven ganz ausblenden.",
       WELLEN, files, 3), path.join(OUT, "01-wellen-varianten.jpg"));
   }
   if (what === "motive" || what === "alle") {
@@ -153,6 +150,39 @@ async function renderBoard(browser, html, out) {
     await renderBoard(browser, board("App-Animationen",
       "Jede WK-App mit derselben Inszenierung: geneigtes Produktfenster, wechselnde Bildschirme mit Glanzlicht, schwebende Detailkarten, leichte Neigung mit der Maus. Konzeptansichten sind als Beispieldaten gekennzeichnet.",
       APPS.map((x) => [x[0], x[1], x[2], ""]), files, 3), path.join(OUT, "04-app-animationen.jpg"));
+  }
+  if (what === "kacheln" || what === "alle") {
+    // Ausschnitte mit Kachelflächen (lokaler Server nötig)
+    const KACHELN = [
+      ["index", ".tiles", "Leistungswelten", "Startseite – fünf Kacheln als eine Fläche"],
+      ["index", ".trio", "Drei Kernaussagen", "Startseite – Lokale KI / Offline / Datenhoheit"],
+      ["quick-check", ".traffic", "Ampel", "Quick-Check – Status als farbige Oberkante"],
+      ["3d-technik", ".grid-3", "Leistungskarten", "3D-Technik – Karten-Raster"],
+      ["smartparts", ".kpis", "Kennzahlen", "SmartParts – Kennzahlen (Beispieldaten)"],
+      ["index", ".audience", "Zielgruppen", "Startseite – Einstiege Handwerk / Industrie"],
+    ];
+    const page = await browser.newPage({ viewport: { width: 1440, height: 900 } });
+    const files = [];
+    for (const [name, sel] of KACHELN) {
+      await page.goto("http://localhost:8765/" + name + ".html", { waitUntil: "networkidle" });
+      await page.waitForTimeout(600);
+      const box = await page.evaluate((s) => {
+        const el = document.querySelector(s);
+        if (!el) return null;
+        el.scrollIntoView({ block: "center" });
+        document.querySelectorAll("[data-anim]").forEach((e) => e.classList.add("in"));
+        const r = el.getBoundingClientRect();
+        return { x: Math.max(0, r.left - 24), y: Math.max(0, r.top - 24), width: Math.min(r.width + 48, 1440), height: Math.min(r.height + 48, 900) };
+      }, sel);
+      await page.waitForTimeout(1800);
+      const f = path.join(TMP, "k-" + name + "-" + files.length + ".png");
+      await page.screenshot(box ? { path: f, clip: box } : { path: f });
+      files.push(f);
+    }
+    await page.close();
+    await renderBoard(browser, board("Kacheln stilgerecht integriert",
+      "Zusammengehörige Kacheln bilden eine gemeinsame, deckende Fläche mit feinen Trennlinien – wie ein technisches Datenblatt. Kein Schweben, kein Durchscheinen der Welle; verlinkte Kacheln zeigen beim Überfahren eine Limette-Oberkante.",
+      KACHELN.map((k) => [k[0], k[2], k[3], ""]), files, 3), path.join(OUT, "05-kachel-integration.jpg"));
   }
   await browser.close();
 })();

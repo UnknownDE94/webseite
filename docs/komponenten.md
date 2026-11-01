@@ -23,8 +23,11 @@ robots: noindex            # nur danke, 404, Weiterleitungen
 fügen Partials aus `src/partials/` ein.
 
 ## Wellen-Zustände (`data-wave` am direkten Kind von `<main>`)
-hero · calm · flow · grid · pulse · surge · flat · **orbit** (Kugel) · **vortex** (Wirbel) ·
-**ribbon** (Datenband) · **tunnel** · **dunes** (Landschaft). Erste Section = hero, CTA = surge.
+hero · calm · flow · grid · surge · flat – immer dieselbe Welle, nur Höhe/Tempo/Helligkeit
+ändern sich. Ältere Namen (orbit, vortex, ribbon, tunnel, dunes, pulse) zeigen auf calm/flow.
+Erste Section = hero, CTA = surge. Barrierefreie Ansicht: `html[data-a11y="on"]`
+(Schalter `.a11y-toggle` im Header, gespeichert in localStorage) blendet Welle, Motive und
+Animationen aus.
 
 ## Partikel-Motive (`<div class="wave-slot wave-slot--icon" data-shape="…" aria-hidden="true"></div>`)
 logo · bars · modules · talk · scan · fork · gear · database · euro · truck · shield ·
@@ -43,14 +46,14 @@ Reiter mit `data-shape` + Container `data-shape-target="<slot-id>"`.
 | Unterseiten-Kopf | `.page-hero > .container > .page-hero__grid` (Text + Motiv), `.breadcrumb`, `.eyebrow`, `h1`, `.lead`, `.actions` |
 | Abschnittskopf | `.section-head` (`--center`, `--row` mit Button rechts) |
 | Leistungskacheln (V4) | `.tiles` (`--4`, `--3`) > `a.tile` (Icon, h3, p) |
-| Prozessweg (V5) | `.process > include:process-curve + ol.process__steps[style=--steps:6]` |
+| Prozessweg (V5) | `.process > ol.process__steps[style=--steps:6]` |
 | Produktbühne (V6) | `.product-stage` (Text + `.showcase-app`), darunter `ul.feature-strip` |
 | App-Animation | `.showcase-app[data-showcase] > .showcase-app__stage > .window > .showcase-app__screen > img…` + `.callout[data-for=n]` (Ausschnitt per `background-image:url(…)`, `--pos`, `--zoom`, `--w`, `--ar`, Lage mit left/right/top/bottom) + `.showcase-app__dots` + `p.note` „Darstellung mit Beispieldaten.“ |
 | Bauteil-Sequenz (V7) | `include:sequence-3d` |
 | Region (V8) | `.region` (Text + `.region__map` mit include:map-de), `.info-cards > .info-card` |
 | Kennzahlen (V9) | `.kpis > .kpi(--ok/--warn/--crit) > .kpi__value + .kpi__label + .kpi__trend` |
 | Abschluss / Kontakt (V10) | `.closing > .closing__grid`, `.cta-split` + `.form-card`, `ul.contact-row` |
-| Karten | `.card` (flach), `.card--glass` (nur Kennzahlen/Produkt/CTA), `.grid-2/3/4`, `.trio` |
+| Karten | `.card` in `.grid-2/3/4` oder `.trio` – bilden automatisch eine gemeinsame Fläche mit Trennlinien (Abschnitt 12c); ebenso `.tiles`, `.traffic`, `.info-cards`, `.kpis`, `.audience` |
 | Listen | `.checklist`, `.dotlist(--cols)`, `.chips`, `ol.chain` (A → B → C), `ul.matrix` (Problem → Einstieg) |
 | Status | `span.status.status--geplant|pilot|entwicklung|verfuegbar` (immer mit Text) |
 | Tabelle | `.table-wrap > table.table` |
