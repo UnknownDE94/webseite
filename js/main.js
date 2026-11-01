@@ -7,23 +7,6 @@ document.addEventListener("DOMContentLoaded", function () {
     ? window.matchMedia("(prefers-reduced-motion: reduce)").matches
     : false;
 
-  // Hintergrundfilm im Hero: bei reduzierter Bewegung nur das Standbild zeigen.
-  // Bei Datensparmodus oder langsamer Mobilverbindung wird der Film gar nicht erst geladen.
-  var connection = navigator.connection || {};
-  var saveData = connection.saveData === true || /(^|-)2g$/.test(connection.effectiveType || "");
-  document.querySelectorAll(".hero-video, .stage-video, .page-header-video").forEach(function (video) {
-    if (reduceMotion || saveData) {
-      video.removeAttribute("autoplay");
-      video.pause();
-      if (saveData) {
-        video.querySelectorAll("source").forEach(function (source) {
-          source.remove();
-        });
-        video.load();
-      }
-    }
-  });
-
   // Theme preference is shared across all pages (an inline script in <head>
   // already applies it before the first paint to avoid a light flash).
   var themeToggle = document.querySelector(".theme-toggle");
@@ -445,8 +428,7 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   })();
 
-  // --- Parallax & Scroll-Effekte -----------------------------------------------
-  // Leichte Parallax auf Hero-Media
+  // Ablauf: Zeitstrahl lädt sich auf, sobald er sichtbar wird
   document.querySelectorAll(".flow-steps").forEach(function (steps) {
     if (!("IntersectionObserver" in window)) { steps.classList.add("is-charged"); return; }
     var chargeObserver = new IntersectionObserver(function (entries) {
@@ -459,11 +441,4 @@ document.addEventListener("DOMContentLoaded", function () {
     chargeObserver.observe(steps);
   });
 
-  var heroMedia = document.querySelector(".hero-media");
-  if (heroMedia) {
-    window.addEventListener("scroll", function () {
-      var offset = window.scrollY * 0.3;
-      heroMedia.style.transform = "translateY(" + offset + "px)";
-    }, { passive: true });
-  }
 });
