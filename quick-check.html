@@ -25,7 +25,7 @@
   <link rel="preload" href="assets/fonts/archivo-wdth.woff2" as="font" type="font/woff2" crossorigin />
   <link rel="preload" href="assets/fonts/inter-wght.woff2" as="font" type="font/woff2" crossorigin />
   <script>(function(d){d.classList.add("js");d.setAttribute("data-theme","dark");try{var t=localStorage.getItem("theme");if(t==="light")d.setAttribute("data-theme","light");if(localStorage.getItem("a11y")==="on")d.setAttribute("data-a11y","on")}catch(e){}})(document.documentElement);</script>
-  <link rel="stylesheet" href="css/style.css?v=2026-46" />
+  <link rel="stylesheet" href="css/style.css?v=2026-47" />
 </head>
 <body>
   <a class="skip-link" href="#main">Zum Inhalt springen</a>
@@ -93,7 +93,6 @@
               <a class="btn btn--secondary" href="#pruefung">Was wird geprüft?</a>
             </div>
           </div>
-          <div class="wave-slot wave-slot--icon" data-shape="check" aria-hidden="true"></div>
         </div>
       </div>
     </section>
@@ -106,14 +105,13 @@
             <h2>Ein Quick-Check. Ihr Schwerpunkt.</h2>
             <p class="lead">Sie wählen den Schwerpunkt; mehrere lassen sich kombinieren. Den Zuschnitt legen wir im Vorgespräch fest.</p>
           </div>
-          <div class="wave-slot wave-slot--icon" id="qc-motiv" data-shape="bars" data-shapes="bars gear migrate local-ai" aria-hidden="true"></div>
         </div>
-        <div data-tabs data-shape-target="qc-motiv">
+        <div data-tabs>
           <div class="tabs-bar" role="tablist" aria-label="Schwerpunkte des Quick-Checks">
-            <button type="button" role="tab" id="qc-tab-material" aria-controls="qc-material" aria-selected="true" data-shape="bars"><svg class="icon" aria-hidden="true"><use href="assets/icons.svg#gear"/></svg>Material &amp; Ersatzteile</button>
-            <button type="button" role="tab" id="qc-tab-ih" aria-controls="qc-ih" aria-selected="false" data-shape="gear"><svg class="icon" aria-hidden="true"><use href="assets/icons.svg#wrench"/></svg>Instandhaltung</button>
-            <button type="button" role="tab" id="qc-tab-software" aria-controls="qc-software" aria-selected="false" data-shape="migrate"><svg class="icon" aria-hidden="true"><use href="assets/icons.svg#monitor"/></svg>Software &amp; Prozesse</button>
-            <button type="button" role="tab" id="qc-tab-ki" aria-controls="qc-ki" aria-selected="false" data-shape="local-ai"><svg class="icon" aria-hidden="true"><use href="assets/icons.svg#chip"/></svg>KI &amp; Digitalisierung</button>
+            <button type="button" role="tab" id="qc-tab-material" aria-controls="qc-material" aria-selected="true"><svg class="icon" aria-hidden="true"><use href="assets/icons.svg#gear"/></svg>Material &amp; Ersatzteile</button>
+            <button type="button" role="tab" id="qc-tab-ih" aria-controls="qc-ih" aria-selected="false"><svg class="icon" aria-hidden="true"><use href="assets/icons.svg#wrench"/></svg>Instandhaltung</button>
+            <button type="button" role="tab" id="qc-tab-software" aria-controls="qc-software" aria-selected="false"><svg class="icon" aria-hidden="true"><use href="assets/icons.svg#monitor"/></svg>Software &amp; Prozesse</button>
+            <button type="button" role="tab" id="qc-tab-ki" aria-controls="qc-ki" aria-selected="false"><svg class="icon" aria-hidden="true"><use href="assets/icons.svg#chip"/></svg>KI &amp; Digitalisierung</button>
           </div>
           <div class="tab-panel" role="tabpanel" id="qc-material" aria-labelledby="qc-tab-material">
             <div>
@@ -329,8 +327,8 @@
     </div>
   </footer>
 
-  <script src="js/main.js?v=2026-46"></script>
-  <script src="js/wave.js?v=2026-46" defer></script>
+  <script src="js/main.js?v=2026-47"></script>
+  <script src="js/wave.js?v=2026-47" defer></script>
   <script data-goatcounter="https://unknownde.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
 </body>
 </html>

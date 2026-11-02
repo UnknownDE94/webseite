@@ -29,15 +29,12 @@ Erste Section = hero, CTA = surge. Barrierefreie Ansicht: `html[data-a11y="on"]`
 (Schalter `.a11y-toggle` im Header, gespeichert in localStorage) blendet Welle, Motive und
 Animationen aus.
 
-## Partikel-Motive (`<div class="wave-slot wave-slot--icon" data-shape="…" aria-hidden="true"></div>`)
-logo · bars · modules · talk · scan · fork · gear · database · euro · truck · shield ·
-check · 404 · mobile · offline · local-ai · migrate · cad · network ·
-**Fachmotive:** bearing (Kugellager) · gears (Zahnradpaar) · nameplate (Typenschild) · shelf (Lagerregal) ·
-motor · server (vor Ort) · scan3d · printer (3D-Druck) · explode (Explosionszeichnung) · document (Datenblatt) ·
-maintenance (Wartungsplan) · invoice (Beleg) · plant (Fertigungsanlage) · toolbox · exchange (Alternativteil).
-Größen: `wave-slot--logo` (16:10), `wave-slot--icon` (1:1), `wave-slot--wide` (2:1).
-Wechsel im Takt einer Liste: `data-shape-cycle="a b c" data-cycle-steps="<id der ol>"`.
-Reiter mit `data-shape` + Container `data-shape-target="<slot-id>"`.
+## Partikel-Motive
+Auf der Website wird nur noch das WK-Logo als Partikel-Motiv verwendet
+(`<div class="wave-slot wave-slot--logo" data-shape="logo" aria-hidden="true"></div>`,
+im Startseiten-Hero, auf „Über uns“ und in den Abschlussfeldern). Die übrigen Motive
+(Smartphone, Kugellager, Typenschild …) sind in `js/wave.js` weiter definiert und
+können bei Bedarf wieder per `data-shape` eingesetzt werden.
 
 ## Bausteine (Vorlagen 1, 4–10)
 | Baustein | Klassen |
