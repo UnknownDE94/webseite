@@ -5,7 +5,7 @@ Begleitend zu den JPEG-Tafeln in `docs/empfehlungen/`:
 | Datei | Inhalt |
 |---|---|
 | `01-wellen-varianten.jpg` | Sechs Zustände derselben Welle (keine Sonderformen mehr) |
-| `02-partikel-motive.jpg` | 15 fachlich konkrete Partikel-Motive (Bauteile, Werkzeuge, Arbeitsmittel) |
+| `02-partikel-motive.jpg` | Motiv-Katalog (Archiv) – auf der Website wird nur noch das WK-Logo verwendet |
 | `03-layout-uebersicht.jpg` | Die neuen Seiten im einheitlichen Layout (Vorlagen 1, 4–10) |
 | `04-app-animationen.jpg` | App-Showcase je WK-App (Screens + schwebende Detailkarten) |
 | `05-kachel-integration.jpg` | Kacheln als gemeinsame Fläche mit Trennlinien |

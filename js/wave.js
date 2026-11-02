@@ -87,7 +87,8 @@
     "  float t = uTime;",
     "  vec2 p = vec2(aGrid.x * 13.0 * uSpread, aGrid.y * 7.5 * uSpread);",
     "  vec2 pw = vec2(p.x, p.y + uScroll);",
-    "  float h = wave(pw, t) * uAmp + uRipple * ripple(p, t);",
+    "  float h = wave(pw, t) * uAmp;",
+    "  if (uRipple > 0.001) { h += uRipple * ripple(p, t); }",
     // Maus: weiche Erhebung um die Zeigerposition (in Bildschirmkoordinaten)
     "  vec4 c0 = project(vec3(p.x, h, p.y));",
     "  vec2 dm = (c0.xy / c0.w - uMouse.xy) * vec2(uAspect, 1.0);",
@@ -109,7 +110,7 @@
     "  target += (dv / dd) / vec2(uAspect, 1.0) * uScatter * uMouse.z * 0.09 * exp(-dd * dd * 45.0);",
     "  vec2 ndc = mix(clip.xy / depth, target, m);",
     "  gl_Position = vec4(ndc, 0.0, 1.0);",
-    "  gl_PointSize = mix(clamp(uSize * 9.0 / depth, 1.0, 6.0 * uSize), uSize * 1.25, m);",
+    "  gl_PointSize = mix(clamp(uSize * 9.0 / depth, 1.0, 3.5 * uSize), uSize * 1.25, m);",
     "  vH = clamp(h / max(uAmp + uRipple * 0.75, 0.2) * 0.5 + 0.5, 0.0, 1.0);",
     // Punkte ohne Formaufgabe treten zurück, solange eine Form steht
     "  vFade = mix(waveFade, 1.0, m) * mix(1.0, 0.3, uMorph * (1.0 - aShape.z));",
@@ -1018,8 +1019,9 @@
 
     // Punktraster: auf kleinen Bildschirmen weniger Punkte
     var small = Math.min(window.innerWidth, window.innerHeight) < 700;
-    var cols = small ? 120 : 200;
-    var rows = small ? 70 : 110;
+    // Punktraster: genug für eine dichte Fläche, aber schonend für schwache Grafik
+    var cols = small ? 100 : 160;
+    var rows = small ? 56 : 90;
     var count = cols * rows;
     var grid = new Float32Array(count * 2);
     var n = 0;
@@ -1061,8 +1063,10 @@
 
     var dpr = 1;
     var shiftScale = 1;
+    // Renderqualität (Anteil der Pixeldichte); sinkt automatisch, wenn Bilder zu lange dauern
+    var quality = (navigator.hardwareConcurrency || 8) <= 4 || (navigator.deviceMemory || 8) <= 4 ? 0.75 : 1;
     function resize() {
-      dpr = Math.min(window.devicePixelRatio || 1, small ? 1.5 : 1.75);
+      dpr = Math.min(window.devicePixelRatio || 1, small ? 1.25 : 1.5) * quality;
       var w = Math.round(window.innerWidth * dpr);
       var h = Math.round(window.innerHeight * dpr);
       if (canvas.width !== w || canvas.height !== h) {
@@ -1215,12 +1219,26 @@
     });
 
     // Welcher Platzhalter steht am nächsten an der Bildmitte – und wie stark?
+    // Positionen der Platzhalter zwischenspeichern: nur beim Scrollen, bei
+    // Größenänderung und gelegentlich neu messen – nicht in jedem Bild
+    var rects = new Map();
+    var rectAge = 0;
+    function measureSlots() {
+      rectAge = 0;
+      slots.forEach(function (slot) {
+        rects.set(slot, slot.getBoundingClientRect());
+      });
+    }
+    function rectOf(slot) {
+      return rects.get(slot) || slot.getBoundingClientRect();
+    }
+
     function nearestSlot() {
       var vh = window.innerHeight;
       var best = null;
       var bestStrength = 0;
       slots.forEach(function (slot) {
-        var r = slot.getBoundingClientRect();
+        var r = rectOf(slot);
         if (r.width < 40 || r.height < 40) {
           return;
         }
@@ -1239,7 +1257,7 @@
       if (!slot || !info) {
         return;
       }
-      var r = slot.getBoundingClientRect();
+      var r = rectOf(slot);
       var vw = window.innerWidth;
       var vh = window.innerHeight;
       // Form im Platzhalter einpassen (contain)
@@ -1291,8 +1309,39 @@
     var last = 0;
     var running = false;
     var visible = true;
+    // Adaptive Qualität: gleitender Mittelwert der Bildzeit; bei Ruckeln erst die
+    // Auflösung senken, zuletzt auf 30 Bilder/s begrenzen
+    var avgFrame = 16;
+    var framesSinceCheck = 0;
+    var minInterval = 0;
+    var QUALITY_STEPS = [1, 0.8, 0.65, 0.5];
+
+    function adapt(interval) {
+      avgFrame += (interval - avgFrame) * 0.08;
+      if (++framesSinceCheck < 90) {
+        return;
+      }
+      framesSinceCheck = 0;
+      if (avgFrame > 24) {
+        var next = QUALITY_STEPS.filter(function (q) { return q < quality - 0.001; })[0];
+        if (next) {
+          quality = next;
+          resize();
+        } else if (!minInterval) {
+          minInterval = 1000 / 30;
+        }
+        avgFrame = 16;
+      }
+    }
 
     function draw(now) {
+      if (minInterval && last && now - last < minInterval - 2) {
+        window.requestAnimationFrame(draw);
+        return;
+      }
+      if (last && !reduceMotion) {
+        adapt(now - last);
+      }
       var dt = last ? Math.min((now - last) / 1000, 0.05) : 0.016;
       last = now;
       // Zustandswechsel zwischen Abschnitten bewusst langsam und weich
@@ -1309,6 +1358,9 @@
 
 
       // Form: erst zurück in die Welle, dann das neue Motiv laden
+      if (++rectAge > 30 && slots.length) {
+        measureSlots();
+      }
       var near = nearestSlot();
       var wanted = near.slot ? near.slot.getAttribute("data-shape") : null;
       var morphTarget = 0;
@@ -1407,11 +1459,13 @@
       scrollQueued = true;
       window.requestAnimationFrame(function () {
         scrollQueued = false;
+        measureSlots();
         pickZone();
         requestDraw();
       });
     }, { passive: true });
     window.addEventListener("resize", function () {
+      measureSlots();
       resize();
       pickZone();
     });
