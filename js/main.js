@@ -424,10 +424,14 @@ document.addEventListener("DOMContentLoaded", function () {
       var frei = value * ruhend * abbau;
       $("calc-lager-out").textContent = euro(value);
       lager.setAttribute("aria-valuetext", euro(value));
+      // Feste Annahmen liegen in versteckten Feldern; sichtbare Regler bekommen Anzeige und Vorlesetext
       [["calc-ruhend", ruhend], ["calc-abbau", abbau], ["calc-kosten", kosten]].forEach(function (pair) {
-        var text = Math.round(pair[1] * 100) + " %";
-        $(pair[0] + "-out").textContent = text;
-        $(pair[0]).setAttribute("aria-valuetext", text);
+        var out = $(pair[0] + "-out");
+        if (out) {
+          var text = Math.round(pair[1] * 100) + " %";
+          out.textContent = text;
+          $(pair[0]).setAttribute("aria-valuetext", text);
+        }
       });
       $("calc-frei").textContent = euro(frei);
       $("calc-jahr").textContent = euro(frei * kosten);

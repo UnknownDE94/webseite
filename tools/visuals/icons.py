@@ -1,13 +1,13 @@
-"""Erzeugt assets/icons.svg – Duotone-Icons im Stil der Website.
+"""Erzeugt assets/icons.svg – schlichte Linien-Icons im Stil der Website.
 
-Jedes Icon besteht aus
-  • einer weichen Akzentfläche (versetzt hinter dem Motiv), Farbe per CSS-Variable
-    --duo (Standard: Limette), und
-  • einer runden Kontur (2 px, runde Enden) in der Textfarbe (currentColor).
+Jedes Icon ist eine runde Kontur (runde Enden) in der Textfarbe (currentColor).
+Die früheren Akzentflächen (Limette) sind abgeschaltet (DUO = False), bleiben
+hier aber zum Nachschlagen stehen.
 Aufruf: python3 tools/visuals/icons.py
 """
 import os
 
+DUO = False  # True = versetzte Akzentfläche wieder einblenden
 ROOT = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 # Name: (Akzentfläche, Kontur). Akzentflächen bewusst schlicht: Kreis, Pille,
@@ -110,7 +110,7 @@ ICONS = {
 out = ['<svg xmlns="http://www.w3.org/2000/svg">']
 for name, (duo, line) in ICONS.items():
     parts = []
-    if duo:
+    if duo and DUO:
         # Fläche einheitlich auf 78 % verkleinert und nach rechts unten versetzt,
         # damit die Kontur immer lesbar bleibt (typischer versetzter Duotone-Look)
         parts.append('<g class="duo" transform="translate(4.2 4.2) scale(.78)" style="fill:var(--duo,#d4ec5f);opacity:var(--duo-o,.85)" stroke="none">%s</g>' % duo)

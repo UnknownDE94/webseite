@@ -27,7 +27,7 @@ Abschnitt 49–51).
 - WK Material: operative Materialwirtschaft, Lager, Inventur, Disposition
 - WK Instandhaltung: Anlagen, Wartungen, Störungen, Aufträge, Rückmeldungen
 - WK Finance: Rechnungen, Belege, Verträge, Kosten für Handwerk und kleine Unternehmen
-- WK 3D: digitale Teilebibliothek, Scan-/CAD-Daten, Versionen, Fertigungsinformationen
+- WK 3D-Druck: digitale Teilebibliothek, Scan-/CAD-Daten, Versionen, Fertigungsinformationen
 - KI-Werkstatt: Dienstleistung, keine Haupt-App
 
 ## Quick-Check
@@ -52,7 +52,7 @@ Fehlt ein Wert, zeigt die Website „Geplant“ bzw. „noch festzulegen“ – 
 | WK Material | In Entwicklung | Geplant | Geplant | Geplant | Geplant | Ja (EU) | Ja | Ja |
 | WK Instandhaltung | In Entwicklung | Geplant | Geplant | Geplant | Geplant | Ja (EU) | Ja | Ja |
 | WK Finance | In Entwicklung | Geplant | Geplant | Geplant | [OFFEN] | Ja (EU) | Ja | Ja |
-| WK 3D | In Entwicklung | Geplant | Geplant | Geplant | [OFFEN] | Ja (EU) | Ja | Ja |
+| WK 3D-Druck | In Entwicklung | Geplant | Geplant | Geplant | [OFFEN] | Ja (EU) | Ja | Ja |
 
 ## KI-Werkstatt
 - Typ: Dienstleistung
@@ -82,7 +82,7 @@ Fehlt ein Wert, zeigt die Website „Geplant“ bzw. „noch festzulegen“ – 
 - Werkstoffe/Verfahren: FDM mit PLA, PETG, PA, PA-CF (vom Inhaber bestätigt, 2026-11-02)
 
 ## Rechenbeispiel (Material & Ersatzteile)
-- Startwerte 15 % / 30 % / 15 % (konservativ, vom Inhaber bestätigt, 2026-11-02)
+- Feste, nicht sichtbare Annahmen 15 % ohne Bewegung / 30 % abbaubar / 15 % Lagerhaltungskosten; sichtbar nur der Regler „Lagerwert“, Rechenweg ausgeblendet (vom Inhaber entschieden, 2026-11-02)
 
 ## Vom Inhaber zu prüfen (aus dem Umbau)
 - 3D-Eignungsampel: Formulierung bestätigt (2026-11-02)

@@ -25,7 +25,7 @@
   <link rel="preload" href="assets/fonts/archivo-wdth.woff2" as="font" type="font/woff2" crossorigin />
   <link rel="preload" href="assets/fonts/inter-wght.woff2" as="font" type="font/woff2" crossorigin />
   <script>(function(d){d.classList.add("js");d.setAttribute("data-theme","dark");try{var t=localStorage.getItem("theme");if(t==="light")d.setAttribute("data-theme","light");if(localStorage.getItem("a11y")==="on")d.setAttribute("data-a11y","on")}catch(e){}})(document.documentElement);</script>
-  <link rel="stylesheet" href="css/style.css?v=2026-51" />
+  <link rel="stylesheet" href="css/style.css?v=2026-52" />
 </head>
 <body>
   <a class="skip-link" href="#main">Zum Inhalt springen</a>
@@ -60,7 +60,7 @@
               <li><a href="wk-material.html"><strong>WK Material</strong><small>Lager, Inventur und Disposition</small></a></li>
               <li><a href="wk-instandhaltung.html"><strong>WK Instandhaltung</strong><small>Wartung, Störung, Rückmeldung</small></a></li>
               <li><a href="wk-finance.html"><strong>WK Finance</strong><small>Belege und Verträge für Handwerk</small></a></li>
-              <li><a href="wk-3d.html"><strong>WK 3D</strong><small>Digitale Teilebibliothek</small></a></li>
+              <li><a href="wk-3d.html"><strong>WK 3D-Druck</strong><small>Digitale Teilebibliothek</small></a></li>
               <li class="nav-all"><a href="loesungen.html">Die Produktfamilie</a></li>
             </ul>
           </li>
@@ -119,30 +119,25 @@
           </ol>
         </div>
         <div class="mt-lg" data-anim>
-          <svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
-  <linearGradient id="seq-metal" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#a39377"/><stop offset="1" stop-color="#5b4c3c"/></linearGradient>
-  <pattern id="seq-dots" width="5" height="5" patternUnits="userSpaceOnUse"><circle cx="2.5" cy="2.5" r="1.1" fill="#d4ec5f"/></pattern>
-  <pattern id="seq-dots2" width="5" height="5" patternUnits="userSpaceOnUse"><circle cx="2.5" cy="2.5" r="0.8" fill="#8fbf6a"/></pattern>
-  <pattern id="seq-mesh" width="10" height="10" patternUnits="userSpaceOnUse" patternTransform="skewX(-30)"><path d="M0 0H10M0 0V10" stroke="#9fb0a8" stroke-width="0.6" fill="none"/></pattern>
-  <pattern id="seq-layers" width="4" height="3" patternUnits="userSpaceOnUse"><rect width="4" height="3" fill="#4f5a55"/><path d="M0 2.5H4" stroke="#2c3430" stroke-width="0.8"/></pattern>
-  <pattern id="seq-layers2" width="4" height="3" patternUnits="userSpaceOnUse"><rect width="4" height="3" fill="#6c7772"/><path d="M0 2.5H4" stroke="#3c4642" stroke-width="0.8"/></pattern>
-</defs></svg>
-          <ol class="sequence" style="--n:4">
-            <li><svg viewBox="0 0 200 160" role="img" aria-label="Stilisiertes Originalbauteil"><polygon points="20,108 118,136 118,150 20,122" fill="#5f5141" stroke="none" stroke-width="0"/><polygon points="118,136 182,100 182,114 118,150" fill="#4c4034" stroke="none" stroke-width="0"/><polygon points="20,108 118,136 182,100 84,72" fill="url(#seq-metal)" stroke="none" stroke-width="0"/><polygon points="84,72 182,100 182,40 84,12" fill="#857356" stroke="none" stroke-width="0"/><polygon points="182,40 190,36 190,96 182,100" fill="#4c4034" stroke="none" stroke-width="0"/><polygon points="84,12 182,40 190,36 92,8" fill="#ab9b7e" stroke="none" stroke-width="0"/><g fill="#0a0f0c" stroke="none" stroke-width="0"><ellipse cx="133" cy="56" rx="13" ry="17" transform="rotate(16 133 56)"/><ellipse cx="88" cy="106" rx="15" ry="8" transform="rotate(16 88 106)"/></g><path d="M40 112l22 6M130 70l24 7M100 30l18 6M150 118l14-7" stroke="#2b241d" stroke-width="1.2" stroke-linecap="round" opacity=".7"/></svg><strong>Originalteil</strong><span>Verschlissen oder nicht mehr lieferbar</span></li>
-            <li><svg viewBox="0 0 200 160" role="img" aria-label="Bauteil als Punktwolke aus dem 3D-Scan"><polygon points="20,108 118,136 118,150 20,122" fill="url(#seq-dots2)" stroke="none" stroke-width="0"/><polygon points="118,136 182,100 182,114 118,150" fill="url(#seq-dots2)" stroke="none" stroke-width="0"/><polygon points="20,108 118,136 182,100 84,72" fill="url(#seq-dots)" stroke="none" stroke-width="0"/><polygon points="84,72 182,100 182,40 84,12" fill="url(#seq-dots)" stroke="none" stroke-width="0"/><polygon points="182,40 190,36 190,96 182,100" fill="url(#seq-dots2)" stroke="none" stroke-width="0"/><polygon points="84,12 182,40 190,36 92,8" fill="url(#seq-dots)" stroke="none" stroke-width="0"/><g fill="transparent" stroke="none" stroke-width="0"><ellipse cx="133" cy="56" rx="13" ry="17" transform="rotate(16 133 56)"/><ellipse cx="88" cy="106" rx="15" ry="8" transform="rotate(16 88 106)"/></g></svg><strong>3D-Scan</strong><span>Intern als Punktwolke erfassen</span></li>
-            <li><svg viewBox="0 0 200 160" role="img" aria-label="Bauteil als CAD-Drahtgitter"><polygon points="20,108 118,136 118,150 20,122" fill="url(#seq-mesh)" stroke="#d4ec5f" stroke-width="1.2"/><polygon points="118,136 182,100 182,114 118,150" fill="url(#seq-mesh)" stroke="#d4ec5f" stroke-width="1.2"/><polygon points="20,108 118,136 182,100 84,72" fill="url(#seq-mesh)" stroke="#d4ec5f" stroke-width="1.2"/><polygon points="84,72 182,100 182,40 84,12" fill="url(#seq-mesh)" stroke="#d4ec5f" stroke-width="1.2"/><polygon points="182,40 190,36 190,96 182,100" fill="url(#seq-mesh)" stroke="#d4ec5f" stroke-width="1.2"/><polygon points="84,12 182,40 190,36 92,8" fill="url(#seq-mesh)" stroke="#d4ec5f" stroke-width="1.2"/><g fill="transparent" stroke="#d4ec5f" stroke-width="1.2"><ellipse cx="133" cy="56" rx="13" ry="17" transform="rotate(16 133 56)"/><ellipse cx="88" cy="106" rx="15" ry="8" transform="rotate(16 88 106)"/></g></svg><strong>CAD-Modell</strong><span>Intern aufbereiten, bemaßen, prüfen</span></li>
-            <li><svg viewBox="0 0 200 160" role="img" aria-label="Bauteil im Schichtaufbau der additiven Fertigung"><polygon points="20,108 118,136 118,150 20,122" fill="url(#seq-layers)" stroke="none" stroke-width="0"/><polygon points="118,136 182,100 182,114 118,150" fill="url(#seq-layers)" stroke="none" stroke-width="0"/><polygon points="20,108 118,136 182,100 84,72" fill="url(#seq-layers2)" stroke="none" stroke-width="0"/><polygon points="84,72 182,100 182,40 84,12" fill="url(#seq-layers2)" stroke="none" stroke-width="0"/><polygon points="182,40 190,36 190,96 182,100" fill="url(#seq-layers)" stroke="none" stroke-width="0"/><polygon points="84,12 182,40 190,36 92,8" fill="#8a9590" stroke="none" stroke-width="0"/><g fill="#0a0f0c" stroke="none" stroke-width="0"><ellipse cx="133" cy="56" rx="13" ry="17" transform="rotate(16 133 56)"/><ellipse cx="88" cy="106" rx="15" ry="8" transform="rotate(16 88 106)"/></g></svg><strong>3D-Druck</strong><span>Intern, sofern technisch geeignet und freigegeben</span></li>
+          <figure class="morph">
+          <svg class="morph__art" viewBox="0 0 1000 380" role="img" aria-label="Ein Winkelbauteil in vier Streifen: Original, Punktwolke aus dem 3D-Scan, CAD-Modell mit Bemaßung, gedrucktes Bauteil im Schichtaufbau"><defs><linearGradient id="m3-metal" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#a39377"/><stop offset="1" stop-color="#5b4c3c"/></linearGradient><pattern id="m3-dots" width="6" height="6" patternUnits="userSpaceOnUse"><circle cx="3" cy="3" r="1.25" fill="#d4ec5f"/></pattern><pattern id="m3-dots2" width="6" height="6" patternUnits="userSpaceOnUse"><circle cx="3" cy="3" r="0.9" fill="#8fbf6a"/></pattern><pattern id="m3-mesh" width="14" height="14" patternUnits="userSpaceOnUse" patternTransform="skewX(-38)"><path d="M0 0H14M0 0V14" stroke="#9fb0a8" stroke-width="0.6" fill="none"/></pattern><pattern id="m3-layers" width="4" height="3.4" patternUnits="userSpaceOnUse"><rect width="4" height="3.4" fill="#4f5a55"/><path d="M0 2.9H4" stroke="#2c3430" stroke-width="0.9"/></pattern><pattern id="m3-layers2" width="4" height="3.4" patternUnits="userSpaceOnUse"><rect width="4" height="3.4" fill="#6c7772"/><path d="M0 2.9H4" stroke="#3c4642" stroke-width="0.9"/></pattern><linearGradient id="m3-beam" x1="0" x2="1"><stop offset="0" stop-color="#d4ec5f" stop-opacity="0"/><stop offset=".5" stop-color="#d4ec5f" stop-opacity=".55"/><stop offset="1" stop-color="#d4ec5f" stop-opacity="0"/></linearGradient><clipPath id="m3-c0"><polygon points="-10,0 284,0 216,380 -10,380"/></clipPath><clipPath id="m3-c1"><polygon points="284,0 534,0 466,380 216,380"/></clipPath><clipPath id="m3-c2"><polygon points="534,0 784,0 716,380 466,380"/></clipPath><clipPath id="m3-c3"><polygon points="784,0 1010,0 1010,380 716,380"/></clipPath></defs><g class="morph__slice" style="--i:0" clip-path="url(#m3-c0)"><polygon points="70,300 900,300 900,324 70,324" fill="#4c4034"/><polygon points="900,300 960,252 960,276 900,324" fill="#3f352b"/><polygon points="70,300 900,300 960,252 130,252" fill="url(#m3-metal)"/><polygon points="960,252 978,238 978,70 960,84" fill="#3f352b"/><polygon points="130,252 960,252 960,84 130,84" fill="#7d6c52"/><polygon points="130,84 960,84 978,70 148,70" fill="#ab9b7e"/><ellipse cx="205" cy="166" rx="24" ry="30" fill="#0a0f0c"/><ellipse cx="385" cy="166" rx="24" ry="30" fill="#0a0f0c"/><ellipse cx="625" cy="166" rx="24" ry="30" fill="#0a0f0c"/><ellipse cx="865" cy="166" rx="24" ry="30" fill="#0a0f0c"/><ellipse cx="330" cy="278" rx="30" ry="11" fill="#0a0f0c"/><ellipse cx="600" cy="278" rx="30" ry="11" fill="#0a0f0c"/><path d="M150 288l40 6M180 110l34 10M95 312l26 3" stroke="#2b241d" stroke-width="1.6" stroke-linecap="round" opacity=".7"/></g><g class="morph__slice" style="--i:1" clip-path="url(#m3-c1)"><polygon points="70,300 900,300 900,324 70,324" fill="url(#m3-dots2)"/><polygon points="900,300 960,252 960,276 900,324" fill="url(#m3-dots2)"/><polygon points="70,300 900,300 960,252 130,252" fill="url(#m3-dots)"/><polygon points="960,252 978,238 978,70 960,84" fill="url(#m3-dots2)"/><polygon points="130,252 960,252 960,84 130,84" fill="url(#m3-dots)"/><polygon points="130,84 960,84 978,70 148,70" fill="url(#m3-dots)"/><ellipse cx="205" cy="166" rx="24" ry="30" fill="#0a0f0c"/><ellipse cx="385" cy="166" rx="24" ry="30" fill="#0a0f0c"/><ellipse cx="625" cy="166" rx="24" ry="30" fill="#0a0f0c"/><ellipse cx="865" cy="166" rx="24" ry="30" fill="#0a0f0c"/><ellipse cx="330" cy="278" rx="30" ry="11" fill="#0a0f0c"/><ellipse cx="600" cy="278" rx="30" ry="11" fill="#0a0f0c"/></g><g class="morph__slice" style="--i:2" clip-path="url(#m3-c2)"><polygon points="70,300 900,300 900,324 70,324" fill="url(#m3-mesh)" stroke="#d4ec5f" stroke-width="1.4"/><polygon points="900,300 960,252 960,276 900,324" fill="url(#m3-mesh)" stroke="#d4ec5f" stroke-width="1.4"/><polygon points="70,300 900,300 960,252 130,252" fill="url(#m3-mesh)" stroke="#d4ec5f" stroke-width="1.4"/><polygon points="960,252 978,238 978,70 960,84" fill="url(#m3-mesh)" stroke="#d4ec5f" stroke-width="1.4"/><polygon points="130,252 960,252 960,84 130,84" fill="url(#m3-mesh)" stroke="#d4ec5f" stroke-width="1.4"/><polygon points="130,84 960,84 978,70 148,70" fill="url(#m3-mesh)" stroke="#d4ec5f" stroke-width="1.4"/><ellipse cx="205" cy="166" rx="24" ry="30" fill="#0a0f0c" stroke="#d4ec5f" stroke-width="1.4"/><ellipse cx="385" cy="166" rx="24" ry="30" fill="#0a0f0c" stroke="#d4ec5f" stroke-width="1.4"/><ellipse cx="625" cy="166" rx="24" ry="30" fill="#0a0f0c" stroke="#d4ec5f" stroke-width="1.4"/><ellipse cx="865" cy="166" rx="24" ry="30" fill="#0a0f0c" stroke="#d4ec5f" stroke-width="1.4"/><ellipse cx="330" cy="278" rx="30" ry="11" fill="#0a0f0c" stroke="#d4ec5f" stroke-width="1.4"/><ellipse cx="600" cy="278" rx="30" ry="11" fill="#0a0f0c" stroke="#d4ec5f" stroke-width="1.4"/><g stroke="#d4ec5f" stroke-width="1" fill="none" opacity=".9"><path d="M625 122v-26M625 210v20M601 166h-24M649 166h24"/><path d="M530 52h190" stroke-dasharray="3 4"/><path d="M530 46v12M720 46v12"/></g><text x="625" y="40" fill="#d4ec5f" font-family="JetBrains Mono, monospace" font-size="13" text-anchor="middle">190,0</text><text x="660" y="204" fill="#d4ec5f" font-family="JetBrains Mono, monospace" font-size="13">Ø 48</text></g><g class="morph__slice" style="--i:3" clip-path="url(#m3-c3)"><polygon points="70,300 900,300 900,324 70,324" fill="url(#m3-layers)"/><polygon points="900,300 960,252 960,276 900,324" fill="url(#m3-layers)"/><polygon points="70,300 900,300 960,252 130,252" fill="url(#m3-layers2)"/><polygon points="960,252 978,238 978,70 960,84" fill="url(#m3-layers)"/><polygon points="130,252 960,252 960,84 130,84" fill="url(#m3-layers2)"/><polygon points="130,84 960,84 978,70 148,70" fill="#8a9590"/><ellipse cx="205" cy="166" rx="24" ry="30" fill="#0a0f0c"/><ellipse cx="385" cy="166" rx="24" ry="30" fill="#0a0f0c"/><ellipse cx="625" cy="166" rx="24" ry="30" fill="#0a0f0c"/><ellipse cx="865" cy="166" rx="24" ry="30" fill="#0a0f0c"/><ellipse cx="330" cy="278" rx="30" ry="11" fill="#0a0f0c"/><ellipse cx="600" cy="278" rx="30" ry="11" fill="#0a0f0c"/></g><g class="morph__beam"><polygon points="270,0 298,0 230,380 202,380" fill="url(#m3-beam)" opacity=".5"/><line x1="284" y1="0" x2="216" y2="380" stroke="#d4ec5f" stroke-width="1.6"/></g><line x1="534" y1="0" x2="466" y2="380" stroke="rgba(255,255,255,.22)" stroke-dasharray="4 6"/><line x1="784" y1="0" x2="716" y2="380" stroke="rgba(255,255,255,.22)" stroke-dasharray="4 6"/></svg>
+          <ol class="morph__steps">
+            <li><strong>Originalteil</strong><span>Verschlissen oder nicht mehr lieferbar</span></li>
+            <li><strong>3D-Scan</strong><span>Intern als Punktwolke erfassen</span></li>
+            <li><strong>CAD-Modell</strong><span>Intern aufbereiten, bemaßen, prüfen</span></li>
+            <li><strong>3D-Druck</strong><span>Intern, sofern technisch geeignet und freigegeben</span></li>
           </ol>
+        </figure>
         </div>
       </div>
     </section>
 
-    <!-- 3 · Dienstleistung und Software WK 3D -->
+    <!-- 3 · Dienstleistung und Software WK 3D-Druck -->
     <section class="section section--alt" data-wave="flow">
       <div class="container">
         <div class="section-head" data-stagger>
           <h2>Vom Einzelteil zur digitalen Teilebibliothek.</h2>
-          <p class="lead">3D ist eine Option neben Originalteil, Alternativteil und neuem Lieferanten. Die Dienstleistung erbringen wir intern, die Ergebnisse verwaltet die Software WK 3D.</p>
+          <p class="lead">3D ist eine Option neben Originalteil, Alternativteil und neuem Lieferanten. Die Dienstleistung erbringen wir intern, die Ergebnisse verwaltet die Software WK 3D-Druck.</p>
         </div>
         <div class="grid-2" data-stagger>
           <div class="card">
@@ -159,7 +154,7 @@
           </div>
           <a class="card" href="wk-3d.html">
             <svg class="icon icon--lg" aria-hidden="true"><use href="assets/icons.svg#layers"/></svg>
-            <h3>WK 3D – Software</h3>
+            <h3>WK 3D-Druck – Software</h3>
             <ul class="checklist" style="margin-top:18px">
               <li>Digitale Teilebibliothek</li>
               <li>Scan- und CAD-Dateien verwalten</li>
@@ -167,7 +162,7 @@
               <li>Zuordnung zu Material und Ersatzteilen</li>
               <li>Fertigungsinformationen</li>
             </ul>
-            <span class="link-arrow">WK 3D ansehen</span>
+            <span class="link-arrow">WK 3D-Druck ansehen</span>
           </a>
         </div>
       </div>
@@ -242,7 +237,7 @@
             <li><a href="wk-material.html">WK Material</a></li>
             <li><a href="wk-instandhaltung.html">WK Instandhaltung</a></li>
             <li><a href="wk-finance.html">WK Finance</a></li>
-            <li><a href="wk-3d.html">WK 3D</a></li>
+            <li><a href="wk-3d.html">WK 3D-Druck</a></li>
             <li><a href="mobile-offline.html">Mobile &amp; Offline</a></li>
           </ul>
         </div>
@@ -272,8 +267,8 @@
     </div>
   </footer>
 
-  <script src="js/main.js?v=2026-51"></script>
-  <script src="js/wave.js?v=2026-51" defer></script>
+  <script src="js/main.js?v=2026-52"></script>
+  <script src="js/wave.js?v=2026-52" defer></script>
   <script data-goatcounter="https://unknownde.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
 </body>
 </html>
