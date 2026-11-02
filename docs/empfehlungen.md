@@ -9,6 +9,7 @@ Begleitend zu den JPEG-Tafeln in `docs/empfehlungen/`:
 | `03-layout-uebersicht.jpg` | Die neuen Seiten im einheitlichen Layout (Vorlagen 1, 4–10) |
 | `04-app-animationen.jpg` | App-Showcase je WK-App (Screens + schwebende Detailkarten) |
 | `05-kachel-integration.jpg` | Kacheln als gemeinsame Fläche mit Trennlinien |
+| `06-icons-dark.jpg` / `06-icons-light.jpg` | Neues Duotone-Icon-Set (angelehnt an die Jumprope-Ikonografie) |
 
 ## 1. Einheitlicher Layoutstil
 
