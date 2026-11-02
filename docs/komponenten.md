@@ -43,8 +43,8 @@ Reiter mit `data-shape` + Container `data-shape-target="<slot-id>"`.
 | Baustein | Klassen |
 |---|---|
 | Startseiten-Hero (V1) | `.hero > .container > .hero__grid > .hero__copy + .hero__visual`, darunter `ul.hero-points` |
-| Unterseiten-Kopf | `.page-hero > .container > .page-hero__grid` (Text + Motiv), `.breadcrumb`, `.eyebrow`, `h1`, `.lead`, `.actions` |
-| Abschnittskopf | `.section-head` (`--center`, `--row` mit Button rechts) |
+| Unterseiten-Kopf | `.page-hero > .container > .page-hero__grid` (Text + Motiv), `.breadcrumb`, `h1`, `.lead`, `.actions` |
+| Abschnittskopf | `.section-head` (`--center`, `--row` mit Button rechts) – ohne Mini-Überschrift (Eyebrow); die Klasse `.eyebrow` wird nicht mehr verwendet |
 | Leistungskacheln (V4) | `.tiles` (`--4`, `--3`) > `a.tile` (Icon, h3, p) |
 | Prozessweg (V5) | `.process > ol.process__steps[style=--steps:6]` |
 | Produktbühne (V6) | `.product-stage` (Text + `.showcase-app`), darunter `ul.feature-strip` |
