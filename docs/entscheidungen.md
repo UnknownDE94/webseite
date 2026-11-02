@@ -5,14 +5,14 @@ darf auf der Website nicht als konkrete Aussage erscheinen (siehe Masterplan,
 Abschnitt 49–51).
 
 ## Unternehmensdaten
-- Firmierung: [OFFEN] – derzeit auf der Website: „Werringloer Komponentenmanagement GmbH i. Gr.“
+- Firmierung: „Werringloer Komponentenmanagement GmbH i. Gr.“ (vom Inhaber bestätigt, 2026-11-02); Registergericht/-nummer nach Eintragung ergänzen
 - Anschrift: Peetzweg 46, 38228 Salzgitter (aus bisherigem Impressum)
 - Telefon: +49 160 277 65 12 (aus bisherigem Impressum)
 - E-Mail: service@werringloer.de (aus bisherigem Impressum)
-- USt-IdNr.: [OFFEN]
-- Website-Hosting: [OFFEN] – derzeit GitHub Pages (laut Datenschutzerklärung)
-- Analytics: [OFFEN] – derzeit GoatCounter eingebunden
-- Formularanbieter: [OFFEN] – derzeit FormPost (formpost.eu)
+- USt-IdNr.: [OFFEN] – Website: „wird nach Erteilung ergänzt“
+- Website-Hosting: derzeit GitHub Pages; Umzug zu deutschem Hoster gewünscht, Anbieter [OFFEN] – bei Umzug Abschnitt 2 der Datenschutzerklärung tauschen
+- Analytics: GoatCounter (bleibt, 2026-11-02)
+- Formularanbieter: FormPost (formpost.eu) (bleibt, 2026-11-02)
 
 ## Markenarchitektur
 - Hauptclaim: Smart. Effizient. Sicher.
@@ -34,9 +34,8 @@ Abschnitt 49–51).
 - Name: Quick-Check Betrieb & Digitalisierung
 - Schwerpunkte: Material & Ersatzteile; Instandhaltung; Software & Prozesse; KI & Digitalisierung
 - Dauer: 1–2 Tage (bisherige Website-Angabe, vom Inhaber bestätigt)
-- Öffentlicher Preis: [OFFEN] – alte Werte 1.020 EUR und 1.250 EUR entfernt
-- Preis: [OFFEN]
-- Verrechnung bei Folgeprojekt: [OFFEN]
+- Öffentlicher Preis: ab 990 € netto (vom Inhaber bestätigt, 2026-11-02)
+- Verrechnung bei Folgeprojekt: voll angerechnet
 
 ## SmartParts Editionen
 - Bis auf Weiteres: keine öffentlichen Editionen
@@ -44,15 +43,16 @@ Abschnitt 49–51).
 
 ## Produktstatus
 Desktop-App je WK-Anwendung: vom Inhaber als Ziel vorgegeben (2026-11-02), Status „Geplant“.
+Web-Status und Betriebsmodelle vom Inhaber festgelegt (2026-11-02): alle Apps in Cloud (EU), Private und Local/On-Premises.
 Fehlt ein Wert, zeigt die Website „Geplant“ bzw. „noch festzulegen“ – nie „Verfügbar“.
 
 | Produkt | Web | Desktop | iOS | Android | Offline | Cloud | Private | Local/On-Premises |
 |---|---|---|---|---|---|---|---|---|
-| WK SmartParts | [OFFEN] | Geplant | Geplant | Geplant | [OFFEN] | [OFFEN] | [OFFEN] | [OFFEN] |
-| WK Material | [OFFEN] | Geplant | Geplant | Geplant | [OFFEN] | [OFFEN] | [OFFEN] | [OFFEN] |
-| WK Instandhaltung | [OFFEN] | Geplant | Geplant | Geplant | [OFFEN] | [OFFEN] | [OFFEN] | [OFFEN] |
-| WK Finance | [OFFEN] | Geplant | Geplant | Geplant | [OFFEN] | [OFFEN] | [OFFEN] | [OFFEN] |
-| WK 3D | [OFFEN] | Geplant | Geplant | Geplant | [OFFEN] | [OFFEN] | [OFFEN] | [OFFEN] |
+| WK SmartParts | Verfügbar | Geplant | Geplant | Geplant | [OFFEN] | Ja (EU) | Ja | Ja |
+| WK Material | In Entwicklung | Geplant | Geplant | Geplant | [OFFEN] | Ja (EU) | Ja | Ja |
+| WK Instandhaltung | In Entwicklung | Geplant | Geplant | Geplant | [OFFEN] | Ja (EU) | Ja | Ja |
+| WK Finance | In Entwicklung | Geplant | Geplant | Geplant | [OFFEN] | Ja (EU) | Ja | Ja |
+| WK 3D | In Entwicklung | Geplant | Geplant | Geplant | [OFFEN] | Ja (EU) | Ja | Ja |
 
 ## KI-Werkstatt
 - Typ: Dienstleistung
@@ -79,16 +79,14 @@ Fehlt ein Wert, zeigt die Website „Geplant“ bzw. „noch festzulegen“ – 
 - 3D-Scan: intern (vom Inhaber bestätigt, 2026-11-01)
 - CAD-Aufbereitung: intern (vom Inhaber bestätigt)
 - 3D-Druck: intern (vom Inhaber bestätigt)
-- Werkstoffe/Verfahren: [OFFEN]
+- Werkstoffe/Verfahren: FDM mit PLA, PETG, PA, PA-CF (vom Inhaber bestätigt, 2026-11-02)
 
 ## Rechenbeispiel (Material & Ersatzteile)
-- Startwerte 20 % / 40 % / 20 % sind Beispielwerte: [OFFEN – vom Inhaber prüfen]
+- Startwerte 15 % / 30 % / 15 % (konservativ, vom Inhaber bestätigt, 2026-11-02)
 
 ## Vom Inhaber zu prüfen (aus dem Umbau)
-- Rechenbeispiel (material-ersatzteile): Startwerte 20 % / 40 % / 20 % – als Beispielwerte gekennzeichnet
-- 3D-Eignungsampel (3d-technik): Beispiel-Teilearten (Abdeckungen/Halterungen eher geeignet; tragende, druck- oder zertifizierungspflichtige Teile nicht pauschal)
-- FAQ Kontakt: Erstgespräch nur „unverbindlich“ – „kostenlos“ nur wieder aufnehmen, wenn so gewollt
-- SmartParts Web-Status: echte Screenshots vorhanden – Status bitte in der Produkttabelle eintragen
-- Impressum/Datenschutz: sichtbare Platzhalter [Firmierung], [Registergericht/-nummer], [USt-IdNr.], [Hoster], [Formularanbieter], [Analytics] – vor Go-live füllen und juristisch prüfen
+- 3D-Eignungsampel: Formulierung bestätigt (2026-11-02)
+- FAQ Kontakt: „kostenloses, unverbindliches Erstgespräch“ (bestätigt, 2026-11-02)
+- Impressum/Datenschutz: Platzhalter entfernt; Registerangaben und USt-IdNr. nachtragen; vor Go-live juristisch prüfen
 - SmartParts-Screenshots: Hersteller- und Lieferantennamen sowie markenbezogene Typbezeichnungen unkenntlich gemacht (Hersteller A–E, Lieferant A/B) – vom Inhaber entschieden, 2026-11-01; Werkzeug: tools/anon/anonymize.py
 - SmartParts-Navigation in den Vollfenster-Ansichten ist nachgestellt – echte Vollfenster-Screenshots nachliefern, sobald verfügbar

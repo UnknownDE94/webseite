@@ -22,12 +22,12 @@ python3 -m http.server 8000        # lokal ansehen: http://localhost:8000
 ```
 src/pages/*.html        Seiteninhalte mit Kopfbereich (title, description, nav …)
 src/partials/           head-common, header (Navigation mit Dropdowns), footer,
-                        map-de (Deutschlandkarte), process-curve, sequence-3d
+                        map-de (Deutschlandkarte), sequence-3d
 css/style.css           Designsystem (Tokens, Bausteine, Responsive) – siehe docs/komponenten.md
 js/main.js              Theme, Navigation, Einblendungen, Reiter, App-Showcase,
                         Motivwechsel, Kennzahlen, Rechenbeispiel, Kontaktformular
 js/wave.js              Partikelwelle (WebGL): Zustände, Raumformen, Partikel-Motive
-assets/                 Logo, Icons (icons.svg), Schriften, Screenshots (platform/, apps/)
+assets/                 Logo, Duotone-Icons (icons.svg, aus tools/visuals/icons.py), Schriften, Screenshots (platform/, apps/)
 tools/build/            Build-Skript (nur Node-Bordmittel)
 tools/og/               Vorlage + Skript für assets/og-image.jpg
 tools/visuals/          Wellen-Vorschau und Erzeugung der JPEG-Empfehlungen
@@ -38,9 +38,8 @@ archive/                Alte Entwürfe, Film/Video (nicht veröffentlicht)
 
 ## Partikelwelle
 
-`data-wave` am Abschnitt wählt den Zustand der Welle: `hero`, `calm`, `flow`, `grid`, `surge`, `flat` (immer dieselbe Wellenfläche). Leere Platzhalter mit `data-shape` lassen Punkte
-ein Motiv formen (z. B. `logo`, `mobile`, `offline`, `local-ai`, `migrate`, `cad`,
-`network`, `bars`, `check`, `404`). Vorschau: `tools/visuals/wave-preview.html?state=calm&shape=bearing`.
+`data-wave` am Abschnitt wählt den Zustand der Welle: `hero`, `calm`, `flow`, `grid`, `surge`, `flat` (immer dieselbe Wellenfläche). Leere Platzhalter mit `data-shape="logo"` lassen die Punkte das WK-Logo formen
+(einziges verwendetes Motiv). Vorschau: `tools/visuals/wave-preview.html?state=calm&shape=logo`.
 Der Schalter im Header (barrierefreie Ansicht) blendet Welle, Motive und Animationen aus.
 Bei `prefers-reduced-motion` steht alles still; ohne WebGL bleibt der CSS-Hintergrund.
 
