@@ -1,5 +1,5 @@
 """Macht Hersteller- und Lieferantennamen in den echten SmartParts-Screenshots
-unkenntlich (assets/platform/*.webp) und ersetzt sie durch neutrale Bezeichnungen.
+unkenntlich (tools/mockups/screens/*.webp) und ersetzt sie durch neutrale Bezeichnungen.
 Positionen sind für die vorliegenden Screenshots (1600 × 1000) ermittelt.
 Aufruf (einmalig auf den Original-Screenshots):  python3 tools/anon/anonymize.py
 Danach:  node tools/mockups/render.js smartparts   (Vollfenster-Versionen neu bauen)"""
@@ -35,7 +35,7 @@ JOBS = {
 }
 
 for name, jobs in JOBS.items():
-    path = os.path.join(ROOT, "assets", "platform", name + ".webp")
+    path = os.path.join(ROOT, "tools", "mockups", "screens", name + ".webp")
     im = Image.open(path).convert("RGB")
     d = ImageDraw.Draw(im)
     for x0, x1, base, text in jobs:

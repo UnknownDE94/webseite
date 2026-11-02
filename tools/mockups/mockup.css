@@ -2,7 +2,7 @@
    Gerendert von tools/mockups/render.js: Desktop 920×575 CSS-px @1600/920 = 1600×1000,
    Mobil 390×844 @1x. App-Hülle (Seitennavigation, obere Leiste, mobile
    Kopf- und Tab-Leiste) baut shell.js. Stil angelehnt an die echten SmartParts-Screenshots
-   (assets/platform/*.webp): helles UI, weiße Karten, Farbleiste links,
+   (tools/mockups/screens/*.webp): helles UI, weiße Karten, Farbleiste links,
    dunkelgrüner Tabellenkopf. Ampelfarben nur in Daten. */
 
 @font-face { font-family: "Inter"; src: url("../../assets/fonts/inter-wght.woff2") format("woff2"); font-weight: 100 900; }
