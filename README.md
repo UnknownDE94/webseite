@@ -27,11 +27,11 @@ css/style.css           Designsystem (Tokens, Bausteine, Responsive) – siehe d
 js/main.js              Theme, Navigation, Einblendungen, Reiter, App-Showcase,
                         Motivwechsel, Kennzahlen, Rechenbeispiel, Kontaktformular
 js/wave.js              Partikelwelle (WebGL): Zustände, Raumformen, Partikel-Motive
-assets/                 Logo, Duotone-Icons (icons.svg, aus tools/visuals/icons.py), Schriften, Screenshots (platform/, apps/)
+assets/                 Logo, Duotone-Icons (icons.svg, aus tools/visuals/icons.py), Schriften, App-Ansichten (apps/)
 tools/build/            Build-Skript (nur Node-Bordmittel)
 tools/og/               Vorlage + Skript für assets/og-image.jpg
 tools/visuals/          Wellen-Vorschau und Erzeugung der JPEG-Empfehlungen
-tools/mockups/          App-Ansichten als Vollfenster mit Navigation (shell.js); SmartParts = echte Screens in nachgestellter Hülle
+tools/mockups/          App-Ansichten als Vollfenster mit Navigation (shell.js); SmartParts = echte Screens (screens/) in nachgestellter Hülle
 docs/                   Masterplan, Entscheidungen (offene Punkte!), Komponenten, Empfehlungen
 archive/                Alte Entwürfe, Film/Video (nicht veröffentlicht)
 ```

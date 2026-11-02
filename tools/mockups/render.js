@@ -9,7 +9,7 @@
      Desktop  920×575 CSS-px mit Faktor 1600/920 → 1600×1000
      Mobil    (<app>-mobile.html) 390×844 mit Faktor 1 → 390×844
    Die App-Hülle (Navigation, obere Leiste) baut shell.js.
-   Vorlagen mit <div class="shot" data-shot="assets/platform/x.webp"> (WK SmartParts):
+   Vorlagen mit <div class="shot" data-shot="tools/mockups/screens/x.webp"> (WK SmartParts):
    An dieser Stelle wird der echte Screenshot unverändert, nur verkleinert
    (Lanczos), in die gerenderte Hülle eingesetzt.
    Playwright liefert PNG; Zusammensetzen und WebP-Umwandlung übernimmt
