@@ -1,0 +1,127 @@
+"""Erzeugt assets/icons.svg – Duotone-Icons im Stil der Website.
+
+Jedes Icon besteht aus
+  • einer weichen Akzentfläche (versetzt hinter dem Motiv), Farbe per CSS-Variable
+    --duo (Standard: Limette), und
+  • einer runden Kontur (2 px, runde Enden) in der Textfarbe (currentColor).
+Aufruf: python3 tools/visuals/icons.py
+"""
+import os
+
+ROOT = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+
+# Name: (Akzentfläche, Kontur). Akzentflächen bewusst schlicht: Kreis, Pille,
+# abgerundetes Rechteck – leicht nach rechts unten versetzt.
+ICONS = {
+    "search": ('<circle cx="11.5" cy="11.5" r="5.5"/>',
+               '<circle cx="10.5" cy="10.5" r="6.5"/><path d="m15.5 15.5 5 5"/>'),
+    "gear": ('<circle cx="13" cy="13" r="6"/>',
+             '<path d="M10.3 3.6h3.4l.5 2.3 1.6.9 2.2-.8 1.7 2.9-1.7 1.6v1.9l1.7 1.6-1.7 2.9-2.2-.8-1.6.9-.5 2.3h-3.4l-.5-2.3-1.6-.9-2.2.8-1.7-2.9 1.7-1.6v-1.9L4.3 8.9 6 6l2.2.8 1.6-.9z"/><circle cx="12" cy="12" r="2.8"/>'),
+    "wrench": ('<circle cx="16" cy="8.5" r="5"/>',
+               '<path d="M14.6 5.2a4.5 4.5 0 0 0-5.5 5.9l-5.4 5.4a1.9 1.9 0 0 0 2.7 2.7l5.4-5.4a4.5 4.5 0 0 0 5.9-5.5l-2.6 2.6-2.4-.6-.6-2.4z"/>'),
+    "monitor": ('<rect x="5" y="6" width="17" height="11" rx="2.5"/>',
+                '<rect x="2.5" y="4" width="19" height="13" rx="2.5"/><path d="M9 21h6M12 17v4"/><path d="m6.5 12.5 3-3 2.5 2 4-4"/>'),
+    "cube": ('<path d="M12 12.5 20.5 8v9.2L12 21.8z"/>',
+             '<path d="M12 2.8 20.5 7.4v9.2L12 21.2l-8.5-4.6V7.4z"/><path d="m3.5 7.4 8.5 4.6 8.5-4.6M12 12v9.2"/>'),
+    "shield": ('<path d="M13 5.5 20 8v4.5c0 4-2.6 7.2-6.2 8.2z"/>',
+               '<path d="M12 3 5 5.6v5.6c0 4.5 3 8.4 7 9.6 4-1.2 7-5.1 7-9.6V5.6z"/><path d="m9 12 2.2 2.2L15.5 10"/>'),
+    "chart": ('<rect x="7" y="8" width="15" height="12" rx="2.5"/>',
+              '<path d="M3.5 3.5V20.5h17"/><path d="m7 15 4-4.5 3 3 5.5-6"/>'),
+    "bars": ('<rect x="9" y="7" width="12" height="13" rx="2.5"/>',
+             '<path d="M5 20V12M10 20V5M15 20v-6M20 20V9M2.5 20.5h19"/>'),
+    "phone": ('<circle cx="15" cy="15" r="6"/>',
+              '<path d="M5.2 3.5h3.4l1.8 4.6-2.3 1.4a11 11 0 0 0 6.4 6.4l1.4-2.3 4.6 1.8v3.4a2 2 0 0 1-2.2 2A17 17 0 0 1 3.2 5.7a2 2 0 0 1 2-2.2z"/>'),
+    "mail": ('<rect x="5" y="8" width="17" height="12" rx="2.5"/>',
+             '<rect x="2.5" y="5" width="19" height="14" rx="2.5"/><path d="m3 7 9 6.5L21 7"/>'),
+    "pin": ('<circle cx="13" cy="11" r="5.5"/>',
+            '<path d="M12 21.5s-7-6.2-7-11.7a7 7 0 0 1 14 0c0 5.5-7 11.7-7 11.7z"/><circle cx="12" cy="9.8" r="2.6"/>'),
+    "check": ('<circle cx="13" cy="13" r="8"/>',
+              '<circle cx="12" cy="12" r="9"/><path d="m8 12.2 2.8 2.8 5.2-5.6"/>'),
+    "cloud": ('<ellipse cx="14" cy="15" rx="8" ry="5"/>',
+              '<path d="M7 18.5a4.5 4.5 0 0 1-.7-9 6 6 0 0 1 11.5 1.6 3.8 3.8 0 0 1-.4 7.4z"/>'),
+    "chip": ('<rect x="9" y="9" width="10" height="10" rx="2.5"/>',
+             '<rect x="6.5" y="6.5" width="11" height="11" rx="2.5"/><path d="M10 10h4v4h-4zM9.5 3v3.5M14.5 3v3.5M9.5 17.5V21M14.5 17.5V21M3 9.5h3.5M3 14.5h3.5M17.5 9.5H21M17.5 14.5H21"/>'),
+    "wifi-off": ('<circle cx="14" cy="15" r="6"/>',
+                 '<path d="M2 8.8a15 15 0 0 1 4.2-2.6M10 5.1A15 15 0 0 1 22 8.8M5 12.5a10 10 0 0 1 4-2.2M15.5 10.6A10 10 0 0 1 19 12.5M8.5 16a5 5 0 0 1 7 0"/><circle cx="12" cy="19.5" r=".7"/><path d="m3 3 18 18"/>'),
+    "layers": ('<path d="m13 10 9 5-9 5-9-5z"/>',
+               '<path d="m12 3 9 5-9 5-9-5z"/><path d="m3 13 9 5 9-5"/>'),
+    "sync": ('<circle cx="13" cy="13" r="7"/>',
+             '<path d="M20 11a8 8 0 0 0-14.6-4.5L3 9"/><path d="M3 4v5h5"/><path d="M4 13a8 8 0 0 0 14.6 4.5L21 15"/><path d="M21 20v-5h-5"/>'),
+    "scan": ('<rect x="8" y="8" width="12" height="11" rx="2"/>',
+             '<path d="M3 8V5.5A2.5 2.5 0 0 1 5.5 3H8M16 3h2.5A2.5 2.5 0 0 1 21 5.5V8M21 16v2.5a2.5 2.5 0 0 1-2.5 2.5H16M8 21H5.5A2.5 2.5 0 0 1 3 18.5V16"/><path d="M7.5 8v8M10.5 8v8M13.5 8v8M16.5 8v8"/>'),
+    "file": ('<rect x="8" y="9" width="12" height="12" rx="2.5"/>',
+             '<path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/><path d="M14 3v5h5M8.5 13h7M8.5 17h5"/>'),
+    "euro": ('<circle cx="14" cy="13" r="7"/>',
+             '<path d="M18 6.5a7 7 0 1 0 0 11"/><path d="M4 10h10M4 14h9"/>'),
+    "truck": ('<rect x="5" y="9" width="16" height="9" rx="2.5"/>',
+              '<path d="M2.5 6h11.5v10H2.5zM14 9.5h4l3 3.5v3h-7"/><circle cx="6.5" cy="18" r="2"/><circle cx="17" cy="18" r="2"/>'),
+    "database": ('<ellipse cx="13.5" cy="15" rx="7" ry="6"/>',
+                 '<ellipse cx="12" cy="5.5" rx="7" ry="2.5"/><path d="M5 5.5V18c0 1.4 3.1 2.5 7 2.5s7-1.1 7-2.5V5.5"/><path d="M5 11.8c0 1.4 3.1 2.5 7 2.5s7-1.1 7-2.5"/>'),
+    "arrow-right": ('<circle cx="14" cy="13" r="6"/>',
+                    '<path d="M5 12h14M13 6l6 6-6 6"/>'),
+    "migrate": ('<rect x="14" y="7" width="8" height="14" rx="2.5"/>',
+                '<rect x="2.5" y="5" width="7" height="14" rx="2"/><rect x="14.5" y="5" width="7" height="14" rx="2"/><path d="M10 12h4M12.5 10l1.5 2-1.5 2"/>'),
+    "alert": ('<path d="M13 8 21 21H6z"/>',
+              '<path d="M12 3.5 2.5 20h19z"/><path d="M12 10v4.5M12 17.2v.1"/>'),
+    "box": ('<path d="M12.5 12 21 8v9l-8.5 4.5z"/>',
+            '<path d="M3 7.5 12 3l9 4.5v9L12 21l-9-4.5z"/><path d="M3 7.5 12 12l9-4.5M12 12v9M7.5 5.2l9 4.5"/>'),
+    "clock": ('<circle cx="13" cy="13" r="8"/>',
+              '<circle cx="12" cy="12" r="9"/><path d="M12 7v5l3.2 2"/>'),
+    "lock": ('<rect x="7" y="12" width="14" height="10" rx="2.5"/>',
+             '<rect x="5" y="10.5" width="14" height="10" rx="2.5"/><path d="M8 10.5V8a4 4 0 0 1 8 0v2.5M12 14.5v2"/>'),
+    "server": ('<rect x="5" y="7" width="17" height="14" rx="2.5"/>',
+               '<rect x="3" y="4" width="18" height="7" rx="2"/><rect x="3" y="13" width="18" height="7" rx="2"/><path d="M7 7.5h.01M7 16.5h.01M11 7.5h6M11 16.5h6"/>'),
+    "smartphone": ('<rect x="9" y="5" width="11" height="17" rx="3"/>',
+                   '<rect x="6.5" y="2.5" width="11" height="19" rx="3"/><path d="M10.5 18.5h3"/>'),
+    "target": ('<circle cx="13" cy="13" r="7"/>',
+               '<circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1.2"/>'),
+    "factory": ('<rect x="6" y="11" width="16" height="10" rx="2"/>',
+                '<path d="M3 21V10l5 3v-3l5 3V5h4l1 16z"/><path d="M3 21h18M7 17h2M12 17h2"/>'),
+    "hammer": ('<circle cx="16" cy="8" r="5"/>',
+               '<path d="m14 7 3-3 4 4-3 3"/><path d="m16 9-9.5 9.5a2.1 2.1 0 0 1-3-3L13 6"/><path d="M11 4h5"/>'),
+    "printer3d": ('<rect x="7" y="9" width="14" height="12" rx="2.5"/>',
+                  '<path d="M4 3h16v4H4zM6 7v6M18 7v6"/><path d="M8 21h8l-1-6H9z"/><path d="M12 13v2"/>'),
+    "qr": ('<rect x="12" y="12" width="10" height="10" rx="2.5"/>',
+           '<rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><path d="M14 14h3v3h-3zM20 14v.1M17 20h4M14 20v.1"/>'),
+    "clipboard": ('<rect x="7" y="7" width="14" height="15" rx="2.5"/>',
+                  '<rect x="5" y="4" width="14" height="17" rx="2.5"/><path d="M9 4V3h6v1M9 10h6M9 14h6M9 18h4"/>'),
+    "list": ('<rect x="7" y="7" width="15" height="13" rx="2.5"/>',
+             '<path d="M9 6h11M9 12h11M9 18h11M4 6h.1M4 12h.1M4 18h.1"/>'),
+    "flow": ('<rect x="13" y="13" width="9" height="9" rx="2.5"/>',
+             '<rect x="3" y="3" width="6" height="6" rx="1.5"/><rect x="15" y="15" width="6" height="6" rx="1.5"/><path d="M6 9v4a2 2 0 0 0 2 2h7"/>'),
+    "bulb": ('<circle cx="13" cy="10" r="6"/>',
+             '<path d="M9 18h6M10 21h4"/><path d="M12 3a6 6 0 0 0-3.5 10.9c.6.5 1 1.2 1 2.1h5c0-.9.4-1.6 1-2.1A6 6 0 0 0 12 3z"/>'),
+    "network": ('<circle cx="13" cy="14" r="7"/>',
+                '<circle cx="12" cy="5" r="2.2"/><circle cx="5" cy="18" r="2.2"/><circle cx="19" cy="18" r="2.2"/><circle cx="12" cy="13" r="1.6"/><path d="M12 7.2v4.2M10.7 14l-4 2.6M13.3 14l4 2.6"/>'),
+    "tag": ('<circle cx="15" cy="14" r="6"/>',
+            '<path d="M3 12V4a1 1 0 0 1 1-1h8l9 9-9 9z"/><circle cx="8" cy="8" r="1.6"/>'),
+    "doc-search": ('<circle cx="17" cy="17" r="5"/>',
+                   '<path d="M13 3H6.5A1.5 1.5 0 0 0 5 4.5v15A1.5 1.5 0 0 0 6.5 21H11"/><path d="M13 3v5h5v3"/><circle cx="16.5" cy="16.5" r="3"/><path d="m21 21-2.4-2.4"/>'),
+    "cpu-local": ('<rect x="5" y="6" width="17" height="11" rx="2.5"/>',
+                  '<rect x="2.5" y="4" width="19" height="12" rx="2.5"/><path d="M8 20h8M12 16v4"/><rect x="9" y="7" width="6" height="6" rx="1.2"/>'),
+    "refresh": ('<circle cx="13" cy="13" r="7"/>',
+                '<path d="M21 12a9 9 0 1 1-2.6-6.4L21 8"/><path d="M21 3v5h-5"/>'),
+    "ruler": ('<path d="m7 17 12-12 3 3L10 20z"/>',
+              '<path d="m3 17 14-14 4 4L7 21z"/><path d="m7 13 2 2M10 10l2 2M13 7l2 2"/>'),
+    "spark": ('<circle cx="13" cy="13" r="6"/>',
+              '<path d="M12 3v4M12 17v4M3 12h4M17 12h4M6 6l2.5 2.5M15.5 15.5 18 18M6 18l2.5-2.5M15.5 8.5 18 6"/>'),
+    # Bedienelemente: ohne Akzentfläche
+    "chev-down": (None, '<path d="m6 9 6 6 6-6"/>'),
+    "sun": (None, '<circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/>'),
+    "moon": (None, '<path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z"/>'),
+    "waves": (None, '<path d="M2 9c2-2.5 4-2.5 6 0s4 2.5 6 0 4-2.5 6 0"/><path d="M2 15c2-2.5 4-2.5 6 0s4 2.5 6 0 4-2.5 6 0"/>'),
+    "waves-off": (None, '<path d="M2 9c2-2.5 4-2.5 6 0s4 2.5 6 0 4-2.5 6 0"/><path d="M2 15c2-2.5 4-2.5 6 0s4 2.5 6 0 4-2.5 6 0"/><path d="m3 3 18 18"/>'),
+}
+
+out = ['<svg xmlns="http://www.w3.org/2000/svg">']
+for name, (duo, line) in ICONS.items():
+    parts = []
+    if duo:
+        # Fläche einheitlich auf 78 % verkleinert und nach rechts unten versetzt,
+        # damit die Kontur immer lesbar bleibt (typischer versetzter Duotone-Look)
+        parts.append('<g class="duo" transform="translate(4.2 4.2) scale(.78)" style="fill:var(--duo,#d4ec5f);opacity:var(--duo-o,.85)" stroke="none">%s</g>' % duo)
+    parts.append('<g fill="none" stroke="currentColor" style="stroke-width:var(--icon-w,1.9)" stroke-linecap="round" stroke-linejoin="round">%s</g>' % line)
+    out.append('<symbol id="%s" viewBox="0 0 24 24">%s</symbol>' % (name, "".join(parts)))
+out.append("</svg>")
+open(os.path.join(ROOT, "assets", "icons.svg"), "w").write("\n".join(out) + "\n")
+print(len(ICONS), "Icons geschrieben")

@@ -66,6 +66,6 @@ Seitenspezifische Bausteine der Unterseiten (`.worlds`, `.phases`, `.tree`, `.dt
 `.decision`, `.process--8`, `.table--status`, `.family`, `.eco-node`, `.page-hero--legal` u. a.)
 stehen gesammelt in `css/style.css` unter „12b Seitenbausteine der Unterseiten“.
 
-Icons: `<svg class="icon" aria-hidden="true"><use href="assets/icons.svg#name"/></svg>` –
+Icons (Duotone: Kontur in Textfarbe, versetzte Limette-Fläche; erzeugt mit `python3 tools/visuals/icons.py`, Übersicht `docs/empfehlungen/06-icons-*.jpg`): `<svg class="icon" aria-hidden="true"><use href="assets/icons.svg#name"/></svg>` –
 Namen siehe `assets/icons.svg` (keine Personen-Symbole). Buttons nur `.btn--primary`,
 `.btn--secondary`, `.link-arrow`. Glas nur für Kennzahlen, Produktfenster, CTA.

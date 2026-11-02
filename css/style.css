@@ -1159,3 +1159,15 @@ main > .section:last-child { padding-bottom: 88px; }
   }
 }
 html[data-a11y="on"] .closing:has(.wave-slot) { background: var(--glass-bg); }
+
+/* Duotone-Icons (assets/icons.svg, erzeugt mit tools/visuals/icons.py):
+   runde Kontur in Textfarbe, versetzte Akzentfläche in Limette */
+.icon { --duo: var(--lime); --duo-o: 0.8; --icon-w: 1.9; }
+.icon--lg { --icon-w: 1.6; }
+.icon--xl { --icon-w: 1.4; }
+.tile .icon { --icon-w: 1.5; }
+main svg.icon.icon:not([role="tab"] > *), .site-footer svg.icon.icon { color: var(--ink); }
+a.tile:hover .icon.icon, a.card:hover .icon.icon { color: var(--ink); --duo-o: 1; }
+html[data-theme="light"] .icon { --duo: #c9e255; --duo-o: 1; }
+/* Bedienelemente und aktive Reiter: ohne Akzentfläche */
+.icon-btn .icon, .nav-link .icon, [role="tab"] .icon, .btn .icon { --duo-o: 0; }
