@@ -348,6 +348,8 @@ a.card:hover { border-color: var(--line-2); transform: translateY(-2px); }
 .tile .icon { width: 44px; height: 44px; stroke-width: 1.2; color: var(--ink); margin-bottom: auto; }
 .tile h3 { font-size: 1.08rem; }
 .tile p { font-size: 0.88rem; color: var(--ink-3); line-height: 1.5; }
+.tile .tile__meta { margin-top: 2px; font-family: var(--font-mono); font-size: 0.72rem; letter-spacing: 0.04em; color: var(--lime); }
+html[data-theme="light"] .tile .tile__meta { color: var(--ink); }
 a.tile:hover { border-color: color-mix(in srgb, var(--accent) 55%, transparent); transform: translateY(-3px); }
 a.tile:hover .icon { color: var(--accent); }
 

@@ -445,6 +445,12 @@ document.addEventListener("DOMContentLoaded", function () {
   // liefert keine CORS-Antwort ("no-cors"): nur Netzwerkfehler sind erkennbar.
   // Ohne JavaScript greift das normale POST des Formulars.
   var form = document.getElementById("contact-form");
+  // Thema aus dem Link vorbelegen, z. B. kontakt.html?thema=smartparts-demo
+  var themaKey = /[?&]thema=([a-z0-9-]+)/.exec(location.search);
+  var themaOpt = themaKey && document.querySelector('#thema option[data-key="' + themaKey[1] + '"]');
+  if (themaOpt) {
+    themaOpt.selected = true;
+  }
   if (form && window.fetch) {
     var status = document.getElementById("form-status");
     var button = form.querySelector('button[type="submit"]');
