@@ -1,0 +1,202 @@
+<!doctype html>
+<html lang="de" data-theme="dark">
+<head>
+<meta charset="utf-8" />
+<title>Varianten: Zwei Risiken. Ein Ziel.</title>
+<!-- Vorlagen für material-ersatzteile.html, Abschnitt 2. Ansehen über
+     python3 -m http.server im Repo: /tools/visuals/versus-varianten.html
+     PNG: node tools/visuals/render.js versus -->
+<link rel="stylesheet" href="../../css/style.css" />
+<style>
+  body { background: var(--bg); }
+  .frame { width: 1440px; padding: 72px 0 80px; position: relative; overflow: hidden; }
+  .frame + .frame { border-top: 1px dashed var(--line-2); }
+  .frame__tag { position: absolute; top: 18px; left: 24px; font: 500 0.72rem var(--font-mono); letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-3); }
+  .frame .section-head { margin-bottom: 44px; }
+  .mono { font-family: var(--font-mono); font-size: 0.72rem; letter-spacing: 0.06em; text-transform: uppercase; }
+  .panel { position: relative; border: 1px solid var(--line); border-radius: var(--radius-lg); background: var(--surface); }
+  .warn { color: var(--warn); } .crit { color: var(--crit); } .lime { color: var(--lime); }
+  .dot { display: inline-block; width: 8px; height: 8px; border-radius: 50%; margin-right: 8px; vertical-align: 1px; }
+
+  /* ── V1 · Bestandskorridor ───────────────────────────────────────── */
+  .v1 { padding: 44px 48px 40px; }
+  .v1__axis { display: flex; justify-content: space-between; margin-bottom: 14px; color: var(--ink-3); }
+  .v1__scale { position: relative; height: 16px; border-radius: 999px;
+    background: linear-gradient(90deg, rgba(239,68,68,.85) 0%, rgba(239,68,68,.25) 24%, rgba(255,255,255,.06) 33%, rgba(255,255,255,.06) 67%, rgba(251,191,36,.25) 76%, rgba(251,191,36,.85) 100%); }
+  .v1__band { position: absolute; top: -8px; bottom: -8px; left: 35%; width: 30%; border-radius: 10px; border: 1px solid rgba(212,236,95,.6); background: rgba(212,236,95,.16); box-shadow: 0 0 32px rgba(212,236,95,.22); }
+  .v1__ticks { height: 12px; margin-top: 14px; background: repeating-linear-gradient(90deg, var(--line-2) 0 1px, transparent 1px 2.5%); opacity: .8; }
+  .v1__marks { position: relative; height: 54px; }
+  .v1__mark { position: absolute; top: 0; transform: translateX(-50%); text-align: center; color: var(--ink-2); }
+  .v1__mark::before { content: ""; display: block; width: 1px; height: 18px; margin: 0 auto 8px; background: var(--lime); }
+  .v1__cols { display: grid; grid-template-columns: 1fr 1.1fr 1fr; gap: 0; margin-top: 18px; border-top: 1px solid var(--line); }
+  .v1__cols > div { padding: 28px 28px 4px; }
+  .v1__cols > div + div { border-left: 1px solid var(--line); }
+  .v1__cols h3 { display: flex; align-items: center; gap: 12px; margin-bottom: 4px; }
+  .v1__mid { text-align: center; }
+  .v1__mid .claim { color: var(--lime); font-family: var(--font-display); font-weight: 600; font-size: 1.25rem; line-height: 1.3; margin-top: 6px; }
+
+  /* ── V2 · Bestandsverlauf ────────────────────────────────────────── */
+  .v2 { padding: 32px 36px 28px; }
+  .v2__legend { display: flex; gap: 28px; color: var(--ink-2); margin: 0 0 14px 8px; }
+  .v2__legend i { display: inline-block; width: 26px; height: 0; border-top: 2px solid var(--silver); margin-right: 10px; vertical-align: 4px; }
+  .v2__legend i.opt { border-top: 2px dashed var(--lime); }
+  .v2 svg text { font-family: var(--font-mono); font-size: 12px; letter-spacing: .06em; text-transform: uppercase; }
+  .v2__cols { display: grid; grid-template-columns: repeat(3, 1fr); margin-top: 22px; border-top: 1px solid var(--line); }
+  .v2__cols > div { padding: 22px 24px 2px; }
+  .v2__cols > div + div { border-left: 1px solid var(--line); }
+  .v2__cols h3 { font-size: 1.02rem; margin-bottom: 8px; }
+  .v2__cols p { color: var(--ink-3); font-size: .92rem; }
+
+  /* ── V3 · Gleichgewicht ──────────────────────────────────────────── */
+  .v3 { display: grid; grid-template-columns: 1fr 220px 1fr; overflow: hidden; }
+  .v3__side { padding: 40px 40px 36px; position: relative; }
+  .v3__side--l { background: radial-gradient(120% 90% at 0% 0%, rgba(251,191,36,.10), transparent 60%); }
+  .v3__side--r { background: radial-gradient(120% 90% at 100% 0%, rgba(239,68,68,.11), transparent 60%); }
+  .v3__side h3 { margin-top: 18px; }
+  .v3__side .claim { margin-top: 4px; }
+  .v3__rows { list-style: none; margin-top: 26px; display: grid; gap: 14px; }
+  .v3__rows li { display: grid; grid-template-columns: 150px 1fr; align-items: center; gap: 16px; color: var(--ink-2); font-size: .92rem; }
+  .v3__bar { height: 6px; border-radius: 999px; background: rgba(255,255,255,.07); overflow: hidden; }
+  .v3__bar i { display: block; height: 100%; border-radius: inherit; }
+  .v3__side--l .v3__bar i { background: linear-gradient(90deg, rgba(251,191,36,.35), var(--warn)); }
+  .v3__side--r .v3__bar i { background: linear-gradient(90deg, rgba(239,68,68,.35), var(--crit)); }
+  .v3__mid { position: relative; display: grid; place-items: center; border-inline: 1px solid var(--line); }
+  .v3__mid::before { content: ""; position: absolute; top: 0; bottom: 0; left: 50%; width: 1px; background: linear-gradient(var(--warn), var(--lime) 50%, var(--crit)); opacity: .5; }
+  .v3__node { position: relative; z-index: 1; display: grid; place-items: center; text-align: center; gap: 10px; padding: 20px 14px; border-radius: 18px; background: var(--surface); }
+  .v3__ring { width: 74px; height: 74px; border-radius: 50%; display: grid; place-items: center; border: 1px solid rgba(212,236,95,.6); background: rgba(212,236,95,.10); box-shadow: 0 0 36px rgba(212,236,95,.28); }
+  .v3__ring span { width: 20px; height: 20px; border-radius: 50%; background: var(--lime); }
+  .v3__node strong { font-family: var(--font-display); font-size: 1.05rem; line-height: 1.3; color: var(--lime); }
+  .note { color: var(--ink-3); }
+</style>
+</head>
+<body>
+
+<!-- V1 -->
+<section class="frame" id="v1">
+  <span class="frame__tag">Variante 1 · Bestandskorridor</span>
+  <div class="container">
+    <div class="section-head section-head--center">
+      <h2>Zwei Risiken. Ein Ziel.</h2>
+      <p class="lead">Überbestand und Fehlbestand entstehen oft im selben Lager – beide kosten Geld.</p>
+    </div>
+    <div class="panel v1">
+      <div class="v1__axis mono"><span>◂ Zu wenig Bestand</span><span>Bestand</span><span>Zu viel Bestand ▸</span></div>
+      <div class="v1__scale"><div class="v1__band"></div></div>
+      <div class="v1__ticks"></div>
+      <div class="v1__marks mono">
+        <span class="v1__mark" style="left:35%">Meldebestand</span>
+        <span class="v1__mark" style="left:65%">Höchstbestand</span>
+      </div>
+      <div class="v1__cols">
+        <div>
+          <h3><svg class="icon icon--lg" aria-hidden="true"><use href="../../assets/icons.svg#alert"/></svg>Fehlbestand</h3>
+          <p class="claim crit">Stillstandsrisiko.</p>
+          <ul class="dotlist mt-lg"><li>Kritisches Teil fehlt im Störfall</li><li>Lange Lieferzeit, keine Alternative</li><li>Teure Eilbeschaffung</li></ul>
+        </div>
+        <div class="v1__mid">
+          <span class="mono lime">Zielkorridor</span>
+          <p class="claim">Der wirtschaftlich sinnvolle Bestand liegt dazwischen.</p>
+          <p class="muted" style="margin-top:12px">Je Teil festgelegt nach Kritikalität, Verbrauch und Lieferzeit.</p>
+        </div>
+        <div>
+          <h3><svg class="icon icon--lg" aria-hidden="true"><use href="../../assets/icons.svg#box"/></svg>Überbestand</h3>
+          <p class="claim warn">Kapital gebunden.</p>
+          <ul class="dotlist mt-lg"><li>Material ohne Bewegung seit Jahren</li><li>Dubletten unter verschiedenen Nummern</li><li>Lagerkosten, Platz und Alterung</li></ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- V2 -->
+<section class="frame" id="v2">
+  <span class="frame__tag">Variante 2 · Bestandsverlauf</span>
+  <div class="container">
+    <div class="section-head section-head--center">
+      <h2>Zwei Risiken. Ein Ziel.</h2>
+      <p class="lead">Überbestand und Fehlbestand entstehen oft im selben Lager – beide kosten Geld.</p>
+    </div>
+    <div class="panel v2">
+      <div class="v2__legend mono"><span><i></i>Heute</span><span><i class="opt"></i>Nach Optimierung</span></div>
+      <svg viewBox="0 0 1100 330" width="100%" aria-hidden="true">
+        <defs>
+          <pattern id="hatchW" width="8" height="8" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><line x1="0" y1="0" x2="0" y2="8" stroke="rgba(251,191,36,.18)" stroke-width="2"/></pattern>
+          <pattern id="hatchC" width="8" height="8" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><line x1="0" y1="0" x2="0" y2="8" stroke="rgba(239,68,68,.2)" stroke-width="2"/></pattern>
+          <linearGradient id="fadeR" x1="0" x2="1"><stop offset="0" stop-color="#d4ec5f" stop-opacity=".05"/><stop offset=".5" stop-color="#d4ec5f" stop-opacity=".14"/><stop offset="1" stop-color="#d4ec5f" stop-opacity=".05"/></linearGradient>
+        </defs>
+        <!-- Zonen -->
+        <rect x="60" y="10" width="1030" height="92" fill="url(#hatchW)"/>
+        <rect x="60" y="102" width="1030" height="104" fill="url(#fadeR)"/>
+        <line x1="60" y1="102" x2="1090" y2="102" stroke="rgba(212,236,95,.55)" stroke-dasharray="4 6"/>
+        <line x1="60" y1="206" x2="1090" y2="206" stroke="rgba(212,236,95,.55)" stroke-dasharray="4 6"/>
+        <rect x="60" y="206" width="1030" height="84" fill="url(#hatchC)"/>
+        <!-- Achsen -->
+        <line x1="60" y1="10" x2="60" y2="290" stroke="rgba(255,255,255,.14)"/>
+        <line x1="60" y1="290" x2="1090" y2="290" stroke="rgba(255,255,255,.14)"/>
+        <text x="1080" y="60" text-anchor="end" fill="#fbbf24">Überbestand</text><text x="1080" y="80" text-anchor="end" fill="#7f8a84">Kapital gebunden</text>
+        <text x="1080" y="150" text-anchor="end" fill="#d4ec5f">Zielkorridor</text><text x="1080" y="170" text-anchor="end" fill="#7f8a84">wirtschaftlich sinnvoll</text>
+        <text x="1080" y="246" text-anchor="end" fill="#ef4444">Fehlbestand</text><text x="1080" y="266" text-anchor="end" fill="#7f8a84">Stillstandsrisiko</text>
+        <text x="30" y="150" fill="#7f8a84" transform="rotate(-90 30 150)" text-anchor="middle">Bestand</text>
+        <text x="1090" y="316" fill="#7f8a84" text-anchor="end">Zeit</text>
+        <!-- Heute: große Bestellungen, langer Abbau bis unter den Meldebestand -->
+        <polyline fill="none" stroke="#c3c9c6" stroke-width="2.4" stroke-linejoin="round"
+          points="60,150 107,175 154,205 193,240 218,262 218,40 271,70 325,100 380,135 434,175 481,215 512,250 530,272 530,30 590,62 653,98 715,140 762,180 801,220 832,258 863,276"/>
+        <!-- Nach Optimierung: kleinere, rechtzeitige Bestellungen im Korridor -->
+        <polyline fill="none" stroke="#d4ec5f" stroke-width="2.4" stroke-dasharray="7 6" stroke-linejoin="round"
+          points="60,150 122,186 161,200 161,118 224,152 278,184 310,198 310,116 372,150 427,182 458,198 458,114 520,148 575,182 606,198 606,116 668,150 723,184 754,198 754,118 817,152 863,178"/>
+        <circle cx="218" cy="262" r="5" fill="#ef4444"/>
+        <circle cx="530" cy="30" r="5" fill="#fbbf24"/>
+      </svg>
+      <div class="v2__cols">
+        <div><h3><span class="dot" style="background:var(--warn)"></span>Überbestand</h3><p>Material ohne Bewegung, Dubletten, Lagerkosten, Platz und Alterung.</p></div>
+        <div><h3><span class="dot" style="background:var(--lime)"></span>Zielkorridor</h3><p>Der wirtschaftlich sinnvolle Bestand – je Teil nach Kritikalität, Verbrauch und Lieferzeit.</p></div>
+        <div><h3><span class="dot" style="background:var(--crit)"></span>Fehlbestand</h3><p>Kritisches Teil fehlt im Störfall, lange Lieferzeit, teure Eilbeschaffung.</p></div>
+      </div>
+    </div>
+    <p class="note mt-lg">Beispielhafte Darstellung, keine Kundendaten.</p>
+  </div>
+</section>
+
+<!-- V3 -->
+<section class="frame" id="v3">
+  <span class="frame__tag">Variante 3 · Gleichgewicht</span>
+  <div class="container">
+    <div class="section-head section-head--center">
+      <h2>Zwei Risiken. Ein Ziel.</h2>
+      <p class="lead">Überbestand und Fehlbestand entstehen oft im selben Lager – beide kosten Geld.</p>
+    </div>
+    <div class="panel v3">
+      <div class="v3__side v3__side--l">
+        <svg class="icon icon--xl" aria-hidden="true"><use href="../../assets/icons.svg#box"/></svg>
+        <h3>Überbestand</h3>
+        <p class="claim warn">Kapital gebunden.</p>
+        <ul class="v3__rows">
+          <li>Kapitalbindung<span class="v3__bar"><i style="width:88%"></i></span></li>
+          <li>Lagerkosten &amp; Platz<span class="v3__bar"><i style="width:70%"></i></span></li>
+          <li>Alterung<span class="v3__bar"><i style="width:56%"></i></span></li>
+        </ul>
+      </div>
+      <div class="v3__mid">
+        <div class="v3__node">
+          <div class="v3__ring"><span></span></div>
+          <strong>Wirtschaftlich<br />sinnvoller Bestand</strong>
+          <span class="mono note">je Teil festgelegt</span>
+        </div>
+      </div>
+      <div class="v3__side v3__side--r">
+        <svg class="icon icon--xl" aria-hidden="true"><use href="../../assets/icons.svg#alert"/></svg>
+        <h3>Fehlbestand</h3>
+        <p class="claim crit">Stillstandsrisiko.</p>
+        <ul class="v3__rows">
+          <li>Anlagenstillstand<span class="v3__bar"><i style="width:90%"></i></span></li>
+          <li>Eilbeschaffung<span class="v3__bar"><i style="width:68%"></i></span></li>
+          <li>Lieferzeit ohne Alternative<span class="v3__bar"><i style="width:58%"></i></span></li>
+        </ul>
+      </div>
+    </div>
+    <p class="note mt-lg">Balken zeigen qualitativ die Wirkung, keine Messwerte.</p>
+  </div>
+</section>
+
+</body>
+</html>
