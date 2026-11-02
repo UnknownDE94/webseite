@@ -738,24 +738,51 @@
   });
 
   // Masterplan: Mobile, Offline, Lokale KI, Migration, CAD, Lieferantennetz
+  // Smartphone mit App-Oberfläche: Gehäuse, Kamera-Insel, Kopfzeile,
+  // Scan-Rahmen mit Barcode und Laserlinie, Listenzeilen mit Status, Tab-Leiste
   SHAPES.mobile = icon(function (g) {
-    roundRect(g, 85, 20, 130, 260, 26);
+    g.strokeStyle = W;
+    g.lineWidth = 9;
+    roundRect(g, 78, 8, 144, 284, 30);
     g.stroke();
-    g.strokeStyle = "#ffffff";
-    g.lineWidth = 10;
-    [[110, 70, 190, 70], [110, 105, 170, 105], [110, 140, 185, 140]].forEach(function (l) {
-      g.beginPath();
-      g.moveTo(l[0], l[1]);
-      g.lineTo(l[2], l[3]);
-      g.stroke();
-    });
-    g.lineWidth = 12;
-    roundRect(g, 110, 175, 80, 55, 8);
+    g.lineWidth = 4;
+    roundRect(g, 90, 20, 120, 260, 20);
     g.stroke();
-    g.fillStyle = "#00ff00";
-    g.beginPath();
-    g.arc(150, 258, 8, 0, Math.PI * 2);
+    g.fillStyle = W;
+    roundRect(g, 128, 30, 44, 11, 6);
     g.fill();
+    g.fillStyle = G;
+    g.fillRect(102, 54, 54, 8);
+    circle(g, 196, 58, 5, true);
+    g.strokeStyle = G;
+    g.lineWidth = 6;
+    var x0 = 108, y0 = 76, x1 = 192, y1 = 150, c = 16;
+    lines(g, [[x0, y0 + c, x0, y0], [x0, y0, x0 + c, y0], [x1 - c, y0, x1, y0], [x1, y0, x1, y0 + c],
+      [x0, y1 - c, x0, y1], [x0, y1, x0 + c, y1], [x1 - c, y1, x1, y1], [x1, y1, x1, y1 - c]]);
+    g.strokeStyle = W;
+    [0, 1, 0, 2, 1, 0, 2, 0, 1].forEach(function (w, i) {
+      g.lineWidth = 2 + w * 2;
+      lines(g, [[122 + i * 7, 92, 122 + i * 7, 134]]);
+    });
+    g.strokeStyle = G;
+    g.lineWidth = 3;
+    lines(g, [[x0 + 6, 113, x1 - 6, 113]]);
+    [172, 198, 224].forEach(function (y, i) {
+      g.fillStyle = i === 1 ? G : W;
+      circle(g, 108, y, 6, true);
+      g.strokeStyle = W;
+      g.lineWidth = 5;
+      lines(g, [[122, y - 4, 182 - i * 12, y - 4]]);
+      g.lineWidth = 3;
+      lines(g, [[122, y + 5, 160, y + 5]]);
+    });
+    g.strokeStyle = W;
+    g.lineWidth = 3;
+    lines(g, [[92, 246, 208, 246]]);
+    [112, 138, 164, 190].forEach(function (x, i) {
+      g.fillStyle = i === 1 ? G : W;
+      circle(g, x, 262, i === 1 ? 6 : 4, true);
+    });
   });
   SHAPES.offline = icon(function (g) {
     roundRect(g, 30, 60, 120, 200, 22);

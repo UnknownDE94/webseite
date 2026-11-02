@@ -43,15 +43,16 @@ Abschnitt 49–51).
 - Website-Formulierung: Modular an Ihren Bedarf anpassbar.
 
 ## Produktstatus
+Desktop-App je WK-Anwendung: vom Inhaber als Ziel vorgegeben (2026-11-02), Status „Geplant“.
 Fehlt ein Wert, zeigt die Website „Geplant“ bzw. „noch festzulegen“ – nie „Verfügbar“.
 
-| Produkt | Web | iOS | Android | Offline | Cloud | Private | Local/On-Premises |
-|---|---|---|---|---|---|---|---|
-| WK SmartParts | [OFFEN] | Geplant | Geplant | [OFFEN] | [OFFEN] | [OFFEN] | [OFFEN] |
-| WK Material | [OFFEN] | Geplant | Geplant | [OFFEN] | [OFFEN] | [OFFEN] | [OFFEN] |
-| WK Instandhaltung | [OFFEN] | Geplant | Geplant | [OFFEN] | [OFFEN] | [OFFEN] | [OFFEN] |
-| WK Finance | [OFFEN] | Geplant | Geplant | [OFFEN] | [OFFEN] | [OFFEN] | [OFFEN] |
-| WK 3D | [OFFEN] | Geplant | Geplant | [OFFEN] | [OFFEN] | [OFFEN] | [OFFEN] |
+| Produkt | Web | Desktop | iOS | Android | Offline | Cloud | Private | Local/On-Premises |
+|---|---|---|---|---|---|---|---|---|
+| WK SmartParts | [OFFEN] | Geplant | Geplant | Geplant | [OFFEN] | [OFFEN] | [OFFEN] | [OFFEN] |
+| WK Material | [OFFEN] | Geplant | Geplant | Geplant | [OFFEN] | [OFFEN] | [OFFEN] | [OFFEN] |
+| WK Instandhaltung | [OFFEN] | Geplant | Geplant | Geplant | [OFFEN] | [OFFEN] | [OFFEN] | [OFFEN] |
+| WK Finance | [OFFEN] | Geplant | Geplant | Geplant | [OFFEN] | [OFFEN] | [OFFEN] | [OFFEN] |
+| WK 3D | [OFFEN] | Geplant | Geplant | Geplant | [OFFEN] | [OFFEN] | [OFFEN] | [OFFEN] |
 
 ## KI-Werkstatt
 - Typ: Dienstleistung
