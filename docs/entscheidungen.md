@@ -49,8 +49,8 @@ Fehlt ein Wert, zeigt die Website „Geplant“ bzw. „noch festzulegen“ – 
 | Produkt | Web | Desktop | iOS | Android | Offline | Cloud | Private | Local/On-Premises |
 |---|---|---|---|---|---|---|---|---|
 | WK SmartParts | Verfügbar | Geplant | Geplant | Geplant | [OFFEN] | Ja (EU) | Ja | Ja |
-| WK Material | In Entwicklung | Geplant | Geplant | Geplant | [OFFEN] | Ja (EU) | Ja | Ja |
-| WK Instandhaltung | In Entwicklung | Geplant | Geplant | Geplant | [OFFEN] | Ja (EU) | Ja | Ja |
+| WK Material | In Entwicklung | Geplant | Geplant | Geplant | Geplant | Ja (EU) | Ja | Ja |
+| WK Instandhaltung | In Entwicklung | Geplant | Geplant | Geplant | Geplant | Ja (EU) | Ja | Ja |
 | WK Finance | In Entwicklung | Geplant | Geplant | Geplant | [OFFEN] | Ja (EU) | Ja | Ja |
 | WK 3D | In Entwicklung | Geplant | Geplant | Geplant | [OFFEN] | Ja (EU) | Ja | Ja |
 
