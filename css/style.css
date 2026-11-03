@@ -739,6 +739,37 @@ html[data-theme="light"] :focus-visible { outline-color: var(--green-2); }
   .callout.is-shown, .showcase-app.is-in .callout.is-shown { opacity: 1; transform: none; }
   }
 
+/* Obsoleszenz: Merkmale → Risikobewertung → Priorität */
+.section-head--row > .lead { max-width: 520px; }
+.riskflow { display: grid; grid-template-columns: 220px minmax(60px, 1fr) 230px minmax(60px, 1fr) minmax(0, 330px); align-items: center; padding: 40px 44px; border: 1px solid var(--line); border-radius: var(--radius-lg); background: var(--panel, var(--surface)); }
+.riskflow__in { list-style: none; display: grid; gap: 8px; height: 340px; align-content: space-between; }
+.riskflow__in li { padding: 6px 14px; border: 1px solid var(--line-2); border-radius: 999px; font-size: 0.84rem; color: var(--ink-2); }
+.riskflow__wire { width: 100%; height: 340px; }
+.riskflow__wire path { stroke-dasharray: 220; stroke-dashoffset: 0; transition: stroke-dashoffset 1.4s var(--ease-out) 0.2s; }
+.riskflow__wire--out path { transition-delay: 0.9s; }
+.js .riskflow[data-anim]:not(.in) .riskflow__wire path { stroke-dashoffset: 220; }
+.riskflow__core { display: grid; justify-items: center; gap: 10px; padding: 30px 18px; text-align: center; border: 1px solid rgba(212, 236, 95, 0.5); border-radius: 20px; background: rgba(212, 236, 95, 0.07); box-shadow: 0 0 40px rgba(212, 236, 95, 0.15); }
+.riskflow__core span { font-family: var(--font-mono); font-size: 0.68rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-3); }
+.riskflow__core strong { font-family: var(--font-display); font-size: 1.25rem; line-height: 1.2; color: var(--accent); }
+.riskflow__core small { font-size: 0.85rem; color: var(--ink-3); }
+.riskflow__out { display: grid; gap: 12px; }
+.riskflow__prio { --c: var(--ok); padding: 14px 18px; border: 1px solid color-mix(in srgb, var(--c) 40%, transparent); border-radius: 12px; background: color-mix(in srgb, var(--c) 8%, transparent); }
+.riskflow__prio--crit { --c: var(--crit); } .riskflow__prio--warn { --c: var(--warn); }
+.riskflow__prio h3 { display: flex; align-items: center; gap: 10px; font-size: 1rem; }
+.riskflow__prio h3::before { content: ""; width: 10px; height: 10px; border-radius: 50%; background: var(--c); box-shadow: 0 0 12px var(--c); }
+.riskflow__prio p { margin-top: 4px; font-size: 0.88rem; color: var(--ink-2); }
+html[data-theme="light"] .riskflow__core strong { color: var(--ink); }
+
+/* Kontakt: „So geht es weiter.“ */
+.nextsteps { list-style: none; counter-reset: s; margin-top: 30px; }
+.nextsteps li { counter-increment: s; display: grid; grid-template-columns: 48px minmax(0, 1fr) auto; gap: 14px; align-items: start; padding: 18px 0; border-top: 1px solid var(--line); }
+.nextsteps li:last-child { border-bottom: 1px solid var(--line); }
+.nextsteps li::before { content: counter(s, decimal-leading-zero); padding-top: 3px; font-family: var(--font-mono); font-size: 0.8rem; color: var(--accent); }
+.nextsteps h3 { font-size: 1.05rem; }
+.nextsteps p { margin-top: 2px; font-size: 0.9rem; color: var(--ink-3); }
+.nextsteps li > span { padding-top: 4px; font-family: var(--font-mono); font-size: 0.68rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-3); }
+html[data-theme="light"] .nextsteps li::before { color: var(--ink-2); }
+
 /* Eignungsspektrum (3D-Technik): Verlauf Grün → Rot mit drei Bereichen */
 .spectrum { padding: 40px 48px 36px; border: 1px solid var(--line); border-radius: var(--radius-lg); background: var(--panel, var(--surface)); }
 .spectrum__axis { display: flex; justify-content: space-between; gap: 16px; margin-bottom: 14px; font-family: var(--font-mono); font-size: 0.72rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-3); }
@@ -812,6 +843,13 @@ html[data-theme="light"] .keylist li::before { color: var(--ink-2); }
   .footer-brand { grid-column: 1 / -1; }
 }
 @media (max-width: 1024px) {
+  .riskflow { grid-template-columns: minmax(0, 1fr); gap: 0; padding: 26px 20px; }
+  .riskflow__wire { display: none; }
+  .riskflow__in { display: flex; flex-wrap: wrap; height: auto; }
+  .riskflow__core { position: relative; margin: 32px 0; }
+  .riskflow__core::before, .riskflow__core::after { content: ""; position: absolute; left: 50%; width: 1px; height: 32px; background: linear-gradient(transparent, rgba(212, 236, 95, 0.6)); }
+  .riskflow__core::before { bottom: 100%; }
+  .riskflow__core::after { top: 100%; background: linear-gradient(rgba(212, 236, 95, 0.6), transparent); }
   :root { --section: 88px; }
   .nav-toggle { display: inline-grid; }
   .nav-actions .btn--primary { display: none; }
@@ -892,6 +930,8 @@ html[data-theme="light"] .keylist li::before { color: var(--ink-2); }
   .hide-mobile { display: none; }
   .keylist { grid-template-columns: minmax(0, 1fr); grid-template-rows: none; grid-auto-flow: row; }
   .balance { grid-template-columns: minmax(0, 1fr); }
+  .nextsteps li { grid-template-columns: 40px minmax(0, 1fr); }
+  .nextsteps li > span { grid-column: 2; padding-top: 0; }
   .spectrum { padding: 24px 18px 20px; }
   .spectrum__axis span:nth-child(2) { display: none; }
   .spectrum__cols { grid-template-columns: minmax(0, 1fr); margin-top: 8px; }
@@ -1106,11 +1146,6 @@ a.eco-node:hover { border-color: var(--accent); }
    Eingebunden per <!-- head --> nur auf den Seiten, die sie brauchen. */
 
 /* Kontakt: „Was danach passiert“ als senkrechter Prozessweg in jeder Breite */
-.process__steps--stack { grid-template-columns: minmax(0, 1fr); row-gap: 0; margin-left: 4px; }
-.process__steps--stack::before { display: none; }
-.process__steps--stack li { padding: 0 0 28px 54px; margin-left: 18px; border-left: 1px solid color-mix(in srgb, var(--lime) 40%, transparent); }
-.process__steps--stack li:last-child { padding-bottom: 0; border-left-color: transparent; }
-.process__steps--stack li::before { left: -18px; }
 
 /* Kontakt: Hinweise im Formular, Formular auf Mobilgeräten zuerst */
 .form-hint { font-size: 0.82rem; line-height: 1.5; color: var(--ink-3); }
@@ -1210,7 +1245,6 @@ main > .section:last-child { padding-bottom: 88px; }
   -webkit-mask-image: linear-gradient(180deg, #000 70%, transparent);
   mask-image: linear-gradient(180deg, #000 70%, transparent);
 }
-.process__steps--stack li::after { display: none; }
 
 /* Leistung: Welle auf eigener Grafikebene */
 .wave-canvas { will-change: opacity; transform: translateZ(0); }

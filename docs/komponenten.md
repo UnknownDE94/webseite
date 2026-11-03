@@ -57,6 +57,8 @@ können bei Bedarf wieder per `data-shape` eingesetzt werden.
 | Ampel | `.traffic > .t-ok/.t-warn/.t-crit` |
 | Gleichgewicht (Über-/Fehlbestand) | `.balance > .balance__side--over + .balance__mid + .balance__side--short` |
 | Stichwortliste nummeriert | `ol.keylist > li > strong + span` |
+| Risikofluss Merkmale → Bewertung → Priorität | `.riskflow > .riskflow__in + .riskflow__wire + .riskflow__core + .riskflow__wire + .riskflow__out` |
+| Nächste Schritte (Kontakt) | `ol.nextsteps > li > div(h3 + p) + span` |
 | Eignungsspektrum (Grün → Rot) | `.spectrum > .spectrum__axis + .spectrum__bar + .spectrum__cols` |
 | 3D-Ablauf in Streifen | `figure.morph` (erzeugt mit tools/visuals/morph3d.py) |
 | FAQ | `.faq > details > summary + div` |

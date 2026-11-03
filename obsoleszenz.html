@@ -25,7 +25,7 @@
   <link rel="preload" href="assets/fonts/archivo-wdth.woff2" as="font" type="font/woff2" crossorigin />
   <link rel="preload" href="assets/fonts/inter-wght.woff2" as="font" type="font/woff2" crossorigin />
   <script>(function(d){d.classList.add("js");d.setAttribute("data-theme","dark");try{var t=localStorage.getItem("theme");if(t==="light")d.setAttribute("data-theme","light");if(localStorage.getItem("a11y")==="on")d.setAttribute("data-a11y","on")}catch(e){}})(document.documentElement);</script>
-  <link rel="stylesheet" href="css/style.css?v=2026-53" />
+  <link rel="stylesheet" href="css/style.css?v=2026-54" />
 </head>
 <body>
   <a class="skip-link" href="#main">Zum Inhalt springen</a>
@@ -118,25 +118,22 @@
     <!-- 3 · Bewertung -->
     <section class="section section--alt" data-wave="calm">
       <div class="container">
-        <div class="split split--top">
-          <div data-stagger>
-            <h2>Risiko sichtbar machen.</h2>
-            <p class="lead" style="margin-top:18px">Einheitliche Merkmale ergeben eine Liste, wo zuerst gehandelt werden sollte.</p>
-            <ul class="dotlist dotlist--cols mt-lg">
-              <li>Alter</li>
-              <li>Verfügbarkeit</li>
-              <li>Lieferzeit</li>
-              <li>Single Source</li>
-              <li>Herstellerabkündigung</li>
-              <li>Fehlende Alternative</li>
-              <li>Dokumentation</li>
-              <li>Nachfertigungsoption</li>
-            </ul>
-          </div>
-          <div class="traffic" style="grid-template-columns:minmax(0,1fr)" data-stagger>
-            <div class="t-crit"><h3>Handeln</h3><p>Abgekündigt, keine Alternative, wichtige Anlage.</p></div>
-            <div class="t-warn"><h3>Vorbereiten</h3><p>Lange Lieferzeit oder nur ein Lieferant.</p></div>
-            <div class="t-ok"><h3>Beobachten</h3><p>Lieferbar, Alternative bekannt, Dokumentation vorhanden.</p></div>
+        <div class="section-head section-head--row" data-stagger>
+          <h2>Risiko sichtbar machen.</h2>
+          <p class="lead">Einheitliche Merkmale ergeben eine Liste, wo zuerst gehandelt werden sollte.</p>
+        </div>
+        <div class="riskflow" data-anim>
+          <ul class="riskflow__in" aria-label="Bewertete Merkmale">
+            <li>Alter</li><li>Verfügbarkeit</li><li>Lieferzeit</li><li>Single Source</li>
+            <li>Herstellerabkündigung</li><li>Fehlende Alternative</li><li>Dokumentation</li><li>Nachfertigungsoption</li>
+          </ul>
+          <svg class="riskflow__wire riskflow__wire--in" viewBox="0 0 120 340" preserveAspectRatio="none" aria-hidden="true"><g fill="none" stroke="rgba(212,236,95,.45)" stroke-width="1.2" vector-effect="non-scaling-stroke"><path d="M0 18C60 18 60 170 120 170"/><path d="M0 61C60 61 60 170 120 170"/><path d="M0 105C60 105 60 170 120 170"/><path d="M0 148C60 148 60 170 120 170"/><path d="M0 192C60 192 60 170 120 170"/><path d="M0 235C60 235 60 170 120 170"/><path d="M0 278C60 278 60 170 120 170"/><path d="M0 322C60 322 60 170 120 170"/></g></svg>
+          <div class="riskflow__core"><span>Ein Maßstab</span><strong>Risiko&shy;bewertung</strong><small>je Ersatzteil, nachvollziehbar</small></div>
+          <svg class="riskflow__wire riskflow__wire--out" viewBox="0 0 120 340" preserveAspectRatio="none" aria-hidden="true"><g fill="none" stroke-width="1.4" vector-effect="non-scaling-stroke"><path d="M0 170C60 170 60 70 120 70" stroke="rgba(239,68,68,.6)"/><path d="M0 170L120 170" stroke="rgba(251,191,36,.6)"/><path d="M0 170C60 170 60 270 120 270" stroke="rgba(74,222,128,.6)"/></g></svg>
+          <div class="riskflow__out">
+            <div class="riskflow__prio riskflow__prio--crit"><h3>Handeln</h3><p>Abgekündigt, keine Alternative, wichtige Anlage.</p></div>
+            <div class="riskflow__prio riskflow__prio--warn"><h3>Vorbereiten</h3><p>Lange Lieferzeit oder nur ein Lieferant.</p></div>
+            <div class="riskflow__prio riskflow__prio--ok"><h3>Beobachten</h3><p>Lieferbar, Alternative bekannt, dokumentiert.</p></div>
           </div>
         </div>
       </div>
@@ -257,8 +254,8 @@
     </div>
   </footer>
 
-  <script src="js/main.js?v=2026-53"></script>
-  <script src="js/wave.js?v=2026-53" defer></script>
+  <script src="js/main.js?v=2026-54"></script>
+  <script src="js/wave.js?v=2026-54" defer></script>
   <script data-goatcounter="https://unknownde.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
 </body>
 </html>
