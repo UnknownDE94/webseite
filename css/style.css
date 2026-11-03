@@ -244,8 +244,9 @@ h4 { font-size: 1rem; }
 .nav-panel a strong { display: block; color: var(--ink); font-weight: 600; }
 .nav-panel a small { display: block; color: var(--ink-3); font-size: 0.8rem; }
 .nav-panel a:hover, .nav-panel a[aria-current="page"] { background: var(--surface-2); }
-.nav-panel .nav-all { margin-top: 6px; padding-top: 8px; border-top: 1px solid var(--line); }
+.nav-panel .nav-all, .nav-panel .nav-sep { margin-top: 6px; padding-top: 8px; border-top: 1px solid var(--line); }
 .nav-panel .nav-all a { color: var(--accent); font-weight: 600; }
+.nav-panel .nav-sep + .nav-all { margin-top: 0; padding-top: 0; border-top: 0; }
 .nav-actions { display: flex; align-items: center; gap: 10px; }
 .icon-btn {
   display: inline-grid;
@@ -738,6 +739,22 @@ html[data-theme="light"] :focus-visible { outline-color: var(--green-2); }
   .callout.is-shown, .showcase-app.is-in .callout.is-shown { opacity: 1; transform: none; }
   }
 
+/* Eignungsspektrum (3D-Technik): Verlauf Grün → Rot mit drei Bereichen */
+.spectrum { padding: 40px 48px 36px; border: 1px solid var(--line); border-radius: var(--radius-lg); background: var(--panel, var(--surface)); }
+.spectrum__axis { display: flex; justify-content: space-between; gap: 16px; margin-bottom: 14px; font-family: var(--font-mono); font-size: 0.72rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-3); }
+.spectrum__bar { height: 12px; border-radius: 999px; background: linear-gradient(90deg, var(--ok), #a3d65a 22%, var(--warn) 50%, #f97316 74%, var(--crit)); box-shadow: 0 0 30px rgba(212, 236, 95, 0.12); transform-origin: left; transition: transform 1.2s var(--ease-out); }
+.js .spectrum[data-anim]:not(.in) .spectrum__bar { transform: scaleX(0.04); }
+.spectrum__cols { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); margin-top: 26px; }
+.spectrum__cols > div { position: relative; padding: 18px 26px 6px; }
+.spectrum__cols > div + div { border-left: 1px solid var(--line); }
+.spectrum__cols > div::before { content: ""; position: absolute; left: 26px; top: -26px; width: 1px; height: 24px; background: var(--c); }
+.spectrum__ok { --c: var(--ok); } .spectrum__warn { --c: var(--warn); } .spectrum__crit { --c: var(--crit); }
+.spectrum h3 { display: flex; align-items: center; gap: 10px; font-size: 1.05rem; }
+main .spectrum h3 svg.icon.icon { width: 22px; height: 22px; color: var(--c); }
+.spectrum p { margin-top: 8px; font-size: 0.92rem; color: var(--ink-2); }
+.spectrum__tags { list-style: none; display: flex; flex-wrap: wrap; gap: 8px; margin-top: 16px; }
+.spectrum__tags li { padding: 5px 11px; border: 1px solid color-mix(in srgb, var(--c) 40%, transparent); border-radius: 999px; font-size: 0.82rem; color: var(--ink-2); }
+
 /* 3D-Ablauf als ein Bauteil in vier Streifen (src/partials/sequence-3d.html) */
 .morph { margin: 0; padding: 28px 28px 0; border: 1px solid var(--line); border-radius: var(--radius-lg); background: var(--panel, var(--surface)); overflow: hidden; }
 .morph__art { display: block; width: 100%; height: auto; }
@@ -875,6 +892,12 @@ html[data-theme="light"] .keylist li::before { color: var(--ink-2); }
   .hide-mobile { display: none; }
   .keylist { grid-template-columns: minmax(0, 1fr); grid-template-rows: none; grid-auto-flow: row; }
   .balance { grid-template-columns: minmax(0, 1fr); }
+  .spectrum { padding: 24px 18px 20px; }
+  .spectrum__axis span:nth-child(2) { display: none; }
+  .spectrum__cols { grid-template-columns: minmax(0, 1fr); margin-top: 8px; }
+  .spectrum__cols > div { padding: 20px 4px 16px 18px; border-left: 2px solid var(--c); margin-top: 14px; }
+  .spectrum__cols > div + div { border-left: 2px solid var(--c); }
+  .spectrum__cols > div::before { display: none; }
   .morph { padding: 16px 12px 0; }
   .morph__steps { grid-template-columns: repeat(2, minmax(0, 1fr)); margin: 12px -12px 0; }
   .morph__steps li { padding: 16px 16px 18px; }
@@ -934,16 +957,6 @@ html[data-theme="light"] .keylist li::before { color: var(--ink-2); }
 .tree__branches ul a:hover { text-decoration: underline; }
 
 /* Entscheidungsfolge Ja/Nein (alternativteile.html) */
-.dtree { list-style: none; counter-reset: q; max-width: 860px; }
-.dtree > li { position: relative; counter-increment: q; display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 8px 32px; padding: 24px 0 24px 64px; border-top: 1px solid var(--line); }
-.dtree > li:last-child { border-bottom: 1px solid var(--line); }
-.dtree > li::before { content: counter(q); position: absolute; left: 0; top: 22px; display: grid; place-items: center; width: 36px; height: 36px; border-radius: 50%; border: 1px solid var(--accent); color: var(--accent); font-weight: 700; font-size: 0.92rem; }
-.dtree > li:not(:last-child)::after { content: ""; position: absolute; left: 18px; top: 62px; bottom: -22px; width: 1px; background: color-mix(in srgb, var(--accent) 35%, transparent); }
-.dtree h3 { grid-column: 1 / -1; font-size: 1.15rem; }
-.dtree .yes, .dtree .no { font-size: 0.92rem; color: var(--ink-2); }
-.dtree .yes b, .dtree .no b { display: inline-block; min-width: 44px; font-family: var(--font-mono); font-size: 0.72rem; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; }
-.dtree .yes b { color: var(--accent); }
-.dtree .no b { color: var(--ink-3); }
 
 /* Lösungskette: aktiver Schritt im Takt des Motivs */
 .chain li.is-active span { border-color: var(--accent); color: var(--accent); }
@@ -956,11 +969,9 @@ html[data-theme="light"] .keylist li::before { color: var(--ink-2); }
   .tree__branches { margin-top: 24px; }
 }
 @media (max-width: 720px) {
-  .tree__branches, .dtree > li { grid-template-columns: minmax(0, 1fr); }
-  .phases > li { padding: 32px 0 32px 0; }
+  .tree__branches,   .phases > li { padding: 32px 0 32px 0; }
   .phases > li::before { position: static; display: block; margin-bottom: 8px; font-size: 1.1rem; }
-  .dtree > li { padding-left: 52px; }
-}
+  }
 
 /* Leistungsseiten (Entscheidungsgrafik, 8er-Prozess, Status-Tabelle) */
 /* Zusatzbausteine für instandhaltung, digitalisierung-software, 3d-technik,

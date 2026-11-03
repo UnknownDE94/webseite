@@ -93,10 +93,26 @@ group: leistungen
           <h2>Nicht jedes Bauteil eignet sich für 3D.</h2>
           <p class="lead">Entscheidend sind Funktion, Belastung und Einsatz. Wir sagen offen, wo die Grenzen liegen.</p>
         </div>
-        <div class="traffic" data-stagger>
-          <div class="t-ok"><h3><svg class="icon" aria-hidden="true"><use href="assets/icons.svg#check"/></svg>Gut geeignet</h3><p>Nicht sicherheitsrelevante Teile wie Abdeckungen, Halterungen oder Vorrichtungen – nach technischer Prüfung.</p></div>
-          <div class="t-warn"><h3><svg class="icon" aria-hidden="true"><use href="assets/icons.svg#alert"/></svg>Technische Prüfung erforderlich</h3><p>Mechanische, thermische oder chemische Belastung – Werkstoff, Toleranzen und Einsatzbedingungen bewerten.</p></div>
-          <div class="t-crit"><h3><svg class="icon" aria-hidden="true"><use href="assets/icons.svg#lock"/></svg>Nicht pauschal freigeben</h3><p>Sicherheitskritische Teile, Last- und Druckkomponenten sowie zertifizierungspflichtige Bauteile.</p></div>
+        <div class="spectrum" data-anim>
+          <div class="spectrum__axis" aria-hidden="true"><span>Geringe Anforderungen</span><span>Belastung &amp; Sicherheitsrelevanz</span><span>Hohe Anforderungen</span></div>
+          <div class="spectrum__bar" aria-hidden="true"></div>
+          <div class="spectrum__cols">
+            <div class="spectrum__ok">
+              <h3><svg class="icon" aria-hidden="true"><use href="assets/icons.svg#check"/></svg>Gut geeignet</h3>
+              <p>Nicht sicherheitsrelevant – nach technischer Prüfung.</p>
+              <ul class="spectrum__tags"><li>Abdeckungen</li><li>Halterungen</li><li>Vorrichtungen</li></ul>
+            </div>
+            <div class="spectrum__warn">
+              <h3><svg class="icon" aria-hidden="true"><use href="assets/icons.svg#alert"/></svg>Technische Prüfung</h3>
+              <p>Werkstoff, Toleranzen und Einsatzbedingungen bewerten.</p>
+              <ul class="spectrum__tags"><li>Mechanische Last</li><li>Wärme</li><li>Chemikalien</li></ul>
+            </div>
+            <div class="spectrum__crit">
+              <h3><svg class="icon" aria-hidden="true"><use href="assets/icons.svg#lock"/></svg>Nicht pauschal</h3>
+              <p>Nur mit technischer Prüfung und Freigabe.</p>
+              <ul class="spectrum__tags"><li>Sicherheitskritisch</li><li>Last &amp; Druck</li><li>Zertifizierungspflichtig</li></ul>
+            </div>
+          </div>
         </div>
         <p class="note mt-lg">Sicherheitskritische Teile werden nicht ohne technische Prüfung und Freigabe gefertigt oder eingesetzt. Nicht jedes Bauteil ist druck- oder ersetzbar.</p>
       </div>

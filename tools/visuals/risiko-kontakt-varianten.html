@@ -1,0 +1,218 @@
+<!doctype html>
+<html lang="de" data-theme="dark">
+<head>
+<meta charset="utf-8" />
+<title>Varianten: Risiko sichtbar machen / Was danach passiert</title>
+<!-- Vorlagen für obsoleszenz.html (Abschnitt 3) und kontakt.html (neben dem Formular).
+     Ansehen über python3 -m http.server im Repo: /tools/visuals/risiko-kontakt-varianten.html -->
+<link rel="stylesheet" href="../../css/style.css" />
+<style>
+  body { background: var(--bg); }
+  .frame { width: 1440px; padding: 72px 0 80px; position: relative; overflow: hidden; }
+  .frame + .frame { border-top: 1px dashed var(--line-2); }
+  .frame__tag { position: absolute; top: 18px; left: 24px; font: 500 0.72rem var(--font-mono); letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-3); }
+  .mono { font-family: var(--font-mono); font-size: 0.72rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-3); }
+  .panel { border: 1px solid var(--line); border-radius: var(--radius-lg); background: var(--panel); }
+  .ok { --c: var(--ok); } .warn { --c: var(--warn); } .crit { --c: var(--crit); }
+  .note { color: var(--ink-3); }
+  .chips { display: flex; flex-wrap: wrap; gap: 8px; }
+  .chip { padding: 6px 12px; border: 1px solid var(--line-2); border-radius: 999px; font-size: .85rem; color: var(--ink-2); }
+  .head2 { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: end; margin-bottom: 40px; }
+
+  /* O1 Risikomatrix */
+  .o1 { display: grid; grid-template-columns: 1fr 1.25fr; gap: 56px; align-items: center; }
+  .matrix3 { display: grid; grid-template-columns: 34px repeat(3, 1fr); grid-template-rows: repeat(3, 120px) 34px; gap: 6px; }
+  .matrix3 .cell { position: relative; border-radius: 12px; border: 1px solid color-mix(in srgb, var(--c) 35%, transparent); background: color-mix(in srgb, var(--c) 12%, transparent); padding: 12px 14px; }
+  .matrix3 .cell b { font: 500 .7rem var(--font-mono); letter-spacing: .08em; text-transform: uppercase; color: var(--c); }
+  .matrix3 .dot { position: absolute; width: 12px; height: 12px; border-radius: 50%; background: var(--ink); box-shadow: 0 0 0 4px color-mix(in srgb, var(--ink) 15%, transparent); }
+  .axis-y { grid-row: 1 / 4; writing-mode: vertical-rl; transform: rotate(180deg); text-align: center; }
+  .axis-x { grid-column: 2 / 5; text-align: center; padding-top: 10px; }
+
+  /* O2 Merkmale → Bewertung → Priorität */
+  .o2 { display: grid; grid-template-columns: 1fr 120px 260px 120px 1fr; align-items: center; padding: 40px 44px; }
+  .o2__in { display: grid; gap: 8px; }
+  .o2__in .chip { display: block; }
+  .o2__wire { height: 180px; }
+  .o2__core { display: grid; place-items: center; text-align: center; gap: 12px; padding: 30px 20px; border-radius: 20px; border: 1px solid rgba(212,236,95,.5); background: rgba(212,236,95,.07); box-shadow: 0 0 40px rgba(212,236,95,.15); }
+  .o2__core strong { font-family: var(--font-display); font-size: 1.2rem; color: var(--accent); }
+  .o2__out { display: grid; gap: 14px; }
+  .prio { padding: 16px 18px; border-radius: 12px; border: 1px solid color-mix(in srgb, var(--c) 40%, transparent); background: color-mix(in srgb, var(--c) 8%, transparent); }
+  .prio strong { display: flex; align-items: center; gap: 10px; font-family: var(--font-display); }
+  .prio strong::before { content: ""; width: 10px; height: 10px; border-radius: 50%; background: var(--c); box-shadow: 0 0 12px var(--c); }
+  .prio p { margin-top: 4px; font-size: .88rem; color: var(--ink-2); }
+
+  /* O3 Prioritätsliste */
+  .o3 { overflow: hidden; }
+  .o3 table { width: 100%; border-collapse: collapse; }
+  .o3 th { text-align: center; padding: 18px 10px; font: 500 .68rem var(--font-mono); letter-spacing: .08em; text-transform: uppercase; color: var(--ink-3); border-bottom: 1px solid var(--line); }
+  .o3 th:first-child, .o3 td:first-child { text-align: left; padding-left: 28px; }
+  .o3 td { text-align: center; padding: 18px 10px; border-bottom: 1px solid var(--line); color: var(--ink-2); }
+  .o3 tr:last-child td { border-bottom: 0; }
+  .o3 td:first-child strong { display: block; color: var(--ink); font-family: var(--font-display); }
+  .o3 td:first-child span { font-size: .82rem; color: var(--ink-3); }
+  .pip { display: inline-block; width: 12px; height: 12px; border-radius: 50%; border: 1px solid var(--line-2); }
+  .pip.on { background: var(--ink-2); border-color: transparent; }
+  .pill { display: inline-flex; align-items: center; gap: 8px; padding: 5px 12px; border-radius: 999px; font: 500 .72rem var(--font-mono); letter-spacing: .06em; text-transform: uppercase; color: var(--c); border: 1px solid color-mix(in srgb, var(--c) 45%, transparent); }
+  .pill::before { content: ""; width: 8px; height: 8px; border-radius: 50%; background: var(--c); }
+
+  /* Kontakt */
+  .kgrid { display: grid; grid-template-columns: 1fr 1.05fr; gap: 64px; align-items: start; }
+  .formstub { padding: 28px; border: 1px solid var(--glass-line); border-radius: var(--radius-lg); background: var(--glass-bg); opacity: .55; }
+  .formstub h3 { margin-bottom: 18px; }
+  .formstub i { display: block; height: 44px; margin-top: 12px; border-radius: 10px; border: 1px solid var(--line-2); }
+  .formstub i.big { height: 120px; }
+  .formstub em { display: inline-block; margin-top: 18px; padding: 12px 26px; border-radius: 999px; background: var(--lime); color: var(--accent-ink); font-style: normal; font-weight: 600; }
+  .stubnote { margin-top: 10px; text-align: center; }
+
+  .k1 ol { list-style: none; counter-reset: s; margin-top: 30px; display: grid; gap: 0; }
+  .k1 li { counter-increment: s; display: grid; grid-template-columns: 54px 1fr auto; gap: 16px; align-items: start; padding: 18px 0; border-top: 1px solid var(--line); }
+  .k1 li:last-child { border-bottom: 1px solid var(--line); }
+  .k1 li::before { content: counter(s, decimal-leading-zero); font: 500 .8rem var(--font-mono); color: var(--accent); padding-top: 3px; }
+  .k1 li strong { font-family: var(--font-display); font-size: 1.05rem; }
+  .k1 li p { color: var(--ink-3); font-size: .9rem; margin-top: 2px; }
+  .k1 li span { font: 500 .68rem var(--font-mono); letter-spacing: .08em; text-transform: uppercase; color: var(--ink-3); padding-top: 4px; }
+
+  .k2 .track { margin-top: 30px; padding: 26px 26px 10px; }
+  .k2 .step { position: relative; display: grid; grid-template-columns: 34px 1fr; gap: 16px; padding-bottom: 22px; }
+  .k2 .step::after { content: ""; position: absolute; left: 16px; top: 34px; bottom: 0; width: 1px; background: var(--line-2); }
+  .k2 .step:last-child::after { display: none; }
+  .k2 .bul { width: 34px; height: 34px; border-radius: 50%; display: grid; place-items: center; border: 1px solid var(--line-2); font: 500 .75rem var(--font-mono); color: var(--ink-3); }
+  .k2 .step.done .bul { background: var(--lime); border-color: var(--lime); color: var(--accent-ink); }
+  .k2 .step.next .bul { border-color: var(--lime); color: var(--lime); box-shadow: 0 0 18px rgba(212,236,95,.3); }
+  .k2 .step strong { display: block; font-family: var(--font-display); }
+  .k2 .step p { font-size: .9rem; color: var(--ink-3); }
+  .k2 .badge { display: inline-flex; margin-left: 8px; padding: 2px 8px; border-radius: 999px; font: 500 .62rem var(--font-mono); letter-spacing: .06em; text-transform: uppercase; color: var(--accent-ink); background: var(--lime); vertical-align: 2px; }
+
+  .k3 .promises { margin-top: 30px; display: grid; gap: 12px; }
+  .k3 .promise { display: grid; grid-template-columns: 44px 1fr; gap: 16px; align-items: center; padding: 18px 20px; }
+  .k3 .promise .icon { width: 28px; height: 28px; color: var(--ink); }
+  .k3 .promise strong { display: block; font-family: var(--font-display); font-size: 1.02rem; }
+  .k3 .promise p { font-size: .9rem; color: var(--ink-3); }
+  .k3 .direct { margin-top: 22px; display: flex; gap: 28px; padding-top: 20px; border-top: 1px solid var(--line); }
+  .k3 .direct div { display: grid; gap: 2px; }
+  .k3 .direct a { color: var(--ink); text-decoration: none; font-weight: 600; }
+</style>
+</head>
+<body>
+
+<!-- ───────── Obsoleszenz ───────── -->
+<section class="frame" id="o1">
+  <span class="frame__tag">Obsoleszenz · Variante 1 · Risikomatrix</span>
+  <div class="container o1">
+    <div>
+      <h2>Risiko sichtbar machen.</h2>
+      <p class="lead" style="margin-top:18px">Zwei Fragen ordnen jedes Teil ein: Wie sicher ist die Versorgung – und was passiert, wenn es fehlt?</p>
+      <p class="mono" style="margin-top:28px">Bewertet nach</p>
+      <div class="chips" style="margin-top:12px"><span class="chip">Alter</span><span class="chip">Verfügbarkeit</span><span class="chip">Lieferzeit</span><span class="chip">Single Source</span><span class="chip">Herstellerabkündigung</span><span class="chip">Fehlende Alternative</span><span class="chip">Dokumentation</span><span class="chip">Nachfertigungsoption</span></div>
+    </div>
+    <div>
+      <div class="matrix3">
+        <span class="mono axis-y">Versorgungsrisiko ↑</span>
+        <div class="cell warn"><b>Vorbereiten</b><span class="dot" style="left:30%;top:58%"></span></div>
+        <div class="cell crit"><b>Handeln</b><span class="dot" style="left:58%;top:40%"></span></div>
+        <div class="cell crit"><b>Handeln</b><span class="dot" style="left:35%;top:62%"></span><span class="dot" style="left:70%;top:30%"></span></div>
+        <div class="cell ok"><b>Beobachten</b></div>
+        <div class="cell warn"><b>Vorbereiten</b><span class="dot" style="left:60%;top:55%"></span></div>
+        <div class="cell crit"><b>Handeln</b><span class="dot" style="left:42%;top:48%"></span></div>
+        <div class="cell ok"><b>Beobachten</b><span class="dot" style="left:30%;top:40%"></span><span class="dot" style="left:65%;top:66%"></span></div>
+        <div class="cell ok"><b>Beobachten</b><span class="dot" style="left:52%;top:52%"></span></div>
+        <div class="cell warn"><b>Vorbereiten</b></div>
+        <span></span><span class="mono axis-x">Auswirkung auf die Anlage →</span>
+      </div>
+      <p class="note mt-lg">Beispielhafte Darstellung, Punkte = Ersatzteile.</p>
+    </div>
+  </div>
+</section>
+
+<section class="frame" id="o2">
+  <span class="frame__tag">Obsoleszenz · Variante 2 · Merkmale → Priorität</span>
+  <div class="container">
+    <div class="head2"><h2>Risiko sichtbar machen.</h2><p class="lead">Einheitliche Merkmale ergeben eine Liste, wo zuerst gehandelt werden sollte.</p></div>
+    <div class="panel o2">
+      <div class="o2__in"><span class="chip">Alter</span><span class="chip">Verfügbarkeit</span><span class="chip">Lieferzeit</span><span class="chip">Single Source</span></div>
+      <svg class="o2__wire" viewBox="0 0 120 180" preserveAspectRatio="none"><g fill="none" stroke="rgba(212,236,95,.45)" stroke-width="1.2"><path d="M0 20C60 20 60 90 120 90"/><path d="M0 70C60 70 60 90 120 90"/><path d="M0 110C60 110 60 90 120 90"/><path d="M0 160C60 160 60 90 120 90"/></g></svg>
+      <div class="o2__core"><span class="mono">Ein Maßstab</span><strong>Risiko&shy;bewertung</strong><span class="note" style="font-size:.85rem">je Ersatzteil, nachvollziehbar</span></div>
+      <svg class="o2__wire" viewBox="0 0 120 180" preserveAspectRatio="none"><g fill="none" stroke-width="1.4"><path d="M0 90C60 90 60 30 120 30" stroke="rgba(239,68,68,.6)"/><path d="M0 90L120 90" stroke="rgba(251,191,36,.6)"/><path d="M0 90C60 90 60 150 120 150" stroke="rgba(74,222,128,.6)"/></g></svg>
+      <div class="o2__out">
+        <div class="prio crit"><strong>Handeln</strong><p>Abgekündigt, keine Alternative, wichtige Anlage.</p></div>
+        <div class="prio warn"><strong>Vorbereiten</strong><p>Lange Lieferzeit oder nur ein Lieferant.</p></div>
+        <div class="prio ok"><strong>Beobachten</strong><p>Lieferbar, Alternative bekannt, dokumentiert.</p></div>
+      </div>
+    </div>
+    <div class="chips" style="margin:16px 0 0 44px"><span class="chip">Herstellerabkündigung</span><span class="chip">Fehlende Alternative</span><span class="chip">Dokumentation</span><span class="chip">Nachfertigungsoption</span></div>
+  </div>
+</section>
+
+<section class="frame" id="o3">
+  <span class="frame__tag">Obsoleszenz · Variante 3 · Prioritätsliste</span>
+  <div class="container">
+    <div class="head2"><h2>Risiko sichtbar machen.</h2><p class="lead">Einheitliche Merkmale ergeben eine Liste, wo zuerst gehandelt werden sollte.</p></div>
+    <div class="panel o3">
+      <table>
+        <thead><tr><th>Ersatzteil</th><th>Abgekündigt</th><th>Single Source</th><th>Lange Lieferzeit</th><th>Keine Alternative</th><th>Doku fehlt</th><th>Priorität</th></tr></thead>
+        <tbody>
+          <tr class="crit"><td><strong>Teil A</strong><span>Hauptantrieb · Linie 1</span></td><td><i class="pip on"></i></td><td><i class="pip on"></i></td><td><i class="pip on"></i></td><td><i class="pip on"></i></td><td><i class="pip"></i></td><td><span class="pill">Handeln</span></td></tr>
+          <tr class="crit"><td><strong>Teil B</strong><span>Steuerung · Presse</span></td><td><i class="pip on"></i></td><td><i class="pip"></i></td><td><i class="pip on"></i></td><td><i class="pip on"></i></td><td><i class="pip on"></i></td><td><span class="pill">Handeln</span></td></tr>
+          <tr class="warn"><td><strong>Teil C</strong><span>Förderband · Lager</span></td><td><i class="pip"></i></td><td><i class="pip on"></i></td><td><i class="pip on"></i></td><td><i class="pip"></i></td><td><i class="pip"></i></td><td><span class="pill">Vorbereiten</span></td></tr>
+          <tr class="ok"><td><strong>Teil D</strong><span>Hydraulik · Linie 2</span></td><td><i class="pip"></i></td><td><i class="pip"></i></td><td><i class="pip"></i></td><td><i class="pip"></i></td><td><i class="pip"></i></td><td><span class="pill">Beobachten</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="note mt-lg">Beispielhafte Darstellung mit Beispieldaten.</p>
+  </div>
+</section>
+
+<!-- ───────── Kontakt ───────── -->
+<section class="frame" id="k1">
+  <span class="frame__tag">Kontakt · Variante 1 · So geht es weiter</span>
+  <div class="container kgrid">
+    <div class="k1">
+      <h2>So geht es weiter.</h2>
+      <p class="lead" style="margin-top:18px">Jede Anfrage wird persönlich gelesen.</p>
+      <ol>
+        <li><div><strong>Wir lesen Ihre Anfrage</strong><p>Thema einordnen, Unterlagen sichten.</p></div><span>Persönlich</span></li>
+        <li><div><strong>Kurzes Erstgespräch</strong><p>Rückfragen per Telefon oder E-Mail.</p></div><span>Kostenlos</span></li>
+        <li><div><strong>Passender Einstieg</strong><p>Analyse, Quick-Check oder direkte Umsetzung.</p></div><span>Unverbindlich</span></li>
+        <li><div><strong>Angebot mit klarem Umfang</strong><p>Umfang und Ablauf vor dem Start.</p></div><span>Transparent</span></li>
+      </ol>
+    </div>
+    <div><div class="formstub"><h3>Ihre Anfrage</h3><i></i><i></i><i></i><i class="big"></i><em>Anfrage senden</em></div><p class="mono stubnote">Formular unverändert</p></div>
+  </div>
+</section>
+
+<section class="frame" id="k2">
+  <span class="frame__tag">Kontakt · Variante 2 · Fortschritt</span>
+  <div class="container kgrid">
+    <div class="k2">
+      <h2>Ihr Weg zur Lösung.</h2>
+      <p class="lead" style="margin-top:18px">Mit dem Absenden ist der erste Schritt gemacht.</p>
+      <div class="panel track">
+        <div class="step done"><span class="bul">✓</span><div><strong>Anfrage senden</strong><p>Problem und Ausgangslage schildern.</p></div></div>
+        <div class="step next"><span class="bul">2</span><div><strong>Erstgespräch <span class="badge">Kostenlos</span></strong><p>Wir melden uns persönlich und klären Rückfragen.</p></div></div>
+        <div class="step"><span class="bul">3</span><div><strong>Einstieg festlegen</strong><p>Analyse, Quick-Check oder direkte Umsetzung.</p></div></div>
+        <div class="step"><span class="bul">4</span><div><strong>Angebot</strong><p>Klarer Umfang und Ablauf.</p></div></div>
+      </div>
+    </div>
+    <div><div class="formstub"><h3>Ihre Anfrage</h3><i></i><i></i><i></i><i class="big"></i><em>Anfrage senden</em></div><p class="mono stubnote">Formular unverändert</p></div>
+  </div>
+</section>
+
+<section class="frame" id="k3">
+  <span class="frame__tag">Kontakt · Variante 3 · Zusagen + direkter Draht</span>
+  <div class="container kgrid">
+    <div class="k3">
+      <h2>Was Sie erwarten können.</h2>
+      <p class="lead" style="margin-top:18px">Kurze Wege, klare Absprachen.</p>
+      <div class="promises">
+        <div class="panel promise"><svg class="icon" aria-hidden="true"><use href="../../assets/icons.svg#mail"/></svg><div><strong>Persönlich gelesen</strong><p>Wir lesen jede Anfrage selbst und melden uns persönlich.</p></div></div>
+        <div class="panel promise"><svg class="icon" aria-hidden="true"><use href="../../assets/icons.svg#phone"/></svg><div><strong>Kostenloses Erstgespräch</strong><p>Rückfragen klären, passenden Einstieg finden.</p></div></div>
+        <div class="panel promise"><svg class="icon" aria-hidden="true"><use href="../../assets/icons.svg#file"/></svg><div><strong>Klarer Umfang vor dem Start</strong><p>Angebot oder Quick-Check mit beschriebenem Umfang.</p></div></div>
+      </div>
+      <div class="direct"><div><span class="mono">Telefon</span><a href="#">+49 160 277 65 12</a></div><div><span class="mono">E-Mail</span><a href="#">service@werringloer.de</a></div></div>
+    </div>
+    <div><div class="formstub"><h3>Ihre Anfrage</h3><i></i><i></i><i></i><i class="big"></i><em>Anfrage senden</em></div><p class="mono stubnote">Formular unverändert</p></div>
+  </div>
+</section>
+
+</body>
+</html>
