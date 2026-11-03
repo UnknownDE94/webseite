@@ -66,7 +66,7 @@
       tabs: { Erfassen: "camera", Belege: "file", "Fällig": "clock", "Verträge": "contract" },
     },
     "3d": {
-      name: "WK 3D",
+      name: "WK 3D-Druck",
       nav: [["uebersicht", "Übersicht", "grid"], ["bibliothek", "Teilebibliothek", "cube"], ["versionen", "Versionen", "layers"], ["zeichnungen", "Zeichnungen", "pen"], ["freigaben", "Freigaben", "check"], ["import", "Scan-Import", "scan"], ["auswertungen", "Auswertungen", "chart"]],
       search: "Bauteil, Materialnummer, Datei …",
       tabs: { Suche: "search", Scan: "scan", Merkliste: "bookmark", Dateien: "folder" },

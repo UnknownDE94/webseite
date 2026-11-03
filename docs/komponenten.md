@@ -55,7 +55,8 @@ können bei Bedarf wieder per `data-shape` eingesetzt werden.
 | Status | `span.status.status--geplant|pilot|entwicklung|verfuegbar` (immer mit Text) |
 | Tabelle | `.table-wrap > table.table` |
 | Ampel | `.traffic > .t-ok/.t-warn/.t-crit` |
-| Gegenüberstellung | `.versus > .card + .versus__mid + .card` |
+| Gleichgewicht (Über-/Fehlbestand) | `.balance > .balance__side--over + .balance__mid + .balance__side--short` |
+| Stichwortliste nummeriert | `ol.keylist > li > strong + span` |
 | FAQ | `.faq > details > summary + div` |
 | Reiter | `[data-tabs] .tabs-bar [role=tab][aria-controls]` + `.tab-panel` |
 | Rechenbeispiel | `#kapitalrechner` (siehe material-ersatzteile) |

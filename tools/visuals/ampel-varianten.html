@@ -1,0 +1,144 @@
+<!doctype html>
+<html lang="de" data-theme="dark">
+<head>
+<meta charset="utf-8" />
+<title>Varianten: 3D-Eignung</title>
+<!-- Vorlagen für 3d-technik.html, Abschnitt „Nicht jedes Bauteil eignet sich für 3D.“
+     Ansehen über python3 -m http.server im Repo: /tools/visuals/ampel-varianten.html -->
+<link rel="stylesheet" href="../../css/style.css" />
+<style>
+  body { background: var(--bg); }
+  .frame { width: 1440px; padding: 72px 0 80px; position: relative; overflow: hidden; }
+  .frame + .frame { border-top: 1px dashed var(--line-2); }
+  .frame__tag { position: absolute; top: 18px; left: 24px; font: 500 0.72rem var(--font-mono); letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-3); }
+  .frame .section-head { margin-bottom: 44px; }
+  .mono { font-family: var(--font-mono); font-size: 0.72rem; letter-spacing: 0.08em; text-transform: uppercase; }
+  .panel { position: relative; border: 1px solid var(--line); border-radius: var(--radius-lg); background: var(--panel); }
+  .ok { --c: var(--ok); } .warn { --c: var(--warn); } .crit { --c: var(--crit); }
+  .tag { display: inline-flex; padding: 5px 11px; border: 1px solid var(--line-2); border-radius: 999px; font-size: 0.82rem; color: var(--ink-2); }
+  .note { color: var(--ink-3); }
+
+  /* V1 · Prüfpfad */
+  .v1 { display: grid; grid-template-columns: 220px 60px 1fr; align-items: center; padding: 44px 48px; }
+  .v1__start { display: grid; justify-items: start; gap: 12px; }
+  .v1__start .icon { width: 44px; height: 44px; color: var(--ink); }
+  .v1__start strong { font-family: var(--font-display); font-size: 1.15rem; }
+  .v1__start span { color: var(--ink-3); font-size: .9rem; }
+  .v1__link { height: 1px; background: var(--line-2); }
+  .v1__tree { display: grid; gap: 14px; }
+  .q { display: grid; grid-template-columns: 290px 46px 1fr; align-items: center; }
+  .q__ask { padding: 16px 18px; border: 1px dashed var(--line-2); border-radius: 12px; font-size: .95rem; color: var(--ink); }
+  .q__ask small { display: block; margin-bottom: 4px; font: 500 .68rem var(--font-mono); letter-spacing: .08em; text-transform: uppercase; color: var(--ink-3); }
+  .q__arrow { position: relative; height: 1px; background: color-mix(in srgb, var(--c) 60%, transparent); }
+  .q__arrow::after { content: attr(data-a); position: absolute; left: 50%; top: -20px; transform: translateX(-50%); font: 500 .66rem var(--font-mono); letter-spacing: .08em; color: var(--c); }
+  .end { display: grid; grid-template-columns: 14px 1fr; gap: 6px 14px; padding: 16px 20px; border-radius: 12px; border: 1px solid color-mix(in srgb, var(--c) 45%, transparent); background: color-mix(in srgb, var(--c) 8%, transparent); }
+  .end i { width: 12px; height: 12px; margin-top: 6px; border-radius: 50%; background: var(--c); box-shadow: 0 0 14px var(--c); }
+  .end strong { font-family: var(--font-display); font-size: 1.05rem; }
+  .end p { grid-column: 2; color: var(--ink-2); font-size: .9rem; }
+
+  /* V2 · Eignungsspektrum */
+  .v2 { padding: 40px 48px 36px; }
+  .v2__axis { display: flex; justify-content: space-between; color: var(--ink-3); margin-bottom: 14px; }
+  .v2__bar { height: 12px; border-radius: 999px; background: linear-gradient(90deg, var(--ok), #a3d65a 22%, var(--warn) 50%, #f97316 74%, var(--crit)); box-shadow: 0 0 30px rgba(212,236,95,.12); }
+  .v2__cols { display: grid; grid-template-columns: repeat(3, 1fr); margin-top: 26px; }
+  .v2__cols > div { position: relative; padding: 18px 26px 6px; }
+  .v2__cols > div + div { border-left: 1px solid var(--line); }
+  .v2__cols > div::before { content: ""; position: absolute; left: 26px; top: -26px; width: 1px; height: 24px; background: var(--c); }
+  .v2__cols h3 { display: flex; align-items: center; gap: 10px; color: var(--c); font-size: 1.05rem; }
+  .v2__cols h3 span { color: var(--ink); }
+  .v2__cols p { margin-top: 8px; color: var(--ink-2); font-size: .92rem; }
+  .v2__tags { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 16px; }
+  .v2__tags .tag { border-color: color-mix(in srgb, var(--c) 40%, transparent); }
+
+  /* V3 · Ampelsäule */
+  .v3 { display: grid; grid-template-columns: 130px 1fr; overflow: hidden; }
+  .v3__pole { display: grid; grid-template-rows: repeat(3, 1fr); justify-items: center; align-items: center; padding: 18px 0; background: color-mix(in srgb, var(--bg) 70%, var(--surface)); border-right: 1px solid var(--line); }
+  .lamp { width: 58px; height: 58px; border-radius: 50%; display: grid; place-items: center; border: 1px solid color-mix(in srgb, var(--c) 60%, transparent); background: color-mix(in srgb, var(--c) 14%, transparent); box-shadow: 0 0 34px color-mix(in srgb, var(--c) 40%, transparent); }
+  .lamp span { width: 22px; height: 22px; border-radius: 50%; background: var(--c); }
+  .v3__rows > div { display: grid; grid-template-columns: 300px 1fr auto; gap: 28px; align-items: center; padding: 30px 36px; min-height: 120px; }
+  .v3__rows > div + div { border-top: 1px solid var(--line); }
+  .v3__rows h3 { font-size: 1.12rem; }
+  .v3__rows small { display: block; margin-bottom: 6px; font: 500 .68rem var(--font-mono); letter-spacing: .08em; text-transform: uppercase; color: var(--c); }
+  .v3__rows p { color: var(--ink-2); font-size: .93rem; }
+  .v3__rows .tags { display: flex; gap: 8px; flex-wrap: wrap; justify-content: flex-end; max-width: 330px; }
+</style>
+</head>
+<body>
+
+<!-- V1 -->
+<section class="frame" id="a1">
+  <span class="frame__tag">Variante 1 · Prüfpfad</span>
+  <div class="container">
+    <div class="section-head section-head--center">
+      <h2>Nicht jedes Bauteil eignet sich für 3D.</h2>
+      <p class="lead">Entscheidend sind Funktion, Belastung und Einsatz. Wir sagen offen, wo die Grenzen liegen.</p>
+    </div>
+    <div class="panel v1">
+      <div class="v1__start">
+        <svg class="icon" aria-hidden="true"><use href="../../assets/icons.svg#cube"/></svg>
+        <strong>Ihr Bauteil</strong>
+        <span>Funktion, Belastung und Einsatz aufnehmen</span>
+      </div>
+      <div class="v1__link"></div>
+      <div class="v1__tree">
+        <div class="q crit"><div class="q__ask"><small>Frage 1</small>Sicherheitskritisch, Last- oder Druckkomponente, zertifizierungspflichtig?</div><div class="q__arrow" data-a="JA"></div>
+          <div class="end"><i></i><strong>Nicht pauschal freigeben</strong><p>Kein 3D-Druck ohne technische Prüfung und Freigabe.</p></div></div>
+        <div class="q warn"><div class="q__ask"><small>Frage 2</small>Mechanische, thermische oder chemische Belastung?</div><div class="q__arrow" data-a="JA"></div>
+          <div class="end"><i></i><strong>Technische Prüfung erforderlich</strong><p>Werkstoff, Toleranzen und Einsatzbedingungen bewerten.</p></div></div>
+        <div class="q ok"><div class="q__ask"><small>Zweimal nein</small>Nicht sicherheitsrelevant, geringe Belastung</div><div class="q__arrow" data-a=""></div>
+          <div class="end"><i></i><strong>Gut geeignet</strong><p>Abdeckungen, Halterungen, Vorrichtungen – nach technischer Prüfung.</p></div></div>
+      </div>
+    </div>
+    <p class="note mt-lg">Sicherheitskritische Teile werden nicht ohne technische Prüfung und Freigabe gefertigt oder eingesetzt.</p>
+  </div>
+</section>
+
+<!-- V2 -->
+<section class="frame" id="a2">
+  <span class="frame__tag">Variante 2 · Eignungsspektrum</span>
+  <div class="container">
+    <div class="section-head section-head--center">
+      <h2>Nicht jedes Bauteil eignet sich für 3D.</h2>
+      <p class="lead">Entscheidend sind Funktion, Belastung und Einsatz. Wir sagen offen, wo die Grenzen liegen.</p>
+    </div>
+    <div class="panel v2">
+      <div class="v2__axis mono"><span>Geringe Anforderungen</span><span>Belastung &amp; Sicherheitsrelevanz</span><span>Hohe Anforderungen</span></div>
+      <div class="v2__bar"></div>
+      <div class="v2__cols">
+        <div class="ok"><h3><svg class="icon" aria-hidden="true"><use href="../../assets/icons.svg#check"/></svg><span>Gut geeignet</span></h3>
+          <p>Nicht sicherheitsrelevant – nach technischer Prüfung.</p>
+          <div class="v2__tags"><span class="tag">Abdeckungen</span><span class="tag">Halterungen</span><span class="tag">Vorrichtungen</span></div></div>
+        <div class="warn"><h3><svg class="icon" aria-hidden="true"><use href="../../assets/icons.svg#alert"/></svg><span>Technische Prüfung</span></h3>
+          <p>Werkstoff, Toleranzen und Einsatzbedingungen bewerten.</p>
+          <div class="v2__tags"><span class="tag">Mechanische Last</span><span class="tag">Wärme</span><span class="tag">Chemikalien</span></div></div>
+        <div class="crit"><h3><svg class="icon" aria-hidden="true"><use href="../../assets/icons.svg#lock"/></svg><span>Nicht pauschal</span></h3>
+          <p>Nur mit technischer Prüfung und Freigabe.</p>
+          <div class="v2__tags"><span class="tag">Sicherheitskritisch</span><span class="tag">Last &amp; Druck</span><span class="tag">Zertifizierungspflichtig</span></div></div>
+      </div>
+    </div>
+    <p class="note mt-lg">Nicht jedes Bauteil ist druck- oder ersetzbar.</p>
+  </div>
+</section>
+
+<!-- V3 -->
+<section class="frame" id="a3">
+  <span class="frame__tag">Variante 3 · Ampelsäule</span>
+  <div class="container">
+    <div class="section-head section-head--center">
+      <h2>Nicht jedes Bauteil eignet sich für 3D.</h2>
+      <p class="lead">Entscheidend sind Funktion, Belastung und Einsatz. Wir sagen offen, wo die Grenzen liegen.</p>
+    </div>
+    <div class="panel v3">
+      <div class="v3__pole"><span class="lamp ok"><span></span></span><span class="lamp warn"><span></span></span><span class="lamp crit"><span></span></span></div>
+      <div class="v3__rows">
+        <div class="ok"><div><small>Grün</small><h3>Gut geeignet</h3></div><p>Nicht sicherheitsrelevante Teile – nach technischer Prüfung.</p><div class="tags"><span class="tag">Abdeckungen</span><span class="tag">Halterungen</span><span class="tag">Vorrichtungen</span></div></div>
+        <div class="warn"><div><small>Gelb</small><h3>Technische Prüfung erforderlich</h3></div><p>Werkstoff, Toleranzen und Einsatzbedingungen bewerten.</p><div class="tags"><span class="tag">Mechanisch</span><span class="tag">Thermisch</span><span class="tag">Chemisch</span></div></div>
+        <div class="crit"><div><small>Rot</small><h3>Nicht pauschal freigeben</h3></div><p>Nur mit technischer Prüfung und Freigabe.</p><div class="tags"><span class="tag">Sicherheitskritisch</span><span class="tag">Last &amp; Druck</span><span class="tag">Zertifizierungspflichtig</span></div></div>
+      </div>
+    </div>
+    <p class="note mt-lg">Sicherheitskritische Teile werden nicht ohne technische Prüfung und Freigabe gefertigt oder eingesetzt.</p>
+  </div>
+</section>
+
+</body>
+</html>
