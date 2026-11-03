@@ -399,6 +399,24 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   }
 
+  // --- Tabellen mit Kopfzeile: Spaltennamen für die gestapelte Handy-Ansicht ---
+  each(".table", function (table) {
+    var heads = Array.prototype.map.call(table.querySelectorAll("thead th"), function (th) {
+      return th.textContent.trim();
+    });
+    if (!heads.length) {
+      return;
+    }
+    table.classList.add("table--stack");
+    each("tbody tr", function (tr) {
+      Array.prototype.forEach.call(tr.children, function (td, i) {
+        if (heads[i]) {
+          td.setAttribute("data-label", heads[i]);
+        }
+      });
+    }, table);
+  });
+
   // --- Rechenbeispiel: freiwerdendes Kapital (#kapitalrechner) --------------
   var calc = document.getElementById("kapitalrechner");
   if (calc) {

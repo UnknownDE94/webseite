@@ -838,7 +838,6 @@ html[data-theme="light"] .keylist li::before { color: var(--ink-2); }
 @media (max-width: 1180px) {
   .nav-link { padding: 9px 9px; font-size: 0.88rem; }
   .tiles { grid-template-columns: repeat(3, minmax(0, 1fr)); }
-  .tiles:not(.tiles--3):not(.tiles--4) > :nth-child(5):last-child { grid-column: span 2; }
   .footer-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
   .footer-brand { grid-column: 1 / -1; }
 }
@@ -1266,6 +1265,55 @@ main > .section:last-child { padding-bottom: 88px; }
   }
 }
 html[data-a11y="on"] .closing:has(.wave-slot) { background: var(--glass-bg); }
+
+/* Tablet: einzelne fünfte Kachel füllt die Reihe (3 Spalten) */
+@media (min-width: 721px) and (max-width: 1180px) {
+  .tiles:not(.tiles--3):not(.tiles--4) > :nth-child(5):last-child { grid-column: span 2; }
+}
+/* Handy: kein Partikel-Logo (zu klein, hinterlässt leere Flächen), kompakte Kacheln/Karten */
+@media (max-width: 720px) {
+  .has-wave .wave-slot { display: none; }
+  .hero__visual:has(> .wave-slot:only-child) { display: none; }
+  .closing:has(.wave-slot) { background: var(--glass-bg); }
+}
+@media (max-width: 720px) {
+  /* Tabellen als gestapelte Karten (Spaltennamen per JS in data-label) */
+  .table-wrap:has(.table--stack) { overflow: visible; }
+  .table--stack thead { display: none; }
+  .table--stack, .table--stack tbody, .table--stack tr { display: block; width: 100%; }
+  .table--stack tr { padding: 14px 16px 12px; border-bottom: 1px solid var(--line); }
+  .table--stack tr:last-child { border-bottom: 0; }
+  .table.table--stack td { display: grid; grid-template-columns: minmax(0, 40%) minmax(0, 1fr); gap: 12px; align-items: center; padding: 5px 0; border: 0; white-space: normal; }
+  .table--stack td > * { justify-self: start; }
+  .table--stack td::before { content: attr(data-label); font-family: var(--font-mono); font-size: 0.68rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-3); }
+  .table.table--stack td:first-child { display: block; padding: 0 0 6px; font-size: 1.02rem; }
+  .table--stack td:first-child::before { content: none; }
+  /* Größere Tippflächen */
+  .link-arrow { min-height: 40px; }
+  .breadcrumb a { display: inline-block; padding: 8px 0; }
+  .footer-brand address a { display: inline-block; padding: 6px 0; }
+  .site-footer ul { gap: 2px; }
+  .site-footer ul a { display: inline-block; padding: 6px 0; }
+  .showcase-app__dots { gap: 0; }
+  .showcase-app__dots button { width: 44px; height: 28px; background: none; position: relative; }
+  .showcase-app__dots button::before { content: ""; position: absolute; left: 8px; right: 8px; top: 12px; height: 4px; border-radius: 4px; background: var(--line-2); }
+  .showcase-app__dots button[aria-pressed="true"] { background: none; }
+  .showcase-app__dots button[aria-pressed="true"]::before { background: var(--accent); }
+  .status { font-size: 0.74rem; }
+  .form input[type="checkbox"] { width: 22px; height: 22px; flex: none; accent-color: var(--lime); }
+  .calc-field input[type="range"] { height: 36px; }
+}
+@media (max-width: 560px) {
+  .tiles, .tiles--4, .tiles--3 { grid-template-columns: minmax(0, 1fr); }
+  .tile { display: grid; grid-template-columns: 34px minmax(0, 1fr); column-gap: 16px; row-gap: 4px; align-content: start; min-height: 0; padding: 20px 18px; hyphens: manual; }
+  .tile > * { grid-column: 2; }
+  main .tile > svg.icon.icon { grid-column: 1; grid-row: 1 / span 4; width: 30px; height: 30px; margin: 2px 0 0; }
+  .tile .tile__meta { margin-top: 6px; }
+  .card:has(> svg.icon:first-child) { display: grid; grid-template-columns: 34px minmax(0, 1fr); column-gap: 16px; align-content: start; hyphens: manual; }
+  .card:has(> svg.icon:first-child) > * { grid-column: 2; }
+  main .card:has(> svg.icon:first-child) > svg.icon.icon:first-child { grid-column: 1; grid-row: 1 / span 6; width: 30px; height: 30px; margin: 2px 0 0; }
+  .card:has(> svg.icon:first-child) > h3 { margin-top: 0; }
+}
 
 /* Linien-Icons (assets/icons.svg, erzeugt mit tools/visuals/icons.py):
    nur runde Kontur in Textfarbe */
