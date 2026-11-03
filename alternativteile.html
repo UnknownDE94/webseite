@@ -25,7 +25,7 @@
   <link rel="preload" href="assets/fonts/archivo-wdth.woff2" as="font" type="font/woff2" crossorigin />
   <link rel="preload" href="assets/fonts/inter-wght.woff2" as="font" type="font/woff2" crossorigin />
   <script>(function(d){d.classList.add("js");d.setAttribute("data-theme","dark");try{var t=localStorage.getItem("theme");if(t==="light")d.setAttribute("data-theme","light");if(localStorage.getItem("a11y")==="on")d.setAttribute("data-a11y","on")}catch(e){}})(document.documentElement);</script>
-  <link rel="stylesheet" href="css/style.css?v=2026-52" />
+  <link rel="stylesheet" href="css/style.css?v=2026-53" />
 </head>
 <body>
   <a class="skip-link" href="#main">Zum Inhalt springen</a>
@@ -61,10 +61,10 @@
               <li><a href="wk-instandhaltung.html"><strong>WK Instandhaltung</strong><small>Wartung, Störung, Rückmeldung</small></a></li>
               <li><a href="wk-finance.html"><strong>WK Finance</strong><small>Belege und Verträge für Handwerk</small></a></li>
               <li><a href="wk-3d.html"><strong>WK 3D-Druck</strong><small>Digitale Teilebibliothek</small></a></li>
+              <li class="nav-sep"><a href="mobile-offline.html"><strong>Mobile &amp; Offline</strong><small>Plattformen und Status je App</small></a></li>
               <li class="nav-all"><a href="loesungen.html">Die Produktfamilie</a></li>
             </ul>
           </li>
-          <li><a class="nav-link" href="mobile-offline.html">Mobile &amp; Offline</a></li>
           <li><a class="nav-link" href="ueber-uns.html">Über uns</a></li>
           <li><a class="nav-link" href="kontakt.html">Kontakt</a></li>
         </ul>
@@ -90,7 +90,7 @@
             <p class="lead">Nicht nur dieselbe Materialnummer: Wir vergleichen technische Anforderungen und wirtschaftliche Eignung.</p>
             <div class="actions">
               <a class="btn btn--primary" href="kontakt.html">Ersatzteil prüfen lassen</a>
-              <a class="btn btn--secondary" href="#entscheidung">So gehen wir vor</a>
+              <a class="btn btn--secondary" href="#pruefung">So prüfen wir</a>
             </div>
           </div>
         </div>
@@ -119,47 +119,8 @@
       </div>
     </section>
 
-    <!-- 3 · Entscheidungsbaum -->
-    <section class="section section--alt" data-wave="flow" id="entscheidung">
-      <div class="container">
-        <div class="split split--top">
-          <div class="section-head mt-0" data-stagger>
-            <h2>Fünf Fragen. Ein klarer Weg.</h2>
-            <p class="lead">Feste Reihenfolge: der einfachste Weg, der Ihr Problem zuverlässig löst.</p>
-          </div>
-          <ol class="dtree" data-stagger>
-            <li>
-              <h3>Ist das Original noch lieferbar?</h3>
-              <span class="yes"><b>Ja</b>Beschaffung absichern, Bestand prüfen</span>
-              <span class="no"><b>Nein</b>Weiter mit Frage 2</span>
-            </li>
-            <li>
-              <h3>Gibt es einen Alternativlieferanten?</h3>
-              <span class="yes"><b>Ja</b>Lieferanten vergleichen und freigeben</span>
-              <span class="no"><b>Nein</b>Weiter mit Frage 3</span>
-            </li>
-            <li>
-              <h3>Ist ein technisches Alternativteil möglich?</h3>
-              <span class="yes"><b>Ja</b>Eigenschaften und Anpassungsbedarf prüfen</span>
-              <span class="no"><b>Nein</b>Weiter mit Frage 4</span>
-            </li>
-            <li>
-              <h3>Ist eine Modernisierung sinnvoll?</h3>
-              <span class="yes"><b>Ja</b>Baugruppe oder Komponente modernisieren</span>
-              <span class="no"><b>Nein</b>Weiter mit Frage 5</span>
-            </li>
-            <li>
-              <h3>Sind Scan, Rekonstruktion oder Fertigung sinnvoll?</h3>
-              <span class="yes"><b>Ja</b>Fertigungsweg über <a class="accent" href="3d-technik.html">3D-Technik</a> prüfen</span>
-              <span class="no"><b>Nein</b>Risiko dokumentieren, Bestand absichern</span>
-            </li>
-          </ol>
-        </div>
-      </div>
-    </section>
-
-    <!-- 4 · Prüfkriterien -->
-    <section class="section" data-wave="grid">
+    <!-- 3 · Prüfkriterien -->
+    <section class="section" data-wave="grid" id="pruefung">
       <div class="container">
         <div class="split split--text-wide">
           <div class="section-head mt-0" data-stagger>
@@ -180,7 +141,7 @@
       </div>
     </section>
 
-    <!-- 5 · Ergebnis -->
+    <!-- 4 · Ergebnis -->
     <section class="section section--alt" data-wave="flow">
       <div class="container">
         <div class="split">
@@ -203,7 +164,7 @@
       </div>
     </section>
 
-    <!-- 6 · Abschluss -->
+    <!-- 5 · Abschluss -->
     <section class="section" data-wave="surge">
       <div class="container">
         <div class="closing">
@@ -286,8 +247,8 @@
     </div>
   </footer>
 
-  <script src="js/main.js?v=2026-52"></script>
-  <script src="js/wave.js?v=2026-52" defer></script>
+  <script src="js/main.js?v=2026-53"></script>
+  <script src="js/wave.js?v=2026-53" defer></script>
   <script data-goatcounter="https://unknownde.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
 </body>
 </html>

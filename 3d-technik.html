@@ -25,7 +25,7 @@
   <link rel="preload" href="assets/fonts/archivo-wdth.woff2" as="font" type="font/woff2" crossorigin />
   <link rel="preload" href="assets/fonts/inter-wght.woff2" as="font" type="font/woff2" crossorigin />
   <script>(function(d){d.classList.add("js");d.setAttribute("data-theme","dark");try{var t=localStorage.getItem("theme");if(t==="light")d.setAttribute("data-theme","light");if(localStorage.getItem("a11y")==="on")d.setAttribute("data-a11y","on")}catch(e){}})(document.documentElement);</script>
-  <link rel="stylesheet" href="css/style.css?v=2026-52" />
+  <link rel="stylesheet" href="css/style.css?v=2026-53" />
 </head>
 <body>
   <a class="skip-link" href="#main">Zum Inhalt springen</a>
@@ -61,10 +61,10 @@
               <li><a href="wk-instandhaltung.html"><strong>WK Instandhaltung</strong><small>Wartung, Störung, Rückmeldung</small></a></li>
               <li><a href="wk-finance.html"><strong>WK Finance</strong><small>Belege und Verträge für Handwerk</small></a></li>
               <li><a href="wk-3d.html"><strong>WK 3D-Druck</strong><small>Digitale Teilebibliothek</small></a></li>
+              <li class="nav-sep"><a href="mobile-offline.html"><strong>Mobile &amp; Offline</strong><small>Plattformen und Status je App</small></a></li>
               <li class="nav-all"><a href="loesungen.html">Die Produktfamilie</a></li>
             </ul>
           </li>
-          <li><a class="nav-link" href="mobile-offline.html">Mobile &amp; Offline</a></li>
           <li><a class="nav-link" href="ueber-uns.html">Über uns</a></li>
           <li><a class="nav-link" href="kontakt.html">Kontakt</a></li>
         </ul>
@@ -175,10 +175,26 @@
           <h2>Nicht jedes Bauteil eignet sich für 3D.</h2>
           <p class="lead">Entscheidend sind Funktion, Belastung und Einsatz. Wir sagen offen, wo die Grenzen liegen.</p>
         </div>
-        <div class="traffic" data-stagger>
-          <div class="t-ok"><h3><svg class="icon" aria-hidden="true"><use href="assets/icons.svg#check"/></svg>Gut geeignet</h3><p>Nicht sicherheitsrelevante Teile wie Abdeckungen, Halterungen oder Vorrichtungen – nach technischer Prüfung.</p></div>
-          <div class="t-warn"><h3><svg class="icon" aria-hidden="true"><use href="assets/icons.svg#alert"/></svg>Technische Prüfung erforderlich</h3><p>Mechanische, thermische oder chemische Belastung – Werkstoff, Toleranzen und Einsatzbedingungen bewerten.</p></div>
-          <div class="t-crit"><h3><svg class="icon" aria-hidden="true"><use href="assets/icons.svg#lock"/></svg>Nicht pauschal freigeben</h3><p>Sicherheitskritische Teile, Last- und Druckkomponenten sowie zertifizierungspflichtige Bauteile.</p></div>
+        <div class="spectrum" data-anim>
+          <div class="spectrum__axis" aria-hidden="true"><span>Geringe Anforderungen</span><span>Belastung &amp; Sicherheitsrelevanz</span><span>Hohe Anforderungen</span></div>
+          <div class="spectrum__bar" aria-hidden="true"></div>
+          <div class="spectrum__cols">
+            <div class="spectrum__ok">
+              <h3><svg class="icon" aria-hidden="true"><use href="assets/icons.svg#check"/></svg>Gut geeignet</h3>
+              <p>Nicht sicherheitsrelevant – nach technischer Prüfung.</p>
+              <ul class="spectrum__tags"><li>Abdeckungen</li><li>Halterungen</li><li>Vorrichtungen</li></ul>
+            </div>
+            <div class="spectrum__warn">
+              <h3><svg class="icon" aria-hidden="true"><use href="assets/icons.svg#alert"/></svg>Technische Prüfung</h3>
+              <p>Werkstoff, Toleranzen und Einsatzbedingungen bewerten.</p>
+              <ul class="spectrum__tags"><li>Mechanische Last</li><li>Wärme</li><li>Chemikalien</li></ul>
+            </div>
+            <div class="spectrum__crit">
+              <h3><svg class="icon" aria-hidden="true"><use href="assets/icons.svg#lock"/></svg>Nicht pauschal</h3>
+              <p>Nur mit technischer Prüfung und Freigabe.</p>
+              <ul class="spectrum__tags"><li>Sicherheitskritisch</li><li>Last &amp; Druck</li><li>Zertifizierungspflichtig</li></ul>
+            </div>
+          </div>
         </div>
         <p class="note mt-lg">Sicherheitskritische Teile werden nicht ohne technische Prüfung und Freigabe gefertigt oder eingesetzt. Nicht jedes Bauteil ist druck- oder ersetzbar.</p>
       </div>
@@ -267,8 +283,8 @@
     </div>
   </footer>
 
-  <script src="js/main.js?v=2026-52"></script>
-  <script src="js/wave.js?v=2026-52" defer></script>
+  <script src="js/main.js?v=2026-53"></script>
+  <script src="js/wave.js?v=2026-53" defer></script>
   <script data-goatcounter="https://unknownde.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
 </body>
 </html>
