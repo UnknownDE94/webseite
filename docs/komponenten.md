@@ -60,6 +60,10 @@ können bei Bedarf wieder per `data-shape` eingesetzt werden.
 | Risikofluss Merkmale → Bewertung → Priorität | `.riskflow > .riskflow__in + .riskflow__wire + .riskflow__core + .riskflow__wire + .riskflow__out` |
 | Nächste Schritte (Kontakt) | `ol.nextsteps > li > div(h3 + p) + span` |
 | App-Symbol im Seitenkopf | `p.app-mark > img + span` (Symbole aus tools/visuals/app-icons.py) |
+| App-Geschichte Risiko · Lösung · Nutzen | `article.appstory[.appstory--flip] > .appstory__text(dl.rln) + figure.appstory__media > .appstory__stage` |
+| Selbsttest (Handwerk) | `.selftest > ul.selftest__list + aside.selftest__result` (Logik in js/main.js) |
+| Probleme mit Anzeichen + Hilfe | `.problems > .problem` (Chips `.chip-app`, `.chip-svc`) |
+| Leistung oben, App darunter | `.svcapp > .svcapp__col` + `.segment` |
 | Eignungsspektrum (Grün → Rot) | `.spectrum > .spectrum__axis + .spectrum__bar + .spectrum__cols` |
 | 3D-Ablauf in Streifen | `figure.morph` (erzeugt mit tools/visuals/morph3d.py) |
 | FAQ | `.faq > details > summary + div` |

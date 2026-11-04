@@ -417,6 +417,49 @@ document.addEventListener("DOMContentLoaded", function () {
     }, table);
   });
 
+  // --- Selbsttest (Handwerk): Ergebnis und passende Hilfe je Auswahl --------
+  var selftest = document.querySelector(".selftest");
+  if (selftest) {
+    var HELP = {
+      finance: ["WK Finance", "wk-finance.html", "finance"],
+      material: ["WK Material", "wk-material.html", "material"],
+      ki: ["KI-Werkstatt", "ki-werkstatt.html", "ki-werkstatt"],
+      tools: ["Kleine Tools", "digitalisierung-software.html", ""],
+      software: ["Alte Software erneuern", "digitalisierung-software.html", ""],
+    };
+    var countEl = selftest.querySelector("[data-selftest-count]");
+    var textEl = selftest.querySelector("[data-selftest-text]");
+    var helpEl = selftest.querySelector("[data-selftest-help]");
+    var updateSelftest = function () {
+      var checked = Array.prototype.filter.call(selftest.querySelectorAll("input[type=checkbox]"), function (box) {
+        return box.checked;
+      });
+      countEl.textContent = checked.length;
+      textEl.textContent = checked.length === 0
+        ? "Kreuzen Sie an, was zutrifft – wir zeigen, was helfen kann."
+        : checked.length <= 2
+          ? "Hier lohnt ein gezielter Blick:"
+          : checked.length <= 4
+            ? "Mehrere Stellen kosten Zeit. Sinnvoll in dieser Reihenfolge:"
+            : "Hier steckt viel Potenzial – am besten Schritt für Schritt:";
+      var seen = {};
+      helpEl.innerHTML = "";
+      checked.forEach(function (box) {
+        var key = box.getAttribute("data-help");
+        var h = HELP[key];
+        if (!h || seen[key]) {
+          return;
+        }
+        seen[key] = true;
+        var li = document.createElement("li");
+        li.innerHTML = '<a href="' + h[1] + '">' + (h[2] ? '<img src="assets/apps/icons/wk-' + h[2] + '.webp" alt="" width="320" height="183" />' : "") + h[0] + "</a>";
+        helpEl.appendChild(li);
+      });
+    };
+    selftest.addEventListener("change", updateSelftest);
+    updateSelftest();
+  }
+
   // --- Rechenbeispiel: freiwerdendes Kapital (#kapitalrechner) --------------
   var calc = document.getElementById("kapitalrechner");
   if (calc) {

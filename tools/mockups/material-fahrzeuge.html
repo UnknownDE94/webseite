@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="de"><head><meta charset="utf-8" /><title>WK Material – Fahrzeuglager</title><link rel="stylesheet" href="mockup.css" />
+<style>
+  .grid { display:grid; grid-template-columns: 1.55fr 1fr; gap:10px; }
+  .yb { display:flex; align-items:flex-end; gap:10px; height:150px; padding:4px 12px 0; }
+  .yb div { flex:1; display:flex; flex-direction:column; align-items:center; gap:3px; height:100%; justify-content:flex-end; }
+  .yb i { width:100%; border-radius:3px 3px 0 0; background: var(--warn); opacity:.75; }
+  .yb div.ok i { background: var(--ok); opacity:.85; }
+  .yb b { font-size:7.5px; font-weight:600; color:var(--ink-2); } .yb span { font-size:7.5px; color:var(--ink-3); }
+  .veh { display:grid; grid-template-columns: repeat(5, 1fr); gap:6px; margin-bottom:10px; }
+  .veh div { padding:7px 9px; border-radius:8px; background:#fff; box-shadow:var(--shadow); font-size:8.5px; }
+  .veh div.on { outline: 1.5px solid var(--green); }
+  .veh b { display:block; font-size:9.5px; } .veh span { color:var(--ink-3); }
+</style></head>
+<body data-app="material" data-nav="lagerplaetze">
+  <header class="appbar"><span class="crumb">Lagerplätze · <b>Fahrzeuglager</b></span></header>
+  <main class="page">
+    <div class="title-row">
+      <div><h1>Fahrzeuglager</h1><p>Hauptlager + 4 Transporter · 1.146 Artikel · Buchungen seit 2021: 38.540</p></div>
+      <div class="btns"><span class="btn btn--ghost">Nachfüllliste drucken</span><span class="btn">Umlagern</span></div>
+    </div>
+    <div class="veh">
+      <div><b>Hauptlager</b><span>812 Artikel · 3 unter Meldebestand</span></div>
+      <div class="on"><b>Transporter 1</b><span>146 Artikel · 5 nachfüllen</span></div>
+      <div><b>Transporter 2</b><span>139 Artikel · 2 nachfüllen</span></div>
+      <div><b>Transporter 3</b><span>152 Artikel · vollständig</span></div>
+      <div><b>Transporter 4</b><span>97 Artikel · 1 nachfüllen</span></div>
+    </div>
+    <div class="grid">
+      <div class="card">
+        <table>
+          <thead><tr><th>Artikel · Transporter 1</th><th>Fach</th><th class="r">Soll</th><th class="r">Ist</th><th>Letzte Entnahme</th><th>Status</th></tr></thead>
+          <tbody>
+            <tr class="bar-crit"><td>Pressfitting Bogen 22 mm</td><td class="mono">T1-B03</td><td class="r">20</td><td class="r">4</td><td class="muted">heute</td><td><span class="chip crit">Nachfüllen</span></td></tr>
+            <tr class="bar-warn"><td>Kugelhahn ½" mit Entleerung</td><td class="mono">T1-A07</td><td class="r">6</td><td class="r">2</td><td class="muted">gestern</td><td><span class="chip warn">Knapp</span></td></tr>
+            <tr class="bar-warn"><td>Silikon sanitär weiß</td><td class="mono">T1-C01</td><td class="r">8</td><td class="r">3</td><td class="muted">02.11.</td><td><span class="chip warn">Knapp</span></td></tr>
+            <tr class="bar-ok"><td>Dichtungssatz Armatur</td><td class="mono">T1-A02</td><td class="r">10</td><td class="r">9</td><td class="muted">29.10.</td><td><span class="chip ok">Ausreichend</span></td></tr>
+            <tr class="bar-ok"><td>Umwälzpumpe 25-60</td><td class="mono">T1-D01</td><td class="r">1</td><td class="r">1</td><td class="muted">18.09.</td><td><span class="chip ok">Ausreichend</span></td></tr>
+            <tr class="bar-ok"><td>Schrauben-Sortiment Edelstahl</td><td class="mono">T1-C04</td><td class="r">2</td><td class="r">2</td><td class="muted">15.10.</td><td><span class="chip ok">Ausreichend</span></td></tr>
+            <tr class="bar-ok"><td>Rohrschelle 22 mm</td><td class="mono">T1-B06</td><td class="r">30</td><td class="r">26</td><td class="muted">01.11.</td><td><span class="chip ok">Ausreichend</span></td></tr>
+            <tr class="bar-warn"><td>Flexschlauch 300 mm ½"</td><td class="mono">T1-A04</td><td class="r">8</td><td class="r">3</td><td class="muted">31.10.</td><td><span class="chip warn">Knapp</span></td></tr>
+            <tr class="bar-ok"><td>Thermostatkopf</td><td class="mono">T1-D03</td><td class="r">4</td><td class="r">4</td><td class="muted">22.10.</td><td><span class="chip ok">Ausreichend</span></td></tr>
+            <tr class="bar-ok"><td>Abdichtband PTFE</td><td class="mono">T1-C02</td><td class="r">10</td><td class="r">7</td><td class="muted">30.10.</td><td><span class="chip ok">Ausreichend</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="card">
+        <div class="card-head"><h2>Inventurdifferenz je Jahr</h2><span class="meta">in % vom Lagerwert</span></div>
+        <div class="yb">
+          <div><b>4,8</b><i style="height:96%"></i><span>2021</span></div>
+          <div><b>3,1</b><i style="height:62%"></i><span>2022</span></div>
+          <div class="ok"><b>1,7</b><i style="height:34%"></i><span>2023</span></div>
+          <div class="ok"><b>1,1</b><i style="height:22%"></i><span>2024</span></div>
+          <div class="ok"><b>0,8</b><i style="height:16%"></i><span>2025</span></div>
+          <div class="ok"><b>0,6</b><i style="height:12%"></i><span>2026</span></div>
+        </div>
+        <div class="card-body" style="padding-top:10px">
+          <dl class="fields">
+            <dt>Lagerwert</dt><dd>84.260 €</dd>
+            <dt>Doppelt bestellt 2026</dt><dd>2 Positionen <span class="muted">(2021: 31)</span></dd>
+            <dt>Nachbestellung</dt><dd>Bestellvorschlag je Großhandel</dd>
+          </dl>
+        </div>
+      </div>
+    </div>
+  </main>
+  <script src="shell.js"></script>
+</body></html>

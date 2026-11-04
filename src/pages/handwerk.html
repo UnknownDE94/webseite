@@ -1,95 +1,152 @@
 ---
 title: Wir digitalisieren Handwerksbetriebe | Werringloer
-description: Einfache digitale Lösungen für Handwerk und kleine Betriebe: Belege mit WK Finance, Material ordnen, alte Software, lokale KI und mobile Abläufe.
+description: Für Handwerk und Kleinbetriebe: Belege, Zahlungen und Verträge mit WK Finance, Material im Lager und im Fahrzeug mit WK Material, Dokumente mit lokaler KI.
 og_title: Für Handwerk und kleinere Unternehmen – Werringloer Komponentenmanagement
-og_description: Weniger Papier, weniger Suchen, weniger Doppelarbeit. Digitale Lösungen, die zum Betrieb passen – verständlich erklärt, mit klarem Aufwand.
+og_description: Weniger Suchen, weniger Doppelarbeit, keine verpassten Fristen. Was Kleinbetriebe riskieren – und wie WK Finance und WK Material helfen.
 ---
 <main id="main">
 
-    <!-- Kopf -->
+    <!-- 1 · Kopf -->
     <section class="page-hero" data-wave="hero">
       <div class="container">
         <div class="page-hero__grid">
           <div data-stagger>
             <nav class="breadcrumb" aria-label="Brotkrumen"><a href="index.html">Start</a> / <span aria-current="page">Für Handwerk</span></nav>
             <h1>Digitalisierung, die zu Ihrem Betrieb passt.</h1>
-            <p class="lead">Weniger Papier, weniger Suchen, weniger Doppelarbeit – einfache Lösungen, verständlich erklärt, mit klarem Aufwand.</p>
+            <p class="lead">Für Handwerk und Kleinbetriebe: Belege, Material und Fristen im Griff – mit Anwendungen, die im Alltag funktionieren, und einem klar beschriebenen Aufwand.</p>
+            <ul class="app-row" aria-label="Passende Anwendungen">
+              <li><img src="assets/apps/icons/wk-finance.webp" alt="" width="320" height="183" />WK Finance</li>
+              <li><img src="assets/apps/icons/wk-material.webp" alt="" width="320" height="183" />WK Material</li>
+              <li><img src="assets/apps/icons/wk-ki-werkstatt.webp" alt="" width="320" height="183" />KI-Werkstatt</li>
+            </ul>
             <div class="actions">
               <a class="btn btn--primary" href="kontakt.html">Projekt besprechen</a>
-              <a class="btn btn--secondary" href="quick-check.html">Quick-Check anfragen</a>
+              <a class="btn btn--secondary" href="#finance">Lösungen ansehen</a>
             </div>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- Alltag -->
+    <!-- 2 · Selbsttest -->
     <section class="section" data-wave="calm">
       <div class="container">
         <div class="section-head" data-stagger>
           <h2>Kommt Ihnen das bekannt vor?</h2>
-          <p class="lead">Im Handwerk fehlt selten das Können, sondern die Zeit.</p>
+          <p class="lead">Kurzer Selbsttest – kreuzen Sie an, was auf Ihren Betrieb zutrifft.</p>
         </div>
-        <div class="grid-3" data-stagger>
-          <div class="card"><svg class="icon icon--lg" aria-hidden="true"><use href="assets/icons.svg#file"/></svg><h3>Belege überall</h3><p>Postfach, Auto, Ordner – wenn etwas gebraucht wird, beginnt die Suche.</p></div>
-          <div class="card"><svg class="icon icon--lg" aria-hidden="true"><use href="assets/icons.svg#box"/></svg><h3>Material suchen</h3><p>Doppelt bestellt – oder es fehlt auf der Baustelle.</p></div>
-          <div class="card"><svg class="icon icon--lg" aria-hidden="true"><use href="assets/icons.svg#clipboard"/></svg><h3>Listen und Zettel</h3><p>Dieselbe Angabe mehrfach erfasst, Fehler schleichen sich ein.</p></div>
-          <div class="card"><svg class="icon icon--lg" aria-hidden="true"><use href="assets/icons.svg#monitor"/></svg><h3>Altes Programm</h3><p>Läuft seit Jahren, aber keiner kann es mehr anpassen.</p></div>
-          <div class="card"><svg class="icon icon--lg" aria-hidden="true"><use href="assets/icons.svg#clock"/></svg><h3>Fristen im Kopf</h3><p>Zahlungsziele und Termine fallen erst auf, wenn es zu spät ist.</p></div>
-          <div class="card"><svg class="icon icon--lg" aria-hidden="true"><use href="assets/icons.svg#doc-search"/></svg><h3>Wissen in Dokumenten</h3><p>Anleitungen und Datenblätter sind da, aber nicht schnell auffindbar.</p></div>
+        <div class="selftest" data-anim>
+          <ul class="selftest__list">
+            <li><label><input type="checkbox" name="selbsttest" value="belege" data-help="finance" /><span class="selftest__box" aria-hidden="true"></span><strong>Belege überall</strong><span class="selftest__text">Postfach, Auto, Ordner – wenn das Steuerbüro fragt oder eine Garantie greifen soll, beginnt die Suche. Skonto verfällt, weil die Rechnung zu spät auftaucht.</span></label></li>
+            <li><label><input type="checkbox" name="selbsttest" value="material" data-help="material" /><span class="selftest__box" aria-hidden="true"></span><strong>Material suchen</strong><span class="selftest__text">Doppelt bestellt – oder es fehlt auf der Baustelle. Jede Extrafahrt zum Großhandel kostet Zeit, und keiner weiß genau, was im Fahrzeug liegt.</span></label></li>
+            <li><label><input type="checkbox" name="selbsttest" value="listen" data-help="tools" /><span class="selftest__box" aria-hidden="true"></span><strong>Listen und Zettel</strong><span class="selftest__text">Dieselbe Angabe steht in drei Listen. Fehler schleichen sich ein, und niemand weiß, welche Version gerade stimmt.</span></label></li>
+            <li><label><input type="checkbox" name="selbsttest" value="fristen" data-help="finance" /><span class="selftest__box" aria-hidden="true"></span><strong>Fristen im Kopf</strong><span class="selftest__text">Zahlungsziele, Kündigungsfristen und Prüftermine stehen nirgends zentral. Sie fallen erst auf, wenn es zu spät ist.</span></label></li>
+            <li><label><input type="checkbox" name="selbsttest" value="programm" data-help="software" /><span class="selftest__box" aria-hidden="true"></span><strong>Altes Programm</strong><span class="selftest__text">Läuft seit Jahren, aber keiner kann es mehr anpassen. Fällt es aus, stehen Angebote und Rechnungen still.</span></label></li>
+            <li><label><input type="checkbox" name="selbsttest" value="wissen" data-help="ki" /><span class="selftest__box" aria-hidden="true"></span><strong>Wissen in Dokumenten</strong><span class="selftest__text">Anleitungen, Datenblätter und Schaltpläne sind da, aber nicht schnell auffindbar – schon gar nicht auf der Baustelle.</span></label></li>
+          </ul>
+          <aside class="selftest__result" aria-live="polite">
+            <span class="selftest__label">Ihr Ergebnis</span>
+            <div class="selftest__score"><span data-selftest-count>0</span> <small>von 6</small></div>
+            <p data-selftest-text>Kreuzen Sie an, was zutrifft – wir zeigen, was helfen kann.</p>
+            <ul class="selftest__help" data-selftest-help></ul>
+            <a class="btn btn--primary" href="kontakt.html">Kurz darüber sprechen</a>
+          </aside>
         </div>
       </div>
     </section>
 
-    <!-- WK Finance (prominent, §46.11) -->
-    <section class="section section--alt" data-wave="calm">
+    <!-- 3 · WK Finance -->
+    <section class="section section--alt" data-wave="flow" id="finance">
       <div class="container">
-        <div class="split split--text-wide">
-          <div data-stagger>
-            <h2>Belege, Rechnungen und Verträge an einem Ort.</h2>
-            <p class="lead" style="margin-top:18px">Eine übersichtliche Anwendung – damit Sie wissen, was offen ist und was ansteht.</p>
-            <ul class="checklist mt-lg">
-              <li><strong>Rechnungen und Belege</strong> geordnet ablegen und schnell wiederfinden</li>
-              <li><strong>Zahlungsziele und Zahlungsstatus</strong> im Blick behalten</li>
-              <li><strong>Verträge, Laufzeiten und Kündigungsfristen</strong> zentral erfassen</li>
-              <li><strong>Kostenübersicht</strong> statt verstreuter Einzelbelege</li>
+        <article class="appstory">
+          <div class="appstory__text" data-stagger>
+            <p class="app-mark"><img src="assets/apps/icons/wk-finance.webp" alt="" width="320" height="183" /><span>WK Finance</span></p>
+            <h2>Belege, Zahlungen und Verträge – über Jahre geordnet.</h2>
+            <dl class="rln">
+              <div class="rln__risk"><dt>Risiko</dt><dd>Belege liegen in Postfach, Auto und Ordner. Zahlungsziele und Kündigungsfristen fallen erst auf, wenn es zu spät ist.</dd></div>
+              <div class="rln__fix"><dt>Lösung</dt><dd>WK Finance sammelt Belege, Zahlungen und Verträge an einem Ort, erinnert an Fristen und findet jeden Beleg per Volltext – auch nach Jahren.</dd></div>
+              <div class="rln__gain"><dt>Nutzen</dt><dd><ul class="checklist">
+                <li>Skonto und Fristen im Blick statt im Kopf</li>
+                <li>Kosten je Jahr, Kategorie, Fahrzeug und Projekt</li>
+                <li>Preisentwicklung und Garantie direkt am Beleg</li>
+                <li>Übersichtlicher Export für das Steuerbüro</li>
+              </ul></dd></div>
+            </dl>
+            <ul class="status-row" aria-label="Plattformstatus">
+              <li><span class="status status--entwicklung">Web: In Entwicklung</span></li>
+              <li><span class="status status--geplant">Mobil: Geplant</span></li>
             </ul>
-            <p class="mt-lg"><span class="status status--geplant">Mobile Belegerfassung: Geplant</span></p>
-            <p class="note" style="margin-top:14px">WK Finance ersetzt keine Steuerberatung und keine Finanzbuchhaltung.</p>
-            <div class="actions">
-              <a class="btn btn--primary" href="wk-finance.html">WK Finance ansehen</a>
+            <div class="actions"><a class="link-arrow" href="wk-finance.html">WK Finance ansehen</a></div>
+            <p class="note">WK Finance ersetzt keine Steuerberatung und keine Finanzbuchhaltung.</p>
+          </div>
+          <figure class="appstory__media" data-anim>
+            <div class="appstory__stage">
+            <div class="window"><div class="window-bar"><i></i><i></i><i></i><span>WK Finance · Übersicht</span></div><img src="assets/apps/finance-jahre.webp?v=3" width="1600" height="1000" alt="WK Finance Übersicht: Ausgaben je Jahr 2019 bis 2026, Kosten nach Kategorie, offene Rechnungen, genutztes Skonto und nächste Vertragsfristen" loading="lazy" /></div>
+            <div class="window appstory__second"><div class="window-bar"><i></i><i></i><i></i><span>Belegsuche</span></div><img src="assets/apps/finance-archiv.webp?v=3" width="1600" height="1000" alt="WK Finance Belegsuche über alle Jahre mit Preisentwicklung eines Artikels von 2019 bis 2026" loading="lazy" /></div>
             </div>
-          </div>
-        </div>
+            <figcaption class="note">Konzeptansichten mit Beispieldaten eines Handwerksbetriebs nach mehreren Jahren Nutzung.</figcaption>
+          </figure>
+        </article>
       </div>
     </section>
 
-    <!-- Themen -->
-    <section class="section" data-wave="grid">
+    <!-- 4 · WK Material -->
+    <section class="section" data-wave="calm" id="material">
       <div class="container">
-        <div class="section-head section-head--row">
-          <div data-stagger>
-            <h2>Kleine Schritte mit spürbarer Wirkung.</h2>
-            <p class="lead">Oft reicht ein passendes Werkzeug an der richtigen Stelle.</p>
+        <article class="appstory appstory--flip">
+          <div class="appstory__text" data-stagger>
+            <p class="app-mark"><img src="assets/apps/icons/wk-material.webp" alt="" width="320" height="183" /><span>WK Material</span></p>
+            <h2>Material im Lager und im Fahrzeug – immer wissen, was da ist.</h2>
+            <dl class="rln">
+              <div class="rln__risk"><dt>Risiko</dt><dd>Doppelt bestellt oder es fehlt auf der Baustelle. Jedes Fahrzeug ist anders bestückt, die Inventur kostet Tage.</dd></div>
+              <div class="rln__fix"><dt>Lösung</dt><dd>WK Material führt Hauptlager und Fahrzeuge als Lagerplätze. Entnahmen per Scan, Meldebestand und Bestellvorschläge je Großhandel.</dd></div>
+              <div class="rln__gain"><dt>Nutzen</dt><dd><ul class="checklist">
+                <li>Nachfüllliste je Fahrzeug vor Arbeitsbeginn</li>
+                <li>Weniger Doppelbestellungen und Fehlfahrten</li>
+                <li>Entnahmen dem Kunden oder Auftrag zugeordnet</li>
+                <li>Inventur per Scan statt Zählliste</li>
+              </ul></dd></div>
+            </dl>
+            <ul class="status-row" aria-label="Plattformstatus">
+              <li><span class="status status--entwicklung">Web: In Entwicklung</span></li>
+              <li><span class="status status--geplant">Mobil: Geplant</span></li>
+            </ul>
+            <div class="actions"><a class="link-arrow" href="wk-material.html">WK Material ansehen</a></div>
           </div>
-          <a class="btn btn--secondary" href="leistungen.html">Alle Leistungen</a>
-        </div>
-        <div class="tiles tiles--3" data-stagger>
-          <a class="tile" href="wk-material.html"><svg class="icon" aria-hidden="true"><use href="assets/icons.svg#box"/></svg><h3>Material ordnen</h3><p>Lager, Fahrzeug und Bestellungen – mit WK Material oder einfacher Lösung.</p></a>
-          <a class="tile" href="digitalisierung-software.html"><svg class="icon" aria-hidden="true"><use href="assets/icons.svg#layers"/></svg><h3>Kleine Tools</h3><p>Formular, Auswertung, Übersicht – genau passend zum Ablauf.</p></a>
-          <a class="tile" href="digitalisierung-software.html"><svg class="icon" aria-hidden="true"><use href="assets/icons.svg#migrate"/></svg><h3>Alte Software erneuern</h3><p>Verstehen, Daten sichern, schrittweise modernisieren.</p></a>
-          <a class="tile" href="ki-werkstatt.html"><svg class="icon" aria-hidden="true"><use href="assets/icons.svg#doc-search"/></svg><h3>Dokumente &amp; lokale KI</h3><p>Angebote, Datenblätter und Belege auswerten lassen.</p></a>
-          <a class="tile" href="3d-technik.html"><svg class="icon" aria-hidden="true"><use href="assets/icons.svg#printer3d"/></svg><h3>3D-Scan &amp; 3D-Druck</h3><p>Bauteile erfassen, Nachfertigung technisch prüfen.</p></a>
-          <a class="tile" href="mobile-offline.html"><svg class="icon" aria-hidden="true"><use href="assets/icons.svg#smartphone"/></svg><h3>Mobil vor Ort</h3><p>Erfassen und nachschlagen, wo gearbeitet wird.</p></a>
-        </div>
+          <figure class="appstory__media" data-anim>
+            <div class="appstory__stage">
+            <div class="window"><div class="window-bar"><i></i><i></i><i></i><span>WK Material · Fahrzeuglager</span></div><img src="assets/apps/material-fahrzeuge.webp?v=3" width="1600" height="1000" alt="WK Material Fahrzeuglager: Hauptlager und vier Transporter, Soll- und Ist-Bestand je Fach, Inventurdifferenz 2021 bis 2026" loading="lazy" /></div>
+            <div class="window appstory__second appstory__second--phone"><img src="assets/apps/material-mobile.webp?v=3" width="390" height="844" alt="WK Material mobil: Entnahme per Scan" loading="lazy" /></div>
+            </div>
+            <figcaption class="note">Konzeptansichten mit Beispieldaten eines Betriebs mit vier Fahrzeugen.</figcaption>
+          </figure>
+        </article>
       </div>
     </section>
 
-    <!-- Lokale KI für Dokumente -->
-    <section class="section section--alt" data-wave="flow">
+    <!-- 5 · Nach Jahren -->
+    <section class="section section--alt" data-wave="grid">
+      <div class="container">
+        <div class="section-head" data-stagger>
+          <h2>Was sich über die Jahre ansammelt – und auszahlt.</h2>
+          <p class="lead">Je länger die Daten gepflegt werden, desto mehr Wissen steckt darin: Preise, Garantien, Verbräuche, Fristen.</p>
+        </div>
+        <div class="kpis kpis--4" data-stagger>
+          <div class="kpi"><span class="kpi__value">11.462</span><span class="kpi__label">Belege seit 2019, per Volltext auffindbar</span></div>
+          <div class="kpi"><span class="kpi__value">2.318 €</span><span class="kpi__label">genutztes Skonto im laufenden Jahr</span></div>
+          <div class="kpi"><span class="kpi__value">0,6 %</span><span class="kpi__label">Inventurdifferenz</span><span class="kpi__trend">2021: 4,8 %</span></div>
+          <div class="kpi"><span class="kpi__value">2</span><span class="kpi__label">Doppelbestellungen im Jahr</span><span class="kpi__trend">2021: 31</span></div>
+        </div>
+        <p class="note mt-lg">Beispieldaten aus den Konzeptansichten oben – keine Kundenangaben.</p>
+      </div>
+    </section>
+
+    <!-- 6 · KI-Werkstatt -->
+    <section class="section" data-wave="flow">
       <div class="container">
         <div class="split split--text-wide">
           <div class="section-head mt-0" data-stagger>
+            <p class="app-mark"><img src="assets/apps/icons/wk-ki-werkstatt.webp" alt="" width="320" height="183" /><span>KI-Werkstatt</span></p>
             <h2>Dokumente auswerten, ohne sie aus der Hand zu geben.</h2>
             <p class="lead">Je nach Anwendungsfall auf geeigneter Hardware in Ihrem Betrieb – ohne externen KI-Dienst.</p>
           </div>
@@ -103,7 +160,26 @@ og_description: Weniger Papier, weniger Suchen, weniger Doppelarbeit. Digitale L
       </div>
     </section>
 
-    <!-- Einstieg -->
+    <!-- 7 · Weitere Hilfen -->
+    <section class="section section--alt" data-wave="grid">
+      <div class="container">
+        <div class="section-head section-head--row">
+          <div data-stagger>
+            <h2>Was außerdem hilft.</h2>
+            <p class="lead">Oft reicht ein passendes Werkzeug an der richtigen Stelle.</p>
+          </div>
+          <a class="btn btn--secondary" href="leistungen.html">Alle Leistungen</a>
+        </div>
+        <div class="tiles tiles--4" data-stagger>
+          <a class="tile" href="digitalisierung-software.html"><svg class="icon" aria-hidden="true"><use href="assets/icons.svg#layers"/></svg><h3>Kleine Tools</h3><p>Formular, Auswertung, Übersicht – genau passend zum Ablauf.</p></a>
+          <a class="tile" href="digitalisierung-software.html"><svg class="icon" aria-hidden="true"><use href="assets/icons.svg#migrate"/></svg><h3>Alte Software erneuern</h3><p>Verstehen, Daten sichern, schrittweise modernisieren.</p></a>
+          <a class="tile" href="3d-technik.html"><svg class="icon" aria-hidden="true"><use href="assets/icons.svg#printer3d"/></svg><h3>3D-Scan &amp; 3D-Druck</h3><p>Bauteile erfassen, Nachfertigung technisch prüfen.</p></a>
+          <a class="tile" href="mobile-offline.html"><svg class="icon" aria-hidden="true"><use href="assets/icons.svg#smartphone"/></svg><h3>Mobil vor Ort</h3><p>Erfassen und nachschlagen, wo gearbeitet wird.</p></a>
+        </div>
+      </div>
+    </section>
+
+    <!-- 8 · Einstieg -->
     <section class="section" data-wave="flow">
       <div class="container">
         <div class="section-head" data-stagger>
@@ -129,7 +205,7 @@ og_description: Weniger Papier, weniger Suchen, weniger Doppelarbeit. Digitale L
       </div>
     </section>
 
-    <!-- Abschluss -->
+    <!-- 9 · Abschluss -->
     <section class="section" data-wave="surge">
       <div class="container">
         <div class="closing">
@@ -139,6 +215,7 @@ og_description: Weniger Papier, weniger Suchen, weniger Doppelarbeit. Digitale L
               <p class="lead">Wir sagen Ihnen offen, ob und wie sich das sinnvoll lösen lässt.</p>
               <div class="actions">
                 <a class="btn btn--primary" href="kontakt.html">Projekt besprechen</a>
+                <a class="btn btn--secondary" href="quick-check.html">Quick-Check anfragen</a>
               </div>
               <p class="note mt-lg">Sie sind ein produzierendes Unternehmen? <a href="industrie.html">Zur Seite für Industrie</a></p>
             </div>

@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="de"><head><meta charset="utf-8" /><title>WK Instandhaltung – Auswertung über die Jahre</title><link rel="stylesheet" href="mockup.css" />
+<style>
+  .grid { display:grid; grid-template-columns: 1.3fr 1fr; gap:10px; }
+  .sb { display:flex; align-items:flex-end; gap:8px; height:205px; padding:4px 12px 0; }
+  .sb div { flex:1; display:flex; flex-direction:column; align-items:stretch; height:100%; justify-content:flex-end; }
+  .sb i { display:block; } .sb i.p { background: var(--green); border-radius:3px 3px 0 0; } .sb i.s { background: var(--crit); opacity:.75; }
+  .sb span { margin-top:3px; text-align:center; font-size:7.5px; color:var(--ink-3); }
+  .lg { display:flex; gap:12px; padding:8px 12px 10px; font-size:8px; color:var(--ink-3); }
+  .lg i { display:inline-block; width:8px; height:8px; border-radius:2px; margin-right:4px; vertical-align:-1px; }
+</style></head>
+<body data-app="instandhaltung" data-nav="auswertungen">
+  <header class="appbar"><span class="crumb">Auswertungen · Werk 1 · <b>2018 – 2026</b></span></header>
+  <main class="page">
+    <div class="title-row">
+      <div><h1>Instandhaltung über die Jahre</h1><p>Im Einsatz seit Mai 2018 · 64 Anlagen · 6.384 Aufträge · 2.917 Rückmeldungen mit Foto</p></div>
+      <div class="btns"><span class="btn btn--ghost">Bericht exportieren</span><span class="btn">Zeitraum</span></div>
+    </div>
+    <div class="kpis">
+      <div class="kpi ok"><small>Anteil geplanter Aufträge 2026</small><strong>71 %</strong><span>2019: 38 %</span></div>
+      <div class="kpi crit"><small>Stillstand 2026 bis Okt.</small><strong>212 h</strong><span>2019: 640 h im ganzen Jahr</span></div>
+      <div class="kpi green"><small>Mittlere Reparaturzeit</small><strong>1,9 h</strong><span>2019: 3,4 h</span></div>
+      <div class="kpi warn"><small>Wiederkehrende Ursachen</small><strong>4</strong><span>in Bearbeitung</span></div>
+    </div>
+    <div class="grid">
+      <div class="card">
+        <div class="card-head"><h2>Aufträge je Jahr</h2><span class="meta">geplant · Störung</span></div>
+        <div class="sb">
+          <div><i class="p" style="height:22%"></i><i class="s" style="height:46%"></i><span>2018*</span></div>
+          <div><i class="p" style="height:30%"></i><i class="s" style="height:49%"></i><span>2019</span></div>
+          <div><i class="p" style="height:38%"></i><i class="s" style="height:42%"></i><span>2020</span></div>
+          <div><i class="p" style="height:47%"></i><i class="s" style="height:36%"></i><span>2021</span></div>
+          <div><i class="p" style="height:53%"></i><i class="s" style="height:30%"></i><span>2022</span></div>
+          <div><i class="p" style="height:58%"></i><i class="s" style="height:26%"></i><span>2023</span></div>
+          <div><i class="p" style="height:61%"></i><i class="s" style="height:24%"></i><span>2024</span></div>
+          <div><i class="p" style="height:63%"></i><i class="s" style="height:22%"></i><span>2025</span></div>
+          <div><i class="p" style="height:52%"></i><i class="s" style="height:18%"></i><span>2026</span></div>
+        </div>
+        <div class="lg"><span><i style="background:var(--green)"></i>Geplant (Wartung, Inspektion)</span><span><i style="background:var(--crit);opacity:.75"></i>Störung</span><span>* ab Mai</span></div>
+      </div>
+      <div class="card">
+        <table>
+          <thead><tr><th>Anlage · Stillstand 2026</th><th class="r">h</th><th class="r">Vorjahr</th><th>Trend</th></tr></thead>
+          <tbody>
+            <tr class="bar-crit"><td>Presse P-03</td><td class="r">46</td><td class="r">71</td><td><span class="chip ok">−35 %</span></td></tr>
+            <tr class="bar-warn"><td>Förderband FB-03</td><td class="r">31</td><td class="r">28</td><td><span class="chip warn">+11 %</span></td></tr>
+            <tr class="bar-ok"><td>Lackieranlage L-1</td><td class="r">22</td><td class="r">54</td><td><span class="chip ok">−59 %</span></td></tr>
+            <tr class="bar-ok"><td>Kompressor K-2</td><td class="r">14</td><td class="r">19</td><td><span class="chip ok">−26 %</span></td></tr>
+            <tr class="bar-ok"><td>Roboterzelle R-4</td><td class="r">12</td><td class="r">12</td><td><span class="chip">±0 %</span></td></tr>
+            <tr class="bar-ok"><td>Kühlwasser KW-1</td><td class="r">9</td><td class="r">16</td><td><span class="chip ok">−44 %</span></td></tr>
+            <tr class="bar-ok"><td>Schweißroboter S-2</td><td class="r">8</td><td class="r">13</td><td><span class="chip ok">−38 %</span></td></tr>
+            <tr class="bar-ok"><td>Hallenkran HK-1</td><td class="r">6</td><td class="r">5</td><td><span class="chip">+1 h</span></td></tr>
+            <tr class="bar-ok"><td>Absaugung AS-3</td><td class="r">5</td><td class="r">11</td><td><span class="chip ok">−55 %</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </main>
+  <script src="shell.js"></script>
+</body></html>
