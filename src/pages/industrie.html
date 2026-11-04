@@ -12,7 +12,7 @@ og_description: Stillstand, gebundenes Kapital, Wissensverlust: was kleine und m
         <div class="page-hero__grid">
           <div data-stagger>
             <nav class="breadcrumb" aria-label="Brotkrumen"><a href="index.html">Start</a> / <span aria-current="page">Für Industrie</span></nav>
-            <h1>Versorgung sichern. Bestände wirtschaftlich steuern.</h1>
+            <h1>Das Teil fehlt erst, wenn die Anlage steht. Finden Sie es vorher.</h1>
             <p class="lead">Für kleine und mittlere Industriebetriebe ohne eigene Stammdaten- oder Planungsabteilung: Ersatzteile, Instandhaltung und Daten so ordnen, dass Risiken sichtbar werden, bevor sie Stillstand verursachen.</p>
             <ul class="app-row" aria-label="Passende Anwendungen">
               <li><img src="assets/apps/icons/wk-smartparts.webp" alt="" width="320" height="183" />WK SmartParts</li>
@@ -21,9 +21,10 @@ og_description: Stillstand, gebundenes Kapital, Wissensverlust: was kleine und m
               <li><img src="assets/apps/icons/wk-3d-druck.webp" alt="" width="320" height="183" />WK 3D-Druck</li>
             </ul>
             <div class="actions">
-              <a class="btn btn--primary" href="kontakt.html">Projekt besprechen</a>
-              <a class="btn btn--secondary" href="#smartparts">Lösungen ansehen</a>
+              <a class="btn btn--primary" href="kontakt.html?thema=erstanalyse">Kostenlose Erstanalyse anfragen</a>
+              <a class="btn btn--secondary" href="#stillstand">Stillstand berechnen</a>
             </div>
+            <p class="promise"><svg class="icon" aria-hidden="true"><use href="assets/icons.svg#shield"/></svg><span><strong>Keine Einsparung, keine Kosten.</strong> Die Erstanalyse berechnen wir nur, wenn wir Potenzial finden.</span></p>
           </div>
         </div>
       </div>
@@ -44,13 +45,47 @@ og_description: Stillstand, gebundenes Kapital, Wissensverlust: was kleine und m
       </div>
     </section>
 
+    <!-- 2b · Stillstands-Rechner -->
+    <section class="section section--alt" data-wave="calm" id="stillstand">
+      <div class="container">
+        <div class="section-head" data-stagger>
+          <p class="persona">Für die Geschäftsleitung</p>
+          <h2>Was kostet Sie eine Stunde Stillstand?</h2>
+          <p class="lead">Rechnen Sie es in zehn Sekunden durch – und sehen Sie, was schon ein Viertel weniger bringt.</p>
+        </div>
+        <div class="calc-body" data-anim>
+          <form class="calc-form" data-calc="stillstand">
+            <div class="calc-field">
+              <label for="st-kosten">Kosten je Stunde Stillstand</label>
+              <output for="st-kosten" data-out="kosten">1.500 €</output>
+              <input type="range" id="st-kosten" name="kosten" min="0" max="100" step="1" value="52" data-log-min="150" data-log-max="15000" />
+            </div>
+            <div class="calc-field">
+              <label for="st-stunden">Ungeplante Stillstandsstunden pro Jahr</label>
+              <output for="st-stunden" data-out="stunden">120 h</output>
+              <input type="range" id="st-stunden" name="stunden" min="10" max="600" step="10" value="120" />
+            </div>
+          </form>
+          <div class="calc-result">
+            <dl class="calc-figures" aria-live="polite">
+              <div><dt>Stillstand kostet Sie pro Jahr</dt><dd data-res="jahr">180.000 €</dd></div>
+              <div><dt>Ein Viertel weniger Stillstand spart</dt><dd data-res="viertel">45.000 €</dd></div>
+            </dl>
+            <p class="note">Grobes Rechenbeispiel – Kosten je Stunde inklusive Personal, Ausschuss und Lieferverzug.</p>
+            <div><a class="btn btn--primary" href="kontakt.html?thema=erstanalyse">Kostenlose Erstanalyse anfragen</a></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
     <!-- 3 · WK SmartParts -->
-    <section class="section section--alt" data-wave="flow" id="smartparts">
+    <section class="section" data-wave="flow" id="smartparts">
       <div class="container">
         <article class="appstory">
           <div class="appstory__text" data-stagger>
             <p class="app-mark"><img src="assets/apps/icons/wk-smartparts.webp" alt="" width="320" height="183" /><span>WK SmartParts</span></p>
-            <h2>Ersatzteilrisiken sehen, bevor sie stören.</h2>
+            <p class="persona">Für Geschäftsleitung, Einkauf und Disposition</p>
+            <h2>Sehen Sie Ihre riskantesten Ersatzteile – bevor die Anlage steht.</h2>
             <dl class="rln">
               <div class="rln__risk"><dt>Risiko</dt><dd>Daten verteilt auf ERP und Excel. Welche Teile kritisch sind, wo Kapital gebunden ist und wo nur ein Lieferant bleibt, weiß niemand genau.</dd></div>
               <div class="rln__fix"><dt>Lösung</dt><dd>WK SmartParts bewertet Datenqualität, Bestände, Kritikalität, Lieferzeiten und Lieferantenrisiken in einer gemeinsamen Sicht.</dd></div>
@@ -64,7 +99,7 @@ og_description: Stillstand, gebundenes Kapital, Wissensverlust: was kleine und m
               <li><span class="status status--verfuegbar">Web: Verfügbar</span></li>
               <li><span class="status status--geplant">Mobil: Geplant</span></li>
             </ul>
-            <div class="actions"><a class="link-arrow" href="smartparts.html">WK SmartParts ansehen</a></div>
+            <div class="actions"><a class="btn btn--primary" href="kontakt.html?thema=smartparts-test">30 Tage kostenlos testen</a><a class="link-arrow" href="smartparts.html">WK SmartParts ansehen</a></div>
           </div>
           <figure class="appstory__media" data-anim>
             <div class="appstory__stage">
@@ -78,12 +113,13 @@ og_description: Stillstand, gebundenes Kapital, Wissensverlust: was kleine und m
     </section>
 
     <!-- 4 · WK Instandhaltung -->
-    <section class="section" data-wave="calm" id="instandhaltung">
+    <section class="section section--alt" data-wave="calm" id="instandhaltung">
       <div class="container">
         <article class="appstory appstory--flip">
           <div class="appstory__text" data-stagger>
             <p class="app-mark"><img src="assets/apps/icons/wk-instandhaltung.webp" alt="" width="320" height="183" /><span>WK Instandhaltung</span></p>
-            <h2>Von der Störung zur geplanten Wartung.</h2>
+            <p class="persona">Für Instandhaltungs- und Werkstattleitung</p>
+            <h2>Weniger Feuerwehr. Mehr Plan. Und Zahlen für die Geschäftsleitung.</h2>
             <dl class="rln">
               <div class="rln__risk"><dt>Risiko</dt><dd>Störungen werden auf Zuruf erledigt, Rückmeldungen gehen verloren. Wiederkehrende Ursachen fallen nicht auf – die Anlage fällt immer wieder aus.</dd></div>
               <div class="rln__fix"><dt>Lösung</dt><dd>WK Instandhaltung verbindet Meldung, Auftrag, Checkliste, Materialbedarf und Rückmeldung zu einer Anlagenhistorie.</dd></div>
@@ -97,7 +133,7 @@ og_description: Stillstand, gebundenes Kapital, Wissensverlust: was kleine und m
               <li><span class="status status--entwicklung">Web: In Entwicklung</span></li>
               <li><span class="status status--geplant">Mobil: Geplant</span></li>
             </ul>
-            <div class="actions"><a class="link-arrow" href="wk-instandhaltung.html">WK Instandhaltung ansehen</a></div>
+            <div class="actions"><a class="btn btn--primary" href="kontakt.html?thema=wk-instandhaltung">30 Tage kostenlos testen – vormerken</a><a class="link-arrow" href="#klickdemo">Selbst ausprobieren</a></div>
           </div>
           <figure class="appstory__media" data-anim>
             <div class="appstory__stage">
@@ -110,13 +146,68 @@ og_description: Stillstand, gebundenes Kapital, Wissensverlust: was kleine und m
       </div>
     </section>
 
+    <!-- 4b · Klick-Demo für Instandhalter -->
+    <section class="section" data-wave="flow" id="klickdemo">
+      <div class="container">
+        <div class="clickdemo-wrap">
+          <div data-stagger>
+            <p class="persona">Für Instandhalter und Techniker</p>
+            <h2>Störung melden? Drei Tipper. Probieren Sie es selbst.</h2>
+            <p class="lead" style="margin-top:16px">Kein Formular, kein Zettel: Anlage scannen, Störbild antippen, Foto dazu – die Meldung landet direkt beim Auftrag.</p>
+            <ul class="checklist mt-lg">
+              <li>Anlage per QR-Code statt Suche im Menü</li>
+              <li>Störbild antippen statt Freitext tippen</li>
+              <li>Foto und Rückmeldung direkt aus der Hand</li>
+            </ul>
+            <div class="actions"><a class="btn btn--primary" href="kontakt.html?thema=wk-instandhaltung">30 Tage kostenlos testen – vormerken</a></div>
+          </div>
+          <div class="clickdemo" data-clickdemo data-anim>
+            <div class="clickdemo__phone">
+              <div class="clickdemo__bar"><img src="assets/apps/icons/wk-instandhaltung.webp" alt="" width="320" height="183" /><b>WK Instandhaltung</b><span class="clickdemo__steps" aria-hidden="true"><i></i><i></i><i></i></span></div>
+              <div class="clickdemo__screen is-on" data-step="1">
+                <small>Schritt 1 von 3</small>
+                <h3>Anlage scannen</h3>
+                <div class="clickdemo__scan" aria-hidden="true"><svg viewBox="0 0 60 60"><path d="M4 16V4h12M44 4h12v12M56 44v12H44M16 56H4V44" fill="none" stroke="currentColor" stroke-width="2.5"/><g fill="currentColor"><rect x="14" y="14" width="10" height="10"/><rect x="36" y="14" width="10" height="10"/><rect x="14" y="36" width="10" height="10"/><rect x="28" y="28" width="4" height="4"/><rect x="36" y="36" width="4" height="4"/><rect x="42" y="42" width="4" height="4"/><rect x="28" y="40" width="4" height="6"/></g></svg><span class="clickdemo__laser"></span></div>
+                <button type="button" class="clickdemo__btn" data-next>Förderband FB-03 erkannt – weiter</button>
+              </div>
+              <div class="clickdemo__screen" data-step="2" hidden>
+                <small>Schritt 2 von 3 · Förderband FB-03</small>
+                <h3>Was ist passiert?</h3>
+                <div class="clickdemo__opts">
+                  <button type="button" data-next>Steht still</button>
+                  <button type="button" data-next>Läuft eingeschränkt</button>
+                  <button type="button" data-next>Ungewöhnliches Geräusch</button>
+                  <button type="button" data-next>Leck / Austritt</button>
+                </div>
+              </div>
+              <div class="clickdemo__screen" data-step="3" hidden>
+                <small>Schritt 3 von 3 · <span data-choice>Steht still</span></small>
+                <h3>Foto dazu?</h3>
+                <div class="clickdemo__photo" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 8a1 1 0 0 1 1-1h3l1.8-2.5h6.4L17 7h3a1 1 0 0 1 1 1v11a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1z"/><circle cx="12" cy="13" r="3.5"/></svg></div>
+                <button type="button" class="clickdemo__btn" data-next>Foto aufnehmen und melden</button>
+                <button type="button" class="clickdemo__btn clickdemo__btn--ghost" data-next>Ohne Foto melden</button>
+              </div>
+              <div class="clickdemo__screen clickdemo__done" data-step="4" hidden>
+                <span class="clickdemo__check" aria-hidden="true">✓</span>
+                <h3>Störung gemeldet</h3>
+                <p>IH-26-0412 · Förderband FB-03<br /><span data-choice>Steht still</span> · Priorität hoch · an Schicht 2</p>
+                <button type="button" class="clickdemo__btn clickdemo__btn--ghost" data-reset>Noch einmal</button>
+              </div>
+            </div>
+            <p class="note">Klick-Demo mit Beispieldaten. Mobile Version: Geplant.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
     <!-- 5 · WK Material -->
     <section class="section section--alt" data-wave="flow" id="material">
       <div class="container">
         <article class="appstory">
           <div class="appstory__text" data-stagger>
             <p class="app-mark"><img src="assets/apps/icons/wk-material.webp" alt="" width="320" height="183" /><span>WK Material</span></p>
-            <h2>Weniger Kapital im Regal, mehr Teile im Störfall.</h2>
+            <p class="persona">Für Lager und Logistik</p>
+            <h2>Nie wieder „laut System da, im Regal leer“.</h2>
             <dl class="rln">
               <div class="rln__risk"><dt>Risiko</dt><dd>Bestände stimmen nicht mit dem Regal überein. Ladenhüter wachsen, während kritische Teile ohne Meldebestand laufen.</dd></div>
               <div class="rln__fix"><dt>Lösung</dt><dd>WK Material bucht Wareneingang, Entnahme und Umlagerung per Scan am Lagerplatz – mit Meldebeständen und Bestellvorschlägen.</dd></div>
@@ -130,7 +221,7 @@ og_description: Stillstand, gebundenes Kapital, Wissensverlust: was kleine und m
               <li><span class="status status--entwicklung">Web: In Entwicklung</span></li>
               <li><span class="status status--geplant">Mobil: Geplant</span></li>
             </ul>
-            <div class="actions"><a class="link-arrow" href="wk-material.html">WK Material ansehen</a></div>
+            <div class="actions"><a class="btn btn--primary" href="kontakt.html?thema=wk-material">30 Tage kostenlos testen – vormerken</a><a class="link-arrow" href="wk-material.html">WK Material ansehen</a></div>
           </div>
           <figure class="appstory__media" data-anim>
             <div class="appstory__stage">
@@ -149,6 +240,7 @@ og_description: Stillstand, gebundenes Kapital, Wissensverlust: was kleine und m
         <article class="appstory appstory--flip">
           <div class="appstory__text" data-stagger>
             <p class="app-mark"><img src="assets/apps/icons/wk-3d-druck.webp" alt="" width="320" height="183" /><span>WK 3D-Druck</span></p>
+            <p class="persona">Für Instandhaltung und Konstruktion</p>
             <h2>Wenn das Original fehlt: Teiledaten griffbereit.</h2>
             <dl class="rln">
               <div class="rln__risk"><dt>Risiko</dt><dd>Abgekündigte Teile ohne Zeichnung. Scans und CAD-Dateien liegen verstreut, Versionen sind unklar.</dd></div>
@@ -162,7 +254,7 @@ og_description: Stillstand, gebundenes Kapital, Wissensverlust: was kleine und m
               <li><span class="status status--entwicklung">Web: In Entwicklung</span></li>
               <li><span class="status status--geplant">Mobil: Geplant</span></li>
             </ul>
-            <div class="actions"><a class="link-arrow" href="wk-3d.html">WK 3D-Druck ansehen</a><a class="link-arrow" href="3d-technik.html">3D-Technik</a></div>
+            <div class="actions"><a class="btn btn--primary" href="kontakt.html?thema=wk-3d">30 Tage kostenlos testen – vormerken</a><a class="link-arrow" href="3d-technik.html">3D-Technik</a></div>
           </div>
           <figure class="appstory__media" data-anim>
             <div class="appstory__stage">
@@ -274,9 +366,10 @@ og_description: Stillstand, gebundenes Kapital, Wissensverlust: was kleine und m
               <h2>Wo liegt Ihr größtes Material- oder Instandhaltungsrisiko?</h2>
               <p class="lead">Wir prüfen, welcher Einstieg technisch und wirtschaftlich sinnvoll ist – vom Quick-Check bis zur Umsetzung.</p>
               <div class="actions">
-                <a class="btn btn--primary" href="kontakt.html">Projekt besprechen</a>
-                <a class="btn btn--secondary" href="quick-check.html">Quick-Check anfragen</a>
+                <a class="btn btn--primary" href="kontakt.html?thema=erstanalyse">Kostenlose Erstanalyse anfragen</a>
+                <a class="btn btn--secondary" href="quick-check.html">Quick-Check ab 990 €</a>
               </div>
+              <p class="promise"><svg class="icon" aria-hidden="true"><use href="assets/icons.svg#shield"/></svg><span><strong>Keine Einsparung, keine Kosten.</strong> Die Erstanalyse berechnen wir nur, wenn wir Potenzial finden.</span></p>
               <p class="note mt-lg">Sie führen einen Handwerksbetrieb? <a href="handwerk.html">Zur Seite für Handwerk</a></p>
             </div>
           </div>

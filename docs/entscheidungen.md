@@ -90,3 +90,11 @@ Fehlt ein Wert, zeigt die Website „Geplant“ bzw. „noch festzulegen“ – 
 - Impressum/Datenschutz: Platzhalter entfernt; Registerangaben und USt-IdNr. nachtragen; vor Go-live juristisch prüfen
 - SmartParts-Screenshots: Hersteller- und Lieferantennamen sowie markenbezogene Typbezeichnungen unkenntlich gemacht (Hersteller A–E, Lieferant A/B) – vom Inhaber entschieden, 2026-11-01; Werkzeug: tools/anon/anonymize.py
 - SmartParts-Navigation in den Vollfenster-Ansichten ist nachgestellt – echte Vollfenster-Screenshots nachliefern, sobald verfügbar
+
+## Angebote und Verkaufsreize (vom Inhaber entschieden, 2026-11-04)
+- Analyse / Quick-Check: „Keine Einsparung, keine Kosten“ – findet die Analyse kein Einsparpotenzial, wird sie nicht berechnet
+- 30 Tage kostenlose Nutzung (Basic) je WK-App – nutzbar, sobald die App verfügbar ist (derzeit WK SmartParts Web); übrige Apps: „vormerken“
+- Keine Online-Terminbuchung – nur Wunschtermin im Kontaktformular
+- Gründer nicht als Person in den Vordergrund stellen (kein Porträt, kein Zitat-Block)
+- Bildschirmvideos der Apps aus den Konzeptansichten erlaubt; für Instandhalter stattdessen Klick-Demo
+- Keine künstliche Knappheit (z. B. Terminkontingente) ohne tatsächliche Grundlage

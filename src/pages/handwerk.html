@@ -12,24 +12,25 @@ og_description: Weniger Suchen, weniger Doppelarbeit, keine verpassten Fristen. 
         <div class="page-hero__grid">
           <div data-stagger>
             <nav class="breadcrumb" aria-label="Brotkrumen"><a href="index.html">Start</a> / <span aria-current="page">Für Handwerk</span></nav>
-            <h1>Digitalisierung, die zu Ihrem Betrieb passt.</h1>
-            <p class="lead">Für Handwerk und Kleinbetriebe: Belege, Material und Fristen im Griff – mit Anwendungen, die im Alltag funktionieren, und einem klar beschriebenen Aufwand.</p>
+            <h1>Mehr Zeit fürs Handwerk. Weniger für Zettel.</h1>
+            <p class="lead">Belege, Material und Fristen laufen im Hintergrund mit – Sie arbeiten auf der Baustelle, nicht im Büro. Für Handwerk und Kleinbetriebe, ohne großes System.</p>
             <ul class="app-row" aria-label="Passende Anwendungen">
               <li><img src="assets/apps/icons/wk-finance.webp" alt="" width="320" height="183" />WK Finance</li>
               <li><img src="assets/apps/icons/wk-material.webp" alt="" width="320" height="183" />WK Material</li>
               <li><img src="assets/apps/icons/wk-ki-werkstatt.webp" alt="" width="320" height="183" />KI-Werkstatt</li>
             </ul>
             <div class="actions">
-              <a class="btn btn--primary" href="kontakt.html">Projekt besprechen</a>
-              <a class="btn btn--secondary" href="#finance">Lösungen ansehen</a>
+              <a class="btn btn--primary" href="kontakt.html?thema=erstanalyse">Kostenlose Erstanalyse anfragen</a>
+              <a class="btn btn--secondary" href="#selbsttest">Selbsttest in 1 Minute</a>
             </div>
+            <p class="promise"><svg class="icon" aria-hidden="true"><use href="assets/icons.svg#shield"/></svg><span><strong>Keine Einsparung, keine Kosten.</strong> Die Erstanalyse berechnen wir nur, wenn wir Potenzial finden.</span></p>
           </div>
         </div>
       </div>
     </section>
 
     <!-- 2 · Selbsttest -->
-    <section class="section" data-wave="calm">
+    <section class="section" data-wave="calm" id="selbsttest">
       <div class="container">
         <div class="section-head" data-stagger>
           <h2>Kommt Ihnen das bekannt vor?</h2>
@@ -61,7 +62,8 @@ og_description: Weniger Suchen, weniger Doppelarbeit, keine verpassten Fristen. 
         <article class="appstory">
           <div class="appstory__text" data-stagger>
             <p class="app-mark"><img src="assets/apps/icons/wk-finance.webp" alt="" width="320" height="183" /><span>WK Finance</span></p>
-            <h2>Belege, Zahlungen und Verträge – über Jahre geordnet.</h2>
+            <p class="persona">Für Inhaber und Büro</p>
+            <h2>Holen Sie sich das Skonto zurück, das Sie heute liegen lassen.</h2>
             <dl class="rln">
               <div class="rln__risk"><dt>Risiko</dt><dd>Belege liegen in Postfach, Auto und Ordner. Zahlungsziele und Kündigungsfristen fallen erst auf, wenn es zu spät ist.</dd></div>
               <div class="rln__fix"><dt>Lösung</dt><dd>WK Finance sammelt Belege, Zahlungen und Verträge an einem Ort, erinnert an Fristen und findet jeden Beleg per Volltext – auch nach Jahren.</dd></div>
@@ -76,7 +78,7 @@ og_description: Weniger Suchen, weniger Doppelarbeit, keine verpassten Fristen. 
               <li><span class="status status--entwicklung">Web: In Entwicklung</span></li>
               <li><span class="status status--geplant">Mobil: Geplant</span></li>
             </ul>
-            <div class="actions"><a class="link-arrow" href="wk-finance.html">WK Finance ansehen</a></div>
+            <div class="actions"><a class="btn btn--primary" href="kontakt.html?thema=wk-finance">30 Tage kostenlos testen – vormerken</a><a class="link-arrow" href="#skonto">Skonto berechnen</a></div>
             <p class="note">WK Finance ersetzt keine Steuerberatung und keine Finanzbuchhaltung.</p>
           </div>
           <figure class="appstory__media" data-anim>
@@ -90,13 +92,46 @@ og_description: Weniger Suchen, weniger Doppelarbeit, keine verpassten Fristen. 
       </div>
     </section>
 
+    <!-- 3b · Skonto-Rechner -->
+    <section class="section" data-wave="calm" id="skonto">
+      <div class="container">
+        <div class="section-head" data-stagger>
+          <h2>Wie viel Skonto lassen Sie jedes Jahr liegen?</h2>
+          <p class="lead">Zwei Regler, ein Ergebnis – grob gerechnet, ehrlich gemeint.</p>
+        </div>
+        <div class="calc-body" data-anim>
+          <form class="calc-form" data-calc="skonto">
+            <div class="calc-field">
+              <label for="sk-volumen">Einkauf pro Jahr (Material, Werkzeug, Fahrzeuge)</label>
+              <output for="sk-volumen" data-out="volumen">300.000 €</output>
+              <input type="range" id="sk-volumen" name="volumen" min="0" max="100" step="1" value="58" data-log-min="30000" data-log-max="2000000" />
+            </div>
+            <div class="calc-field">
+              <label for="sk-genutzt">Wie oft nutzen Sie Skonto heute?</label>
+              <output for="sk-genutzt" data-out="genutzt">40 %</output>
+              <input type="range" id="sk-genutzt" name="genutzt" min="0" max="100" step="10" value="40" />
+            </div>
+          </form>
+          <div class="calc-result">
+            <dl class="calc-figures" aria-live="polite">
+              <div><dt>Liegen gelassenes Skonto pro Jahr</dt><dd data-res="verloren">1.800 €</dd></div>
+              <div><dt>Über fünf Jahre</dt><dd data-res="fuenf">9.000 €</dd></div>
+            </dl>
+            <p class="note">Grobes Rechenbeispiel mit üblichen Skontosätzen – kein Angebot.</p>
+            <div><a class="btn btn--primary" href="kontakt.html?thema=wk-finance">Skonto sichern – WK Finance vormerken</a></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
     <!-- 4 · WK Material -->
-    <section class="section" data-wave="calm" id="material">
+    <section class="section section--alt" data-wave="calm" id="material">
       <div class="container">
         <article class="appstory appstory--flip">
           <div class="appstory__text" data-stagger>
             <p class="app-mark"><img src="assets/apps/icons/wk-material.webp" alt="" width="320" height="183" /><span>WK Material</span></p>
-            <h2>Material im Lager und im Fahrzeug – immer wissen, was da ist.</h2>
+            <p class="persona">Für Werkstatt, Lager und Monteure</p>
+            <h2>Kein Monteur fährt mehr ohne das richtige Teil los.</h2>
             <dl class="rln">
               <div class="rln__risk"><dt>Risiko</dt><dd>Doppelt bestellt oder es fehlt auf der Baustelle. Jedes Fahrzeug ist anders bestückt, die Inventur kostet Tage.</dd></div>
               <div class="rln__fix"><dt>Lösung</dt><dd>WK Material führt Hauptlager und Fahrzeuge als Lagerplätze. Entnahmen per Scan, Meldebestand und Bestellvorschläge je Großhandel.</dd></div>
@@ -111,7 +146,7 @@ og_description: Weniger Suchen, weniger Doppelarbeit, keine verpassten Fristen. 
               <li><span class="status status--entwicklung">Web: In Entwicklung</span></li>
               <li><span class="status status--geplant">Mobil: Geplant</span></li>
             </ul>
-            <div class="actions"><a class="link-arrow" href="wk-material.html">WK Material ansehen</a></div>
+            <div class="actions"><a class="btn btn--primary" href="kontakt.html?thema=wk-material">30 Tage kostenlos testen – vormerken</a><a class="link-arrow" href="wk-material.html">WK Material ansehen</a></div>
           </div>
           <figure class="appstory__media" data-anim>
             <div class="appstory__stage">
@@ -125,7 +160,7 @@ og_description: Weniger Suchen, weniger Doppelarbeit, keine verpassten Fristen. 
     </section>
 
     <!-- 5 · Nach Jahren -->
-    <section class="section section--alt" data-wave="grid">
+    <section class="section" data-wave="grid">
       <div class="container">
         <div class="section-head" data-stagger>
           <h2>Was sich über die Jahre ansammelt – und auszahlt.</h2>
@@ -142,7 +177,7 @@ og_description: Weniger Suchen, weniger Doppelarbeit, keine verpassten Fristen. 
     </section>
 
     <!-- 6 · KI-Werkstatt -->
-    <section class="section" data-wave="flow">
+    <section class="section section--alt" data-wave="flow">
       <div class="container">
         <div class="split split--text-wide">
           <div class="section-head mt-0" data-stagger>
@@ -161,7 +196,7 @@ og_description: Weniger Suchen, weniger Doppelarbeit, keine verpassten Fristen. 
     </section>
 
     <!-- 7 · Weitere Hilfen -->
-    <section class="section section--alt" data-wave="grid">
+    <section class="section" data-wave="grid">
       <div class="container">
         <div class="section-head section-head--row">
           <div data-stagger>
@@ -180,7 +215,7 @@ og_description: Weniger Suchen, weniger Doppelarbeit, keine verpassten Fristen. 
     </section>
 
     <!-- 8 · Einstieg -->
-    <section class="section" data-wave="flow">
+    <section class="section section--alt" data-wave="flow">
       <div class="container">
         <div class="section-head" data-stagger>
           <h2>Erst verstehen. Dann den kleinsten sinnvollen Schritt gehen.</h2>
@@ -212,11 +247,12 @@ og_description: Weniger Suchen, weniger Doppelarbeit, keine verpassten Fristen. 
           <div class="closing__grid">
             <div data-stagger>
               <h2>Was kostet Sie im Alltag am meisten Zeit?</h2>
-              <p class="lead">Wir sagen Ihnen offen, ob und wie sich das sinnvoll lösen lässt.</p>
+              <p class="lead">Schildern Sie es uns in drei Sätzen. Wir sagen Ihnen offen, ob und wie sich das lösen lässt – und was es bringt.</p>
               <div class="actions">
-                <a class="btn btn--primary" href="kontakt.html">Projekt besprechen</a>
-                <a class="btn btn--secondary" href="quick-check.html">Quick-Check anfragen</a>
+                <a class="btn btn--primary" href="kontakt.html?thema=erstanalyse">Kostenlose Erstanalyse anfragen</a>
+                <a class="btn btn--secondary" href="quick-check.html">Quick-Check ab 990 €</a>
               </div>
+              <p class="promise"><svg class="icon" aria-hidden="true"><use href="assets/icons.svg#shield"/></svg><span><strong>Keine Einsparung, keine Kosten.</strong> Die Erstanalyse berechnen wir nur, wenn wir Potenzial finden.</span></p>
               <p class="note mt-lg">Sie sind ein produzierendes Unternehmen? <a href="industrie.html">Zur Seite für Industrie</a></p>
             </div>
           </div>
