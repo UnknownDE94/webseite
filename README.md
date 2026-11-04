@@ -27,7 +27,7 @@ css/style.css           Designsystem (Tokens, Bausteine, Responsive) – siehe d
 js/main.js              Theme, Navigation, Einblendungen, Reiter, App-Showcase,
                         Motivwechsel, Kennzahlen, Rechenbeispiel, Kontaktformular
 js/wave.js              Partikelwelle (WebGL): Zustände, Raumformen, Partikel-Motive
-assets/                 Logo, Duotone-Icons (icons.svg, aus tools/visuals/icons.py), Schriften, App-Ansichten (apps/)
+assets/                 Logo, Linien-Icons (icons.svg, aus tools/visuals/icons.py), Schriften, App-Ansichten (apps/), App-Symbole (apps/icons/, aus tools/visuals/app-icons.py)
 tools/build/            Build-Skript (nur Node-Bordmittel)
 tools/og/               Vorlage + Skript für assets/og-image.jpg
 tools/visuals/          Wellen-Vorschau und Erzeugung der JPEG-Empfehlungen

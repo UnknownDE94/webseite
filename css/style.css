@@ -739,6 +739,13 @@ html[data-theme="light"] :focus-visible { outline-color: var(--green-2); }
   .callout.is-shown, .showcase-app.is-in .callout.is-shown { opacity: 1; transform: none; }
   }
 
+/* App-Symbole (assets/apps/icons, erzeugt mit tools/visuals/app-icons.py) */
+.app-mark { display: inline-flex; align-items: center; gap: 14px; margin: 0 0 20px; font-family: var(--font-mono); font-size: 0.74rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink-2); }
+.app-mark img { width: 72px; height: auto; filter: drop-shadow(0 8px 22px rgba(0, 0, 0, 0.45)); }
+.nav-panel a.nav-app { display: grid; grid-template-columns: 40px minmax(0, 1fr); column-gap: 12px; align-items: center; }
+.nav-panel a.nav-app img { grid-row: span 2; width: 40px; height: auto; }
+.nav-panel a.nav-app strong, .nav-panel a.nav-app small { grid-column: 2; }
+
 /* Obsoleszenz: Merkmale → Risikobewertung → Priorität */
 .section-head--row > .lead { max-width: 520px; }
 .riskflow { display: grid; grid-template-columns: 220px minmax(60px, 1fr) 230px minmax(60px, 1fr) minmax(0, 330px); align-items: center; padding: 40px 44px; border: 1px solid var(--line); border-radius: var(--radius-lg); background: var(--panel, var(--surface)); }
@@ -1086,7 +1093,8 @@ html[data-theme="light"] .keylist li::before { color: var(--ink-2); }
 .family__shot img { aspect-ratio: 16 / 10; object-fit: cover; object-position: top left; }
 .family__shot:hover .window { transform: translateY(-4px); border-color: color-mix(in srgb, var(--accent) 45%, transparent); }
 .family__shot--phone .window img { aspect-ratio: 16 / 10; }
-.family__name { display: flex; flex-wrap: wrap; align-items: baseline; gap: 6px 12px; }
+.family__name { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 12px; }
+.family__icon { width: 54px; height: auto; flex: none; }
 .family__name h3 { font-size: 1.45rem; }
 .family__name small { font-family: var(--font-mono); font-size: 0.72rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--accent); }
 .family__ps { display: grid; gap: 8px; margin-top: 14px; }

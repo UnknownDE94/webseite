@@ -1,0 +1,311 @@
+<!doctype html>
+<html lang="de" data-theme="dark">
+<head>
+<meta charset="utf-8" />
+<title>Varianten: Probleme, Leistungen, Handwerk</title>
+<!-- Vorlagen für index.html (Kundenproblem, Leistungen + Zielgruppen) und handwerk.html (Alltag).
+     Ansehen über python3 -m http.server im Repo: /tools/visuals/start-handwerk-varianten.html -->
+<link rel="stylesheet" href="../../css/style.css" />
+<style>
+  body { background: var(--bg); }
+  .frame { width: 1440px; padding: 64px 0 72px; position: relative; overflow: hidden; }
+  .frame + .frame { border-top: 1px dashed var(--line-2); }
+  .frame__tag { position: absolute; top: 18px; left: 24px; font: 500 .72rem var(--font-mono); letter-spacing: .08em; text-transform: uppercase; color: var(--ink-3); }
+  .mono { font-family: var(--font-mono); font-size: .7rem; letter-spacing: .08em; text-transform: uppercase; color: var(--ink-3); }
+  .panel { border: 1px solid var(--line); border-radius: var(--radius-lg); background: var(--panel); }
+  .h2wrap { margin-bottom: 36px; }
+  .h2wrap .lead { margin-top: 14px; max-width: 640px; }
+  .app { display: inline-flex; align-items: center; gap: 8px; padding: 4px 11px 4px 6px; border: 1px solid var(--line-2); border-radius: 999px; font-size: .8rem; color: var(--ink-2); white-space: nowrap; }
+  .app img { width: 26px; height: auto; }
+  .svc { display: inline-flex; align-items: center; gap: 6px; padding: 4px 11px; border: 1px dashed var(--line-2); border-radius: 999px; font-size: .8rem; color: var(--ink-2); }
+  .icon { width: 30px; height: 30px; color: var(--ink); }
+  .note { color: var(--ink-3); }
+
+  /* P1 Probleme: Karte mit Anzeichen + Hilfe */
+  .p1 { display: grid; grid-template-columns: repeat(3, 1fr); overflow: hidden; }
+  .p1 > div { padding: 30px 28px 26px; display: grid; gap: 10px; align-content: start; border-right: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+  .p1 > div:nth-child(3n) { border-right: 0; } .p1 > div:nth-child(n+4) { border-bottom: 0; }
+  .p1 h3 { font-size: 1.12rem; margin-top: 6px; }
+  .p1 p { color: var(--ink-2); font-size: .93rem; }
+  .p1 .sign { padding: 10px 12px; border-left: 2px solid var(--warn); background: color-mix(in srgb, var(--warn) 6%, transparent); font-size: .86rem; color: var(--ink-2); }
+  .p1 .sign b { display: block; font: 500 .64rem var(--font-mono); letter-spacing: .08em; text-transform: uppercase; color: var(--warn); margin-bottom: 2px; }
+  .p1 .help { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 4px; }
+
+  /* P2 Verkettung */
+  .p2 { position: relative; height: 640px; }
+  .p2 svg.lines { position: absolute; inset: 0; width: 100%; height: 100%; }
+  .p2 .hub { position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); width: 230px; height: 230px; border-radius: 50%; display: grid; place-items: center; text-align: center; border: 1px solid rgba(212,236,95,.5); background: radial-gradient(circle, rgba(212,236,95,.12), rgba(212,236,95,.02) 70%); box-shadow: 0 0 60px rgba(212,236,95,.15); }
+  .p2 .hub strong { font-family: var(--font-display); font-size: 1.25rem; line-height: 1.25; color: var(--accent); }
+  .p2 .hub span { display: block; margin-top: 6px; font-size: .82rem; color: var(--ink-3); }
+  .p2 .node { position: absolute; width: 330px; padding: 18px 20px; display: grid; grid-template-columns: 34px 1fr; gap: 4px 14px; }
+  .p2 .node .icon { grid-row: span 2; width: 28px; height: 28px; }
+  .p2 .node h3 { font-size: 1.02rem; } .p2 .node p { font-size: .86rem; color: var(--ink-2); }
+
+  /* P3 Redaktionelle Liste */
+  .p3 { display: grid; grid-template-columns: 1fr 1fr; column-gap: 56px; }
+  .p3 li { list-style: none; display: grid; grid-template-columns: 50px 1fr; gap: 6px 16px; padding: 22px 0; border-top: 1px solid var(--line); }
+  .p3 li:nth-last-child(-n+2) { border-bottom: 1px solid var(--line); }
+  .p3 .num { font: 500 1.6rem var(--font-display); color: var(--ink-3); grid-row: span 3; }
+  .p3 h3 { font-size: 1.12rem; }
+  .p3 p { color: var(--ink-2); font-size: .93rem; }
+  .p3 .row { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin-top: 4px; }
+  .p3 .row em { font-style: normal; font: 500 .64rem var(--font-mono); letter-spacing: .08em; text-transform: uppercase; color: var(--ink-3); margin-right: 2px; }
+
+  /* S1 Leistung + App */
+  .s1 { display: grid; grid-template-columns: repeat(5, 1fr); overflow: hidden; }
+  .s1 > a { padding: 28px 22px 22px; display: grid; gap: 10px; align-content: start; color: inherit; text-decoration: none; border-right: 1px solid var(--line); }
+  .s1 > a:last-child { border-right: 0; }
+  .s1 h3 { font-size: 1.05rem; margin-top: 10px; } .s1 p { color: var(--ink-3); font-size: .88rem; }
+  .s1 .apps { display: grid; gap: 6px; margin-top: 8px; padding-top: 14px; border-top: 1px solid var(--line); }
+  .s1 .apps .mono { margin-bottom: 2px; }
+  .s1 .apps .app { justify-self: start; }
+  .aud { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 16px; }
+  .aud > a { display: grid; grid-template-columns: 1fr auto; gap: 8px 20px; align-items: center; padding: 26px 28px; color: inherit; text-decoration: none; }
+  .aud h3 { font-size: 1.3rem; } .aud p { color: var(--ink-3); font-size: .92rem; grid-column: 1; }
+  .aud .stack { grid-row: span 3; grid-column: 2; display: flex; }
+  .aud .stack img { width: 58px; margin-left: 4px; filter: drop-shadow(0 6px 14px rgba(0,0,0,.5)); }
+  .aud .apps { grid-column: 1; display: flex; flex-wrap: wrap; gap: 6px; margin-top: 6px; }
+
+  /* S2 Bento */
+  .s2 { display: grid; grid-template-columns: 1.3fr 1fr 1fr; grid-template-rows: auto auto; gap: 14px; }
+  .s2 > a { position: relative; padding: 26px 24px; display: grid; gap: 10px; align-content: start; color: inherit; text-decoration: none; }
+  .s2 > a.big { grid-row: span 2; background: linear-gradient(160deg, rgba(212,236,95,.10), transparent 55%), var(--panel); border-color: rgba(212,236,95,.3); }
+  .s2 .badge { position: absolute; top: 20px; right: 20px; width: 58px; filter: drop-shadow(0 6px 14px rgba(0,0,0,.5)); }
+  .s2 h3 { font-size: 1.1rem; margin-top: 6px; } .s2 p { color: var(--ink-3); font-size: .9rem; max-width: 34ch; }
+  .s2 .price { margin-top: 10px; padding: 14px 16px; border-radius: 12px; border: 1px solid rgba(212,236,95,.35); }
+  .s2 .price strong { display: block; font-family: var(--font-display); font-size: 1.6rem; color: var(--accent); }
+  .s2b { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-top: 14px; }
+  .s2b > a { display: grid; grid-template-columns: auto 1fr auto; gap: 18px; align-items: center; padding: 22px 26px; color: inherit; text-decoration: none; }
+  .s2b .glyph { width: 52px; height: 52px; border-radius: 14px; display: grid; place-items: center; border: 1px solid var(--line-2); font-family: var(--font-display); font-size: 1.3rem; }
+  .s2b h3 { font-size: 1.15rem; } .s2b p { color: var(--ink-3); font-size: .88rem; }
+  .s2b .mini { display: flex; gap: 4px; } .s2b .mini img { width: 40px; }
+
+  /* S3 Zwei Ebenen */
+  .s3 { padding: 30px 28px 26px; }
+  .s3 .row { display: grid; grid-template-columns: repeat(5, 1fr); gap: 14px; }
+  .s3 .svcbox { padding: 20px 18px; border: 1px solid var(--line); border-radius: 14px; display: grid; gap: 8px; align-content: start; background: color-mix(in srgb, var(--surface-2) 40%, transparent); }
+  .s3 .svcbox h3 { font-size: 1rem; } .s3 .svcbox p { font-size: .84rem; color: var(--ink-3); }
+  .s3 .wires { height: 56px; }
+  .s3 .appbar { display: grid; grid-template-columns: repeat(5, 1fr); gap: 14px; padding: 16px 0 4px; border-top: 1px solid var(--line); }
+  .s3 .appcell { display: flex; flex-direction: column; align-items: center; gap: 6px; text-align: center; }
+  .s3 .appcell img { width: 74px; filter: drop-shadow(0 8px 18px rgba(0,0,0,.5)); }
+  .s3 .appcell span { font-size: .82rem; color: var(--ink-2); }
+  .seg { display: flex; gap: 0; margin-top: 18px; border: 1px solid var(--line); border-radius: var(--radius-lg); overflow: hidden; }
+  .seg > div { flex: 1; padding: 22px 26px; display: grid; gap: 8px; }
+  .seg > div + div { border-left: 1px solid var(--line); }
+  .seg h3 { display: flex; justify-content: space-between; font-size: 1.15rem; } .seg h3 span { color: var(--accent); }
+  .seg .chips { display: flex; flex-wrap: wrap; gap: 6px; }
+
+  /* H1 Vorher → Nachher */
+  .h1v { overflow: hidden; }
+  .h1v .r { display: grid; grid-template-columns: 1fr 70px 1.15fr; align-items: center; padding: 18px 28px; border-bottom: 1px solid var(--line); }
+  .h1v .r:last-child { border-bottom: 0; }
+  .h1v .r.head { padding: 14px 28px; background: color-mix(in srgb, var(--surface-2) 50%, transparent); }
+  .h1v .pain { display: grid; grid-template-columns: 34px 1fr; gap: 2px 14px; }
+  .h1v .pain .icon { grid-row: span 2; width: 26px; height: 26px; color: var(--ink-3); }
+  .h1v .pain h3 { font-size: 1rem; color: var(--ink-2); } .h1v .pain p { font-size: .86rem; color: var(--ink-3); }
+  .h1v .arrow { color: var(--accent); font-size: 1.4rem; text-align: center; }
+  .h1v .fix { display: grid; grid-template-columns: auto 1fr; gap: 2px 14px; align-items: center; }
+  .h1v .fix img { grid-row: span 2; width: 52px; }
+  .h1v .fix .svcglyph { grid-row: span 2; width: 52px; height: 34px; display: grid; place-items: center; border: 1px solid var(--line-2); border-radius: 10px; }
+  .h1v .fix strong { font-family: var(--font-display); font-size: 1rem; } .h1v .fix p { font-size: .86rem; color: var(--ink-2); }
+
+  /* H2 Zitate */
+  .h2q { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+  .bubble { position: relative; padding: 22px 22px 18px; border: 1px solid var(--line-2); border-radius: 18px 18px 18px 4px; background: var(--panel); }
+  .bubble q { display: block; font-family: var(--font-display); font-size: 1.08rem; line-height: 1.35; quotes: "„" "“"; }
+  .bubble p { margin-top: 10px; font-size: .86rem; color: var(--ink-3); }
+  .bubble .foot { display: flex; align-items: center; justify-content: space-between; margin-top: 14px; padding-top: 12px; border-top: 1px solid var(--line); }
+  .bubble .foot .app img { width: 24px; }
+
+  /* H3 Selbsttest */
+  .h3t { display: grid; grid-template-columns: 1.4fr 1fr; gap: 0; overflow: hidden; }
+  .h3t ul { list-style: none; padding: 14px 28px; }
+  .h3t li { display: grid; grid-template-columns: 30px 1fr; gap: 2px 16px; padding: 14px 0; border-bottom: 1px solid var(--line); }
+  .h3t li:last-child { border-bottom: 0; }
+  .h3t .box { grid-row: span 2; width: 22px; height: 22px; margin-top: 2px; border-radius: 6px; border: 1.5px solid var(--line-2); display: grid; place-items: center; }
+  .h3t li.on .box { background: var(--lime); border-color: var(--lime); }
+  .h3t li.on .box::after { content: ""; width: 10px; height: 6px; border-left: 2px solid var(--accent-ink); border-bottom: 2px solid var(--accent-ink); transform: rotate(-45deg) translate(1px, -1px); }
+  .h3t h3 { font-size: 1rem; } .h3t li p { font-size: .86rem; color: var(--ink-3); }
+  .h3t aside { padding: 34px 30px; border-left: 1px solid var(--line); background: linear-gradient(160deg, rgba(212,236,95,.08), transparent 60%); display: grid; gap: 14px; align-content: center; }
+  .h3t .score { font-family: var(--font-display); font-size: 3.2rem; line-height: 1; color: var(--accent); }
+  .h3t .score small { font-size: 1.2rem; color: var(--ink-3); }
+  .h3t aside p { color: var(--ink-2); }
+  .h3t aside .apps { display: flex; flex-wrap: wrap; gap: 6px; }
+  .h3t .btnfake { justify-self: start; padding: 12px 22px; border-radius: 999px; background: var(--lime); color: var(--accent-ink); font-weight: 600; }
+</style>
+</head>
+<body>
+
+<!-- ═════════ Startseite: Kundenproblem ═════════ -->
+<section class="frame" id="p1">
+  <span class="frame__tag">Startseite · Probleme · Variante 1 · Anzeichen + Hilfe</span>
+  <div class="container">
+    <div class="h2wrap"><h2>Wo verliert Ihr Betrieb Zeit, Geld oder Sicherheit?</h2></div>
+    <div class="panel p1">
+      <div><svg class="icon"><use href="../../assets/icons.svg#euro"/></svg><h3>Kapitalbindung</h3><p>Material liegt jahrelang im Regal und bindet Geld. Lagerkosten, Platz und Alterung kommen jedes Jahr dazu.</p><div class="sign"><b>Woran Sie es merken</b>Volle Regale, aber kaum Bewegung.</div><div class="help"><span class="svc">Materialanalyse</span><span class="app"><img src="../../assets/apps/icons/wk-smartparts.webp" alt="">WK SmartParts</span></div></div>
+      <div><svg class="icon"><use href="../../assets/icons.svg#alert"/></svg><h3>Fehlende Ersatzteile</h3><p>Die Anlage steht, die Eilbeschaffung kostet mehr als das Teil. Kritische Teile fehlen oft genau dann, wenn sie gebraucht werden.</p><div class="sign"><b>Woran Sie es merken</b>Expresskosten und Stillstand.</div><div class="help"><span class="svc">Alternativteile</span><span class="app"><img src="../../assets/apps/icons/wk-material.webp" alt="">WK Material</span></div></div>
+      <div><svg class="icon"><use href="../../assets/icons.svg#database"/></svg><h3>Datenqualität</h3><p>Dubletten, Lücken und uneinheitliche Bezeichnungen machen Planung zum Bauchgefühl.</p><div class="sign"><b>Woran Sie es merken</b>Dasselbe Teil unter mehreren Nummern.</div><div class="help"><span class="svc">Datenbereinigung</span><span class="app"><img src="../../assets/apps/icons/wk-smartparts.webp" alt="">WK SmartParts</span></div></div>
+      <div><svg class="icon"><use href="../../assets/icons.svg#network"/></svg><h3>Lieferantenabhängigkeit</h3><p>Ein Lieferant, lange Lieferzeiten, keine geprüfte Alternative – fällt er aus, fehlt der Plan B.</p><div class="sign"><b>Woran Sie es merken</b>Single Source bei kritischen Teilen.</div><div class="help"><span class="svc">Lieferantenfindung</span><span class="svc">Alternativteile</span></div></div>
+      <div><svg class="icon"><use href="../../assets/icons.svg#clipboard"/></svg><h3>Manuelle Prozesse</h3><p>Papier, Excel und Doppelerfassung kosten Zeit und erzeugen Fehler zwischen Lager, Werkstatt und Büro.</p><div class="sign"><b>Woran Sie es merken</b>Dieselbe Angabe in drei Listen.</div><div class="help"><span class="app"><img src="../../assets/apps/icons/wk-instandhaltung.webp" alt="">WK Instandhaltung</span><span class="app"><img src="../../assets/apps/icons/wk-finance.webp" alt="">WK Finance</span></div></div>
+      <div><svg class="icon"><use href="../../assets/icons.svg#monitor"/></svg><h3>Veraltete Software</h3><p>Wertvolles Prozesswissen steckt in Anwendungen, die kaum noch jemand anpassen kann.</p><div class="sign"><b>Woran Sie es merken</b>Änderungen dauern lange – oder gehen gar nicht.</div><div class="help"><span class="svc">Modernisierung</span><span class="app"><img src="../../assets/apps/icons/wk-ki-werkstatt.webp" alt="">KI-Werkstatt</span></div></div>
+    </div>
+  </div>
+</section>
+
+<section class="frame" id="p2">
+  <span class="frame__tag">Startseite · Probleme · Variante 2 · Alles hängt zusammen</span>
+  <div class="container">
+    <div class="h2wrap" style="text-align:center"><h2>Wo verliert Ihr Betrieb Zeit, Geld oder Sicherheit?</h2></div>
+    <div class="panel p2">
+      <svg class="lines" viewBox="0 0 1152 640" preserveAspectRatio="none"><g stroke="rgba(212,236,95,.35)" stroke-width="1" fill="none" stroke-dasharray="4 6"><path d="M576 320L250 95"/><path d="M576 320L902 95"/><path d="M576 320L190 320"/><path d="M576 320L962 320"/><path d="M576 320L250 545"/><path d="M576 320L902 545"/></g><g stroke="rgba(255,255,255,.08)" fill="none"><path d="M250 95C576 20 576 20 902 95"/><path d="M250 545C576 620 576 620 902 545"/></g></svg>
+      <div class="hub"><div><strong>Ihr Betrieb</strong><span>Eine Ursache wirkt<br />an mehreren Stellen</span></div></div>
+      <div class="node panel" style="left:40px;top:40px"><svg class="icon"><use href="../../assets/icons.svg#euro"/></svg><h3>Kapitalbindung</h3><p>Material liegt jahrelang im Regal – Lagerkosten, Platz und Alterung kommen dazu.</p></div>
+      <div class="node panel" style="right:40px;top:40px"><svg class="icon"><use href="../../assets/icons.svg#alert"/></svg><h3>Fehlende Ersatzteile</h3><p>Die Anlage steht, die Eilbeschaffung kostet mehr als das Teil.</p></div>
+      <div class="node panel" style="left:24px;top:262px"><svg class="icon"><use href="../../assets/icons.svg#database"/></svg><h3>Datenqualität</h3><p>Dubletten und Lücken machen Planung zum Bauchgefühl.</p></div>
+      <div class="node panel" style="right:24px;top:262px"><svg class="icon"><use href="../../assets/icons.svg#network"/></svg><h3>Lieferantenabhängigkeit</h3><p>Ein Lieferant, lange Lieferzeiten, kein Plan B.</p></div>
+      <div class="node panel" style="left:40px;bottom:40px"><svg class="icon"><use href="../../assets/icons.svg#clipboard"/></svg><h3>Manuelle Prozesse</h3><p>Papier, Excel und Doppelerfassung zwischen Lager, Werkstatt und Büro.</p></div>
+      <div class="node panel" style="right:40px;bottom:40px"><svg class="icon"><use href="../../assets/icons.svg#monitor"/></svg><h3>Veraltete Software</h3><p>Prozesswissen in Anwendungen, die kaum noch jemand anpassen kann.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="frame" id="p3">
+  <span class="frame__tag">Startseite · Probleme · Variante 3 · Redaktionelle Liste</span>
+  <div class="container">
+    <div class="h2wrap"><h2>Wo verliert Ihr Betrieb Zeit, Geld oder Sicherheit?</h2></div>
+    <ol class="p3">
+      <li><span class="num">01</span><h3>Kapitalbindung</h3><p>Material liegt jahrelang im Regal und bindet Geld. Lagerkosten, Platz und Alterung kommen jedes Jahr dazu.</p><div class="row"><em>Hilft</em><span class="app"><img src="../../assets/apps/icons/wk-smartparts.webp" alt="">WK SmartParts</span></div></li>
+      <li><span class="num">04</span><h3>Lieferantenabhängigkeit</h3><p>Ein Lieferant, lange Lieferzeiten, keine geprüfte Alternative – fällt er aus, fehlt der Plan B.</p><div class="row"><em>Hilft</em><span class="svc">Lieferantenfindung</span></div></li>
+      <li><span class="num">02</span><h3>Fehlende Ersatzteile</h3><p>Die Anlage steht, die Eilbeschaffung kostet mehr als das Teil. Kritische Teile fehlen oft genau im Störfall.</p><div class="row"><em>Hilft</em><span class="app"><img src="../../assets/apps/icons/wk-material.webp" alt="">WK Material</span><span class="svc">Alternativteile</span></div></li>
+      <li><span class="num">05</span><h3>Manuelle Prozesse</h3><p>Papier, Excel und Doppelerfassung kosten Zeit und erzeugen Fehler zwischen Lager, Werkstatt und Büro.</p><div class="row"><em>Hilft</em><span class="app"><img src="../../assets/apps/icons/wk-instandhaltung.webp" alt="">WK Instandhaltung</span></div></li>
+      <li><span class="num">03</span><h3>Datenqualität</h3><p>Dubletten, Lücken und uneinheitliche Bezeichnungen machen Planung zum Bauchgefühl.</p><div class="row"><em>Hilft</em><span class="svc">Datenbereinigung</span></div></li>
+      <li><span class="num">06</span><h3>Veraltete Software</h3><p>Wertvolles Prozesswissen steckt in Anwendungen, die kaum noch jemand anpassen kann.</p><div class="row"><em>Hilft</em><span class="svc">Modernisierung</span><span class="app"><img src="../../assets/apps/icons/wk-ki-werkstatt.webp" alt="">KI-Werkstatt</span></div></li>
+    </ol>
+  </div>
+</section>
+
+<!-- ═════════ Startseite: Leistungen + Zielgruppen ═════════ -->
+<section class="frame" id="s1">
+  <span class="frame__tag">Startseite · Leistungen · Variante 1 · Leistung + passende App</span>
+  <div class="container">
+    <div class="h2wrap"><h2>Was wir für Sie lösen.</h2></div>
+    <div class="panel s1">
+      <a href="#"><svg class="icon"><use href="../../assets/icons.svg#search"/></svg><h3>Analyse &amp; Optimierung</h3><p>Potenziale erkennen, Risiken bewerten, Maßnahmen priorisieren.</p><span class="mono" style="color:var(--accent)">Quick-Check · ab 990 € netto</span><div class="apps"><span class="mono">Mit App</span><span class="app"><img src="../../assets/apps/icons/wk-smartparts.webp" alt="">WK SmartParts</span></div></a>
+      <a href="#"><svg class="icon"><use href="../../assets/icons.svg#gear"/></svg><h3>Material &amp; Ersatzteile</h3><p>Bestände optimieren, Versorgung sichern, Alternativen schaffen.</p><div class="apps"><span class="mono">Mit App</span><span class="app"><img src="../../assets/apps/icons/wk-material.webp" alt="">WK Material</span><span class="app"><img src="../../assets/apps/icons/wk-smartparts.webp" alt="">WK SmartParts</span></div></a>
+      <a href="#"><svg class="icon"><use href="../../assets/icons.svg#wrench"/></svg><h3>Instandhaltung</h3><p>Anlagen, Aufgaben, Material und Rückmeldungen verbinden.</p><div class="apps"><span class="mono">Mit App</span><span class="app"><img src="../../assets/apps/icons/wk-instandhaltung.webp" alt="">WK Instandhaltung</span></div></a>
+      <a href="#"><svg class="icon"><use href="../../assets/icons.svg#monitor"/></svg><h3>Digitalisierung &amp; Software</h3><p>Bestehendes modernisieren, Spezial&shy;lösungen entwickeln, Daten migrieren.</p><div class="apps"><span class="mono">Mit</span><span class="app"><img src="../../assets/apps/icons/wk-ki-werkstatt.webp" alt="">KI-Werkstatt</span></div></a>
+      <a href="#"><svg class="icon"><use href="../../assets/icons.svg#cube"/></svg><h3>3D-Technik</h3><p>Bauteile scannen, rekonstruieren und Beschaffungswege prüfen.</p><div class="apps"><span class="mono">Mit App</span><span class="app"><img src="../../assets/apps/icons/wk-3d-druck.webp" alt="">WK 3D-Druck</span></div></a>
+    </div>
+    <div class="aud">
+      <a class="panel" href="#"><h3>Für Handwerk</h3><span class="stack"><img src="../../assets/apps/icons/wk-finance.webp" alt=""><img src="../../assets/apps/icons/wk-material.webp" alt=""></span><p>Einfache Digitalisierung, Belege, Material und kleine Werkzeuge.</p><div class="apps"><span class="app"><img src="../../assets/apps/icons/wk-finance.webp" alt="">WK Finance</span><span class="app"><img src="../../assets/apps/icons/wk-material.webp" alt="">WK Material</span></div></a>
+      <a class="panel" href="#"><h3>Für Industrie</h3><span class="stack"><img src="../../assets/apps/icons/wk-smartparts.webp" alt=""><img src="../../assets/apps/icons/wk-instandhaltung.webp" alt=""><img src="../../assets/apps/icons/wk-3d-druck.webp" alt=""></span><p>Ersatzteile, Instandhaltung, Daten, Obsoleszenz und Migration.</p><div class="apps"><span class="app"><img src="../../assets/apps/icons/wk-smartparts.webp" alt="">WK SmartParts</span><span class="app"><img src="../../assets/apps/icons/wk-instandhaltung.webp" alt="">WK Instandhaltung</span><span class="app"><img src="../../assets/apps/icons/wk-3d-druck.webp" alt="">WK 3D-Druck</span></div></a>
+    </div>
+  </div>
+</section>
+
+<section class="frame" id="s2">
+  <span class="frame__tag">Startseite · Leistungen · Variante 2 · Bento mit App-Abzeichen</span>
+  <div class="container">
+    <div class="h2wrap"><h2>Was wir für Sie lösen.</h2></div>
+    <div class="s2">
+      <a class="panel big" href="#"><img class="badge" src="../../assets/apps/icons/wk-smartparts.webp" alt=""><svg class="icon"><use href="../../assets/icons.svg#search"/></svg><h3>Analyse &amp; Optimierung</h3><p>Potenziale erkennen, Risiken bewerten, Maßnahmen priorisieren – bevor investiert wird. Mit WK SmartParts werden Bestände und Risiken sichtbar.</p><div class="price"><span class="mono">Einstieg: Quick-Check</span><strong>ab 990 € netto</strong><span class="note" style="font-size:.85rem">1–2 Tage · bei Folgeauftrag voll angerechnet</span></div></a>
+      <a class="panel" href="#"><img class="badge" src="../../assets/apps/icons/wk-material.webp" alt=""><svg class="icon"><use href="../../assets/icons.svg#gear"/></svg><h3>Material &amp; Ersatzteile</h3><p>Bestände optimieren, Versorgung sichern. Im Alltag mit WK Material.</p></a>
+      <a class="panel" href="#"><img class="badge" src="../../assets/apps/icons/wk-instandhaltung.webp" alt=""><svg class="icon"><use href="../../assets/icons.svg#wrench"/></svg><h3>Instandhaltung</h3><p>Anlagen, Aufträge und Rückmeldungen verbinden – mit WK Instandhaltung.</p></a>
+      <a class="panel" href="#"><img class="badge" src="../../assets/apps/icons/wk-ki-werkstatt.webp" alt=""><svg class="icon"><use href="../../assets/icons.svg#monitor"/></svg><h3>Digitalisierung &amp; Software</h3><p>Modernisieren, Speziallösungen, Migration – und lokale KI aus der KI-Werkstatt.</p></a>
+      <a class="panel" href="#"><img class="badge" src="../../assets/apps/icons/wk-3d-druck.webp" alt=""><svg class="icon"><use href="../../assets/icons.svg#cube"/></svg><h3>3D-Technik</h3><p>Scannen, rekonstruieren, drucken – Teiledaten in WK 3D-Druck.</p></a>
+    </div>
+    <div class="s2b">
+      <a class="panel" href="#"><span class="glyph"><svg class="icon"><use href="../../assets/icons.svg#hammer"/></svg></span><div><h3>Für Handwerk</h3><p>Einfache Digitalisierung, Belege, Material und kleine Werkzeuge.</p></div><span class="mini"><img src="../../assets/apps/icons/wk-finance.webp" alt=""><img src="../../assets/apps/icons/wk-material.webp" alt=""></span></a>
+      <a class="panel" href="#"><span class="glyph"><svg class="icon"><use href="../../assets/icons.svg#factory"/></svg></span><div><h3>Für Industrie</h3><p>Ersatzteile, Instandhaltung, Daten, Obsoleszenz und Migration.</p></div><span class="mini"><img src="../../assets/apps/icons/wk-smartparts.webp" alt=""><img src="../../assets/apps/icons/wk-instandhaltung.webp" alt=""><img src="../../assets/apps/icons/wk-3d-druck.webp" alt=""></span></a>
+    </div>
+  </div>
+</section>
+
+<section class="frame" id="s3">
+  <span class="frame__tag">Startseite · Leistungen · Variante 3 · Leistung oben, App darunter</span>
+  <div class="container">
+    <div class="h2wrap"><h2>Was wir für Sie lösen.</h2><p class="lead">Oben die Leistung, unten die App, die sie im Alltag trägt.</p></div>
+    <div class="panel s3">
+      <div class="row">
+        <div class="svcbox"><svg class="icon"><use href="../../assets/icons.svg#search"/></svg><h3>Analyse &amp; Optimierung</h3><p>Potenziale erkennen, Risiken bewerten.</p></div>
+        <div class="svcbox"><svg class="icon"><use href="../../assets/icons.svg#gear"/></svg><h3>Material &amp; Ersatzteile</h3><p>Bestände optimieren, Versorgung sichern.</p></div>
+        <div class="svcbox"><svg class="icon"><use href="../../assets/icons.svg#wrench"/></svg><h3>Instandhaltung</h3><p>Anlagen, Aufgaben, Rückmeldungen.</p></div>
+        <div class="svcbox"><svg class="icon"><use href="../../assets/icons.svg#monitor"/></svg><h3>Digitalisierung &amp; Software</h3><p>Modernisieren, migrieren, lokale KI.</p></div>
+        <div class="svcbox"><svg class="icon"><use href="../../assets/icons.svg#cube"/></svg><h3>3D-Technik</h3><p>Scannen, rekonstruieren, drucken.</p></div>
+      </div>
+      <svg class="wires" viewBox="0 0 1096 56" preserveAspectRatio="none" width="100%"><g stroke="rgba(212,236,95,.45)" stroke-width="1.2" fill="none"><path d="M99 0V56"/><path d="M318 0V56"/><path d="M538 0V56"/><path d="M757 0V56"/><path d="M976 0V56"/></g></svg>
+      <div class="appbar">
+        <div class="appcell"><img src="../../assets/apps/icons/wk-smartparts.webp" alt=""><span>WK SmartParts</span></div>
+        <div class="appcell"><img src="../../assets/apps/icons/wk-material.webp" alt=""><span>WK Material</span></div>
+        <div class="appcell"><img src="../../assets/apps/icons/wk-instandhaltung.webp" alt=""><span>WK Instandhaltung</span></div>
+        <div class="appcell"><img src="../../assets/apps/icons/wk-ki-werkstatt.webp" alt=""><span>KI-Werkstatt</span></div>
+        <div class="appcell"><img src="../../assets/apps/icons/wk-3d-druck.webp" alt=""><span>WK 3D-Druck</span></div>
+      </div>
+    </div>
+    <div class="seg">
+      <div><h3>Für Handwerk <span>→</span></h3><p class="note">Einfache Digitalisierung, Belege, Material und kleine Werkzeuge.</p><div class="chips"><span class="app"><img src="../../assets/apps/icons/wk-finance.webp" alt="">WK Finance</span><span class="app"><img src="../../assets/apps/icons/wk-material.webp" alt="">WK Material</span></div></div>
+      <div><h3>Für Industrie <span>→</span></h3><p class="note">Ersatzteile, Instandhaltung, Daten, Obsoleszenz und Migration.</p><div class="chips"><span class="app"><img src="../../assets/apps/icons/wk-smartparts.webp" alt="">WK SmartParts</span><span class="app"><img src="../../assets/apps/icons/wk-instandhaltung.webp" alt="">WK Instandhaltung</span><span class="app"><img src="../../assets/apps/icons/wk-3d-druck.webp" alt="">WK 3D-Druck</span></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ═════════ Handwerk: Kommt Ihnen das bekannt vor? ═════════ -->
+<section class="frame" id="h1">
+  <span class="frame__tag">Handwerk · Variante 1 · Heute → mit uns</span>
+  <div class="container">
+    <div class="h2wrap"><h2>Kommt Ihnen das bekannt vor?</h2><p class="lead">Im Handwerk fehlt selten das Können, sondern die Zeit.</p></div>
+    <div class="panel h1v">
+      <div class="r head"><span class="mono">Heute</span><span></span><span class="mono">Mit uns</span></div>
+      <div class="r"><div class="pain"><svg class="icon"><use href="../../assets/icons.svg#file"/></svg><h3>Belege überall</h3><p>Postfach, Auto, Ordner – die Suche beginnt, wenn es eilt.</p></div><span class="arrow">→</span><div class="fix"><img src="../../assets/apps/icons/wk-finance.webp" alt=""><strong>WK Finance</strong><p>Beleg fotografieren, ablegen, wiederfinden.</p></div></div>
+      <div class="r"><div class="pain"><svg class="icon"><use href="../../assets/icons.svg#box"/></svg><h3>Material suchen</h3><p>Doppelt bestellt – oder es fehlt auf der Baustelle.</p></div><span class="arrow">→</span><div class="fix"><img src="../../assets/apps/icons/wk-material.webp" alt=""><strong>WK Material</strong><p>Bestand und Lagerplatz per Scan.</p></div></div>
+      <div class="r"><div class="pain"><svg class="icon"><use href="../../assets/icons.svg#clock"/></svg><h3>Fristen im Kopf</h3><p>Zahlungsziele und Kündigungsfristen fallen zu spät auf.</p></div><span class="arrow">→</span><div class="fix"><img src="../../assets/apps/icons/wk-finance.webp" alt=""><strong>WK Finance</strong><p>Zahlungsziele und Verträge im Blick.</p></div></div>
+      <div class="r"><div class="pain"><svg class="icon"><use href="../../assets/icons.svg#clipboard"/></svg><h3>Listen und Zettel</h3><p>Dieselbe Angabe mehrfach erfasst, Fehler schleichen sich ein.</p></div><span class="arrow">→</span><div class="fix"><span class="svcglyph"><svg class="icon" style="width:20px;height:20px"><use href="../../assets/icons.svg#hammer"/></svg></span><strong>Kleine Werkzeuge</strong><p>Einfache digitale Abläufe statt Zettelwirtschaft.</p></div></div>
+      <div class="r"><div class="pain"><svg class="icon"><use href="../../assets/icons.svg#monitor"/></svg><h3>Altes Programm</h3><p>Läuft seit Jahren, aber keiner kann es mehr anpassen.</p></div><span class="arrow">→</span><div class="fix"><span class="svcglyph"><svg class="icon" style="width:20px;height:20px"><use href="../../assets/icons.svg#monitor"/></svg></span><strong>Modernisierung</strong><p>Funktionen und Daten übernehmen, Bedienung vereinfachen.</p></div></div>
+      <div class="r"><div class="pain"><svg class="icon"><use href="../../assets/icons.svg#doc-search"/></svg><h3>Wissen in Dokumenten</h3><p>Anleitungen und Datenblätter sind da, aber nicht auffindbar.</p></div><span class="arrow">→</span><div class="fix"><img src="../../assets/apps/icons/wk-ki-werkstatt.webp" alt=""><strong>KI-Werkstatt</strong><p>Dokumente lokal durchsuchen – Daten bleiben im Betrieb.</p></div></div>
+    </div>
+  </div>
+</section>
+
+<section class="frame" id="h2">
+  <span class="frame__tag">Handwerk · Variante 2 · Sätze aus dem Alltag</span>
+  <div class="container">
+    <div class="h2wrap"><h2>Kommt Ihnen das bekannt vor?</h2><p class="lead">Im Handwerk fehlt selten das Können, sondern die Zeit.</p></div>
+    <div class="h2q">
+      <div class="bubble"><q>Wo ist eigentlich die Rechnung vom Großhändler?</q><p>Belege liegen im Postfach, im Auto und im Ordner.</p><div class="foot"><span class="mono">Belege</span><span class="app"><img src="../../assets/apps/icons/wk-finance.webp" alt="">WK Finance</span></div></div>
+      <div class="bubble"><q>Haben wir die Fittings noch – oder bestellen wir lieber nach?</q><p>Doppelt bestellt oder es fehlt auf der Baustelle.</p><div class="foot"><span class="mono">Material</span><span class="app"><img src="../../assets/apps/icons/wk-material.webp" alt="">WK Material</span></div></div>
+      <div class="bubble"><q>Die Kündigungsfrist war letzte Woche?</q><p>Zahlungsziele und Fristen fallen erst auf, wenn es zu spät ist.</p><div class="foot"><span class="mono">Fristen</span><span class="app"><img src="../../assets/apps/icons/wk-finance.webp" alt="">WK Finance</span></div></div>
+      <div class="bubble"><q>Das steht doch irgendwo auf einem Zettel …</q><p>Dieselbe Angabe mehrfach erfasst, Fehler schleichen sich ein.</p><div class="foot"><span class="mono">Listen</span><span class="svc">Kleine Werkzeuge</span></div></div>
+      <div class="bubble"><q>Das Programm kann keiner mehr ändern.</q><p>Läuft seit Jahren – Anpassungen sind kaum möglich.</p><div class="foot"><span class="mono">Software</span><span class="svc">Modernisierung</span></div></div>
+      <div class="bubble"><q>Wo war nochmal das Datenblatt zur Pumpe?</q><p>Wissen ist da, aber nicht schnell auffindbar.</p><div class="foot"><span class="mono">Wissen</span><span class="app"><img src="../../assets/apps/icons/wk-ki-werkstatt.webp" alt="">KI-Werkstatt</span></div></div>
+    </div>
+  </div>
+</section>
+
+<section class="frame" id="h3">
+  <span class="frame__tag">Handwerk · Variante 3 · Selbsttest</span>
+  <div class="container">
+    <div class="h2wrap"><h2>Kommt Ihnen das bekannt vor?</h2><p class="lead">Kurzer Selbsttest – was trifft auf Ihren Betrieb zu?</p></div>
+    <div class="panel h3t">
+      <ul>
+        <li class="on"><span class="box"></span><h3>Belege überall</h3><p>Postfach, Auto, Ordner – wenn etwas gebraucht wird, beginnt die Suche.</p></li>
+        <li class="on"><span class="box"></span><h3>Material suchen</h3><p>Doppelt bestellt – oder es fehlt auf der Baustelle.</p></li>
+        <li><span class="box"></span><h3>Listen und Zettel</h3><p>Dieselbe Angabe mehrfach erfasst, Fehler schleichen sich ein.</p></li>
+        <li class="on"><span class="box"></span><h3>Fristen im Kopf</h3><p>Zahlungsziele und Termine fallen erst auf, wenn es zu spät ist.</p></li>
+        <li><span class="box"></span><h3>Altes Programm</h3><p>Läuft seit Jahren, aber keiner kann es mehr anpassen.</p></li>
+        <li><span class="box"></span><h3>Wissen in Dokumenten</h3><p>Anleitungen und Datenblätter sind da, aber nicht schnell auffindbar.</p></li>
+      </ul>
+      <aside>
+        <span class="mono">Ihr Ergebnis</span>
+        <div class="score">3 <small>von 6</small></div>
+        <p>Hier lohnt ein Blick: Belege und Fristen mit WK Finance, Material mit WK Material.</p>
+        <div class="apps"><span class="app"><img src="../../assets/apps/icons/wk-finance.webp" alt="">WK Finance</span><span class="app"><img src="../../assets/apps/icons/wk-material.webp" alt="">WK Material</span></div>
+        <span class="btnfake">Kurz darüber sprechen</span>
+      </aside>
+    </div>
+    <p class="note mt-lg">Auf der Website zum Anklicken – das Ergebnis passt sich an die Auswahl an.</p>
+  </div>
+</section>
+
+</body>
+</html>
