@@ -417,6 +417,61 @@ document.addEventListener("DOMContentLoaded", function () {
     }, table);
   });
 
+  // --- App-Clips: spielen nur sichtbar, mit Pause-Knopf; still bei a11y/reduced motion
+  var clips = Array.prototype.slice.call(document.querySelectorAll("[data-clip]"));
+  if (clips.length) {
+    var setClip = function (video, play) {
+      var box = video.closest(".clip");
+      if (play && !still() && !video.hasAttribute("data-paused")) {
+        var p = video.play();
+        if (p && p.catch) {
+          p.catch(function () {});
+        }
+      } else {
+        video.pause();
+      }
+      if (box) {
+        box.classList.toggle("is-paused", video.paused);
+      }
+    };
+    var clipIo = "IntersectionObserver" in window ? new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        entry.target.__visible = entry.isIntersecting;
+        setClip(entry.target, entry.isIntersecting);
+      });
+    }, { threshold: 0.4 }) : null;
+    clips.forEach(function (video) {
+      if (clipIo) {
+        clipIo.observe(video);
+      }
+      video.addEventListener("pause", function () {
+        video.closest(".clip").classList.add("is-paused");
+      });
+      video.addEventListener("play", function () {
+        video.closest(".clip").classList.remove("is-paused");
+      });
+    });
+    document.addEventListener("click", function (event) {
+      var btn = event.target.closest("[data-clip-toggle]");
+      if (btn) {
+        var video = btn.closest(".clip").querySelector("video");
+        if (video.paused) {
+          video.removeAttribute("data-paused");
+          setClip(video, true);
+          btn.setAttribute("aria-label", "Rundgang anhalten");
+        } else {
+          video.setAttribute("data-paused", "");
+          setClip(video, false);
+          btn.setAttribute("aria-label", "Rundgang abspielen");
+        }
+      } else if (event.target.closest(".a11y-toggle")) {
+        clips.forEach(function (video) {
+          setClip(video, !!video.__visible);
+        });
+      }
+    });
+  }
+
   // --- Kleine Rechner (data-calc): Skonto (Handwerk), Stillstand (Industrie) --
   // Annahmen bewusst einfach: Skonto 2 % auf rund die Hälfte des Einkaufs;
   // Stillstand: ein Viertel weniger ungeplanter Stunden.
