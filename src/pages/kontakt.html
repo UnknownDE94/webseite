@@ -76,6 +76,7 @@ og_description: Anfrage schildern, Rückmeldung erhalten, passenden Einstieg fes
                   <label for="thema">Thema <span class="opt">(optional)</span></label>
                   <select id="thema" name="thema">
                     <option value="">Bitte wählen</option>
+                    <option data-key="erstanalyse">Kostenlose Erstanalyse</option>
                     <option>Analyse / Quick-Check</option>
                     <option>Material / Ersatzteile</option>
                     <option>Instandhaltung</option>
@@ -86,6 +87,7 @@ og_description: Anfrage schildern, Rückmeldung erhalten, passenden Einstieg fes
                     <option>Alternativteil</option>
                     <option>Lieferantensuche</option>
                     <optgroup label="WK-Anwendungen">
+                      <option value="WK SmartParts – 30 Tage kostenlos testen" data-key="smartparts-test">WK SmartParts – 30 Tage kostenlos testen (Basic)</option>
                       <option value="WK SmartParts – Demo" data-key="smartparts-demo">WK SmartParts – Demo</option>
                       <option data-key="wk-material">WK Material</option>
                       <option data-key="wk-instandhaltung">WK Instandhaltung</option>
@@ -96,11 +98,26 @@ og_description: Anfrage schildern, Rückmeldung erhalten, passenden Einstieg fes
                   </select>
                 </div>
               </div>
+              <div class="form-row">
+                <div class="field">
+                  <label for="wunschtermin">Wunschtermin für das Erstgespräch <span class="opt">(optional)</span></label>
+                  <input type="date" id="wunschtermin" name="wunschtermin" />
+                </div>
+                <div class="field">
+                  <label for="zeitfenster">Zeitfenster <span class="opt">(optional)</span></label>
+                  <select id="zeitfenster" name="zeitfenster">
+                    <option value="">Egal</option>
+                    <option>Vormittags (8–12 Uhr)</option>
+                    <option>Mittags (12–14 Uhr)</option>
+                    <option>Nachmittags (14–17 Uhr)</option>
+                  </select>
+                </div>
+              </div>
               <div class="field">
                 <label for="message">Problembeschreibung *</label>
                 <textarea id="message" name="message" rows="6" required placeholder="Was ist das Problem, wo tritt es auf und was haben Sie bereits versucht?"></textarea>
               </div>
-              <p class="form-hint">Felder mit * sind Pflichtfelder. Bilder, Materiallisten oder Screenshots können nach der ersten Rückmeldung über einen abgestimmten Weg übermittelt werden.</p>
+              <p class="form-hint">Felder mit * sind Pflichtfelder. Den Wunschtermin bestätigen wir persönlich oder schlagen eine Alternative vor. Bilder, Materiallisten oder Screenshots können nach der ersten Rückmeldung über einen abgestimmten Weg übermittelt werden.</p>
               <div class="field-check">
                 <input type="checkbox" id="privacy" name="datenschutz" value="zugestimmt" required data-label="Zustimmung zur Datenschutzerklärung" />
                 <label for="privacy">Ich habe die <a href="datenschutz.html#kontakt">Datenschutzerklärung</a> gelesen und bin einverstanden, dass meine Angaben zur Bearbeitung meiner Anfrage verarbeitet werden. *</label>
@@ -142,7 +159,11 @@ og_description: Anfrage schildern, Rückmeldung erhalten, passenden Einstieg fes
           </details>
           <details>
             <summary>Was kostet der Quick-Check?</summary>
-            <div><p>Ab 990 € netto für 1–2 Tage. Den Festpreis stimmen wir vor dem Start ab; bei einem Folgeauftrag wird der <a href="quick-check.html">Quick-Check</a> voll angerechnet.</p></div>
+            <div><p>Ab 990 € netto für 1–2 Tage. Den Festpreis stimmen wir vor dem Start ab; bei einem Folgeauftrag wird der <a href="quick-check.html">Quick-Check</a> voll angerechnet. Und: Finden wir kein Einsparpotenzial, kostet er Sie nichts.</p></div>
+          </details>
+          <details>
+            <summary>Kann ich die Anwendungen vorher testen?</summary>
+            <div><p>Ja – jede WK-Anwendung können Sie 30 Tage kostenlos in der Basic-Version nutzen, sobald sie verfügbar ist. <a href="smartparts.html">WK SmartParts</a> ist bereits im Web verfügbar; für die übrigen Anwendungen können Sie sich vormerken lassen.</p></div>
           </details>
           <details>
             <summary>Was passiert mit unseren Daten?</summary>

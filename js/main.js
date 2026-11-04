@@ -417,6 +417,199 @@ document.addEventListener("DOMContentLoaded", function () {
     }, table);
   });
 
+  // --- App-Clips: spielen nur sichtbar, mit Pause-Knopf; still bei a11y/reduced motion
+  var clips = Array.prototype.slice.call(document.querySelectorAll("[data-clip]"));
+  if (clips.length) {
+    var setClip = function (video, play) {
+      var box = video.closest(".clip");
+      if (play && !still() && !video.hasAttribute("data-paused")) {
+        var p = video.play();
+        if (p && p.catch) {
+          p.catch(function () {});
+        }
+      } else {
+        video.pause();
+      }
+      if (box) {
+        box.classList.toggle("is-paused", video.paused);
+      }
+    };
+    var clipIo = "IntersectionObserver" in window ? new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        entry.target.__visible = entry.isIntersecting;
+        setClip(entry.target, entry.isIntersecting);
+      });
+    }, { threshold: 0.4 }) : null;
+    clips.forEach(function (video) {
+      if (clipIo) {
+        clipIo.observe(video);
+      }
+      video.addEventListener("pause", function () {
+        video.closest(".clip").classList.add("is-paused");
+      });
+      video.addEventListener("play", function () {
+        video.closest(".clip").classList.remove("is-paused");
+      });
+    });
+    document.addEventListener("click", function (event) {
+      var btn = event.target.closest("[data-clip-toggle]");
+      if (btn) {
+        var video = btn.closest(".clip").querySelector("video");
+        if (video.paused) {
+          video.removeAttribute("data-paused");
+          setClip(video, true);
+          btn.setAttribute("aria-label", "Rundgang anhalten");
+        } else {
+          video.setAttribute("data-paused", "");
+          setClip(video, false);
+          btn.setAttribute("aria-label", "Rundgang abspielen");
+        }
+      } else if (event.target.closest(".a11y-toggle")) {
+        clips.forEach(function (video) {
+          setClip(video, !!video.__visible);
+        });
+      }
+    });
+  }
+
+  // --- Kleine Rechner (data-calc): Skonto (Handwerk), Stillstand (Industrie) --
+  // Annahmen bewusst einfach: Skonto 2 % auf rund die Hälfte des Einkaufs;
+  // Stillstand: ein Viertel weniger ungeplanter Stunden.
+  var fmtEuro = function (v) {
+    return Math.round(v).toLocaleString("de-DE") + " €";
+  };
+  var rangeValue = function (input) {
+    var min = input.getAttribute("data-log-min");
+    if (!min) {
+      return parseFloat(input.value);
+    }
+    var max = parseFloat(input.getAttribute("data-log-max"));
+    var raw = parseFloat(min) * Math.pow(max / parseFloat(min), input.value / 100);
+    var unit = raw >= 100000 ? 10000 : raw >= 10000 ? 1000 : raw >= 1000 ? 100 : 10;
+    return Math.round(raw / unit) * unit;
+  };
+  var CALC = {
+    skonto: function (v) {
+      var lost = v.volumen * 0.5 * 0.02 * (1 - v.genutzt / 100);
+      return { out: { volumen: fmtEuro(v.volumen), genutzt: v.genutzt + " %" }, res: { verloren: fmtEuro(lost), fuenf: fmtEuro(lost * 5) } };
+    },
+    stillstand: function (v) {
+      var year = v.kosten * v.stunden;
+      return { out: { kosten: fmtEuro(v.kosten), stunden: v.stunden + " h" }, res: { jahr: fmtEuro(year), viertel: fmtEuro(year * 0.25) } };
+    },
+  };
+  each("[data-calc]", function (form) {
+    var fn = CALC[form.getAttribute("data-calc")];
+    var box = form.closest(".calc-body") || form;
+    if (!fn) {
+      return;
+    }
+    var run = function () {
+      var v = {};
+      each("input[type=range]", function (input) {
+        v[input.name] = rangeValue(input);
+      }, form);
+      var r = fn(v);
+      Object.keys(r.out).forEach(function (k) {
+        var el = form.querySelector('[data-out="' + k + '"]');
+        var input = form.querySelector('[name="' + k + '"]');
+        if (el) {
+          el.textContent = r.out[k];
+        }
+        if (input) {
+          input.setAttribute("aria-valuetext", r.out[k]);
+        }
+      });
+      Object.keys(r.res).forEach(function (k) {
+        var el = box.querySelector('[data-res="' + k + '"]');
+        if (el) {
+          el.textContent = r.res[k];
+        }
+      });
+    };
+    form.addEventListener("input", run);
+    form.addEventListener("submit", function (event) {
+      event.preventDefault();
+    });
+    run();
+  });
+
+  // --- Klick-Demo (Industrie): Störung melden in drei Schritten -------------
+  each("[data-clickdemo]", function (demo) {
+    var screens = demo.querySelectorAll("[data-step]");
+    var dots = demo.querySelectorAll(".clickdemo__steps i");
+    var show = function (n) {
+      Array.prototype.forEach.call(screens, function (sc) {
+        var on = sc.getAttribute("data-step") === String(n);
+        sc.hidden = !on;
+        sc.classList.toggle("is-on", on);
+      });
+      Array.prototype.forEach.call(dots, function (dot, i) {
+        dot.classList.toggle("on", i < n);
+      });
+    };
+    var step = 1;
+    demo.addEventListener("click", function (event) {
+      var next = event.target.closest("[data-next]");
+      if (next) {
+        if (step === 2) {
+          each("[data-choice]", function (el) {
+            el.textContent = next.textContent.trim();
+          }, demo);
+        }
+        step = Math.min(4, step + 1);
+        show(step);
+      } else if (event.target.closest("[data-reset]")) {
+        step = 1;
+        show(step);
+      }
+    });
+    show(step);
+  });
+
+  // --- Selbsttest (Handwerk): Ergebnis und passende Hilfe je Auswahl --------
+  var selftest = document.querySelector(".selftest");
+  if (selftest) {
+    var HELP = {
+      finance: ["WK Finance", "wk-finance.html", "finance"],
+      material: ["WK Material", "wk-material.html", "material"],
+      ki: ["KI-Werkstatt", "ki-werkstatt.html", "ki-werkstatt"],
+      tools: ["Kleine Tools", "digitalisierung-software.html", ""],
+      software: ["Alte Software erneuern", "digitalisierung-software.html", ""],
+    };
+    var countEl = selftest.querySelector("[data-selftest-count]");
+    var textEl = selftest.querySelector("[data-selftest-text]");
+    var helpEl = selftest.querySelector("[data-selftest-help]");
+    var updateSelftest = function () {
+      var checked = Array.prototype.filter.call(selftest.querySelectorAll("input[type=checkbox]"), function (box) {
+        return box.checked;
+      });
+      countEl.textContent = checked.length;
+      textEl.textContent = checked.length === 0
+        ? "Kreuzen Sie an, was zutrifft – wir zeigen, was helfen kann."
+        : checked.length <= 2
+          ? "Hier lohnt ein gezielter Blick:"
+          : checked.length <= 4
+            ? "Mehrere Stellen kosten Zeit. Sinnvoll in dieser Reihenfolge:"
+            : "Hier steckt viel Potenzial – am besten Schritt für Schritt:";
+      var seen = {};
+      helpEl.innerHTML = "";
+      checked.forEach(function (box) {
+        var key = box.getAttribute("data-help");
+        var h = HELP[key];
+        if (!h || seen[key]) {
+          return;
+        }
+        seen[key] = true;
+        var li = document.createElement("li");
+        li.innerHTML = '<a href="' + h[1] + '">' + (h[2] ? '<img src="assets/apps/icons/wk-' + h[2] + '.webp" alt="" width="320" height="183" />' : "") + h[0] + "</a>";
+        helpEl.appendChild(li);
+      });
+    };
+    selftest.addEventListener("change", updateSelftest);
+    updateSelftest();
+  }
+
   // --- Rechenbeispiel: freiwerdendes Kapital (#kapitalrechner) --------------
   var calc = document.getElementById("kapitalrechner");
   if (calc) {

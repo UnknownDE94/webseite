@@ -25,7 +25,7 @@
   <link rel="preload" href="assets/fonts/archivo-wdth.woff2" as="font" type="font/woff2" crossorigin />
   <link rel="preload" href="assets/fonts/inter-wght.woff2" as="font" type="font/woff2" crossorigin />
   <script>(function(d){d.classList.add("js");d.setAttribute("data-theme","dark");try{var t=localStorage.getItem("theme");if(t==="light")d.setAttribute("data-theme","light");if(localStorage.getItem("a11y")==="on")d.setAttribute("data-a11y","on")}catch(e){}})(document.documentElement);</script>
-  <link rel="stylesheet" href="css/style.css?v=2026-55" />
+  <link rel="stylesheet" href="css/style.css?v=2026-59" />
 </head>
 <body>
   <a class="skip-link" href="#main">Zum Inhalt springen</a>
@@ -49,18 +49,18 @@
               <li><a href="3d-technik.html"><strong>3D-Technik</strong><small>Scannen, rekonstruieren, Fertigungsweg prüfen</small></a></li>
               <li><a href="alternativteile.html"><strong>Alternativteile &amp; Lieferanten</strong><small>Wenn das Original fehlt</small></a></li>
               <li><a href="obsoleszenz.html"><strong>Obsoleszenz</strong><small>Risiken erkennen, bevor sie stören</small></a></li>
-              <li><a href="ki-werkstatt.html"><strong>KI-Werkstatt</strong><small>Ihre Daten. Ihre KI.</small></a></li>
+              <li><a href="ki-werkstatt.html" class="nav-app"><img src="assets/apps/icons/wk-ki-werkstatt.webp" alt="" width="40" height="23" loading="lazy" /><strong>KI-Werkstatt</strong><small>Ihre Daten. Ihre KI.</small></a></li>
               <li class="nav-all"><a href="leistungen.html">Alle Leistungen</a></li>
             </ul>
           </li>
           <li class="has-panel">
             <button class="nav-link" type="button" aria-expanded="false" aria-controls="menu-loesungen">Lösungen <svg class="icon chev" aria-hidden="true"><use href="assets/icons.svg#chev-down"/></svg></button>
             <ul class="nav-panel" id="menu-loesungen">
-              <li><a href="smartparts.html"><strong>WK SmartParts</strong><small>Material- und Ersatzteilintelligenz</small></a></li>
-              <li><a href="wk-material.html"><strong>WK Material</strong><small>Lager, Inventur und Disposition</small></a></li>
-              <li><a href="wk-instandhaltung.html"><strong>WK Instandhaltung</strong><small>Wartung, Störung, Rückmeldung</small></a></li>
-              <li><a href="wk-finance.html"><strong>WK Finance</strong><small>Belege und Verträge für Handwerk</small></a></li>
-              <li><a href="wk-3d.html"><strong>WK 3D-Druck</strong><small>Digitale Teilebibliothek</small></a></li>
+              <li><a href="smartparts.html" class="nav-app"><img src="assets/apps/icons/wk-smartparts.webp" alt="" width="40" height="23" loading="lazy" /><strong>WK SmartParts</strong><small>Material- und Ersatzteilintelligenz</small></a></li>
+              <li><a href="wk-material.html" class="nav-app"><img src="assets/apps/icons/wk-material.webp" alt="" width="40" height="23" loading="lazy" /><strong>WK Material</strong><small>Lager, Inventur und Disposition</small></a></li>
+              <li><a href="wk-instandhaltung.html" class="nav-app"><img src="assets/apps/icons/wk-instandhaltung.webp" alt="" width="40" height="23" loading="lazy" /><strong>WK Instandhaltung</strong><small>Wartung, Störung, Rückmeldung</small></a></li>
+              <li><a href="wk-finance.html" class="nav-app"><img src="assets/apps/icons/wk-finance.webp" alt="" width="40" height="23" loading="lazy" /><strong>WK Finance</strong><small>Belege und Verträge für Handwerk</small></a></li>
+              <li><a href="wk-3d.html" class="nav-app"><img src="assets/apps/icons/wk-3d-druck.webp" alt="" width="40" height="23" loading="lazy" /><strong>WK 3D-Druck</strong><small>Digitale Teilebibliothek</small></a></li>
               <li class="nav-sep"><a href="mobile-offline.html"><strong>Mobile &amp; Offline</strong><small>Plattformen und Status je App</small></a></li>
               <li class="nav-all"><a href="loesungen.html">Die Produktfamilie</a></li>
             </ul>
@@ -88,8 +88,9 @@
             <nav class="breadcrumb" aria-label="Brotkrumen"><a href="index.html">Start</a> / <a href="leistungen.html">Leistungen</a> / <a href="analyse.html">Analyse</a> / <span aria-current="page">Quick-Check</span></nav>
             <h1>Erst analysieren. Dann investieren.</h1>
             <p class="lead">Wo haben Prozesse, Daten, Material oder Systeme konkrete Risiken und Potenziale? Für Betriebe aus Handwerk und Industrie vor einer Entscheidung oder mit einem wiederkehrenden Problem.</p>
+            <p class="promise"><svg class="icon" aria-hidden="true"><use href="assets/icons.svg#shield"/></svg><span><strong>Keine Einsparung, keine Kosten.</strong> Finden wir kein Einsparpotenzial, berechnen wir den Quick-Check nicht.</span></p>
             <div class="actions">
-              <a class="btn btn--primary" href="kontakt.html">Quick-Check anfragen</a>
+              <a class="btn btn--primary" href="kontakt.html?thema=erstanalyse">Quick-Check ohne Risiko anfragen</a>
               <a class="btn btn--secondary" href="#pruefung">Was wird geprüft?</a>
             </div>
           </div>
@@ -236,6 +237,7 @@
                   <tr><td>Schwerpunkt</td><td>Material &amp; Ersatzteile, Instandhaltung, Software &amp; Prozesse oder KI &amp; Digitalisierung</td></tr>
                   <tr><td>Preis</td><td>ab 990 € netto</td></tr>
                   <tr><td>Folgeauftrag</td><td>Quick-Check wird voll angerechnet</td></tr>
+                  <tr><td>Zusage</td><td>Kein Einsparpotenzial gefunden – keine Kosten</td></tr>
                 </tbody>
               </table>
             </div>
@@ -252,9 +254,9 @@
           <div class="closing__grid">
             <div data-stagger>
               <h2>Wissen, wo Ihr Betrieb steht.</h2>
-              <p class="lead"><span class="nowrap">1–2 Tage</span>, <span class="nowrap">ab 990 € netto</span>, bei Folgeauftrag voll angerechnet. Nennen Sie Schwerpunkt und Ausgangslage.</p>
+              <p class="lead"><span class="nowrap">1–2 Tage</span>, <span class="nowrap">ab 990 € netto</span>, bei Folgeauftrag voll angerechnet – und ohne Einsparpotenzial ganz ohne Kosten.</p>
               <div class="actions">
-                <a class="btn btn--primary" href="kontakt.html">Quick-Check anfragen</a>
+                <a class="btn btn--primary" href="kontakt.html?thema=erstanalyse">Quick-Check ohne Risiko anfragen</a>
                 <a class="btn btn--secondary" href="leistungen.html">Alle Leistungen</a>
               </div>
             </div>
@@ -327,9 +329,13 @@
       </div>
     </div>
   </footer>
+<div class="m-cta" role="complementary" aria-label="Schnellkontakt">
+  <a class="btn btn--primary" href="kontakt.html?thema=erstanalyse">Kostenlose Erstanalyse</a>
+  <a class="m-cta__tel" href="tel:+491602776512" aria-label="Anrufen: +49 160 277 65 12"><svg class="icon" aria-hidden="true"><use href="assets/icons.svg#phone"/></svg></a>
+</div>
 
-  <script src="js/main.js?v=2026-55"></script>
-  <script src="js/wave.js?v=2026-55" defer></script>
+  <script src="js/main.js?v=2026-59"></script>
+  <script src="js/wave.js?v=2026-59" defer></script>
   <script data-goatcounter="https://unknownde.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
 </body>
 </html>

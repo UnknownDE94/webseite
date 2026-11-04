@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="de"><head><meta charset="utf-8" /><title>WK Finance – Übersicht über die Jahre</title><link rel="stylesheet" href="mockup.css" />
+<style>
+  .grid { display:grid; grid-template-columns: 1.35fr 1fr; gap:10px; }
+  .yb { display:flex; align-items:flex-end; gap:9px; height:118px; padding:4px 12px 0; }
+  .yb div { flex:1; display:flex; flex-direction:column; align-items:center; gap:3px; height:100%; justify-content:flex-end; }
+  .yb i { width:100%; border-radius:3px 3px 0 0; background:#cfe3d6; }
+  .yb div.cur i { background: var(--green); }
+  .yb b { font-size:7.5px; font-weight:600; color:var(--ink-2); }
+  .yb span { font-size:7.5px; color:var(--ink-3); }
+  .cat { padding: 2px 12px 10px; display:grid; gap:6px; }
+  .cat div { display:grid; grid-template-columns: 84px 1fr 34px; gap:8px; align-items:center; font-size:8.5px; }
+  .cat .progress i { background: var(--green); }
+  .cat em { font-style:normal; text-align:right; color:var(--ink-3); }
+</style></head>
+<body data-app="finance" data-nav="uebersicht">
+  <header class="appbar"><span class="crumb">Übersicht · <b>Geschäftsjahr 2026</b></span></header>
+  <main class="page">
+    <div class="title-row">
+      <div><h1>Übersicht</h1><p>Im Einsatz seit März 2019 · 11.462 Belege · 6 Fahrzeuge · 38 laufende Verträge</p></div>
+      <div class="btns"><span class="btn btn--ghost">Export für Steuerbüro</span><span class="btn">Beleg erfassen</span></div>
+    </div>
+    <div class="kpis">
+      <div class="kpi warn"><small>Offene Eingangsrechnungen</small><strong>14</strong><span>8.912,40 € · 3 fällig diese Woche</span></div>
+      <div class="kpi ok"><small>Skonto genutzt 2026</small><strong>2.318 €</strong><span>127 von 139 Möglichkeiten</span></div>
+      <div class="kpi crit"><small>Fristen in 90 Tagen</small><strong>3</strong><span>Kündigung · Verlängerung · Prüfung</span></div>
+      <div class="kpi green"><small>Belege ohne Zuordnung</small><strong>2</strong><span>2021: im Schnitt 41 je Monat</span></div>
+    </div>
+    <div class="grid">
+      <div class="card">
+        <div class="card-head"><h2>Ausgaben je Jahr</h2><span class="meta">netto · 2026 bis Oktober</span></div>
+        <div class="yb">
+          <div><b>412</b><i style="height:62%"></i><span>2019</span></div>
+          <div><b>438</b><i style="height:66%"></i><span>2020</span></div>
+          <div><b>471</b><i style="height:71%"></i><span>2021</span></div>
+          <div><b>529</b><i style="height:80%"></i><span>2022</span></div>
+          <div><b>556</b><i style="height:84%"></i><span>2023</span></div>
+          <div><b>571</b><i style="height:86%"></i><span>2024</span></div>
+          <div><b>598</b><i style="height:90%"></i><span>2025</span></div>
+          <div class="cur"><b>503</b><i style="height:76%"></i><span>2026</span></div>
+        </div>
+        <div class="card-body" style="padding-top:8px"><span class="label">Tsd. € · Vergleich je Kategorie, Projekt und Fahrzeug möglich</span></div>
+      </div>
+      <div class="card">
+        <div class="card-head"><h2>Kosten nach Kategorie 2026</h2><span class="meta">503.180 €</span></div>
+        <div class="cat">
+          <div><span>Material</span><span class="progress"><i style="width:58%"></i></span><em>58 %</em></div>
+          <div><span>Fahrzeuge</span><span class="progress"><i style="width:14%"></i></span><em>14 %</em></div>
+          <div><span>Werkzeug &amp; Geräte</span><span class="progress"><i style="width:7%"></i></span><em>7 %</em></div>
+          <div><span>Versicherungen</span><span class="progress"><i style="width:6%"></i></span><em>6 %</em></div>
+          <div><span>Telefon &amp; IT</span><span class="progress"><i style="width:3%"></i></span><em>3 %</em></div>
+          <div><span>Sonstiges</span><span class="progress"><i style="width:12%"></i></span><em>12 %</em></div>
+        </div>
+      </div>
+    </div>
+    <div class="card" style="margin-top:10px">
+      <table>
+        <thead><tr><th>Nächste Fristen</th><th>Vertragspartner</th><th>Laufzeit seit</th><th>Frist</th><th class="r">Betrag / Jahr</th><th>Status</th></tr></thead>
+        <tbody>
+          <tr class="bar-crit"><td>Leasing Transporter 3 · Kündigung</td><td>Leasinggeber A</td><td class="muted">12/2022</td><td>30.11.2026</td><td class="r">5.184,00 €</td><td><span class="chip crit">In 26 Tagen</span></td></tr>
+          <tr class="bar-warn"><td>Mobilfunk · 6 Karten · Verlängerung</td><td>Mobilfunkanbieter</td><td class="muted">01/2020</td><td>15.12.2026</td><td class="r">1.799,28 €</td><td><span class="chip warn">In 41 Tagen</span></td></tr>
+          <tr class="bar-ok"><td>Wartung Kompressor · Prüfung</td><td>Servicepartner B</td><td class="muted">04/2019</td><td>31.01.2027</td><td class="r">420,00 €</td><td><span class="chip ok">Geplant</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </main>
+  <script src="shell.js"></script>
+</body></html>

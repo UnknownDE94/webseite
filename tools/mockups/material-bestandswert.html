@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="de"><head><meta charset="utf-8" /><title>WK Material – Bestandswert über die Jahre</title><link rel="stylesheet" href="mockup.css" />
+<style>
+  .grid { display:grid; grid-template-columns: 1.45fr 1fr; gap:10px; }
+  .chart { padding: 2px 12px 6px; }
+  .chart svg { width:100%; height:214px; }
+  .chart text { font: 600 7px Inter, sans-serif; fill: var(--ink-3); }
+</style></head>
+<body data-app="material" data-nav="auswertungen">
+  <header class="appbar"><span class="crumb">Auswertungen · Ersatzteillager Werk 1 · <b>Bestandswert</b></span></header>
+  <main class="page">
+    <div class="title-row">
+      <div><h1>Bestandswert über die Jahre</h1><p>Im Einsatz seit Januar 2020 · 8.412 Artikel · 214.900 Buchungen</p></div>
+      <div class="btns"><span class="btn btn--ghost">Ladenhüter-Liste</span><span class="btn">Export</span></div>
+    </div>
+    <div class="kpis">
+      <div class="kpi green"><small>Lagerwert heute</small><strong>1,97 Mio. €</strong><span>2020: 2,84 Mio. €</span></div>
+      <div class="kpi ok"><small>Ohne Bewegung &gt; 24 Mon.</small><strong>7,9 %</strong><span>2020: 21,4 %</span></div>
+      <div class="kpi ok"><small>Fehlteile im Störfall 2026</small><strong>3</strong><span>2021: 17</span></div>
+      <div class="kpi warn"><small>Unter Meldebestand</small><strong>26</strong><span>Bestellvorschläge offen</span></div>
+    </div>
+    <div class="grid">
+      <div class="card">
+        <div class="card-head"><h2>Lagerwert und Ladenhüter-Anteil</h2><span class="meta">jeweils 31.12. · 2026 aktuell</span></div>
+        <div class="chart">
+          <svg viewBox="0 0 400 150" preserveAspectRatio="none">
+            <g stroke="#e3e7e4"><path d="M30 20H395M30 60H395M30 100H395M30 140H395"/></g>
+            <text x="0" y="23">3,0</text><text x="0" y="63">2,5</text><text x="0" y="103">2,0</text><text x="0" y="143">1,5</text>
+            <path d="M45 33 L105 41 L165 58 L225 78 L285 94 L345 101 L390 103" fill="none" stroke="#1a5e3a" stroke-width="2.4"/>
+            <g fill="#1a5e3a"><circle cx="45" cy="33" r="3"/><circle cx="105" cy="41" r="3"/><circle cx="165" cy="58" r="3"/><circle cx="225" cy="78" r="3"/><circle cx="285" cy="94" r="3"/><circle cx="345" cy="101" r="3"/><circle cx="390" cy="103" r="3.5"/></g>
+            <g fill="#dfa13a" opacity=".55"><rect x="38" y="97" width="14" height="43"/><rect x="98" y="104" width="14" height="36"/><rect x="158" y="113" width="14" height="27"/><rect x="218" y="120" width="14" height="20"/><rect x="278" y="126" width="14" height="14"/><rect x="338" y="129" width="14" height="11"/><rect x="383" y="124" width="14" height="16" fill="none"/></g>
+            <text x="38" y="150">2020</text><text x="98" y="150">2021</text><text x="158" y="150">2022</text><text x="218" y="150">2023</text><text x="278" y="150">2024</text><text x="338" y="150">2025</text>
+          </svg>
+        </div>
+        <div class="card-body"><span class="label">Linie: Lagerwert in Mio. € · Balken: Anteil ohne Bewegung &gt; 24 Monate</span></div>
+      </div>
+      <div class="card">
+        <table>
+          <thead><tr><th>Maßnahmen seit 2020</th><th class="r">Wert</th></tr></thead>
+          <tbody>
+            <tr><td>Dubletten zusammengeführt</td><td class="r">312 Art.</td></tr>
+            <tr><td>Ladenhüter verwertet</td><td class="r">486.200 €</td></tr>
+            <tr><td>Rückgabe an Lieferanten</td><td class="r">128.700 €</td></tr>
+            <tr><td>Meldebestände angepasst</td><td class="r">1.904 Art.</td></tr>
+            <tr class="bar-warn"><td>Kritische Teile neu bevorratet</td><td class="r">+61.500 €</td></tr>
+            <tr><td>Alternativteile freigegeben</td><td class="r">146 Art.</td></tr>
+            <tr><td>Zweitlieferant hinterlegt</td><td class="r">389 Art.</td></tr>
+            <tr><td>Lagerplätze aufgelöst</td><td class="r">1.120</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </main>
+  <script src="shell.js"></script>
+</body></html>

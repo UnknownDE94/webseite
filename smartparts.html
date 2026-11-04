@@ -25,7 +25,7 @@
   <link rel="preload" href="assets/fonts/archivo-wdth.woff2" as="font" type="font/woff2" crossorigin />
   <link rel="preload" href="assets/fonts/inter-wght.woff2" as="font" type="font/woff2" crossorigin />
   <script>(function(d){d.classList.add("js");d.setAttribute("data-theme","dark");try{var t=localStorage.getItem("theme");if(t==="light")d.setAttribute("data-theme","light");if(localStorage.getItem("a11y")==="on")d.setAttribute("data-a11y","on")}catch(e){}})(document.documentElement);</script>
-  <link rel="stylesheet" href="css/style.css?v=2026-55" />
+  <link rel="stylesheet" href="css/style.css?v=2026-59" />
 </head>
 <body>
   <a class="skip-link" href="#main">Zum Inhalt springen</a>
@@ -49,18 +49,18 @@
               <li><a href="3d-technik.html"><strong>3D-Technik</strong><small>Scannen, rekonstruieren, Fertigungsweg prüfen</small></a></li>
               <li><a href="alternativteile.html"><strong>Alternativteile &amp; Lieferanten</strong><small>Wenn das Original fehlt</small></a></li>
               <li><a href="obsoleszenz.html"><strong>Obsoleszenz</strong><small>Risiken erkennen, bevor sie stören</small></a></li>
-              <li><a href="ki-werkstatt.html"><strong>KI-Werkstatt</strong><small>Ihre Daten. Ihre KI.</small></a></li>
+              <li><a href="ki-werkstatt.html" class="nav-app"><img src="assets/apps/icons/wk-ki-werkstatt.webp" alt="" width="40" height="23" loading="lazy" /><strong>KI-Werkstatt</strong><small>Ihre Daten. Ihre KI.</small></a></li>
               <li class="nav-all"><a href="leistungen.html">Alle Leistungen</a></li>
             </ul>
           </li>
           <li class="has-panel is-current">
             <button class="nav-link" type="button" aria-expanded="false" aria-controls="menu-loesungen">Lösungen <svg class="icon chev" aria-hidden="true"><use href="assets/icons.svg#chev-down"/></svg></button>
             <ul class="nav-panel" id="menu-loesungen">
-              <li><a href="smartparts.html" aria-current="page"><strong>WK SmartParts</strong><small>Material- und Ersatzteilintelligenz</small></a></li>
-              <li><a href="wk-material.html"><strong>WK Material</strong><small>Lager, Inventur und Disposition</small></a></li>
-              <li><a href="wk-instandhaltung.html"><strong>WK Instandhaltung</strong><small>Wartung, Störung, Rückmeldung</small></a></li>
-              <li><a href="wk-finance.html"><strong>WK Finance</strong><small>Belege und Verträge für Handwerk</small></a></li>
-              <li><a href="wk-3d.html"><strong>WK 3D-Druck</strong><small>Digitale Teilebibliothek</small></a></li>
+              <li><a href="smartparts.html" aria-current="page" class="nav-app"><img src="assets/apps/icons/wk-smartparts.webp" alt="" width="40" height="23" loading="lazy" /><strong>WK SmartParts</strong><small>Material- und Ersatzteilintelligenz</small></a></li>
+              <li><a href="wk-material.html" class="nav-app"><img src="assets/apps/icons/wk-material.webp" alt="" width="40" height="23" loading="lazy" /><strong>WK Material</strong><small>Lager, Inventur und Disposition</small></a></li>
+              <li><a href="wk-instandhaltung.html" class="nav-app"><img src="assets/apps/icons/wk-instandhaltung.webp" alt="" width="40" height="23" loading="lazy" /><strong>WK Instandhaltung</strong><small>Wartung, Störung, Rückmeldung</small></a></li>
+              <li><a href="wk-finance.html" class="nav-app"><img src="assets/apps/icons/wk-finance.webp" alt="" width="40" height="23" loading="lazy" /><strong>WK Finance</strong><small>Belege und Verträge für Handwerk</small></a></li>
+              <li><a href="wk-3d.html" class="nav-app"><img src="assets/apps/icons/wk-3d-druck.webp" alt="" width="40" height="23" loading="lazy" /><strong>WK 3D-Druck</strong><small>Digitale Teilebibliothek</small></a></li>
               <li class="nav-sep"><a href="mobile-offline.html"><strong>Mobile &amp; Offline</strong><small>Plattformen und Status je App</small></a></li>
               <li class="nav-all"><a href="loesungen.html">Die Produktfamilie</a></li>
             </ul>
@@ -86,6 +86,7 @@
         <div class="page-hero__grid">
           <div data-stagger>
             <nav class="breadcrumb" aria-label="Brotkrumen"><a href="index.html">Start</a> / <a href="loesungen.html">Lösungen</a> / <span aria-current="page">WK SmartParts</span></nav>
+            <p class="app-mark"><img src="assets/apps/icons/wk-smartparts.webp" alt="" width="320" height="183" /><span>WK SmartParts</span></p>
             <h1>Ersatzteile intelligent bewerten statt nur verwalten.</h1>
             <p class="lead">Materialdaten, Bestände, Kritikalität, Preise, Lieferzeiten und Lieferantenrisiken in einer gemeinsamen Plattform.</p>
             <ul class="status-row" aria-label="Plattformstatus">
@@ -96,9 +97,14 @@
               <li><span class="status status--geplant">Android: Geplant</span></li>
             </ul>
             <div class="actions">
-              <a class="btn btn--primary" href="kontakt.html?thema=smartparts-demo">Demo anfragen</a>
-              <a class="btn btn--secondary" href="kontakt.html">SmartParts besprechen</a>
+              <a class="btn btn--primary" href="kontakt.html?thema=smartparts-test">30 Tage kostenlos testen</a>
+              <a class="btn btn--secondary" href="kontakt.html?thema=smartparts-demo">Demo anfragen</a>
             </div>
+            <p class="promise"><svg class="icon" aria-hidden="true"><use href="assets/icons.svg#check"/></svg><span><strong>Basic-Version 30 Tage kostenlos</strong> – mit Ihren eigenen Daten ausprobieren.</span></p>
+          </div>
+          <div class="hero-clip" data-anim>
+            <div class="window clip"><div class="window-bar"><i></i><i></i><i></i><span>WK SmartParts · Rundgang</span></div><video class="clip__video" muted playsinline loop preload="none" poster="assets/clips/smartparts-poster.webp" width="1280" height="800" aria-label="Kurzer Rundgang durch WK SmartParts mit Beispieldaten" data-clip><source src="assets/clips/smartparts.mp4" type="video/mp4" /></video><button class="clip__toggle" type="button" aria-label="Rundgang anhalten" data-clip-toggle><svg viewBox="0 0 24 24" aria-hidden="true"><path class="pause" d="M8 5v14M16 5v14"/><path class="play" d="M8 5l11 7-11 7z"/></svg></button></div>
+            <p class="note">Rundgang durch echte Ansichten mit Beispieldaten</p>
           </div>
         </div>
       </div>
@@ -122,17 +128,17 @@
               <div class="window">
                 <div class="window-bar"><i></i><i></i><i></i><span>WK SmartParts</span></div>
                 <div class="showcase-app__screen">
-                  <img src="assets/apps/smartparts-dashboard-kennzahlen.webp" width="1600" height="1000" alt="Dashboard mit Kennzahlen und Trendanalyse" loading="lazy" />
-                  <img src="assets/apps/smartparts-bestandsrisiko-ampel.webp?v=2" width="1600" height="1000" alt="Bestandsrisiko als Ampel mit Handlungsbedarf" loading="lazy" />
-                  <img src="assets/apps/smartparts-analytics-bestand.webp" width="1600" height="1000" alt="Bestandsanalyse mit ABC/XYZ-Portfolio und Hochpreisteilen" loading="lazy" />
-                  <img src="assets/apps/smartparts-datenqualitaet.webp" width="1600" height="1000" alt="Datenqualität mit Score und Datenlücken" loading="lazy" />
+                  <img src="assets/apps/smartparts-dashboard-kennzahlen.webp?v=3" width="1600" height="1000" alt="Dashboard mit Kennzahlen und Trendanalyse" loading="lazy" />
+                  <img src="assets/apps/smartparts-bestandsrisiko-ampel.webp?v=3" width="1600" height="1000" alt="Bestandsrisiko als Ampel mit Handlungsbedarf" loading="lazy" />
+                  <img src="assets/apps/smartparts-analytics-bestand.webp?v=3" width="1600" height="1000" alt="Bestandsanalyse mit ABC/XYZ-Portfolio und Hochpreisteilen" loading="lazy" />
+                  <img src="assets/apps/smartparts-datenqualitaet.webp?v=3" width="1600" height="1000" alt="Datenqualität mit Score und Datenlücken" loading="lazy" />
                 </div>
               </div>
-              <div class="callout" data-for="0" style="background-image:url(assets/apps/smartparts-dashboard-kennzahlen.webp);--pos:40% 21%;--zoom:222%;--ar:4/1;left:-7%;top:-6%;--w:44%"><span class="callout__label">Kennzahlen</span></div>
-              <div class="callout" data-for="0" style="background-image:url(assets/apps/smartparts-dashboard-kennzahlen.webp);--pos:96% 84%;--zoom:494%;right:-6%;bottom:2%;--w:36%;--ar:2/1;--d:.55s"><span class="callout__label">Kapitalbindung</span></div>
-              <div class="callout" data-for="1" style="background-image:url(assets/apps/smartparts-bestandsrisiko-ampel.webp?v=2);--pos:93% 20%;--zoom:200%;right:-8%;top:-7%;--w:52%;--ar:4/1"><span class="callout__label">Risikoampel</span></div>
-              <div class="callout" data-for="2" style="background-image:url(assets/apps/smartparts-analytics-bestand.webp);--pos:32% 79%;--zoom:256%;left:-8%;bottom:0%;--w:38%;--ar:4/3"><span class="callout__label">ABC/XYZ-Portfolio</span></div>
-              <div class="callout" data-for="3" style="background-image:url(assets/apps/smartparts-datenqualitaet.webp);--pos:51% 84%;--zoom:258%;left:-8%;bottom:0%;--w:46%;--ar:16/10"><span class="callout__label">Datenlücken</span></div>
+              <div class="callout" data-for="0" style="background-image:url(assets/apps/smartparts-dashboard-kennzahlen.webp?v=3);--pos:40% 21%;--zoom:222%;--ar:4/1;left:-7%;top:-6%;--w:44%"><span class="callout__label">Kennzahlen</span></div>
+              <div class="callout" data-for="0" style="background-image:url(assets/apps/smartparts-dashboard-kennzahlen.webp?v=3);--pos:96% 84%;--zoom:494%;right:-6%;bottom:2%;--w:36%;--ar:2/1;--d:.55s"><span class="callout__label">Kapitalbindung</span></div>
+              <div class="callout" data-for="1" style="background-image:url(assets/apps/smartparts-bestandsrisiko-ampel.webp?v=3);--pos:93% 20%;--zoom:200%;right:-8%;top:-7%;--w:52%;--ar:4/1"><span class="callout__label">Risikoampel</span></div>
+              <div class="callout" data-for="2" style="background-image:url(assets/apps/smartparts-analytics-bestand.webp?v=3);--pos:32% 79%;--zoom:256%;left:-8%;bottom:0%;--w:38%;--ar:4/3"><span class="callout__label">ABC/XYZ-Portfolio</span></div>
+              <div class="callout" data-for="3" style="background-image:url(assets/apps/smartparts-datenqualitaet.webp?v=3);--pos:51% 84%;--zoom:258%;left:-8%;bottom:0%;--w:46%;--ar:16/10"><span class="callout__label">Datenlücken</span></div>
             </div>
             <div class="showcase-app__dots"></div>
             <p class="note">Screenshots mit Beispieldaten.</p>
@@ -160,7 +166,7 @@
           </div>
 
           <div class="tab-panel" role="tabpanel" id="panel-daten" aria-labelledby="tab-daten">
-            <div class="window"><div class="window-bar"><i></i><i></i><i></i><span>WK SmartParts · Datenqualität</span></div><img src="assets/apps/smartparts-datenqualitaet.webp" width="1600" height="1000" alt="Datenqualität: durchschnittlicher Score, fehlende Pflichtfelder, Preise und Lieferzeiten sowie Datenlücken nach Feld" loading="lazy" /></div>
+            <div class="window"><div class="window-bar"><i></i><i></i><i></i><span>WK SmartParts · Datenqualität</span></div><img src="assets/apps/smartparts-datenqualitaet.webp?v=3" width="1600" height="1000" alt="Datenqualität: durchschnittlicher Score, fehlende Pflichtfelder, Preise und Lieferzeiten sowie Datenlücken nach Feld" loading="lazy" /></div>
             <div>
               <h3>Datenqualität</h3>
               <p>Gute Entscheidungen brauchen belastbare Stammdaten.</p>
@@ -172,7 +178,7 @@
             </div>
           </div>
           <div class="tab-panel" role="tabpanel" id="panel-bestand" aria-labelledby="tab-bestand" hidden>
-            <div class="window"><div class="window-bar"><i></i><i></i><i></i><span>WK SmartParts · Bestandsrisiko</span></div><img src="assets/apps/smartparts-bestandsrisiko-ampel.webp?v=2" width="1600" height="1000" alt="Bestandsrisiko als Ampel: sichere, riskante und stillstandsgefährdende Ersatzteile mit Liste des Handlungsbedarfs" loading="lazy" /></div>
+            <div class="window"><div class="window-bar"><i></i><i></i><i></i><span>WK SmartParts · Bestandsrisiko</span></div><img src="assets/apps/smartparts-bestandsrisiko-ampel.webp?v=3" width="1600" height="1000" alt="Bestandsrisiko als Ampel: sichere, riskante und stillstandsgefährdende Ersatzteile mit Liste des Handlungsbedarfs" loading="lazy" /></div>
             <div>
               <h3>Bestandsoptimierung</h3>
               <p>Zu viel Bestand bindet Kapital, zu wenig gefährdet die Anlage.</p>
@@ -184,7 +190,7 @@
             </div>
           </div>
           <div class="tab-panel" role="tabpanel" id="panel-kosten" aria-labelledby="tab-kosten" hidden>
-            <div class="window"><div class="window-bar"><i></i><i></i><i></i><span>WK SmartParts · Bestandsanalyse</span></div><img src="assets/apps/smartparts-analytics-bestand.webp" width="1600" height="1000" alt="Bestandsanalyse mit Kapitalbindung, Über- und Minderbestand, ABC/XYZ-Portfolio und Hochpreisteilen" loading="lazy" /></div>
+            <div class="window"><div class="window-bar"><i></i><i></i><i></i><span>WK SmartParts · Bestandsanalyse</span></div><img src="assets/apps/smartparts-analytics-bestand.webp?v=3" width="1600" height="1000" alt="Bestandsanalyse mit Kapitalbindung, Über- und Minderbestand, ABC/XYZ-Portfolio und Hochpreisteilen" loading="lazy" /></div>
             <div>
               <h3>Kosten &amp; Preise</h3>
               <p>Wie viel Kapital steckt im Lager – und wo lohnt eine genauere Prüfung?</p>
@@ -196,7 +202,7 @@
             </div>
           </div>
           <div class="tab-panel" role="tabpanel" id="panel-liefer" aria-labelledby="tab-liefer" hidden>
-            <div class="window"><div class="window-bar"><i></i><i></i><i></i><span>WK SmartParts · Bedarf je Lieferant</span></div><img src="assets/apps/smartparts-disposition-vorschlaege.webp?v=2" width="1600" height="1000" alt="Bedarf nach Lieferant gebündelt mit offenen Bestellungen, Unter- und Überbestand" loading="lazy" /></div>
+            <div class="window"><div class="window-bar"><i></i><i></i><i></i><span>WK SmartParts · Bedarf je Lieferant</span></div><img src="assets/apps/smartparts-disposition-vorschlaege.webp?v=3" width="1600" height="1000" alt="Bedarf nach Lieferant gebündelt mit offenen Bestellungen, Unter- und Überbestand" loading="lazy" /></div>
             <div>
               <h3>Lieferanten &amp; Lieferzeiten</h3>
               <p>Lange Lieferzeiten und Einzellieferanten fallen selten auf, bis es eilt.</p>
@@ -208,7 +214,7 @@
             </div>
           </div>
           <div class="tab-panel" role="tabpanel" id="panel-gov" aria-labelledby="tab-gov" hidden>
-            <div class="window"><div class="window-bar"><i></i><i></i><i></i><span>WK SmartParts · Dashboard</span></div><img src="assets/apps/smartparts-dashboard-kennzahlen.webp" width="1600" height="1000" alt="Dashboard mit Kennzahlen, Trendanalyse über verschiedene Zeiträume und kritischen Ereignissen" loading="lazy" /></div>
+            <div class="window"><div class="window-bar"><i></i><i></i><i></i><span>WK SmartParts · Dashboard</span></div><img src="assets/apps/smartparts-dashboard-kennzahlen.webp?v=3" width="1600" height="1000" alt="Dashboard mit Kennzahlen, Trendanalyse über verschiedene Zeiträume und kritischen Ereignissen" loading="lazy" /></div>
             <div>
               <h3>Governance &amp; Reporting</h3>
               <p>Zeigt, ob Maßnahmen wirken – und hält die Datenbasis sauber.</p>
@@ -259,7 +265,7 @@
             <p class="mt-lg"><span class="status status--geplant">Mobile Version: Geplant</span></p>
           </div>
           <figure class="phone-wrap">
-            <div class="phone"><img src="assets/apps/smartparts-mobile.webp" width="390" height="844" alt="Konzeptansicht: Materialsuche mit Bestand, Kritikalität und Alternativteilen" loading="lazy" /></div>
+            <div class="phone"><img src="assets/apps/smartparts-mobile.webp?v=3" width="390" height="844" alt="Konzeptansicht: Materialsuche mit Bestand, Kritikalität und Alternativteilen" loading="lazy" /></div>
             <figcaption>Konzeptansicht mit Beispieldaten.</figcaption>
           </figure>
         </div>
@@ -372,9 +378,13 @@
       </div>
     </div>
   </footer>
+<div class="m-cta" role="complementary" aria-label="Schnellkontakt">
+  <a class="btn btn--primary" href="kontakt.html?thema=erstanalyse">Kostenlose Erstanalyse</a>
+  <a class="m-cta__tel" href="tel:+491602776512" aria-label="Anrufen: +49 160 277 65 12"><svg class="icon" aria-hidden="true"><use href="assets/icons.svg#phone"/></svg></a>
+</div>
 
-  <script src="js/main.js?v=2026-55"></script>
-  <script src="js/wave.js?v=2026-55" defer></script>
+  <script src="js/main.js?v=2026-59"></script>
+  <script src="js/wave.js?v=2026-59" defer></script>
   <script data-goatcounter="https://unknownde.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
 </body>
 </html>

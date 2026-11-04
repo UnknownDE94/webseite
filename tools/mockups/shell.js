@@ -82,11 +82,13 @@
   function icon(name, cls) {
     return '<svg class="' + (cls || "ico") + '" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' + (I[name] || "") + "</svg>";
   }
-  var MARK = "../../assets/logo-mark.webp";
+  var ICONS = { material: "material", instandhaltung: "instandhaltung", finance: "finance", "3d": "3d-druck", smartparts: "smartparts" };
 
   var body = document.body;
   var app = APPS[body.getAttribute("data-app")];
   if (!app) return;
+  // Farbiges App-Symbol (assets/apps/icons, tools/visuals/app-icons.py)
+  var MARK = "../../assets/apps/icons/wk-" + ICONS[body.getAttribute("data-app")] + ".webp";
 
   if (body.classList.contains("mobile")) {
     var status = body.querySelector(".status-bar");
