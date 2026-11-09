@@ -33,6 +33,7 @@ tools/og/               Vorlage + Skript für assets/og-image.jpg
 tools/visuals/          Wellen-Vorschau und Erzeugung der JPEG-Empfehlungen
 tools/mockups/          App-Ansichten als Vollfenster mit Navigation (shell.js); SmartParts = echte Screens (screens/) in nachgestellter Hülle
 tools/clips/            App-Clips (MP4, Endlosschleife) aus den App-Ansichten → assets/clips/
+tools/remotion/          Remotion-Animationen (npm install, npm run render → assets/clips/teile-ablauf.mp4)
 docs/                   Masterplan, Entscheidungen (offene Punkte!), Komponenten, Empfehlungen
 archive/                Alte Entwürfe, Film/Video (nicht veröffentlicht)
 ```

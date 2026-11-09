@@ -94,7 +94,6 @@ function build(name) {
     "\n\n" +
     '  <script src="js/main.js?v=' + VERSION + '"></script>\n' +
     '  <script src="js/wave.js?v=' + VERSION + '" defer></script>\n' +
-    '  <script data-goatcounter="https://unknownde.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>\n' +
     "</body>\n</html>\n";
   fs.writeFileSync(path.join(ROOT, out), html);
   return out;
