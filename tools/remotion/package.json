@@ -1,0 +1,10 @@
+{
+  "name": "wk-remotion",
+  "private": true,
+  "description": "Animationen (Remotion) für werringloer.de – Render: npm run render",
+  "scripts": {
+    "studio": "remotion studio src/index.jsx",
+    "render": "remotion render src/index.jsx TeileAblauf ../../assets/clips/teile-ablauf.mp4 --codec=h264 --browser-executable=/opt/pw-browsers/chromium"
+  },
+  "dependencies": { "remotion": "4.0.542", "@remotion/cli": "4.0.542", "react": "18.3.1", "react-dom": "18.3.1" }
+}

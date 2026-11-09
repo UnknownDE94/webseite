@@ -764,7 +764,7 @@ html[data-theme="light"] .problem__sign b { color: #8a5a10; }
 
 /* Startseite: Leistung oben, App darunter */
 .svcapp__lead { margin: -8px 0 28px; }
-.svcapp { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 14px; padding: 26px 24px 22px; border: 1px solid var(--line); border-radius: var(--radius-lg); background: var(--panel, var(--surface)); }
+.svcapp { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 12px; padding: 26px 20px 22px; border: 1px solid var(--line); border-radius: var(--radius-lg); background: var(--panel, var(--surface)); }
 .svcapp__col { display: grid; grid-template-rows: 1fr auto auto; justify-items: center; }
 .svcapp__svc { justify-self: stretch; display: grid; gap: 8px; align-content: start; padding: 20px 18px; border: 1px solid var(--line); border-radius: 14px; background: color-mix(in srgb, var(--surface-2) 40%, transparent); text-decoration: none; color: inherit; transition: border-color 0.2s, transform 0.2s var(--ease-out); }
 .svcapp__svc:hover { border-color: color-mix(in srgb, var(--lime) 50%, transparent); transform: translateY(-2px); }
@@ -1536,3 +1536,34 @@ html[data-a11y="on"] .closing:has(.wave-slot) { background: var(--glass-bg); }
 .tile .icon { --icon-w: 1.5; }
 main svg.icon.icon:not([role="tab"] > *), .site-footer svg.icon.icon { color: var(--ink); }
 a.tile:hover .icon.icon, a.card:hover .icon.icon { color: var(--ink); }
+
+/* ─ Buttons: metallisches Aufladen beim Überfahren ──────────────────────── */
+.btn { position: relative; overflow: hidden; isolation: isolate; }
+.btn::before, .btn::after { content: ""; position: absolute; pointer-events: none; z-index: -1; }
+.btn::before { inset: 0; transform: scaleX(0); transform-origin: left center; transition: transform 0.6s cubic-bezier(0.2, 0.7, 0.2, 1); }
+.btn::after { top: 0; bottom: 0; left: -55%; width: 38%; background: linear-gradient(105deg, transparent 0%, rgba(255, 255, 255, 0.7) 50%, transparent 100%); transform: skewX(-20deg); transition: left 0.75s cubic-bezier(0.2, 0.7, 0.2, 1) 0.08s; }
+.btn--primary::before { background: linear-gradient(180deg, #f7ffc2 0%, #d9ef6a 42%, #a8c235 50%, #e4f68f 100%); }
+.btn--secondary::before { background: linear-gradient(180deg, #f6f8f7 0%, #c4cbc8 44%, #8f9995 52%, #e3e8e6 100%); }
+.btn--secondary { transition: transform 0.2s var(--ease), border-color 0.2s var(--ease), box-shadow 0.2s var(--ease), color 0.25s var(--ease) 0.18s; }
+.btn:hover::before, .btn:focus-visible::before, .btn:active::before { transform: scaleX(1); }
+.btn:hover::after, .btn:focus-visible::after { left: 125%; }
+.btn--secondary:hover, .btn--secondary:focus-visible { color: #0a0f0c; border-color: #dfe5e2; box-shadow: 0 8px 24px rgba(220, 230, 225, 0.16), inset 0 -2px 0 rgba(0, 0, 0, 0.18); }
+.btn--primary:hover, .btn--primary:focus-visible { box-shadow: 0 10px 30px rgba(212, 236, 95, 0.34), inset 0 -2px 0 rgba(60, 80, 0, 0.25); }
+@media (prefers-reduced-motion: reduce) {
+  .btn::before { transition: none; }
+  .btn::after { display: none; }
+}
+
+/* ─ Zusage „Keine Einsparung. Keine Kosten.“ ───────────────────────────── */
+.guarantee { position: relative; display: flex; align-items: center; gap: 18px; max-width: 640px; margin-top: 26px; padding: 20px 24px 20px 22px; border: 1px solid color-mix(in srgb, var(--lime) 55%, transparent); border-left-width: 6px; border-radius: 14px; background: linear-gradient(100deg, color-mix(in srgb, var(--lime) 16%, transparent), color-mix(in srgb, var(--lime) 3%, transparent) 70%); box-shadow: 0 0 0 1px rgba(212, 236, 95, 0.06), 0 14px 40px rgba(212, 236, 95, 0.08); }
+.guarantee > .icon { flex: none; width: 44px; height: 44px; padding: 10px; border-radius: 50%; background: var(--lime); color: var(--accent-ink); }
+.guarantee__title { display: block; font-family: var(--font-display); font-size: clamp(1.35rem, 2.6vw, 1.9rem); font-weight: 800; line-height: 1.1; letter-spacing: -0.02em; color: var(--ink); }
+.guarantee__title em { font-style: normal; color: var(--lime); }
+.guarantee > div > span { display: block; margin-top: 6px; font-size: 0.92rem; color: var(--ink-2); }
+html[data-theme="light"] .guarantee { border-color: var(--green-2); background: color-mix(in srgb, var(--green-2) 8%, transparent); box-shadow: none; }
+html[data-theme="light"] .guarantee__title em { color: var(--green-2); }
+html[data-theme="light"] .guarantee > .icon { background: var(--green-2); color: #fff; }
+@media (max-width: 560px) { .guarantee { flex-direction: column; align-items: flex-start; gap: 12px; padding: 18px; } }
+
+/* ─ App-Logo in Karten ─────────────────────────────────────────────────── */
+.card > .card__logo { display: block; width: 92px; height: auto; margin-bottom: 14px; filter: drop-shadow(0 8px 16px rgba(0, 0, 0, 0.45)); }
