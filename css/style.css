@@ -1567,3 +1567,4 @@ html[data-theme="light"] .guarantee > .icon { background: var(--green-2); color:
 
 /* ─ App-Logo in Karten ─────────────────────────────────────────────────── */
 .card > .card__logo { display: block; width: 92px; height: auto; margin-bottom: 14px; filter: drop-shadow(0 8px 16px rgba(0, 0, 0, 0.45)); }
+.clip__video--wide { aspect-ratio: 16 / 9; object-fit: contain; background: #0a0f0c; }
